@@ -1,0 +1,155 @@
+.main_container{
+    justify-content: center;
+}
+
+.first_row{
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.first_row .col{
+    height: 100px;
+    border-radius: 10px;
+    border: 1px solid rgb(240, 230, 230);
+    text-align: center; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add_user{
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.itexmo_api{
+    background: linear-gradient(180deg, rgb(141, 115, 222), rgb(68, 30, 180), rgb(57, 47, 85));
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.email_api{
+    background: linear-gradient(180deg, rgb(3, 238, 215), rgb(32, 62, 59), rgb(43, 93, 88));
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.pears_api{
+    background: linear-gradient(180deg, rgb(101, 206, 78), rgb(53, 87, 45), rgb(100, 134, 92));
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.login_api{
+    background: linear-gradient(180deg, rgb(220, 209, 105), rgb(126, 121, 43), rgb(228, 186, 19));
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.top_line{
+    margin-top: 20px;
+    margin-bottom: -15px;
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    color: antiquewhite;
+}
+
+.setting_icon{
+    height: 25px;
+    width: 25px;
+}
+
+.lower_line{
+    margin-top: 30px;
+    background: linear-gradient(180deg, #2f4047, #0c100c,  #3d473d);
+    width: 150%;
+    height: 30px;
+    color: rgb(253, 250, 251);
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+.second_row{
+    margin-top: 20px;
+    gap: 10px;
+    
+ 
+}
+.col_1st{
+    margin-top: 20px;
+    background: linear-gradient(180deg, rgb(35, 76, 24), rgb(14, 58, 20), rgb(91, 167, 78)) !important;
+    border-radius: 20px;
+    color: antiquewhite;
+}
+
+.add_user{
+    display: flex;
+    flex-direction: column; 
+    align-items: center;   
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    width: 200px;
+    margin-top: -20px;
+}
+
+.container_user{
+    border-radius: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 350px;
+}
+
+.header_tbl_user th{
+    background: linear-gradient(180deg, rgb(30, 27, 2), rgb(19, 18, 9), rgb(49, 47, 40)) !important;
+    color: white !important;
+}
+
+.table th:last-child, .table td:last-child {
+    width: 100px;  /* Adjust the width as needed */
+    text-align: center;  /* Center the content */
+}
+.table_icons{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.table_icons:last-child {
+    margin-right: 0; /* Remove right margin for the last icon */
+}
+
+
+.col_2nd{
+    margin-top: 20px;
+    background-color: rgb(69, 64, 17);
+}

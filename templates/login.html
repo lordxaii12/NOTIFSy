@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FO-X NotiFS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <style>
+        .login-left {
+            flex: 1;
+            background: 
+                linear-gradient(180deg, rgba(47, 27, 140, 0.9), rgba(138, 128, 212, 0.9)), 
+                url('{{ url_for("static", filename="images/backgrounds/background.jpg") }}') center/cover no-repeat;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <!-- Left Side Background -->
+        <div class="login-left"></div>
+
+        <!-- Right Side Login Panel -->
+        <div class="login-right">
+            <h1 style="color:black;" class="title">🅵🅾-🆇NotiFS</h1>
+            <p class="subtitle">Field Office X Notification Forwarding System</p>
+            <div class="form-container">
+                <form class="login-form" action="{{ url_for('notifs.login') }}" method="POST">
+                    <label for="username">🆄🆂🅴🆁🅽🅰🅼🅴</label>
+                    <div class="input-group">
+                        <img class="icon" src="{{ url_for('static', filename='images/global/user.png') }}" alt="user icon">
+                        <input type="text" id="username" placeholder="Enter your username" name="username" required>
+                    </div>
+                    
+                    <label for="password">🅿🅰🆂🆂🆆🅾🆁🅳</label>
+                    <div class="input-group">
+                        <img class="icon" src="{{ url_for('static', filename='images/global/padlock.png') }}" alt="padlock icon">
+                        <input type="password" id="password" placeholder="Enter your password" name="password" required>
+                        <input style="width:30px; margin-left:-50px; padding:0px; magrin: 0px; border:none;" type="checkbox" id="show-password" class="password-toggle" />
+                    </div>
+                    
+                    <button type="submit" class="login-btn">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script>
+        document.getElementById('show-password').addEventListener('change', function () {
+            var passwordField = document.getElementById('password');
+            if (this.checked) {
+                passwordField.type = 'text';  // Show password
+            } else {
+                passwordField.type = 'password';  // Mask password
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!-- side_nav.html -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/side_nav.css') }}">
+<aside class="sidebar">
+    <div class="d-flex flex-column align-items-center">
+        <h1 class="sidebar-subtitle text-center">🅽🅾🆃🅸🅵🆂</h1>
+        <hr class="sidebar-line mb-4">
+
+        <!-- Sidebar Menu -->
+        <nav class="menu w-100">
+            <ul class="list-unstyled mb-0">
+                {% if user.is_authenticated and user.role_id == 1 %}
+                    <li class="{% if request.endpoint == 'notifs.admin' %}active{% endif %}">
+                        <a href="{{ url_for('notifs.admin') }}">
+                            <img class="nav_icon" src="{{ url_for('static', filename='images/colorful/nav/admin_icon.svg') }}" alt="admin">
+                            <span>Admin</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                <li class="{% if request.endpoint == 'notifs.home' %}active{% endif %}">
+                    <a href="{{ url_for('notifs.home') }}">
+                        <img class="nav_icon" src="{{ url_for('static', filename='images/colorful/nav/home_icon.svg') }}" alt="home">
+                        <span>Home</span>
+                    </a>
+                </li>
+
+                <li class="{% if request.endpoint == 'notifs.reports' %}active{% endif %}">
+                    <a href="{{ url_for('notifs.reports') }}">
+                        <img class="nav_icon" src="{{ url_for('static', filename='images/colorful/nav/reports_icon.svg') }}" alt="reports">
+                        <span>Reports</span>
+                    </a>
+                </li>
+
+                <li class="{% if request.endpoint == 'notifs.libraries' %}active{% endif %}">
+                    <a href="{{ url_for('notifs.libraries') }}">
+                        <img class="nav_icon" src="{{ url_for('static', filename='images/colorful/nav/libraries_icon.svg') }}" alt="libraries">
+                        <span>Libraries</span>
+                    </a>
+                </li>
+
+                <li class="{% if request.endpoint == 'notifs.profile' %}active{% endif %}">
+                    <a href="{{ url_for('notifs.profile') }}">
+                        <img class="nav_icon" src="{{ url_for('static', filename='images/colorful/nav/user_icon.svg') }}" alt="user">
+                        <span>Profile</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>

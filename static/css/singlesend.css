@@ -1,0 +1,199 @@
+/* Modal Container */
+.modal-container {
+    background: white;
+    width: 700px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Modal Header */
+.modal-header {
+    background: #220066;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 20px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group2 {
+    margin-bottom: 15px;
+    width: 500px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+small {
+    font-size: 12px;
+    color: gray;
+}
+
+input:not([type="checkbox"]), select, textarea {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+input[type="checkbox"] {
+    width: auto; 
+    height: auto; 
+    margin: 0;
+}
+textarea {
+    height: 80px;
+    resize: none;
+}
+
+/* Input with Icon */
+.input-icon {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    padding: 8px;
+    background: white;
+}
+
+.input-icon span {
+    margin-right: 8px;
+    font-size: 16px;
+    color: #555;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.form-row2 {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+.textarea-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+.textarea-container textarea {
+    width: 100%;
+    padding: 10px;
+    padding-right: 15px; 
+    resize: none;
+}
+
+.search-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+
+.checkbox-group {
+    display: flex;
+    align-items: center; 
+    justify-content: flex-end;
+    gap: 5px; 
+}
+
+
+
+
+.checkbox-group label {
+    margin-left: 5px;
+    font-size: 14px;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Buttons */
+.send-btn, .cancel-btn {
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 80px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.send-btn {
+    background: #220066;
+    color: white;
+}
+
+.cancel-btn {
+    background: #999;
+    color: white;
+}
+
+.send-btn:hover {
+    background: #160044;
+}
+
+.cancel-btn:hover {
+    background: #777;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-container {
+        width: 90%;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+}
