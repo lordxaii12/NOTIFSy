@@ -1,6 +1,6 @@
 from models.user_division import Divisions
 from extensions import db
-from flask import request, jsonify
+from flask import request, jsonify, flash
 from flask_login import current_user
 from utils import get_manila_time
 
@@ -16,11 +16,11 @@ def add_division():
         created_by=created_by,
         created_on=created_on
     )
-    try:
-        new_divisions.save()
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+    db.session.add(new_divisions)
+    db.session.commit()
+
+    flash("Division added successfully", "success")
+    return new_divisions
     
 def edit_division(division_id):
     division = Divisions.get_by_id(division_id)

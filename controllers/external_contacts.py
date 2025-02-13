@@ -1,6 +1,6 @@
 from models.external_contacts import External
 from extensions import db
-from flask import request, jsonify
+from flask import request, jsonify, flash
 from flask_login import current_user
 from utils import get_manila_time
 
@@ -21,11 +21,11 @@ def add_external():
         created_by=created_by,
         created_on=created_on
     )
-    try:
-        new_externals.save()
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+    db.session.add(new_externals)
+    db.session.commit()
+
+    flash("Contact added successfully", "success")
+    return new_externals 
     
 def edit_external(external_id):
     external = External.get_by_id(external_id)

@@ -16,10 +16,8 @@ def add_user_logs(activity):
     db.session.add(new_logss)
     db.session.commit()
 
-    flash("User added successfully", "success")
     return new_logss
     
-
 def delete_user_logs(log_id):
     user_logs = User_logs.get_by_id(log_id)
     if not user_logs:

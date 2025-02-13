@@ -1,6 +1,6 @@
 from models.email_credentials import Ecredss
 from extensions import db
-from flask import request, jsonify
+from flask import request, jsonify, flash
 from flask_login import current_user
 from utils import get_manila_time
 
@@ -22,11 +22,11 @@ def add_ecreds():
         created_by=created_by,
         created_on=created_on
     )
-    try:
-        new_ecredss.save()
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+    db.session.add(new_ecredss)
+    db.session.commit()
+
+    flash("Credentials added successfully", "success")
+    return new_ecredss   
     
 def edit_ecreds(ecreds_id):
     ecreds = Ecredss.get_by_id(ecreds_id)
