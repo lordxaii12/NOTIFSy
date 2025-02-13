@@ -13,7 +13,7 @@ Admin - FO-X NotiFS
 
 
 {% block content %}
-{% include "modals/contents_modals.html" %}
+
 <div class="row g-0 p-0 m-0">
     <div class="col-auto">
     </div>
@@ -143,8 +143,8 @@ Admin - FO-X NotiFS
         </div>
     </div>
 </div>
-
-
+{% include "modals/contents_modals.html" %}
+{% include "modals/add_credentials.html" %}
 {% endblock %}
 
 {% block scripts %}
