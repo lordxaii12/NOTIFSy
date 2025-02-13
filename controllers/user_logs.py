@@ -1,6 +1,6 @@
 from models.user_logs import User_logs
 from extensions import db
-from flask import request, jsonify
+from flask import request, jsonify, flash
 from flask_login import current_user
 from utils import get_manila_time
 
@@ -13,11 +13,12 @@ def add_user_logs(activity):
         activity=activity,
         created_on=created_on
     )
-    try:
-        new_logss.save()
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+    db.session.add(new_logss)
+    db.session.commit()
+
+    flash("User added successfully", "success")
+    return new_logss
+    
 
 def delete_user_logs(log_id):
     user_logs = User_logs.get_by_id(log_id)

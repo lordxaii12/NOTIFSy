@@ -1,3 +1,4 @@
+//Pop Over Display
 document.addEventListener("DOMContentLoaded", function () {
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
     
@@ -8,4 +9,12 @@ document.addEventListener("DOMContentLoaded", function () {
             container: "body" // Ensures proper positioning
         });
     });
+});
+
+//Flash Message Auto Hide
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+        let flashMessages = document.querySelectorAll(".flash-message");
+        flashMessages.forEach(msg => msg.style.display = "none");
+    }, 5000); // Hide after 5 seconds
 });
