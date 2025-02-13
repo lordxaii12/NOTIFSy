@@ -1,4 +1,5 @@
 .\notifvenv\Scripts\activate.bat
-
-
+.\notifvenv\Scripts\deactivate.bat
+python -m venv notifvenv
+pip install -r requirements.txt
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
