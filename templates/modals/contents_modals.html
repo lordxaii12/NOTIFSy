@@ -20,14 +20,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for data in itexmo_data%}
+                    {% for texdata in itexmo_data%}
                     <tr> 
                         <td>{{ loop.index }}</td>
-                        <td>{{data.itexmo_name }}</td>
-                        <td>{{data.itexmo_url}}</td>
+                        <td>{{texdata.itexmo_name }}</td>
+                        <td>{{texdata.itexmo_url}}</td>
                         <td>
-                            <img class="table_icons" src="{{ url_for('static', filename='images/colorful/global/delete_icon.svg') }}" alt="delete" />|
-                            <img class="table_icons" src="{{ url_for('static', filename='images/colorful/global/edit_icon.svg') }}" alt="edit" />
+                             <!-- Delete Button with onclick for JavaScript -->
+                            <button class="btn p-0 m-0" onclick="deleteItExmo({{ texdata.itexmo_id }})">
+                                <img class="table_icons" src="{{ url_for('static', filename='images/colorful/global/delete_icon.svg') }}" alt="delete" />
+                            </button>
+                            |
+                            <!-- Edit Button with Bootstrap Modal -->
+                            <button class="btn p-0 m-0" data-bs-toggle="modal" data-bs-target="#editModal{{ texdata.itexmo_id }}">
+                                <img class="table_icons" src="{{ url_for('static', filename='images/colorful/global/edit_icon.svg') }}" alt="edit" />
+                            </button>
                         </td>
                     </tr>
                     {% endfor%}

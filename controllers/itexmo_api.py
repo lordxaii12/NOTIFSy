@@ -12,6 +12,10 @@ def add_itexmo():
     itexmo_apicode = request.form.get('itexmo_apicode')
     itexmo_contenttype = request.form.get('itexmo_contenttype')
     
+    if not itexmo_name or not itexmo_url or not itexmo_email or not itexmo_password or not itexmo_apicode or not itexmo_contenttype:
+       flash('All fields are required', 'error') 
+       return
+    
     created_by = current_user.full_name
     created_on = get_manila_time()
 
@@ -60,4 +64,3 @@ def delete_itexmo(itexmo_id):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
-        

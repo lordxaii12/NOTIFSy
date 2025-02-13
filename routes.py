@@ -118,6 +118,10 @@ def delete_user(user_id):
         return jsonify({'error': str(e)}), 500
 
 
+
+
+
+
 @notifs.route('/register_itexmo', methods=['POST'])
 @login_required
 def register_itexmo():
@@ -125,10 +129,7 @@ def register_itexmo():
     if new_itexmo:
         return redirect(url_for('notifs.admin'))
     else:
-        flash("Error adding iTexMo", "error")
         return redirect(url_for('notifs.admin')) 
-
-
 
 @notifs.route('/edit_itexmo_route/<int:itexmo_id>', methods=['POST'])
 @login_required
@@ -145,6 +146,15 @@ def edit_itexmo_route(itexmo_id):
         flash(f'An error occurred: {str(e)}', 'error')
         return redirect(url_for('notifs.admin'))
 
+@notifs.route('/delete_itexmo/<int:itexmo_id>', methods=['POST'])
+@login_required
+def delete_itexmo_route(itexmo_id):
+    try:
+        delete_itexmo(itexmo_id)
+        flash('iTexMo record deleted successfully', 'success')
+    except Exception as e:
+        flash('An error occurred while deleting the record.', 'error')
+    return redirect(request.referrer)
 
    
 #===============================================================================================================================>
