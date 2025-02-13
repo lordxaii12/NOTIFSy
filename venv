@@ -1,0 +1,4 @@
+.\notifvenv\Scripts\activate.bat
+
+
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
