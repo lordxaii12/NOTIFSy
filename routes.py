@@ -13,6 +13,7 @@ from models.user_logs import User_logs
 from models.user_division import Divisions
 from models.external_contacts import External
 from models.login_api import LogApi
+from models.themes import Theme
 
 #Controllers
 from controllers.role import add_role, edit_role, delete_role
@@ -21,6 +22,7 @@ from controllers.user_logs import add_user_logs, delete_user_logs
 from controllers.user_division import add_division, edit_division, delete_division
 from controllers.external_contacts import add_external, edit_external, delete_external
 from controllers.login_api import add_login_api, edit_login_api, delete_login_api
+from controllers.themes import add_theme, edit_theme, delete_theme
 
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 
