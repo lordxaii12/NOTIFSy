@@ -1,3 +1,13 @@
+.setting_cont {
+    right: 0; /* Moves it to the very right corner */
+    display: flex;
+    justify-content: flex-end; /* Ensures content stays aligned to the right */
+    align-items: center;
+    padding: 10px; /* Optional: Adds some spacing */
+}
+
+
+
 .main_container{
     justify-content: center;
 }
@@ -147,7 +157,6 @@
 .table_icons:last-child {
     margin-right: 0; /* Remove right margin for the last icon */
 }
-
 
 .col_2nd{
     margin-top: 20px;

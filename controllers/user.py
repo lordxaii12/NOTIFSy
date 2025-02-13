@@ -21,7 +21,6 @@ def add_user():
     flash("User added successfully", "success")
     return new_user   
 
-
 def edit_user(user_id):
     user = User_v1.get_by_id(user_id)
     if not user:

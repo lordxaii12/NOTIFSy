@@ -20,6 +20,13 @@ Admin - FO-X NotiFS
     <div class="col">
 
         <div class="container-fluid main_container">
+            <div class="setting_cont">
+                <img class="setting_icon" src="{{ url_for('static', filename='images/colorful/global/settings_icon.svg') }}" 
+                     alt="settings" 
+                     data-bs-toggle="popover" 
+                     data-bs-content="App Settings" 
+                     data-bs-placement="bottom">
+            </div>
             <div class="row first_row">
                 
                 <div class="col itexmo_api">
@@ -84,7 +91,7 @@ Admin - FO-X NotiFS
 
             <div class="row second_row">
                 <div class="col col_1st">
-                    <div class="col add_user">
+                    <!--<div class="col add_user">
                         <div class="lower_line" data-bs-toggle="modal" data-bs-target="#addUserModal">
                             Add User
                         </div>
@@ -117,7 +124,7 @@ Admin - FO-X NotiFS
                                 {% endfor%}
                             </tbody>
                         </table>
-                    </div>
+                    </div>-->
                 </div>
 
 
