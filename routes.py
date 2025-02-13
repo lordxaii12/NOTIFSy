@@ -75,7 +75,6 @@ def login():
     return render_template('login.html')
 
 
-
 @notifs.route('/logout')
 @login_required
 def logout():
