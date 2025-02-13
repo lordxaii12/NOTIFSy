@@ -5,6 +5,7 @@ from flask_login import current_user
 from utils import get_manila_time
 
 def add_itexmo():
+    itexmo_name = request.form.get('itexmo_name')
     itexmo_url = request.form.get('itexmo_url')
     itexmo_email = request.form.get('itexmo_email')
     itexmo_password = request.form.get('itexmo_password')
@@ -15,6 +16,7 @@ def add_itexmo():
     created_on = get_manila_time()
 
     new_itexmo = Itexmo(
+        itexmo_name=itexmo_name,
         itexmo_url=itexmo_url,
         itexmo_email=itexmo_email,
         itexmo_password=itexmo_password,
@@ -34,6 +36,7 @@ def edit_itexmo(itexmo_id):
     itexmo = Itexmo.get_by_id(itexmo_id)
     if not itexmo:
         return None
+    itexmo.itexmo_name = request.form.get('itexmo_name',itexmo.itexmo_name)
     itexmo.itexmo_url = request.form.get('itexmo_url',itexmo.itexmo_url)
     itexmo.itexmo_email = request.form.get('itexmo_email',itexmo.itexmo_email)
     itexmo.itexmo_password = request.form.get('itexmo_password',itexmo.itexmo_password)

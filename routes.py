@@ -34,9 +34,15 @@ notifs = Blueprint('notifs', __name__, template_folder='templates')
 @notifs.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
+    itexmo_data = Itexmo.get_all()
+    total_itexmo = len(itexmo_data)
     user_data = User_v1.get_all()
     role_data = Roles.get_all()
-    return render_template('admin.html',role_data=role_data, user_data=user_data)
+    return render_template('admin.html',
+                           role_data=role_data,
+                           user_data=user_data,
+                           itexmo_data=itexmo_data,
+                           total_itexmo=total_itexmo)
 
 @notifs.route('/login', methods=['GET', 'POST'])
 def login():
@@ -116,10 +122,11 @@ def delete_user(user_id):
 @login_required
 def register_itexmo():
     new_itexmo = add_itexmo()
-    if new_itexmo is None:
+    if new_itexmo:
         return redirect(url_for('notifs.admin'))
-    flash("Error adding iTexMo", "error")
-    return redirect(url_for('notifs.admin')) 
+    else:
+        flash("Error adding iTexMo", "error")
+        return redirect(url_for('notifs.admin')) 
 
 
 

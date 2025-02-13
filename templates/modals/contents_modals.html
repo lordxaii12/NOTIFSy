@@ -1,0 +1,73 @@
+<style>
+        /* Center the modal horizontally and vertically */
+    .modal-dialog {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Fix the size of the "Action" column */
+    .table th:nth-child(3), 
+    .table td:nth-child(3) {
+        width: 150px; /* Adjust the size as needed */
+        text-align: center; /* Center the content inside the column */
+    }
+
+    /* Ensure the modal content is centered in the window */
+    .modal-content {
+        margin: 0 auto;
+        max-width: 80%; /* Adjust modal size, you can use px or % */
+    }
+
+    /* Optional: Style buttons for better alignment */
+    .table td button {
+        margin: 0 5px;
+    }
+</style>
+
+
+
+<div class="modal-lg modal fade" id="itexmoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="itexmoModalLabel" aria-hidden="true">    
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="itexmoModalLabel">ITEXmo API</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Table inside the modal -->
+                <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>
+                            <button class="btn btn-warning">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>
+                            <button class="btn btn-warning">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows as needed -->
+                </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

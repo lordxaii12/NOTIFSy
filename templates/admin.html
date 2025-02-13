@@ -33,7 +33,13 @@ Admin - FO-X NotiFS
                     <div class="top_line">
                         <div>
                             <h4>
-                                <span>ITEXMo API</span>
+                                
+                                <span
+                                {% if user.is_authenticated and user.role_id == 1 %}
+                                    data-bs-toggle="modal" data-bs-target="#itexmoModal"
+                                {% endif %}>
+                                ({{total_itexmo}}) ITEXMo API
+                                </span>
                                 <img class="setting_icon" src="{{ url_for('static', filename='images/colorful/pages/text_small.svg') }}" alt="text">
                             </h4>
                         </div>
@@ -42,8 +48,7 @@ Admin - FO-X NotiFS
                     <div class="lower_line" 
                         {% if user.is_authenticated and user.role_id == 1 %}
                             data-bs-toggle="modal" data-bs-target="#itextMoModal"
-                        {% endif %}
-                    >
+                        {% endif %}>
                         ITEXMo Settings
                     </div>
                     
@@ -139,6 +144,7 @@ Admin - FO-X NotiFS
         </div>
     </div>
 </div>
+{% include "modals/contents_modals.html" %} 
 {% include "modals/add_credentials.html" %} 
 {% endblock %}
 

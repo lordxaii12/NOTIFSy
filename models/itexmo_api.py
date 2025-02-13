@@ -5,6 +5,7 @@ class Itexmo(db.Model):
     __tablename__ = 'itexmo'
     
     itexmo_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
+    itexmo_name = db.Column(db.String(200), nullable=False)
     itexmo_url = db.Column(db.String(200), nullable=False)
     itexmo_email = db.Column(db.String(200), nullable=False)
     itexmo_password = db.Column(db.String(200), nullable=False)
@@ -24,7 +25,7 @@ class Itexmo(db.Model):
     def itexmo_data(self):
         return {
             'itexmo_id': self.itexmo_id,
-            
+            'itexmo_name': self.itexmo_name,
             'itexmo_url': self.itexmo_url,
             'itexmo_email': self.itexmo_email,
             'itexmo_password': self.itexmo_password,
