@@ -74,6 +74,8 @@ def login():
         flash(f'An error occurred: {str(e)}', 'danger')
     return render_template('login.html')
 
+
+
 @notifs.route('/logout')
 @login_required
 def logout():
