@@ -1,9 +1,9 @@
 .setting_cont {
-    right: 0; /* Moves it to the very right corner */
+    right: 0;
     display: flex;
-    justify-content: flex-end; /* Ensures content stays aligned to the right */
+    justify-content: flex-end; 
     align-items: center;
-    padding: 10px; /* Optional: Adds some spacing */
+    padding: 10px; 
 }
 
 
@@ -147,12 +147,7 @@
     width: 100px;  /* Adjust the width as needed */
     text-align: center;  /* Center the content */
 }
-.table_icons{
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    cursor: pointer;
-}
+
 
 .table_icons:last-child {
     margin-right: 0; /* Remove right margin for the last icon */
