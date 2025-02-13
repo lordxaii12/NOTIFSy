@@ -7,12 +7,14 @@ def add_user():
     full_name = request.form.get('fullname')
     division = request.form.get('division')
     role_id = request.form.get('role_id')
+    theme_id = request.form.get('theme_id')
 
     new_user = User_v1(
         username=username,
         full_name=full_name,
         division=division,
-        role_id=role_id
+        role_id=role_id,
+        theme_id=theme_id
     )
 
     db.session.add(new_user)
@@ -29,20 +31,22 @@ def edit_user(user_id):
     username = request.form.get('username')
     full_name = request.form.get('full_name')
     division = request.form.get('division')
-    role = request.form.get('role')
+    role_id = request.form.get('role_id')
+    theme_id = request.form.get('theme_id')
     
     if username:
         existing_user = User_v1.query.filter_by(username=username).first()
         if existing_user and existing_user.user_id != user_id:
             return jsonify({'error': 'Username already exists'}), 409
         user.username = username
-    
     if full_name:
         user.full_name = full_name
     if division:
         user.division = division
-    if role:
-        user.role = role
+    if role_id:
+        user.role_id = role_id
+    if theme_id:
+        user.theme_id = theme_id
     
     try:
         user.save()
