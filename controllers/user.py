@@ -7,14 +7,12 @@ def add_user():
     full_name = request.form.get('fullname')
     division = request.form.get('division')
     role_id = request.form.get('role_id')
-    theme_id = request.form.get('theme_id')
 
     new_user = User_v1(
         username=username,
         full_name=full_name,
         division=division,
         role_id=role_id,
-        theme_id=theme_id
     )
 
     db.session.add(new_user)
@@ -23,6 +21,21 @@ def add_user():
     flash("User added successfully", "success")
     return new_user   
 
+def change_theme(user_id):
+    user = User_v1.get_by_id(user_id)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    
+    theme_id = request.form.get('theme_id')
+    if theme_id:
+        user.theme_id = theme_id
+    try:
+        user.save()
+        return jsonify({'message': 'User updated successfully', 'user': user.user_data}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': str(e)}), 500
+    
 def edit_user(user_id):
     user = User_v1.get_by_id(user_id)
     if not user:
@@ -32,7 +45,6 @@ def edit_user(user_id):
     full_name = request.form.get('full_name')
     division = request.form.get('division')
     role_id = request.form.get('role_id')
-    theme_id = request.form.get('theme_id')
     
     if username:
         existing_user = User_v1.query.filter_by(username=username).first()
@@ -45,8 +57,6 @@ def edit_user(user_id):
         user.division = division
     if role_id:
         user.role_id = role_id
-    if theme_id:
-        user.theme_id = theme_id
     
     try:
         user.save()
