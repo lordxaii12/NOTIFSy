@@ -8,7 +8,6 @@ with open('config.txt', 'r') as file:
         key, value = line.strip().split(' = ')
         config[key] = value
 
-# Now you can access the values using the keys
 secret_key = config['secret_key']
 database_uri_head1 = config['database_uri_head1']
 database_uri_head2 = config['database_uri_head2']
