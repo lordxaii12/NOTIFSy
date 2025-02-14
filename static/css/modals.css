@@ -1,0 +1,11 @@
+.modal-backdrop {
+    z-index: 1045 !important; /* Ensures the backdrop stays behind both modals */
+}
+
+#itexmoModal {
+    z-index: 1050 !important; /* First modal */
+}
+
+#edititextMoModal {
+    z-index: 1055 !important; /* Second modal (edit modal) is on top) */
+}

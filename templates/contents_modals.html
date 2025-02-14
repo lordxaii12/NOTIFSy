@@ -1,10 +1,11 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/content.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/modals.css') }}">
 
 
 
 <div class="modal fade" id="itexmoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="itexmoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" style="z-index: 1050;">
         <div class="modal-header">
             <h1 class="modal-title fs-5" id="itexmoModalLabel">ITEXMO API</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -32,11 +33,12 @@
                             </button>
                             |
                             <!-- Edit Button with Bootstrap Modal -->
-                            <button class="btn p-0 m-0" data-bs-toggle="modal" data-bs-target="#editModal{{ texdata.itexmo_id }}">
+                            <button class="btn p-0 m-0" data-bs-toggle="modal" data-bs-target="#edititextMoModal{{ texdata.itexmo_id }}">
                                 <img class="table_icons" src="{{ url_for('static', filename='images/colorful/global/edit_icon.svg') }}" alt="edit" />
                             </button>
                         </td>
                     </tr>
+                    {% include "editmodals/itexmoApiEdit.html" %}
                     {% endfor%}
                 </tbody>
             </table>
