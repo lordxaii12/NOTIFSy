@@ -115,5 +115,41 @@ Admin - FO-X NotiFS
 {% endblock %}
 
 {% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ensure main modal stays open when edit modal is opened
+        document.querySelectorAll('[data-bs-target^="#edititextMoModal"]').forEach(button => {
+            button.addEventListener("click", function(event) {
+                let contentModal = document.getElementById("itexmoModal");
+                let editModalId = this.getAttribute("data-bs-target");
+                let editModal = document.querySelector(editModalId);
+    
+                // Prevent the content modal from closing
+                if (contentModal) {
+                    contentModal.classList.add("show");
+                    contentModal.style.display = "block";
+                    document.body.classList.add("modal-open");  // Ensures scrolling works correctly
+                }
+    
+                // Show the edit modal
+                if (editModal) {
+                    let bsEditModal = new bootstrap.Modal(editModal, { backdrop: false });
+                    bsEditModal.show();
+                }
+            });
+        });
+    
+        // Ensure content modal remains when edit modal is closed
+        document.querySelectorAll(".modal").forEach(modal => {
+            modal.addEventListener("hidden.bs.modal", function() {
+                let contentModal = document.getElementById("itexmoModal");
+                if (contentModal && contentModal.classList.contains("show")) {
+                    document.body.classList.add("modal-open"); // Restore backdrop behavior
+                }
+            });
+        });
+    });
+</script>
+    
 
 {% endblock %}
