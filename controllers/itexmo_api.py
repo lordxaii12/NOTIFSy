@@ -39,24 +39,26 @@ def add_itexmo():
 def edit_itexmo(itexmo_id):
     itexmo = Itexmo.get_by_id(itexmo_id)
     if not itexmo:
-        return None
-    itexmo.itexmo_name = request.form.get('itexmo_name',itexmo.itexmo_name)
-    itexmo.itexmo_url = request.form.get('itexmo_url',itexmo.itexmo_url)
-    itexmo.itexmo_email = request.form.get('itexmo_email',itexmo.itexmo_email)
-    itexmo.itexmo_password = request.form.get('itexmo_password',itexmo.itexmo_password)
-    itexmo.itexmo_apicode = request.form.get('itexmo_apicode',itexmo.itexmo_apicode)
-    itexmo.itexmo_contenttype = request.form.get('itexmo_contenttype',itexmo.itexmo_contenttype)
+        return None  # Explicitly return None if not found
+
+    # Updating fields safely
+    itexmo.itexmo_name = request.form.get('itexmo_name', itexmo.itexmo_name)
+    itexmo.itexmo_url = request.form.get('itexmo_url', itexmo.itexmo_url)
+    itexmo.itexmo_email = request.form.get('itexmo_email', itexmo.itexmo_email)
+    itexmo.itexmo_password = request.form.get('itexmo_password', itexmo.itexmo_password)
+    itexmo.itexmo_apicode = request.form.get('itexmo_apicode', itexmo.itexmo_apicode)
+    itexmo.itexmo_contenttype = request.form.get('itexmo_contenttype', itexmo.itexmo_contenttype)
     
     itexmo.updated_by = current_user.full_name
     itexmo.updated_on = get_manila_time()
-   
-   
+
     try:
         itexmo.save()
+        return itexmo  # Return updated object instead of nothing
     except Exception as e:
         db.session.rollback()
-        flash('iTexMo record not found or update failed', 'error')
-
+        return None  # Ensure failure case returns None
+    
 def delete_itexmo(itexmo_id):
     itexmo = Itexmo.get_by_id(itexmo_id)
     try:

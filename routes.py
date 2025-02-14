@@ -135,17 +135,15 @@ def register_itexmo():
 @login_required
 def edit_itexmo_route(itexmo_id):
     try:
-        updated_itexmo = edit_itexmo(itexmo_id, request.form)
-        if not updated_itexmo:
+        if edit_itexmo(itexmo_id):  # No need to store, just check truthy
+            flash('iTexMo record updated successfully', 'success')
+        else:
             flash('iTexMo record not found or update failed', 'error')
-            return redirect(url_for('notifs.admin'))
-        flash('iTexMo record updated successfully', 'success')
-        return redirect(url_for('notifs.admin'))
-    
+
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
-        return redirect(url_for('notifs.admin'))
 
+    return redirect(url_for('notifs.admin'))
 @notifs.route('/delete_itexmo/<int:itexmo_id>', methods=['POST'])
 @login_required
 def delete_itexmo_route(itexmo_id):
