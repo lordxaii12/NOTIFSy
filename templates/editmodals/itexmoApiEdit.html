@@ -1,7 +1,8 @@
 
-<div class="modal fade" id="edititextMoModal{{ texdata.itexmo_id }}" tabindex="-1" data-bs-backdrop="false" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="edititextMoModalLabel" >
+
+<div class="modal fade" id="edititextMoModal{{ texdata.itexmo_id }}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
-        <div class="modal-content" style="z-index: 1055;">
+        <div class="modal-content">
             <div class="modal-header">
                 <h2>ITEXMO API <br>  Credentials</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -9,27 +10,27 @@
             <div class="modal-body ">
                 <form action="{{ url_for('notifs.edit_itexmo_route', itexmo_id=texdata.itexmo_id) }}" method="POST">
                     <label for="itexmo_name">Api Name</label>
-                    <input type="text" id="itexmo_name" name="itexmo_name" value="{{texdata.itexmo_name}}" required>
+                    <input type="text" id="itexmo_name{{ texdata.itexmo_id }}" name="itexmo_name" value="{{texdata.itexmo_name}}" required>
 
                     <label for="itexmo_url">URL</label>
-                    <input type="text" id="itexmo_url" name="itexmo_url" value="{{texdata.itexmo_url}}" required>
+                    <input type="text" id="itexmo_url{{ texdata.itexmo_id }}" name="itexmo_url" value="{{texdata.itexmo_url}}" required>
                     
                     <label for="itexmo_email">Email</label>
-                    <input type="email" id="itexmo_email" name="itexmo_email" value="{{texdata.itexmo_email}}" required>
+                    <input type="email" id="itexmo_email{{ texdata.itexmo_id }}" name="itexmo_email" value="{{texdata.itexmo_email}}" required>
                     
                     <div class="row-group">
                         <div class="input-group content">
                             <label for="itexmo_password">Password</label>
-                            <input type="password" id="itexmo_password" name="itexmo_password" value="{{texdata.itexmo_password}}" required>
+                            <input type="password" id="itexmo_password{{ texdata.itexmo_id }}" name="itexmo_password" value="{{texdata.itexmo_password}}" required>
                         </div>
                         <div class="input-group content">
                             <label for="itexmo_apicode">API Code</label>
-                            <input type="text" id="itexmo_apicode" name="itexmo_apicode" value="{{texdata.itexmo_apicode}}" required>
+                            <input type="text" id="itexmo_apicode{{ texdata.itexmo_id }}" name="itexmo_apicode" value="{{texdata.itexmo_apicode}}" required>
                         </div>
                     </div>
                     
                     <label for="itexmo_contenttype">Content-Type</label>
-                    <input type="text" id="itexmo_contenttype" name="itexmo_contenttype" value="{{texdata.itexmo_contenttype}}" required>
+                    <input type="text" id="itexmo_contenttype{{ texdata.itexmo_id }}" name="itexmo_contenttype" value="{{texdata.itexmo_contenttype}}" required>
                     
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>

@@ -4,3 +4,19 @@
     margin-right: 10px;
     cursor: pointer;
 }
+
+#itexmoModal {
+    z-index: 1040;
+}
+
+.modal-backdrop {
+    z-index: 1045; /* Ensure backdrop does not block modals */
+}
+
+#edititextMoModal {
+    z-index: 1050; /* Make second modal appear on top */
+}
+
+.custom-backdrop {
+    opacity: 1 !important;
+}
