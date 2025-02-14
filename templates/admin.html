@@ -8,6 +8,7 @@ Admin - FO-X NotiFS
 
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/content.css') }}">
 {% endblock %}
 
 
@@ -35,7 +36,7 @@ Admin - FO-X NotiFS
                                 
                                 <span
                                 {% if user.is_authenticated and user.role_id == 1 %}
-                                    data-bs-toggle="modal" data-bs-target="#itexmoModal"
+                                    data-bs-toggle="modal" data-bs-target="#itexmoDataModal"
                                 {% endif %}>
                                 ({{total_itexmo}}) ITEXMo API
                                 </span>
@@ -110,7 +111,7 @@ Admin - FO-X NotiFS
         </div>
     </div>
 </div>
-{% include "contents_modals.html" %}
+{% include "itexmo_modal.html" %}
 {% include "modals/add_credentials.html" %}
 {% endblock %}
 
