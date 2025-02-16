@@ -1,7 +1,7 @@
 
 
  <!-- Modal 1: Table -->
- <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
+ <div class="modal fade" id="itextmo_display" tabindex="-1" aria-labelledby="itextmo_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header">
@@ -54,7 +54,7 @@
 </div>
 
 <!-- Modal 2: Edit Form -->
-<div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
+<div class="modal fade" id="itextmo_edit" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -62,7 +62,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST">
+                <form method="POST" id="itextmo_editForm">
                     <input type="hidden" id="itexmo_id" name="itexmo_id">
                     <label for="itexmo_name">Api Name</label>
                     <input type="text" id="itexmo_name" name="itexmo_name" required>
@@ -116,8 +116,9 @@
                 document.getElementById("itexmo_apicode").value = txtapicode;
                 document.getElementById("itexmo_contenttype").value = txtcontenttype;
                 
+                document.getElementById("itextmo_editForm").action = `/edit_itexmo_route/${txtid}`;
                 
-                new bootstrap.Modal(document.getElementById("modal2")).show();
+                new bootstrap.Modal(document.getElementById("itextmo_edit")).show();
             });
         });
     });
