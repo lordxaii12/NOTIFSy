@@ -1,4 +1,4 @@
-from models.themes import Theme
+from models.user_themes import Theme
 from extensions import db
 from flask import request, jsonify, flash
 from flask_login import current_user

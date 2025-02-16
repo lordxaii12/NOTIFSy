@@ -1,8 +1,8 @@
 from extensions import db
 from sqlalchemy.sql import func
 from flask_login import UserMixin
-from models.role import Roles
-from models.themes import Theme
+from models.user_role import Roles
+from models.user_themes import Theme
 
 class User_v1(db.Model, UserMixin):
     __tablename__ = 'userv1'

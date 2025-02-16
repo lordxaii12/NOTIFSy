@@ -23,7 +23,7 @@
     padding: 10px 15px;
     margin-bottom: 10px;
     font-weight: bold;
-    color: white;
+    color: rgb(0, 0, 0);
 }
 .flash-message.success { background-color: rgba(10, 221, 10, 0.779); }
 .flash-message.error { background-color: rgba(224, 9, 9, 0.718); }

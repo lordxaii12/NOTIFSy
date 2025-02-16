@@ -1,4 +1,4 @@
-from models.role import Roles
+from models.user_role import Roles
 from extensions import db
 from flask import request, jsonify, flash
 from flask_login import current_user

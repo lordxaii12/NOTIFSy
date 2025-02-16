@@ -111,25 +111,11 @@ Admin - FO-X NotiFS
     </div>
 </div>
 {% include "admin_modals/itexmo_modal.html" %}
-{% include "modals/add_credentials.html" %}
+{% include "global_modals/add_credentials.html" %}
 {% endblock %}
 
 {% block scripts %}
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".edit-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                let id = this.getAttribute("data-id");
-                let name = this.getAttribute("data-name");
-                
-                document.getElementById("editId").value = id;
-                document.getElementById("editName").value = name;
-                
-                new bootstrap.Modal(document.getElementById("modal2")).show();
-            });
-        });
-    });
-</script>
+
 
 {% endblock %}

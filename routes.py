@@ -5,26 +5,27 @@ from config import Config
 from flask_login import login_user, current_user
 from utils import get_manila_time
 import requests
+from extensions import db
 
 #Models
 from models.user import User_v1
-from models.role import Roles
+from models.user_role import Roles
 from models.user_logs import User_logs
 from models.user_division import Divisions
-from models.external_contacts import External
-from models.login_api import LogApi
-from models.themes import Theme
-from models.itexmo_api import Itexmo
+from models.external_credentials import External
+from models.login_credentials import LogApi
+from models.user_themes import Theme
+from models.itexmo_credentials import Itexmo
 
 #Controllers
-from controllers.role import add_role, edit_role, delete_role
+from controllers.user_role import add_role, edit_role, delete_role
 from controllers.user import add_user, edit_user, delete_user, change_theme
 from controllers.user_logs import add_user_logs, delete_user_logs
 from controllers.user_division import add_division, edit_division, delete_division
-from controllers.external_contacts import add_external, edit_external, delete_external
-from controllers.login_api import add_login_api, edit_login_api, delete_login_api
-from controllers.themes import add_theme, edit_theme, delete_theme
-from controllers.itexmo_api import add_itexmo, edit_itexmo, delete_itexmo
+from controllers.external_credentials import add_external, edit_external, delete_external
+from controllers.login_credentials import add_login_api, edit_login_api, delete_login_api
+from controllers.user_themes import add_theme, edit_theme, delete_theme
+from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexmo
 
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 
@@ -122,21 +123,44 @@ def delete_user(user_id):
 
 
 
+
+
+
+
+
 @notifs.route('/register_itexmo', methods=['POST'])
 @login_required
 def register_itexmo():
-    new_itexmo = add_itexmo()
-    if new_itexmo:
-        return redirect(url_for('notifs.admin'))
-    else:
-        return redirect(url_for('notifs.admin')) 
+    try:
+        new_itexmo = add_itexmo()  
+        if new_itexmo:
+            activity = f"ADDED {new_itexmo.itexmo_name} to Itexmo Credentials."
+            flash('iTexMo credentials added successfully!', 'success')
+        else:
+            activity = f"FAILED TO ADD iTexMo Credentials. Missing or invalid data."
+            flash('Failed to add iTexMo credentials.', 'danger')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
 
-@notifs.route('/edit_itexmo_route/<int:itexmo_id>', methods=['POST'])
+        add_user_logs(activity)
+        db.session.commit()
+
+    except Exception as e:
+        db.session.rollback() 
+        activity = f"FAILED TO ADD iTexMo Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+        flash(f"Error: {str(e)}", 'danger')
+    return redirect(url_for('notifs.admin'))
+
+
+@notifs.route('/edit_itexmo_route/<int:itexmo_id>', methods=['POST'])#edit itexmo credentials
 @login_required
 def edit_itexmo_route(itexmo_id):
     try:
         if edit_itexmo(itexmo_id):  # No need to store, just check truthy
-            flash('iTexMo record updated successfully', 'success')
+            flash('iTexMo Credential updated successfully', 'success')
         else:
             flash('iTexMo record not found or update failed', 'error')
 
@@ -145,7 +169,7 @@ def edit_itexmo_route(itexmo_id):
 
     return redirect(url_for('notifs.admin'))
 
-@notifs.route('/delete_itexmo/<int:itexmo_id>', methods=['POST'])
+@notifs.route('/delete_itexmo/<int:itexmo_id>', methods=['POST'])#delete itexmo credentials
 @login_required
 def delete_itexmo_route(itexmo_id):
     try:

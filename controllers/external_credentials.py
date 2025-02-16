@@ -1,4 +1,4 @@
-from models.external_contacts import External
+from models.external_credentials import External
 from extensions import db
 from flask import request, jsonify, flash
 from flask_login import current_user
