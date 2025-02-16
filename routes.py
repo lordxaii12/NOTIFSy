@@ -142,7 +142,6 @@ def register_itexmo():
             add_user_logs(activity)
             db.session.commit()
             return redirect(url_for('notifs.admin'))
-
         add_user_logs(activity)
         db.session.commit()
 
@@ -158,28 +157,55 @@ def register_itexmo():
 @notifs.route('/edit_itexmo_route/<int:itexmo_id>', methods=['POST'])#edit itexmo credentials
 @login_required
 def edit_itexmo_route(itexmo_id):
+    creds_data = Itexmo.get_by_id(itexmo_id)
+    cur_name = creds_data.itexmo_name
+    cur_url = creds_data.itexmo_url
+    cur_email = creds_data.itexmo_email
+    cur_pass = creds_data.itexmo_password
+    cur_apicode = creds_data.itexmo_apicode
+    cur_contenttype = creds_data.itexmo_contenttype
+    
+    new_name = request.form.get('itexmo_name')
+    new_url = request.form.get('itexmo_url')
+    new_email = request.form.get('itexmo_email')
+    new_pass = request.form.get('itexmo_password')
+    new_apicode = request.form.get('itexmo_apicode')
+    new_contenttype = request.form.get('itexmo_contenttype')
     try:
-        if edit_itexmo(itexmo_id):  # No need to store, just check truthy
+        if edit_itexmo(itexmo_id):
+            activity = f"EDIT Itexmo Credentials from: [{cur_name},{cur_url},{cur_email},{cur_pass},{cur_apicode},{cur_contenttype}]to [{new_name},{new_url},{new_email},{new_pass},{new_apicode},{new_contenttype}]."
             flash('iTexMo Credential updated successfully', 'success')
         else:
+            activity = f"FAILED TO EDIT iTexMo Credentials. Missing or invalid data."
             flash('iTexMo record not found or update failed', 'error')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
+        add_user_logs(activity)
+        db.session.commit()
 
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
-
+        db.session.rollback() 
+        activity = f"FAILED TO EIDT iTexMo Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/delete_itexmo/<int:itexmo_id>', methods=['POST'])#delete itexmo credentials
 @login_required
 def delete_itexmo_route(itexmo_id):
+    creds_data = Itexmo.get_by_id(itexmo_id)
     try:
         delete_itexmo(itexmo_id)
+        activity = f"DELETE {creds_data.itexmo_name} to Itexmo Credentials."
         flash('iTexMo record deleted successfully', 'success')
     except Exception as e:
+        activity = f"FAILED TO DELETE iTexMo Credentials due to error: {str(e)}."
         flash('An error occurred while deleting the record.', 'error')
+    add_user_logs(activity)
+    db.session.commit()
     return redirect(request.referrer)
-
-   
 #===============================================================================================================================>
 #
 #
