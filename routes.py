@@ -144,6 +144,7 @@ def edit_itexmo_route(itexmo_id):
         flash(f'An error occurred: {str(e)}', 'error')
 
     return redirect(url_for('notifs.admin'))
+
 @notifs.route('/delete_itexmo/<int:itexmo_id>', methods=['POST'])
 @login_required
 def delete_itexmo_route(itexmo_id):
