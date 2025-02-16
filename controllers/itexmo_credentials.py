@@ -33,7 +33,6 @@ def add_itexmo():
     db.session.add(new_itexmo)
     db.session.commit()
 
-    flash("itexmo added successfully", "success")
     return new_itexmo 
     
 def edit_itexmo(itexmo_id):
