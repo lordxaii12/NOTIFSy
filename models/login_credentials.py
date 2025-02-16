@@ -5,7 +5,7 @@ class LogApi(db.Model):
     __tablename__ = 'login_api'
     
     login_api_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
-    login_api_name = db.Column(db.String(100), nullable=False)
+    login_api_name = db.Column(db.String(100),unique=True, nullable=False)
     login_api_url = db.Column(db.String(100), nullable=False)
     login_api_token = db.Column(db.String(200), nullable=False)
     login_api_content_type = db.Column(db.String(100), nullable=False)

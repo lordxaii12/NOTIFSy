@@ -24,8 +24,7 @@ def add_login_api():
     )
     db.session.add(new_login_api)
     db.session.commit()
-
-    flash("API added successfully", "success")
+    
     return new_login_api 
     
 def edit_login_api(login_api_id):
@@ -41,9 +40,10 @@ def edit_login_api(login_api_id):
    
     try:
         log_api.save()
+        return log_api
     except Exception as e:
         db.session.rollback()
-        flash('iTexMo record not found or update failed', 'error')
+        return None 
 
 def delete_login_api(role_id):
     log_api = LogApi.get_by_id(role_id)

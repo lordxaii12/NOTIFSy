@@ -92,7 +92,7 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('notifs.login'))  # Redirect to login page
 
-@notifs.route('/register_user', methods=['POST'])
+@notifs.route('/register_user', methods=['POST'])#add user
 @login_required
 def register_user():
     new_user = add_user()
@@ -100,7 +100,7 @@ def register_user():
         return redirect(url_for('notifs.admin')) 
     return redirect(url_for('notifs.admin')) 
 
-@notifs.route('/edit_user/<int:user_id>', methods=['POST'])
+@notifs.route('/edit_user/<int:user_id>', methods=['POST'])#edit user
 @login_required
 def edit_user(user_id):
     try:
@@ -109,7 +109,7 @@ def edit_user(user_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 400
     
-@notifs.route('/delete_user/<int:user_id>', methods=['DELETE'])
+@notifs.route('/delete_user/<int:user_id>', methods=['DELETE'])#delete user
 @login_required
 def delete_user(user_id):
     try:
@@ -118,17 +118,7 @@ def delete_user(user_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-
-
-
-
-
-
-
-
-
-@notifs.route('/register_itexmo', methods=['POST'])
+@notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials
 @login_required
 def register_itexmo():
     try:
@@ -152,7 +142,6 @@ def register_itexmo():
         db.session.commit()
         flash(f"Error: {str(e)}", 'danger')
     return redirect(url_for('notifs.admin'))
-
 
 @notifs.route('/edit_itexmo_route/<int:itexmo_id>', methods=['POST'])#edit itexmo credentials
 @login_required
@@ -198,7 +187,7 @@ def delete_itexmo_route(itexmo_id):
     creds_data = Itexmo.get_by_id(itexmo_id)
     try:
         delete_itexmo(itexmo_id)
-        activity = f"DELETE {creds_data.itexmo_name} to Itexmo Credentials."
+        activity = f"DELETE {creds_data.itexmo_name} from Itexmo Credentials."
         flash('iTexMo record deleted successfully', 'success')
     except Exception as e:
         activity = f"FAILED TO DELETE iTexMo Credentials due to error: {str(e)}."
@@ -206,6 +195,40 @@ def delete_itexmo_route(itexmo_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(request.referrer)
+
+
+
+
+
+@notifs.route('/register_login_api', methods=['POST'])#add login API credentials
+@login_required
+def register_login_api():
+    try:
+        new_login_api = add_login_api()  
+        if new_login_api:
+            activity = f"ADDED {new_login_api.login_api_name} to Login API Credentials."
+            flash('Login API credentials added successfully!', 'success')
+        else:
+            activity = f"FAILED TO ADD Login API Credentials. Missing or invalid data."
+            flash('Failed to add Login API credentials.', 'danger')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
+        add_user_logs(activity)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback() 
+        activity = f"FAILED TO ADD Login API Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+        flash(f"Error: {str(e)}", 'danger')
+    return redirect(url_for('notifs.admin'))
+
+
+
+
+
+
 #===============================================================================================================================>
 #
 #
