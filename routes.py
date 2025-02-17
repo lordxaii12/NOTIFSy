@@ -17,6 +17,7 @@ from models.login_credentials import LogApi
 from models.user_themes import Theme
 from models.itexmo_credentials import Itexmo
 from models.email_credentials import Ecredss
+from models.hrpears_credentials import Hrpears
 
 #Controllers
 from controllers.user_role import add_role, edit_role, delete_role
@@ -28,6 +29,7 @@ from controllers.login_credentials import add_login_api, edit_login_api, delete_
 from controllers.user_themes import add_theme, edit_theme, delete_theme
 from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexmo
 from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
+from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hrpears
 
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 
@@ -264,7 +266,7 @@ def edit_loginapi_route(login_api_id):
         db.session.commit()
     return redirect(url_for('notifs.admin'))
 
-@notifs.route('/delete_loginapi_route/<int:login_api_id>', methods=['POST'])#delete itexmo credentials
+@notifs.route('/delete_loginapi_route/<int:login_api_id>', methods=['POST'])#delete login API credentials
 @login_required
 def delete_loginapi_route(login_api_id):
     loginapi_data = LogApi.get_by_id(login_api_id)
@@ -338,7 +340,7 @@ def edit_email_route(ecreds_id):
         db.session.commit()
     return redirect(url_for('notifs.admin'))
 
-@notifs.route('/delete_email_route/<int:ecreds_id>', methods=['POST'])#delete email credentials
+@notifs.route('/delete_email_route/<int:ecreds_id>', methods=['POST'])#delete email API credentials
 @login_required
 def delete_email_route(ecreds_id):
     ecreds_data = Ecredss.get_by_id(ecreds_id)
@@ -348,6 +350,84 @@ def delete_email_route(ecreds_id):
         flash('Email API record deleted successfully', 'success')
     except Exception as e:
         activity = f"FAILED TO DELETE Email API Credentials due to error: {str(e)}."
+        flash('An error occurred while deleting the record.', 'error')
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(request.referrer)
+
+#----------------------------------------------------------------------------------------------------------->
+@notifs.route('/register_hrpears_api', methods=['POST'])#add hrpears API credentials
+@login_required
+def register_hrpears_api():
+    try:
+        new_hrpears = add_hrpears()  
+        if new_hrpears:
+            activity = f"ADDED {new_hrpears.hrpears_name} to Hrpears API Credentials."
+            flash('Hrpears API credentials added successfully!', 'success')
+        else:
+            activity = f"FAILED TO ADD Hrpears API Credentials. Missing or invalid data."
+            flash('Failed to add Hrpears API credentials.', 'danger')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
+        add_user_logs(activity)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback() 
+        activity = f"FAILED TO ADD Hrpears API Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+        flash(f"Error: {str(e)}", 'danger')
+    return redirect(url_for('notifs.admin'))
+
+@notifs.route('/edit_hrpears_route/<int:hrpears_id>', methods=['POST'])#edit hrpears API credentials
+@login_required
+def edit_hrpears_route(hrpears_id):
+    hrpears_data = Hrpears.get_by_id(hrpears_id)
+    cur_host = hrpears_data.hrpears_host
+    cur_root = hrpears_data.hrpears_root
+    cur_user = hrpears_data.hrpears_user
+    cur_password = hrpears_data.hrpears_password
+    cur_dbname = hrpears_data.hrpears_dbname
+    cur_table = hrpears_data.hrpears_table
+    
+    new_host = request.form.get('hrpears_host')
+    new_root = request.form.get('hrpears_root')
+    new_user = request.form.get('hrpears_user')
+    new_password = request.form.get('hrpears_password')
+    new_dbname = request.form.get('hrpears_dbname')
+    new_table = request.form.get('hrpears_table')
+    try:
+        if edit_hrpears(hrpears_id):
+            activity = f"EDIT HRpears API Credentials from: [{cur_host},{cur_root},{cur_user},{cur_password},{cur_dbname},{cur_table}]to [{new_host},{new_root},{new_user},{new_password},{new_dbname},{new_table}]."
+            flash('HRpears API Credential updated successfully', 'success')
+        else:
+            activity = f"FAILED TO EDIT HRpears Credentials. Missing or invalid data."
+            flash('HRpears API record not found or update failed', 'error')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
+        add_user_logs(activity)
+        db.session.commit()
+
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+        activity = f"FAILED TO EDIT HRpears API Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+@notifs.route('/delete_hrpears_route/<int:hrpears_id>', methods=['POST'])#delete hrpears API credentials
+@login_required
+def delete_hrpears_route(hrpears_id):
+    hrpears_data = Hrpears.get_by_id(hrpears_id)
+    try:
+        delete_hrpears(hrpears_id)
+        activity = f"DELETE {hrpears_data.hrpears_host} from HRpears API Credentials."
+        flash('HRpears API record deleted successfully', 'success')
+    except Exception as e:
+        activity = f"FAILED TO DELETE HRpears API Credentials due to error: {str(e)}."
         flash('An error occurred while deleting the record.', 'error')
     add_user_logs(activity)
     db.session.commit()
