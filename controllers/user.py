@@ -18,7 +18,6 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
 
-    flash("User added successfully", "success")
     return new_user   
 
 def change_theme(user_id):

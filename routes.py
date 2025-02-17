@@ -80,6 +80,8 @@ def login():
                 
                 if response.status_code == 200:
                     login_user(user)
+                    user.cur_login = get_manila_time()
+                    db.session.commit()
                     flash('Login successful!', 'success')
                     return redirect(url_for('notifs.home'))
                 else:
@@ -97,19 +99,43 @@ def login():
 @notifs.route('/logout')
 @login_required
 def logout():
-    logout_user()  # Log out the current user
+    current_user.last_logout = get_manila_time()
+    login_session = current_user.cur_login
+    if login_session:
+        current_user.last_login = current_user.cur_login
+    else:
+        current_user.last_login = get_manila_time()
+    logout_user()
     flash('You have been logged out.', 'info')
-    return redirect(url_for('notifs.login'))  # Redirect to login page
+    return redirect(url_for('notifs.login'))
 
 #----------------------------------------------------------------------------------------------------------->
 @notifs.route('/register_user', methods=['POST'])#add user
 @login_required
 def register_user():
     new_user = add_user()
-    if new_user is None:
-        return redirect(url_for('notifs.admin')) 
-    return redirect(url_for('notifs.admin')) 
-
+    try:
+        role = Roles.get_by_id(new_user.role_id)
+        if new_user:
+            activity = f"ADDED {new_user.full_name} as {role.role_name} to Users."
+            flash('User Credentials added successfully!', 'success')
+        else:
+            activity = f"FAILED TO ADD User Credentials. Missing or invalid data."
+            flash('Failed to add User credentials.', 'danger')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
+        add_user_logs(activity)
+        db.session.commit()
+        
+    except Exception as e:
+        db.session.rollback() 
+        activity = f"FAILED TO ADD User Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+        flash(f"Error: {str(e)}", 'danger')
+    return redirect(url_for('notifs.admin'))
+    
 @notifs.route('/edit_user/<int:user_id>', methods=['POST'])#edit user
 @login_required
 def edit_user(user_id):
@@ -118,7 +144,14 @@ def edit_user(user_id):
         return jsonify({'message': 'User updated successfully', 'user': updated_user_data}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-    
+
+
+
+
+
+
+
+
 @notifs.route('/delete_user/<int:user_id>', methods=['DELETE'])#delete user
 @login_required
 def delete_user(user_id):
@@ -127,6 +160,11 @@ def delete_user(user_id):
         return result
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+
+
+
 
 #----------------------------------------------------------------------------------------------------------->
 @notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials

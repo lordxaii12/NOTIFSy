@@ -14,6 +14,13 @@ class User_v1(db.Model, UserMixin):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.role_id'), nullable=False)
     theme_id = db.Column(db.Integer, db.ForeignKey('theme.theme_id'), nullable=True)
     
+    cur_login = db.Column(db.String(100), unique=False, nullable=True)
+    last_login = db.Column(db.String(100), unique=False, nullable=True)
+    last_logout = db.Column(db.String(100), unique=False, nullable=True)
+    
+    msg_sent = db.Column(db.Integer, unique=False, nullable=True)
+    credit_used = db.Column(db.Integer, unique=False, nullable=True)
+    
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
     
@@ -30,7 +37,12 @@ class User_v1(db.Model, UserMixin):
             'role_id': self.role_id,
             'role_name': self.role.role_name if self.role else None,
             'theme_id': self.theme_id,
-            'theme_name': self.theme.theme_name if self.theme else None
+            'theme_name': self.theme.theme_name if self.theme else None,
+            'cur_login': self.cur_login,
+            'last_login': self.last_login,
+            'last_logout': self.last_logout,
+            'msg_sent': self.msg_sent,
+            'credit_used': self.credit_used
         }
 
     def get_id(self):
