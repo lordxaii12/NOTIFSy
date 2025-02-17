@@ -109,17 +109,25 @@
 .second_row{
     margin-top: 20px;
     gap: 10px;
+    height: 300px;
     
  
 }
-.col_1st{
+.users_col{
+    margin-top: 20px;
+    background: linear-gradient(180deg, rgb(80, 4, 94), rgb(142, 10, 144), rgb(165, 83, 156)) !important;
+    border-radius: 20px;
+    color: antiquewhite;
+}
+.role_col{
     margin-top: 20px;
     background: linear-gradient(180deg, rgb(35, 76, 24), rgb(14, 58, 20), rgb(91, 167, 78)) !important;
     border-radius: 20px;
     color: antiquewhite;
 }
-
-.col_2nd{
+.div_col{
     margin-top: 20px;
-    background-color: rgb(69, 64, 17);
+    background: linear-gradient(180deg, rgb(35, 76, 24), rgb(14, 58, 20), rgb(91, 167, 78)) !important;
+    border-radius: 20px;
+    color: antiquewhite;
 }

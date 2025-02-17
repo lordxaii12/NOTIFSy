@@ -117,13 +117,32 @@ Admin - FO-X NotiFS
             </div>
 
             <div class="row second_row">
-                <div class="col col_1st">
-                   
+                <div class="col users_col">
+                    <div class="top_line">
+                        <div>
+                            <h4>
+                                <span
+                                {% if user.is_authenticated and user.role_id == 1 %}
+                                    data-bs-toggle="modal" data-bs-target="#"
+                                {% endif %}>
+                                ({{total_login_data}}) Log-in API
+                                </span>
+                                <img class="setting_icon" src="{{ url_for('static', filename='images/colorful/pages/login_small.svg') }}" alt="login">
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="lower_line"
+                        {% if user.is_authenticated and user.role_id == 1 %}
+                            data-bs-toggle="modal" data-bs-target="#loginCredsModal"
+                        {% endif %}>
+                        Add Login Credentials
+                    </div>
                 </div>
 
-                <div class="col col_2nd">
+                <div class="col role_col">
                     col 2
                 </div>
+                
             </div>
 
 
