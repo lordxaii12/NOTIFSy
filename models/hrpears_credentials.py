@@ -2,7 +2,7 @@ from extensions import db
 from sqlalchemy.sql import func
 
 class Hrpears(db.Model):
-    __tablename__ = 'hrpears'
+    __tablename__ = 'hrpears_api'
     
     hrpears_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
     hrpears_host = db.Column(db.String(200), nullable=False)

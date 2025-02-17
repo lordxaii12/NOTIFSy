@@ -2,7 +2,7 @@ from extensions import db
 from sqlalchemy.sql import func
 
 class External(db.Model):
-    __tablename__ = 'external'
+    __tablename__ = 'external_contacts'
     
     external_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
     external_name = db.Column(db.String(100), nullable=False)

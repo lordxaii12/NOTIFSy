@@ -2,7 +2,7 @@ from extensions import db
 from sqlalchemy.sql import func
 
 class Ecredss(db.Model):
-    __tablename__ = 'e_creds'
+    __tablename__ = 'email_api'
     
     ecreds_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
     ecreds_email = db.Column(db.String(100), nullable=False)

@@ -2,7 +2,7 @@ from extensions import db
 from sqlalchemy.sql import func
 
 class Itexmo(db.Model):
-    __tablename__ = 'itexmo'
+    __tablename__ = 'itexmo_api'
     
     itexmo_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
     itexmo_name = db.Column(db.String(200), nullable=False)
