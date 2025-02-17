@@ -1,0 +1,11 @@
+.setting_cont {
+    right: 0;
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    padding: 10px; 
+}
+.setting_icon{
+    height: 25px;
+    width: 25px;
+}

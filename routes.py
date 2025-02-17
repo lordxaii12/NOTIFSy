@@ -551,7 +551,32 @@ def delete_hrpears_route(hrpears_id):
 @notifs.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    return render_template("index.html")
+    theme_data = Theme.get_all()
+    return render_template("index.html",
+                           theme_data=theme_data)
+    
+
+@notifs.route('/select_theme', methods=['POST'])
+@login_required
+def select_theme():
+    theme = request.form.get('theme_id')
+    user_id = current_user.user_id
+    try:
+        if theme and theme.isdigit():
+            user_theme = User_v1.get_by_id(user_id)
+            user_theme.theme_id = int(theme)
+            db.session.commit()
+            flash('Successfully changed theme, refresh or re-login to take effect.', 'success')
+        else:
+            flash('Error on changing theme.', 'danger')
+            
+    except Exception as e:
+        db.session.rollback() 
+        flash(f'Error on changing theme: {str(e)}', 'danger')
+    print(current_user.theme.theme_bg)
+    return redirect(url_for('notifs.home'))
+    
+
 
 #===============================================================================================================================>
 #

@@ -6,6 +6,7 @@
 Home - FO-X NotiFS
 {% endblock %}
 {% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
 
@@ -15,11 +16,22 @@ Home - FO-X NotiFS
     <div class="col-auto">
     </div>
     <div class="col">
-        Home
+        <div class="container-fluid main_container">
+            <div class="setting_cont">
+                <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/settings_icon.svg') }}" 
+                    alt="settings"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#themeModal"
+                    id="settingsIcon"
+                    style="cursor: pointer;">
+            </div>
+        </div>
     </div>
 </div>
+{% include "global_modals/theme.html" %}
 {% endblock %}
 
 {% block scripts %}
+
 
 {% endblock %}

@@ -1,0 +1,28 @@
+<div class="modal fade" id="themeModal" tabindex="-1" aria-labelledby="themeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Select Theme</h2>
+                <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('notifs.select_theme') }}" method="POST">
+                    <div>
+                        <label for="theme_id">Themes</label>
+                        <select class="form-select" name="theme_id" id="theme_id">
+                            <option value="" disabled selected>SELECT THEME</option>
+                            {% for theme in theme_data %}
+                                <option value="{{ theme.theme_id }}" {% if theme.id == user.theme_id %}selected{% endif %}>
+                                    {{ theme.theme_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" class="submit-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

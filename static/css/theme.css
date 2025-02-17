@@ -1,21 +1,28 @@
 .dark_theme-bg{
-    background: linear-gradient(180deg, #080709 0%, #020209 100%);
+    background: linear-gradient(180deg, #0c0c0c 0%, #101010 100%);
 }
 .dark_theme-color{
-    color: white;
+    color: rgb(246, 230, 230);
 }
 
 
 .light_theme-bg{
-    background: linear-gradient(180deg, #cfcdd0 0%, #ffffff 100%);
+    background: linear-gradient(180deg, #f2f1f4 0%, #929297 100%);
 }
 .light_theme-color{
-    color: rgb(5, 0, 0);
+    color: rgb(17, 1, 1);
 }
 
 .matrix_theme-bg{
-    background: linear-gradient(180deg, #080709 0%, #020209 100%);
+    background: linear-gradient(180deg, #07010d 0%, #070727 100%);
 }
 .matrix_theme-color{
-    color: white;
+    color: rgb(7, 123, 20);
+}
+
+.colorful_theme-bg{
+    background: linear-gradient(180deg, #63077b 0%, #e206d3 100%);
+}
+.colorful_theme-color{
+    color: rgb(221, 218, 24);
 }
