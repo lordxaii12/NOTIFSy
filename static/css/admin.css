@@ -119,39 +119,6 @@
     color: antiquewhite;
 }
 
-.add_user{
-    display: flex;
-    flex-direction: column; 
-    align-items: center;   
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    width: 200px;
-    margin-top: -20px;
-}
-
-.container_user{
-    border-radius: 20px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 350px;
-}
-
-.header_tbl_user th{
-    background: linear-gradient(180deg, rgb(30, 27, 2), rgb(19, 18, 9), rgb(49, 47, 40)) !important;
-    color: white !important;
-}
-
-.table th:last-child, .table td:last-child {
-    width: 100px;  /* Adjust the width as needed */
-    text-align: center;  /* Center the content */
-}
-
-
-.table_icons:last-child {
-    margin-right: 0; /* Remove right margin for the last icon */
-}
-
 .col_2nd{
     margin-top: 20px;
     background-color: rgb(69, 64, 17);
