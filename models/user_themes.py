@@ -5,7 +5,12 @@ class Theme(db.Model):
     __tablename__ = 'theme'
     
     theme_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
-    theme_name = db.Column(db.String(100), nullable=False)
+    theme_name = db.Column(db.String(100),unique=False, nullable=True)
+    
+    theme_bg = db.Column(db.String(100),unique=False, nullable=True)
+    theme_font = db.Column(db.String(100),unique=False, nullable=True)
+    theme_icon = db.Column(db.String(100),unique=False, nullable=True)
+    
     theme_description = db.Column(db.String(255))
     
     created_by = db.Column(db.String(100), unique=False, nullable=True)
@@ -22,6 +27,11 @@ class Theme(db.Model):
         return {
             'theme_id': self.theme_id,
             'theme_name': self.theme_name,
+            
+            'theme_bg': self.theme_bg,
+            'theme_font': self.theme_font,
+            'theme_icon': self.theme_icon,
+            
             'theme_description': self.theme_description,
             
             'created_by': self.created_by,
