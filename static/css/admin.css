@@ -110,8 +110,6 @@
     margin-top: 20px;
     gap: 10px;
     height: 300px;
-    
- 
 }
 .users_col{
     margin-top: 20px;
@@ -121,7 +119,7 @@
 }
 .role_col{
     margin-top: 20px;
-    background: linear-gradient(180deg, rgb(35, 76, 24), rgb(14, 58, 20), rgb(91, 167, 78)) !important;
+    background: linear-gradient(180deg, rgb(22, 59, 67), rgb(20, 92, 110), rgb(108, 179, 193)) !important;
     border-radius: 20px;
     color: antiquewhite;
 }
@@ -130,4 +128,47 @@
     background: linear-gradient(180deg, rgb(35, 76, 24), rgb(14, 58, 20), rgb(91, 167, 78)) !important;
     border-radius: 20px;
     color: antiquewhite;
+}
+
+.top_line2{
+    margin-top: 20px;
+    margin-bottom: -30px;
+    overflow: hidden;
+    padding: 0;
+    border: none;
+    color: antiquewhite;
+}
+
+.lower_line2{
+    height: 200px;
+    padding: 2px;
+    border-radius: 10px;
+    margin-top: 50px;
+    background: linear-gradient(180deg, #909293, #eaeeea,  #e4eae4);
+    color: rgb(4, 1, 15);
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.styled-table th, .styled-table td {
+    padding: 8px;
+    text-align: left;
+}
+
+.small-column {
+    width: 10%;  /* Smaller width for #, Division, and Actions */
+    white-space: nowrap; /* Prevents wrapping */
+}
+
+.large-column {
+    width: 40%;  /* Makes Name column larger */
+}
+
+th, td {
+    border: 1px solid #ddd;
 }

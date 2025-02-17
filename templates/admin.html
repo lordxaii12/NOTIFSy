@@ -118,28 +118,58 @@ Admin - FO-X NotiFS
 
             <div class="row second_row">
                 <div class="col users_col">
-                    <div class="top_line">
+                    <div class="top_line2">
                         <div>
                             <h4>
+                                ({{total_user}}) Users
                                 <span
                                 {% if user.is_authenticated and user.role_id == 1 %}
                                     data-bs-toggle="modal" data-bs-target="#"
                                 {% endif %}>
-                                ({{total_login_data}}) Log-in API
+                                    <img class="setting_icon" src="{{ url_for('static', filename='images/colorful/pages/login_small.svg') }}" alt="login">
                                 </span>
-                                <img class="setting_icon" src="{{ url_for('static', filename='images/colorful/pages/login_small.svg') }}" alt="login">
                             </h4>
+                            
                         </div>
                     </div>
-                    <div class="lower_line"
-                        {% if user.is_authenticated and user.role_id == 1 %}
-                            data-bs-toggle="modal" data-bs-target="#loginCredsModal"
-                        {% endif %}>
-                        Add Login Credentials
+                    <div class="lower_line2">
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th class="small-column">#</th>
+                                    <th class="large-column">Name</th>
+                                    <th class="small-column">Division</th>
+                                    <th>Type</th>
+                                    <th class="small-column">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in user_data %}
+                                <tr>
+                                    <td>{{ loop.index }}.</td>
+                                    <td>{{ user.full_name }}</td>
+                                    <td>{{ user.division }}</td>
+                                    <td>{{ user.role.role_name }}</td>
+                                    <td>
+                                        <button class="btn p-0 m-0">
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/colorful/global/delete_icon.svg') }}" alt="delete" />
+                                        </button>|
+                                        <button class="btn p-0 m-0">
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/colorful/global/edit_icon.svg') }}" alt="edit" />
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
                 <div class="col role_col">
+                    col 2
+                </div>
+
+                <div class="col div_col">
                     col 2
                 </div>
                 
