@@ -41,23 +41,33 @@
 
 /* Footer */
 .footer {
-    width: 100%;
-    height: 50px;
-    background: #050016d7;
+    width: 100vw;
+    height: 40px;
+    background: #000000;
     color: white;
-    display: flex;
-    font-size: 16px;
+    align-items: center;
+    text-align: center;
     position: fixed;
     bottom: 0;
-    left: 0;
     z-index: 1040;
     overflow: hidden;
 }
-
-.footext{
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    margin-left: auto;
-    margin-right: auto;
+.footer h5{
+    font-size: 14px;
+}
+.foot_title{
+    margin-top: 5px;
+    margin-bottom: -2px;
+}
+.support_phone{
+    margin-top: 10px;
+}
+.supp_contact{
+    color: chocolate;
+}
+.support_email{
+    margin-top: 10px;
+}
+.supp_mail{
+    color: blue;
 }

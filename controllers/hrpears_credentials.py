@@ -5,6 +5,7 @@ from flask_login import current_user
 from utils import get_manila_time
 
 def add_hrpears():
+    hrpears_name = request.form.get('hrpears_name')
     hrpears_host = request.form.get('hrpears_host')
     hrpears_root = request.form.get('hrpears_root')
     hrpears_user = request.form.get('hrpears_user')
@@ -17,6 +18,7 @@ def add_hrpears():
     created_on = get_manila_time()
 
     new_hrpears = Hrpears(
+        hrpears_name=hrpears_name,
         hrpears_host=hrpears_host,
         hrpears_root=hrpears_root,
         hrpears_user=hrpears_user,
@@ -34,6 +36,7 @@ def add_hrpears():
     
 def edit_hrpears(hrpears_id):
     hrpears = Hrpears.get_by_id(hrpears_id)
+    hrpears.hrpears_name = request.form.get('hrpears_name', hrpears.hrpears_name)
     hrpears.hrpears_host = request.form.get('hrpears_host', hrpears.hrpears_host)
     hrpears.hrpears_root = request.form.get('hrpears_root', hrpears.hrpears_root)
     hrpears.hrpears_user = request.form.get('hrpears_user', hrpears.hrpears_user)

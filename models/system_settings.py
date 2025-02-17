@@ -1,0 +1,76 @@
+from extensions import db
+from sqlalchemy.sql import func
+from models.itexmo_credentials import Itexmo
+from models.email_credentials import Ecredss
+from models.hrpears_credentials import Hrpears
+from models.login_credentials import LogApi
+
+
+class SysSettings(db.Model):
+    __tablename__ = 'sys_setting'
+    
+    sys_setting_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
+    sys_app_name = db.Column(db.String(200),unique=False, nullable=False)
+    sys_app_user = db.Column(db.String(100),unique=False, nullable=False)
+    sys_app_email = db.Column(db.String(100),unique=False, nullable=False)
+    sys_app_phone = db.Column(db.String(100),unique=False, nullable=False)
+    
+    msg_api_id = db.Column(db.Integer, db.ForeignKey('itexmo_api.itexmo_id'), nullable=False)
+    email_api_id = db.Column(db.Integer, db.ForeignKey('email_api.ecreds_id'), nullable=False)
+    hris_api_id = db.Column(db.Integer, db.ForeignKey('hrpears_api.hrpears_id'), nullable=False)
+    login_api_id = db.Column(db.Integer, db.ForeignKey('login_api.login_api_id'), nullable=False)
+    
+    created_by = db.Column(db.String(100), unique=False, nullable=True)
+    created_on = db.Column(db.String(100), unique=False, nullable=True)
+    updated_by = db.Column(db.String(100), unique=False, nullable=True)
+    updated_on = db.Column(db.String(100), unique=False, nullable=True)
+    created_at = db.Column(db.DateTime, default=func.now())
+    updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
+    
+    msg_api = db.relationship('Itexmo', backref='sys_settings')
+    email_api = db.relationship('Ecredss', backref='sys_settings')
+    hris_api = db.relationship('Hrpears', backref='sys_settings')
+    login_api = db.relationship('LogApi', backref='sys_settings')
+
+
+    @property
+    def itexmo_data(self):
+        return {
+            'sys_setting_id': self.sys_setting_id,
+            'sys_app_name': self.sys_app_name,
+            'sys_app_user': self.sys_app_user,
+            'sys_app_email': self.sys_app_email,
+            'sys_app_phone': self.sys_app_phone,
+            'msg_api_id': self.msg_api_id,
+            'itexmo_name': self.msg_api.itexmo_name if self.msg_api else None,
+            'email_api_id': self.email_api_id,
+            'ecreds_email': self.email_api.ecreds_email if self.email_api else None,
+            'hris_api_id': self.hris_api_id,
+            'hrpears_name': self.hris_api.hrpears_name if self.hris_api else None,
+            'login_api_id': self.login_api_id,
+            'login_api_name': self.login_api.login_api_name if self.login_api else None,
+            
+            'created_by': self.created_by,
+            'created_on': self.created_on,
+            'updated_by': self.updated_by,
+            'updated_on': self.updated_on
+        }
+
+    def get_id(self): 
+        return str(self.sys_setting_id)
+
+    @staticmethod
+    def get_all():
+        return SysSettings.query.all()
+
+    @staticmethod
+    def get_by_id(sys_setting_id):
+        return SysSettings.query.get(sys_setting_id)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()

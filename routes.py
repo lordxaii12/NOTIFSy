@@ -18,6 +18,7 @@ from models.user_themes import Theme
 from models.itexmo_credentials import Itexmo
 from models.email_credentials import Ecredss
 from models.hrpears_credentials import Hrpears
+from models.system_settings import SysSettings
 
 #Controllers
 from controllers.user_role import add_role, edit_role, delete_role
@@ -30,6 +31,7 @@ from controllers.user_themes import add_theme, edit_theme, delete_theme
 from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexmo
 from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
 from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hrpears
+from controllers.system_settings import add_sys_setting, edit_sys_setting, delete_sys_setting
 
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 
@@ -41,7 +43,36 @@ notifs = Blueprint('notifs', __name__, template_folder='templates')
 #            //        \\ ||____ ,*  ||    \\//    || || ||    \\||
 #================ Admin ========================================================================================================>
 
-@notifs.route('/admin', methods=['GET', 'POST'])
+@notifs.route('/register_system_settings', methods=['POST'])#add system settings
+@login_required
+def register_system_settings():
+    try:
+        new_sys_setting = add_sys_setting()  
+        if new_sys_setting:
+            flash('System settings added successfully!', 'success')
+        else:
+            flash('Failed to add system settings.', 'danger')
+            return redirect(url_for('notifs.admin'))
+    except Exception as e:
+        db.session.rollback() 
+        flash(f"Error: {str(e)}", 'danger')
+    return redirect(url_for('notifs.admin'))
+
+@notifs.route('/edit_system_settings_route/<int:sys_setting_id>', methods=['POST'])#edit system settings
+@login_required
+def edit_system_settings_route(sys_setting_id):
+    try:
+        if edit_itexmo(sys_setting_id):
+            flash('System settings updated successfully,  LOGOUT TO APPLY CHANGES.', 'success')
+        else:
+            flash('System settings not found or update failed', 'error')
+            return redirect(url_for('notifs.admin'))
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+    return redirect(url_for('notifs.admin'))
+
+@notifs.route('/admin', methods=['GET', 'POST'])#admin page
 @login_required
 def admin():
     itexmo_data = Itexmo.get_all()
@@ -156,14 +187,41 @@ def register_user():
         flash(f"Error: {str(e)}", 'danger')
     return redirect(url_for('notifs.admin'))
     
-@notifs.route('/edit_user/<int:user_id>', methods=['POST'])#edit user
+@notifs.route('/edit_user_route/<int:user_id>', methods=['POST'])#edit itexmo credentials
 @login_required
-def edit_user(user_id):
+def edit_user_route(user_id):
+    user_data = User_v1.get_by_id(user_id)
+    cur_fullname = user_data.full_name
+    cur_username = user_data.username
+    cur_role = user_data.role_id
+    cur_division = user_data.division
+    
+    new_fullname = request.form.get('fullname')
+    new_username = request.form.get('username')
+    new_role = request.form.get('role_id')
+    new_division = request.form.get('division')
     try:
-        updated_user_data = edit_user(user_id, request.form)
-        return jsonify({'message': 'User updated successfully', 'user': updated_user_data}), 200
+        if edit_user(user_id):
+            activity = f"EDIT User data from: [{cur_fullname}, {cur_username}, {cur_role}, {cur_division}] to [{new_fullname}, {new_username}, {new_role}, {new_division}]."
+            flash('User data updated successfully', 'success')
+        else:
+            activity = f"FAILED TO EDIT User data. Missing or invalid data."
+            flash('User data not found or update failed', 'error')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
+        add_user_logs(activity)
+        db.session.commit()
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+        activity = f"FAILED TO EDIT User data due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+
+
 
 
 
@@ -180,11 +238,6 @@ def delete_user(user_id):
         return result
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-
-
-
-
 
 #----------------------------------------------------------------------------------------------------------->
 @notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials
@@ -482,7 +535,7 @@ def delete_hrpears_route(hrpears_id):
     hrpears_data = Hrpears.get_by_id(hrpears_id)
     try:
         delete_hrpears(hrpears_id)
-        activity = f"DELETE {hrpears_data.hrpears_host} from HRpears API Credentials."
+        activity = f"DELETE {hrpears_data.hrpears_name} from HRpears API Credentials."
         flash('HRpears API record deleted successfully', 'success')
     except Exception as e:
         activity = f"FAILED TO DELETE HRpears API Credentials due to error: {str(e)}."

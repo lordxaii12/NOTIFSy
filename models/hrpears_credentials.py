@@ -5,6 +5,7 @@ class Hrpears(db.Model):
     __tablename__ = 'hrpears_api'
     
     hrpears_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
+    hrpears_name = db.Column(db.String(200), nullable=False)
     hrpears_host = db.Column(db.String(200), nullable=False)
     hrpears_root = db.Column(db.String(200), nullable=False)
     hrpears_user = db.Column(db.String(200), nullable=False)
@@ -25,6 +26,7 @@ class Hrpears(db.Model):
     def hrpears_data(self):
         return {
             'hrpears_id': self.hrpears_id,
+            'hrpears_name': self.hrpears_name,
             'hrpears_host': self.hrpears_host,
             'hrpears_root': self.hrpears_root,
             'hrpears_user': self.hrpears_user,
