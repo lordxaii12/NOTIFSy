@@ -45,8 +45,8 @@ def edit_login_api(login_api_id):
         db.session.rollback()
         return None 
 
-def delete_login_api(role_id):
-    log_api = LogApi.get_by_id(role_id)
+def delete_login_api(login_api_id):
+    log_api = LogApi.get_by_id(login_api_id)
     try:
         db.session.delete(log_api)
         db.session.commit()

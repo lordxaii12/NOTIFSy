@@ -29,7 +29,12 @@ from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexm
 
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 
-
+#===============================================================================================================================>
+#
+#
+#
+#
+#
 #================ Admin ========================================================================================================>
 
 @notifs.route('/admin', methods=['GET', 'POST'])
@@ -92,6 +97,7 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('notifs.login'))  # Redirect to login page
 
+#----------------------------------------------------------------------------------------------------------->
 @notifs.route('/register_user', methods=['POST'])#add user
 @login_required
 def register_user():
@@ -118,6 +124,7 @@ def delete_user(user_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+#----------------------------------------------------------------------------------------------------------->
 @notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials
 @login_required
 def register_itexmo():
@@ -196,10 +203,7 @@ def delete_itexmo_route(itexmo_id):
     db.session.commit()
     return redirect(request.referrer)
 
-
-
-
-
+#----------------------------------------------------------------------------------------------------------->
 @notifs.route('/register_login_api', methods=['POST'])#add login API credentials
 @login_required
 def register_login_api():
@@ -224,7 +228,54 @@ def register_login_api():
         flash(f"Error: {str(e)}", 'danger')
     return redirect(url_for('notifs.admin'))
 
+@notifs.route('/edit_loginapi_route/<int:login_api_id>', methods=['POST'])#edit login API credentials
+@login_required
+def edit_loginapi_route(login_api_id):
+    loginapi_data = LogApi.get_by_id(login_api_id)
+    cur_name = loginapi_data.login_api_name
+    cur_url = loginapi_data.login_api_url
+    cur_token = loginapi_data.login_api_token
+    cur_contenttype = loginapi_data.login_api_content_type
+    
+    new_name = request.form.get('login_api_name')
+    new_url = request.form.get('login_api_url')
+    new_token = request.form.get('login_api_token')
+    new_contenttype = request.form.get('login_api_content_type')
+    try:
+        if edit_login_api(login_api_id):
+            activity = f"EDIT Login API Credentials from: [{cur_name},{cur_url},{cur_token},{cur_contenttype}]to [{new_name},{new_url},{new_token},{new_contenttype}]."
+            flash('Login API Credential updated successfully', 'success')
+        else:
+            activity = f"FAILED TO EDIT iTexMo Credentials. Missing or invalid data."
+            flash('Login API record not found or update failed', 'error')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
+        add_user_logs(activity)
+        db.session.commit()
 
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+        activity = f"FAILED TO EIDT Login API Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+@notifs.route('/delete_loginapi_route/<int:login_api_id>', methods=['POST'])#delete itexmo credentials
+@login_required
+def delete_loginapi_route(login_api_id):
+    loginapi_data = LogApi.get_by_id(login_api_id)
+    try:
+        delete_login_api(login_api_id)
+        activity = f"DELETE {loginapi_data.login_api_name} from Login API Credentials."
+        flash('Login API record deleted successfully', 'success')
+    except Exception as e:
+        activity = f"FAILED TO DELETE Login API Credentials due to error: {str(e)}."
+        flash('An error occurred while deleting the record.', 'error')
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(request.referrer)
 
 
 
