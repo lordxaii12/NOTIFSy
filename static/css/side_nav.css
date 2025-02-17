@@ -1,7 +1,7 @@
 /* side_nav.css */
 
 /* Sidebar */
-.sidebar {
+.sidebar {/*HAS THEME bg and color*/
     width: 200px;
     height: 100vh;
     background: linear-gradient(180deg, #2F1B8C 0%, #8A80D4 100%);
@@ -24,7 +24,7 @@
     overflow: hidden;
 }
 
-.sidebar-line {
+.sidebar-line {/*HAS THEME color*/
     width: 80%;
     border: 1px solid white;
 }
@@ -48,7 +48,7 @@
     border-radius: 10px;
 }
 
-.menu li a {
+.menu li a {/*HAS THEME color*/
     display: flex;
     align-items: center;
     text-decoration: none;

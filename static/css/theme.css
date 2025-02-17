@@ -1,0 +1,21 @@
+.dark_theme-bg{
+    background: linear-gradient(180deg, #080709 0%, #020209 100%);
+}
+.dark_theme-color{
+    color: white;
+}
+
+
+.light_theme-bg{
+    background: linear-gradient(180deg, #cfcdd0 0%, #ffffff 100%);
+}
+.light_theme-color{
+    color: rgb(5, 0, 0);
+}
+
+.matrix_theme-bg{
+    background: linear-gradient(180deg, #080709 0%, #020209 100%);
+}
+.matrix_theme-color{
+    color: white;
+}
