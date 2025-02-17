@@ -187,7 +187,7 @@ def register_user():
         flash(f"Error: {str(e)}", 'danger')
     return redirect(url_for('notifs.admin'))
     
-@notifs.route('/edit_user_route/<int:user_id>', methods=['POST'])#edit itexmo credentials
+@notifs.route('/edit_user_route/<int:user_id>', methods=['POST'])#edit user
 @login_required
 def edit_user_route(user_id):
     user_data = User_v1.get_by_id(user_id)
@@ -220,24 +220,20 @@ def edit_user_route(user_id):
         db.session.commit()
     return redirect(url_for('notifs.admin'))
 
-
-
-
-
-
-
-
-
-
-
-@notifs.route('/delete_user/<int:user_id>', methods=['DELETE'])#delete user
+@notifs.route('/delete_user_route/<int:user_id>', methods=['POST'])#delete user
 @login_required
-def delete_user(user_id):
+def delete_user_route(user_id):
+    user_data = User_v1.get_by_id(user_id)
     try:
-        result = delete_user(user_id)
-        return result
+        delete_user(user_id)
+        activity = f"DELETE {user_data.full_name} from Users data."
+        flash('User data deleted successfully', 'success')
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        activity = f"FAILED TO DELETE iTexMo User data due to error: {str(e)}."
+        flash('An error occurred while deleting the record.', 'error')
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(request.referrer)
 
 #----------------------------------------------------------------------------------------------------------->
 @notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials
@@ -544,16 +540,12 @@ def delete_hrpears_route(hrpears_id):
     db.session.commit()
     return redirect(request.referrer)
 
-
-
-
-
 #===============================================================================================================================>
-#
-#
-#
-#
-#
+#            ||     ||  .*****.  ||\\        //|| ||*****
+#            ||     || ||     || || \\      // || ||
+#            ||*****|| ||     || ||  \\    //  || ||*****
+#            ||     || ||     || ||   \\  //   || ||
+#            ||     ||  ._____.  ||    \\//    || ||_____
 #================ Home =========================================================================================================>
 
 @notifs.route('/', methods=['GET', 'POST'])
