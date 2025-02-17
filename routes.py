@@ -277,6 +277,40 @@ def delete_loginapi_route(login_api_id):
     db.session.commit()
     return redirect(request.referrer)
 
+#----------------------------------------------------------------------------------------------------------->
+
+
+@notifs.route('/register_login_api', methods=['POST'])#add login API credentials
+@login_required
+def register_login_api():
+    try:
+        new_login_api = add_login_api()  
+        if new_login_api:
+            activity = f"ADDED {new_login_api.login_api_name} to Login API Credentials."
+            flash('Login API credentials added successfully!', 'success')
+        else:
+            activity = f"FAILED TO ADD Login API Credentials. Missing or invalid data."
+            flash('Failed to add Login API credentials.', 'danger')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
+        add_user_logs(activity)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback() 
+        activity = f"FAILED TO ADD Login API Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+        flash(f"Error: {str(e)}", 'danger')
+    return redirect(url_for('notifs.admin'))
+
+
+
+
+
+
+
+
 
 
 
