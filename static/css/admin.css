@@ -41,8 +41,9 @@
     overflow: hidden;
 }
 
-.itexmo_api{
-    background: linear-gradient(180deg, rgb(141, 115, 222), rgb(68, 30, 180), rgb(57, 47, 85));
+
+
+.itexmo_api{/*HAS THEME bg*/
     display: flex;
     flex-direction: column; 
     align-items: center;   
@@ -51,8 +52,7 @@
     overflow: hidden;
 }
 
-.email_api{
-    background: linear-gradient(180deg, rgb(3, 238, 215), rgb(32, 62, 59), rgb(43, 93, 88));
+.email_api{/*HAS THEME bg*/
     display: flex;
     flex-direction: column; 
     align-items: center;   
@@ -61,8 +61,7 @@
     overflow: hidden;
 }
 
-.pears_api{
-    background: linear-gradient(180deg, rgb(101, 206, 78), rgb(53, 87, 45), rgb(100, 134, 92));
+.pears_api{/*HAS THEME bg*/
     display: flex;
     flex-direction: column; 
     align-items: center;   
@@ -71,8 +70,7 @@
     overflow: hidden;
 }
 
-.login_api{
-    background: linear-gradient(180deg, rgb(220, 209, 105), rgb(126, 121, 43), rgb(228, 186, 19));
+.login_api{/*HAS THEME bg*/
     display: flex;
     flex-direction: column; 
     align-items: center;   
@@ -81,21 +79,19 @@
     overflow: hidden;
 }
 
-.top_line{
+.top_line{/*HAS THEME color*/
     margin-top: 20px;
     margin-bottom: -15px;
     overflow: hidden;
     padding: 0;
     border: none;
-    color: antiquewhite;
 }
 
-.lower_line{
+.lower_line{/*HAS THEME color*/
     margin-top: 30px;
     background: linear-gradient(180deg, #2f4047, #0c100c,  #3d473d);
     width: 150%;
     height: 30px;
-    color: rgb(253, 250, 251);
     font-weight: bold;
 }
 
@@ -112,26 +108,24 @@
     gap: 10px;
     height: 300px;
 }
-.users_col{
+.users_col{/*HAS THEME bg and color*/
     margin-top: 20px;
-    background: linear-gradient(180deg, rgb(80, 4, 94), rgb(142, 10, 144), rgb(165, 83, 156)) !important;
     border-radius: 20px;
-    color: antiquewhite;
 }
-.role_col{
+.role_col{/*HAS THEME bg and color*/
     margin-top: 20px;
     background: linear-gradient(180deg, rgb(22, 59, 67), rgb(20, 92, 110), rgb(108, 179, 193)) !important;
     border-radius: 20px;
     color: antiquewhite;
 }
-.div_col{
+.div_col{/*HAS THEME bg and color*/
     margin-top: 20px;
     background: linear-gradient(180deg, rgb(35, 76, 24), rgb(14, 58, 20), rgb(91, 167, 78)) !important;
     border-radius: 20px;
     color: antiquewhite;
 }
 
-.top_line2{
+.top_line2{/*HAS THEME color*/
     margin-top: 20px;
     margin-bottom: -30px;
     overflow: hidden;
@@ -140,7 +134,7 @@
     color: antiquewhite;
 }
 
-.lower_line2{
+.lower_line2{/*HAS THEME bg and color*/
     height: 200px;
     padding: 2px;
     border-radius: 10px;
@@ -162,12 +156,12 @@
 }
 
 .small-column {
-    width: 10%;  /* Smaller width for #, Division, and Actions */
-    white-space: nowrap; /* Prevents wrapping */
+    width: 10%;  
+    white-space: nowrap;
 }
 
 .large-column {
-    width: 40%;  /* Makes Name column larger */
+    width: 40%;
 }
 
 th, td {
