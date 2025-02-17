@@ -16,6 +16,7 @@ from models.external_credentials import External
 from models.login_credentials import LogApi
 from models.user_themes import Theme
 from models.itexmo_credentials import Itexmo
+from models.email_credentials import Ecredss
 
 #Controllers
 from controllers.user_role import add_role, edit_role, delete_role
@@ -26,15 +27,16 @@ from controllers.external_credentials import add_external, edit_external, delete
 from controllers.login_credentials import add_login_api, edit_login_api, delete_login_api
 from controllers.user_themes import add_theme, edit_theme, delete_theme
 from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexmo
+from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
 
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 
 #===============================================================================================================================>
-#
-#
-#
-#
-#
+#                //\\     ||*****,   ||\\        //|| || ||\\    ||
+#               //  \\    ||      || || \\      // || || || \\   ||
+#              //****\\   ||      || ||  \\    //  || || ||  \\  ||
+#             //******\\  ||      || ||   \\  //   || || ||   \\ ||
+#            //        \\ ||____ ,*  ||    \\//    || || ||    \\||
 #================ Admin ========================================================================================================>
 
 @notifs.route('/admin', methods=['GET', 'POST'])
@@ -246,7 +248,7 @@ def edit_loginapi_route(login_api_id):
             activity = f"EDIT Login API Credentials from: [{cur_name},{cur_url},{cur_token},{cur_contenttype}]to [{new_name},{new_url},{new_token},{new_contenttype}]."
             flash('Login API Credential updated successfully', 'success')
         else:
-            activity = f"FAILED TO EDIT iTexMo Credentials. Missing or invalid data."
+            activity = f"FAILED TO EDIT Login API Credentials. Missing or invalid data."
             flash('Login API record not found or update failed', 'error')
             add_user_logs(activity)
             db.session.commit()
@@ -257,7 +259,7 @@ def edit_loginapi_route(login_api_id):
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
         db.session.rollback() 
-        activity = f"FAILED TO EIDT Login API Credentials due to error: {str(e)}."
+        activity = f"FAILED TO EDIT Login API Credentials due to error: {str(e)}."
         add_user_logs(activity)
         db.session.commit()
     return redirect(url_for('notifs.admin'))
@@ -278,19 +280,17 @@ def delete_loginapi_route(login_api_id):
     return redirect(request.referrer)
 
 #----------------------------------------------------------------------------------------------------------->
-
-
-@notifs.route('/register_login_api', methods=['POST'])#add login API credentials
+@notifs.route('/register_email_api', methods=['POST'])#add email API credentials
 @login_required
-def register_login_api():
+def register_email_api():
     try:
-        new_login_api = add_login_api()  
-        if new_login_api:
-            activity = f"ADDED {new_login_api.login_api_name} to Login API Credentials."
-            flash('Login API credentials added successfully!', 'success')
+        new_ecredss = add_ecreds()  
+        if new_ecredss:
+            activity = f"ADDED {new_ecredss.ecreds_email} to Email API Credentials."
+            flash('Email API credentials added successfully!', 'success')
         else:
-            activity = f"FAILED TO ADD Login API Credentials. Missing or invalid data."
-            flash('Failed to add Login API credentials.', 'danger')
+            activity = f"FAILED TO ADD Email API Credentials. Missing or invalid data."
+            flash('Failed to add Email API credentials.', 'danger')
             add_user_logs(activity)
             db.session.commit()
             return redirect(url_for('notifs.admin'))
@@ -298,17 +298,60 @@ def register_login_api():
         db.session.commit()
     except Exception as e:
         db.session.rollback() 
-        activity = f"FAILED TO ADD Login API Credentials due to error: {str(e)}."
+        activity = f"FAILED TO ADD Email API Credentials due to error: {str(e)}."
         add_user_logs(activity)
         db.session.commit()
         flash(f"Error: {str(e)}", 'danger')
     return redirect(url_for('notifs.admin'))
 
+@notifs.route('/edit_email_route/<int:ecreds_id>', methods=['POST'])#edit email API credentials
+@login_required
+def edit_email_route(ecreds_id):
+    ecreds_data = Ecredss.get_by_id(ecreds_id)
+    cur_email = ecreds_data.ecreds_email
+    cur_sender = ecreds_data.ecreds_sender
+    cur_password = ecreds_data.ecreds_password
+    cur_template = ecreds_data.ecreds_templates
+    
+    new_email = request.form.get('ecreds_email')
+    new_sender = request.form.get('ecreds_sender')
+    new_password = request.form.get('ecreds_password')
+    new_template = request.form.get('ecreds_templates')
+    try:
+        if edit_ecreds(ecreds_id):
+            activity = f"EDIT Email API Credentials from: [{cur_email},{cur_sender},{cur_password},{cur_template}]to [{new_email},{new_sender},{new_password},{new_template}]."
+            flash('Email API Credential updated successfully', 'success')
+        else:
+            activity = f"FAILED TO EDIT Email Credentials. Missing or invalid data."
+            flash('Email API record not found or update failed', 'error')
+            add_user_logs(activity)
+            db.session.commit()
+            return redirect(url_for('notifs.admin'))
+        add_user_logs(activity)
+        db.session.commit()
 
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+        activity = f"FAILED TO EIDT Email API Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+    return redirect(url_for('notifs.admin'))
 
-
-
-
+@notifs.route('/delete_email_route/<int:ecreds_id>', methods=['POST'])#delete email credentials
+@login_required
+def delete_email_route(ecreds_id):
+    ecreds_data = Ecredss.get_by_id(ecreds_id)
+    try:
+        delete_ecreds(ecreds_id)
+        activity = f"DELETE {ecreds_data.ecreds_email} from Email API Credentials."
+        flash('Email API record deleted successfully', 'success')
+    except Exception as e:
+        activity = f"FAILED TO DELETE Email API Credentials due to error: {str(e)}."
+        flash('An error occurred while deleting the record.', 'error')
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(request.referrer)
 
 
 

@@ -25,7 +25,6 @@ def add_ecreds():
     db.session.add(new_ecredss)
     db.session.commit()
 
-    flash("Credentials added successfully", "success")
     return new_ecredss   
     
 def edit_ecreds(ecreds_id):
