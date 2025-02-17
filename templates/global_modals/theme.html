@@ -10,7 +10,7 @@
                     <div>
                         <label for="theme_id">Themes</label>
                         <select class="form-select" name="theme_id" id="theme_id">
-                            <option value="" disabled selected>SELECT THEME</option>
+                            <option value=""selected disabled>{{ user.theme.theme_name }}</option>
                             {% for theme in theme_data %}
                                 <option value="{{ theme.theme_id }}" {% if theme.id == user.theme_id %}selected{% endif %}>
                                     {{ theme.theme_name }}

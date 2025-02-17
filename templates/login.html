@@ -12,7 +12,7 @@
             flex: 1;
             background: 
                 linear-gradient(180deg, rgba(47, 27, 140, 0.9), rgba(138, 128, 212, 0.9)), 
-                url('{{ url_for("static", filename="images/backgrounds/background.jpg") }}') center/cover no-repeat;
+                url('{{ url_for("static", filename="images/dark/backgrounds/background.jpg") }}') center/cover no-repeat;
         }
     </style>
 </head>
@@ -39,13 +39,13 @@
                 <form class="login-form" action="{{ url_for('notifs.login') }}" method="POST">
                     <label for="username">🆄🆂🅴🆁🅽🅰🅼🅴</label>
                     <div class="input-group">
-                        <img class="icon" src="{{ url_for('static', filename='images/global/user.png') }}" alt="user icon">
+                        <img class="icon" src="{{ url_for('static', filename='images/dark/backgrounds/user.png') }}" alt="user icon">
                         <input type="text" id="username" placeholder="Enter your username" name="username" required>
                     </div>
                     
                     <label for="password">🅿🅰🆂🆂🆆🅾🆁🅳</label>
                     <div class="input-group">
-                        <img class="icon" src="{{ url_for('static', filename='images/global/padlock.png') }}" alt="padlock icon">
+                        <img class="icon" src="{{ url_for('static', filename='images/dark/backgrounds/padlock.png') }}" alt="padlock icon">
                         <input type="password" id="password" placeholder="Enter your password" name="password" required>
                         <input style="width:30px; margin-left:-50px; padding:0px; magrin: 0px; border:none;" type="checkbox" id="show-password" class="password-toggle" />
                     </div>
