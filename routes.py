@@ -45,14 +45,32 @@ notifs = Blueprint('notifs', __name__, template_folder='templates')
 @login_required
 def admin():
     itexmo_data = Itexmo.get_all()
-    total_itexmo = len(itexmo_data)
+    total_itexmo_data = len(itexmo_data)
+    email_data = Ecredss.get_all()
+    total_email_data = len(email_data)
+    hrpears_data = Hrpears.get_all()
+    total_hrpears_data = len(hrpears_data)
+    
+    login_data = LogApi.get_all()
+    total_login_data = len(login_data)
+    
     user_data = User_v1.get_all()
+    total_user = len(user_data)
     role_data = Roles.get_all()
+    total_role = len(role_data)
     return render_template('admin.html',
                            role_data=role_data,
+                           total_role=total_role,
                            user_data=user_data,
+                           total_user=total_user,
                            itexmo_data=itexmo_data,
-                           total_itexmo=total_itexmo)
+                           total_itexmo_data=total_itexmo_data,
+                           email_data=email_data,
+                           total_email_data=total_email_data,
+                           hrpears_data=hrpears_data,
+                           total_hrpears_data=total_hrpears_data,
+                           login_data=login_data,
+                           total_login_data=total_login_data)
 
 @notifs.route('/login', methods=['GET', 'POST'])
 def login():
@@ -103,8 +121,10 @@ def logout():
     login_session = current_user.cur_login
     if login_session:
         current_user.last_login = current_user.cur_login
+        db.session.commit()
     else:
         current_user.last_login = get_manila_time()
+        db.session.commit()
     logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('notifs.login'))

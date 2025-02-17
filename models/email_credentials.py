@@ -5,8 +5,8 @@ class Ecredss(db.Model):
     __tablename__ = 'email_api'
     
     ecreds_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
-    ecreds_email = db.Column(db.String(100), nullable=False)
-    ecreds_sender = db.Column(db.String(100), nullable=False)
+    ecreds_email = db.Column(db.String(100), unique=True, nullable=False)
+    ecreds_sender = db.Column(db.String(100), nullable=True)
     ecreds_password = db.Column(db.String(100), nullable=False)
     ecreds_templates = db.Column(db.String(999), nullable=True)
     

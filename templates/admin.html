@@ -37,18 +37,17 @@ Admin - FO-X NotiFS
                                 {% if user.is_authenticated and user.role_id == 1 %}
                                     data-bs-toggle="modal" data-bs-target="#itextmo_display"
                                 {% endif %}>
-                                ({{total_itexmo}}) ITEXMo API
+                                ({{total_itexmo_data}}) ITEXMo API
                                 </span>
                                 <img class="setting_icon" src="{{ url_for('static', filename='images/colorful/pages/text_small.svg') }}" alt="text">
                             </h4>
                         </div>
                     </div>
-                    
                     <div class="lower_line" 
                         {% if user.is_authenticated and user.role_id == 1 %}
                             data-bs-toggle="modal" data-bs-target="#itextMoModal"
                         {% endif %}>
-                        ITEXMo Settings
+                        Add ITEXMo Credentials
                     </div>
                     
                 </div>
@@ -56,26 +55,42 @@ Admin - FO-X NotiFS
                     <div class="top_line">
                         <div>
                             <h4>
-                                <span>EMAIL API</span>
+                                <span
+                                {% if user.is_authenticated and user.role_id == 1 %}
+                                    data-bs-toggle="modal" data-bs-target="#"
+                                {% endif %}>
+                                ({{total_email_data}}) Email API
+                                </span>
                                 <img class="setting_icon" src="{{ url_for('static', filename='images/colorful/pages/email_small.svg') }}" alt="email">
                             </h4>
                         </div>
                     </div>
-                    <div class="lower_line" data-bs-toggle="modal" data-bs-target="#emailCredsModal">
-                        Email Settings
+                    <div class="lower_line"
+                        {% if user.is_authenticated and user.role_id == 1 %}
+                                data-bs-toggle="modal" data-bs-target="#emailCredsModal"
+                        {% endif %}>
+                        Add Email Credentials
                     </div>
                 </div>
                 <div class="col pears_api">
                     <div class="top_line">
                         <div>
                             <h4>
-                                <span>HRPEARS API</span>
+                                <span
+                                {% if user.is_authenticated and user.role_id == 1 %}
+                                    data-bs-toggle="modal" data-bs-target="#"
+                                {% endif %}>
+                                ({{total_hrpears_data}}) H.R. Pears API
+                                </span>
                                 <img class="setting_icon" src="{{ url_for('static', filename='images/colorful/pages/hrpears_small.svg') }}" alt="hrpears">
                             </h4>
                         </div>
                     </div>
-                    <div class="lower_line" data-bs-toggle="modal" data-bs-target="#pearsCredsModal">
-                        HRPears Settings
+                    <div class="lower_line" 
+                       {% if user.is_authenticated and user.role_id == 1 %}
+                            data-bs-toggle="modal" data-bs-target="#pearsCredsModal"
+                        {% endif %}>
+                        Add HRPears Credentials
                     </div>
                 </div>
                 <div class="col login_api">
