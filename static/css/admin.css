@@ -113,15 +113,11 @@
 }
 .role_col{/*HAS THEME bg and color*/
     margin-top: 20px;
-    background: linear-gradient(180deg, rgb(22, 59, 67), rgb(20, 92, 110), rgb(108, 179, 193)) !important;
     border-radius: 20px;
-    color: antiquewhite;
 }
 .div_col{/*HAS THEME bg and color*/
     margin-top: 20px;
-    background: linear-gradient(180deg, rgb(35, 76, 24), rgb(14, 58, 20), rgb(91, 167, 78)) !important;
     border-radius: 20px;
-    color: antiquewhite;
 }
 
 .top_line2{/*HAS THEME color*/
