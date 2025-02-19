@@ -28,7 +28,7 @@ Admin - FO-X NotiFS
                      data-bs-placement="bottom">
             </div>
             <div class="row first_row">
-                <div class="col itexmo_api {{user.theme.theme_bg}}">
+                <div class="col itexmo_api {{user.theme.theme_bg}} {{user.theme.theme_bg}}">
                     <div class="top_line {{user.theme.theme_font}}">
                         <div>
                             <h4>
@@ -123,9 +123,9 @@ Admin - FO-X NotiFS
                                 ({{total_user}}) Users
                                 <span
                                 {% if user.is_authenticated and user.role_id == 1 %}
-                                    data-bs-toggle="modal" data-bs-target="#"
+                                    data-bs-toggle="modal" data-bs-target="#addUserModal"
                                 {% endif %}>
-                                    <img class="setting_icon" src="{{ url_for('static', filename='images/colorful/pages/login_small.svg') }}" alt="login">
+                                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/pages/login_small.svg') }}" alt="login">
                                 </span>
                             </h4>
                             
@@ -151,10 +151,10 @@ Admin - FO-X NotiFS
                                     <td>{{ user.role.role_name }}</td>
                                     <td>
                                         <button class="btn p-0 m-0">
-                                            <img class="table_icons" src="{{ url_for('static', filename='images/colorful/global/delete_icon.svg') }}" alt="delete" />
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                         </button>|
                                         <button class="btn p-0 m-0">
-                                            <img class="table_icons" src="{{ url_for('static', filename='images/colorful/global/edit_icon.svg') }}" alt="edit" />
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
                                         </button>
                                     </td>
                                 </tr>
