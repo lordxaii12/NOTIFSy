@@ -11,3 +11,10 @@ function deleteEmail(ecreds_id) {
             .then(() => location.reload());
     }
 }
+
+function deleteHris(hrpears_id) {
+    if (confirm('Are you sure?')) {
+        fetch(`/delete_hrpears_route/${hrpears_id}`, { method: 'POST' })
+            .then(() => location.reload());
+    }
+}

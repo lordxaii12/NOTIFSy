@@ -5,6 +5,7 @@ class Ecredss(db.Model):
     __tablename__ = 'email_api'
     
     ecreds_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
+    ecreds_name = db.Column(db.String(100), unique=True, nullable=False)
     ecreds_email = db.Column(db.String(100), unique=True, nullable=False)
     ecreds_sender = db.Column(db.String(100), nullable=True)
     ecreds_password = db.Column(db.String(100), nullable=False)
@@ -22,6 +23,7 @@ class Ecredss(db.Model):
     def ecredss_data(self):
         return {
             'ecreds_id': self.ecreds_id,
+            'ecreds_name': self.ecreds_name,
             'ecreds_email': self.ecreds_email,
             'ecreds_sender': self.ecreds_sender,
             'ecreds_password': self.ecreds_password,

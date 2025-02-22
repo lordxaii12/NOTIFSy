@@ -5,6 +5,7 @@ from flask_login import current_user
 from utils import get_manila_time
 
 def add_ecreds():
+    ecreds_name = request.form.get('ecreds_name')
     ecreds_email = request.form.get('ecreds_email')
     ecreds_sender = request.form.get('ecreds_sender')
     ecreds_password = request.form.get('ecreds_password')
@@ -13,6 +14,7 @@ def add_ecreds():
     created_on = get_manila_time()
 
     new_ecredss = Ecredss(
+        ecreds_name=ecreds_name,
         ecreds_email=ecreds_email,
         ecreds_sender=ecreds_sender,
         ecreds_password=ecreds_password,
@@ -27,14 +29,15 @@ def add_ecreds():
     
 def edit_ecreds(ecreds_id):
     ecreds = Ecredss.get_by_id(ecreds_id)
-    
+    ecreds_name = request.form.get('ecreds_name',ecreds.ecreds_name)
     ecreds_email = request.form.get('ecreds_email',ecreds.ecreds_email)
     ecreds_sender = request.form.get('ecreds_sender',ecreds.ecreds_sender)
     ecreds_password = request.form.get('ecreds_password',ecreds.ecreds_password)
     
     updated_by = current_user.full_name
     updated_on = get_manila_time()
-   
+
+    ecreds.ecreds_name = ecreds_name
     ecreds.ecreds_email = ecreds_email
     ecreds.ecreds_sender = ecreds_sender
     ecreds.ecreds_password = ecreds_password

@@ -81,7 +81,6 @@ def admin():
     total_email_data = len(email_data)
     hrpears_data = Hrpears.get_all()
     total_hrpears_data = len(hrpears_data)
-    
     login_data = LogApi.get_all()
     total_login_data = len(login_data)
     
@@ -417,18 +416,18 @@ def register_email_api():
 @login_required
 def edit_email_route(ecreds_id):
     ecreds_data = Ecredss.get_by_id(ecreds_id)
+    cur_name = ecreds_data.ecreds_name
     cur_email = ecreds_data.ecreds_email
     cur_sender = ecreds_data.ecreds_sender
     cur_password = ecreds_data.ecreds_password
-    cur_template = ecreds_data.ecreds_templates
     
+    new_name = request.form.get('ecreds_name')
     new_email = request.form.get('ecreds_email')
     new_sender = request.form.get('ecreds_sender')
     new_password = request.form.get('ecreds_password')
-    new_template = request.form.get('ecreds_templates')
     try:
         if edit_ecreds(ecreds_id):
-            activity = f"EDIT Email API Credentials from: [{cur_email},{cur_sender},{cur_password},{cur_template}]to [{new_email},{new_sender},{new_password},{new_template}]."
+            activity = f"EDIT Email API Credentials from: [{cur_name}, {cur_email}, {cur_sender}, {cur_password}]to [{new_name}, {new_email}, {new_sender}, {new_password}]."
             flash('Email API Credential updated successfully', 'success')
         else:
             activity = f"FAILED TO EDIT Email Credentials. Missing or invalid data."
@@ -453,7 +452,7 @@ def delete_email_route(ecreds_id):
     ecreds_data = Ecredss.get_by_id(ecreds_id)
     try:
         delete_ecreds(ecreds_id)
-        activity = f"DELETE {ecreds_data.ecreds_email} from Email API Credentials."
+        activity = f"DELETE {ecreds_data.ecreds_name} from Email API Credentials."
         flash('Email API record deleted successfully', 'success')
     except Exception as e:
         activity = f"FAILED TO DELETE Email API Credentials due to error: {str(e)}."

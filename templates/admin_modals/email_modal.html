@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="itexmoDataModalLabel">EMAIL API</h1>
+            <h1 class="modal-title fs-5" id="email_displayLabel">EMAIL API</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -12,8 +12,9 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Sender</th>
+                            <th>Name</th>
                             <th>Email</th>
+                            <th>Sender</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -21,8 +22,9 @@
                         {% for emails in email_data%}
                         <tr>
                             <td>{{ loop.index }}</td>
-                            <td>{{emails.ecreds_sender }}</td>
+                            <td>{{emails.ecreds_name }}</td>
                             <td>{{emails.ecreds_email}}</td>
+                            <td>{{emails.ecreds_sender}}</td>
                             <td>
                                 <button class="btn p-0 m-0 " onclick="deleteEmail({{ emails.ecreds_id }})">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
@@ -30,6 +32,7 @@
                                 |
                                 <button class="edit_email-btn btn p-0 m-0 "
                                 data-emid="{{ emails.ecreds_id }}"
+                                data-name="{{ emails.ecreds_name }}"
                                 data-email="{{ emails.ecreds_email }}"
                                 data-sender ="{{ emails.ecreds_sender }}"
                                 data-password ="{{ emails.ecreds_password }}"
@@ -46,7 +49,6 @@
     </div>
 </div>
 
-<!-- Modal 2: Edit Form -->
 <div class="modal fade" id="email_edit" tabindex="-1" aria-labelledby="email_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
@@ -57,11 +59,14 @@
             <div class="modal-body">
                 <form method="POST" id="email_editForm">
                     <input type="hidden" id="ecreds_id" name="ecreds_id">
-                    <label for="ecreds_sender">Sender</label>
-                    <input type="text" id="ecreds_sender" name="ecreds_sender"required>
-
+                    <label for="ecreds_name">Name</label>
+                    <input type="text" id="ecreds_name" name="ecreds_name" required>
+                    
                     <label for="ecreds_email">Email</label>
                     <input type="email" id="ecreds_email" name="ecreds_email"required>
+
+                    <label for="ecreds_sender">Sender</label>
+                    <input type="text" id="ecreds_sender" name="ecreds_sender"required>
                     
                     <label for="ecreds_password">Password</label>
                     <input type="password" id="ecreds_password" name="ecreds_password" required>
@@ -73,22 +78,23 @@
     </div>
 </div>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit_email-btn").forEach(button => {
             button.addEventListener("click", function () {
                 let emid = this.getAttribute("data-emid");
+                let ename = this.getAttribute("data-name");
                 let email = this.getAttribute("data-email");
                 let sender = this.getAttribute("data-sender");
                 let password = this.getAttribute("data-password");
 
                 document.getElementById("ecreds_id").value = emid;
+                document.getElementById("ecreds_name").value = ename;
                 document.getElementById("ecreds_email").value = email;
                 document.getElementById("ecreds_sender").value = sender;
                 document.getElementById("ecreds_password").value = password;
+
                 document.getElementById("email_editForm").action = `/edit_email_route/${emid}`;
-                
                 new bootstrap.Modal(document.getElementById("email_edit")).show();
             });
         });

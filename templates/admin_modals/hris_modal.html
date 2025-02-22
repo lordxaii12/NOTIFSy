@@ -1,11 +1,9 @@
 
-
- <!-- Modal 1: Table -->
- <div class="modal fade" id="itextmo_display" tabindex="-1" aria-labelledby="itextmo_displayLabel" aria-hidden="true">
+ <div class="modal fade" id="hris_display" tabindex="-1" aria-labelledby="hris_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="itexmoDataModalLabel">ITEXMO API</h1>
+            <h1 class="modal-title fs-5" id="hris_displayLabel">HRPears API</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -14,31 +12,32 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>API Name</th>
-                            <th>URL</th>
+                            <th>Name</th>
+                            <th>Host</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        {% for texdata in itexmo_data%}
+                        {% for data in hrpears_data%}
                         <tr>
                             <td>{{ loop.index }}</td>
-                            <td>{{texdata.itexmo_name }}</td>
-                            <td>{{texdata.itexmo_url}}</td>
+                            <td>{{data.hrpears_name }}</td>
+                            <td>{{data.hrpears_host}}</td>
                             <td>
                             
-                                <button class="btn p-0 m-0 " onclick="deleteItExmo({{ texdata.itexmo_id }})">
+                                <button class="btn p-0 m-0 " onclick="deleteHris({{ data.hrpears_id }})">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                 </button>
                                 |
-                                <button class="edit_itexmo-btn btn p-0 m-0 "
-                                data-txtid="{{ texdata.itexmo_id }}"
-                                data-txtname="{{ texdata.itexmo_name }}"
-                                data-txturl ="{{ texdata.itexmo_url }}"
-                                data-txtemail ="{{ texdata.itexmo_email }}"
-                                data-txtpassword ="{{ texdata.itexmo_password }}"
-                                data-txtapicode ="{{ texdata.itexmo_apicode }}"
-                                data-txtcontenttype ="{{ texdata.itexmo_contenttype }}"
+                                <button class="edit_hris-btn btn p-0 m-0 "
+                                data-hrid="{{ data.hrpears_id }}"
+                                data-hrname="{{ data.hrpears_name }}"
+                                data-host ="{{ data.hrpears_host }}"
+                                data-root ="{{ data.hrpears_root }}"
+                                data-user ="{{ data.hrpears_user }}"
+                                data-password ="{{ data.hrpears_password }}"
+                                data-db ="{{ data.hrpears_dbname }}"
+                                data-table ="{{ data.hrpears_table }}"
                                 >
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
                                 </button>
@@ -52,39 +51,41 @@
     </div>
 </div>
 
-<!-- Modal 2: Edit Form -->
-<div class="modal fade" id="itextmo_edit" tabindex="-1" aria-labelledby="itextmo_editLabel" aria-hidden="true">
+<div class="modal fade" id="hris_edit" tabindex="-1" aria-labelledby="hris_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header">
-                <h5 class="modal-title" id="itextmo_editLabel">Edit Itexmo Credentials</h5>
+                <h5 class="modal-title" id="hris_editLabel">Edit HRPears Credentials</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" id="itextmo_editForm">
-                    <input type="hidden" id="itexmo_id" name="itexmo_id">
-                    <label for="itexmo_name">Api Name</label>
-                    <input type="text" id="itexmo_name" name="itexmo_name" required>
+                <form method="POST" id="hris_editForm">
+                    <input type="hidden" id="hrpears_id" name="hrpears_id">
+                    <label for="hrpears_name">Name</label>
+                    <input type="text" id="hrpears_name" name="hrpears_name" required>
 
-                    <label for="itexmo_url">URL</label>
-                    <input type="text" id="itexmo_url" name="itexmo_url" required>
+                    <label for="hrpears_host">Host</label>
+                    <input type="text" id="hrpears_host" name="hrpears_host" required>
                     
-                    <label for="itexmo_email">Email</label>
-                    <input type="email" id="itexmo_email" name="itexmo_email"  required>
+                    <label for="hrpears_root">Port</label>
+                    <input type="text" id="hrpears_root" name="hrpears_root" required>
                     
                     <div class="row-group">
-                        <div class="input-group content">
-                            <label for="itexmo_password">Password</label>
-                            <input type="text" id="itexmo_password" name="itexmo_password" required>
+                        <div class="input-group">
+                            <label for="hrpears_user">User</label>
+                            <input type="text" id="hrpears_user" name="hrpears_user" required>
                         </div>
-                        <div class="input-group content">
-                            <label for="itexmo_apicode">API Code</label>
-                            <input type="text" id="itexmo_apicode" name="itexmo_apicode" required>
+                        <div class="input-group">
+                            <label for="hrpears_password">Password</label>
+                            <input type="password" id="hrpears_password" name="hrpears_password" required>
                         </div>
                     </div>
                     
-                    <label for="itexmo_contenttype">Content-Type</label>
-                    <input type="text" id="itexmo_contenttype" name="itexmo_contenttype" required>
+                    <label for="hrpears_dbname">DB Name</label>
+                    <input type="text" id="hrpears_dbname" name="hrpears_dbname" required>
+        
+                    <label for="hrpears_table">Table Name</label>
+                    <input type="text" id="hrpears_table" name="hrpears_table" required>
                     
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
@@ -93,31 +94,33 @@
     </div>
 </div>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".edit_itexmo-btn").forEach(button => {
+        document.querySelectorAll(".edit_hris-btn").forEach(button => {
             button.addEventListener("click", function () {
-                let txtid = this.getAttribute("data-txtid");
-                let txtname = this.getAttribute("data-txtname");
-                let txturl = this.getAttribute("data-txturl");
-                let txtemail = this.getAttribute("data-txtemail");
-                let txtpassword = this.getAttribute("data-txtpassword");
-                let txtapicode = this.getAttribute("data-txtapicode");
-                let txtcontenttype = this.getAttribute("data-txtcontenttype");
+
+                let hrid = this.getAttribute("data-hrid");
+                let hrname = this.getAttribute("data-hrname");
+                let host = this.getAttribute("data-host");
+                let root = this.getAttribute("data-root");
+                let user = this.getAttribute("data-user");
+                let password = this.getAttribute("data-password");
+                let db = this.getAttribute("data-db");
+                let table = this.getAttribute("data-table");
                
                 
-                document.getElementById("itexmo_id").value = txtid;
-                document.getElementById("itexmo_name").value = txtname;
-                document.getElementById("itexmo_url").value = txturl;
-                document.getElementById("itexmo_email").value = txtemail;
-                document.getElementById("itexmo_password").value = txtpassword;
-                document.getElementById("itexmo_apicode").value = txtapicode;
-                document.getElementById("itexmo_contenttype").value = txtcontenttype;
+                document.getElementById("hrpears_id").value = hrid;
+                document.getElementById("hrpears_name").value = hrname;
+                document.getElementById("hrpears_host").value = host;
+                document.getElementById("hrpears_root").value = root;
+                document.getElementById("hrpears_user").value = user;
+                document.getElementById("hrpears_password").value = password;
+                document.getElementById("hrpears_dbname").value = db;
+                document.getElementById("hrpears_table").value = table;
                 
-                document.getElementById("itextmo_editForm").action = `/edit_itexmo_route/${txtid}`;
+                document.getElementById("hris_editForm").action = `/edit_hrpears_route/${hrid}`;
                 
-                new bootstrap.Modal(document.getElementById("itextmo_edit")).show();
+                new bootstrap.Modal(document.getElementById("hris_edit")).show();
             });
         });
     });
