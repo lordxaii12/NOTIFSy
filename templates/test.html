@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+Admin - FO-X NotiFS
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/content.css') }}">
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="row g-0 p-0 m-0">
+    <div class="col-auto">
+    </div>
+    <div class="col">
+        <div class="container-fluid main_container">
+            <div class="setting_cont">
+                <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/settings_icon.svg') }}" 
+                     alt="settings" 
+                     data-bs-toggle="popover" 
+                     data-bs-content="App Settings" 
+                     data-bs-placement="bottom">
+            </div>
+            <div class="row first_row">
+               
+            </div>
+
+            <div class="row second_row">
+                <div class="col users_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                    <div class="accordion" id="accordionUsers">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingUsers">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="true" aria-controls="collapseUsers">
+                                    Users
+                                </button>
+                            </h2>
+                            <div id="collapseUsers" class="accordion-collapse collapse show" aria-labelledby="headingUsers" data-bs-parent="#accordionUsers">
+                                <div class="accordion-body">
+                                    <table class="styled-table">
+                                        <thead>
+                                            <tr>
+                                                <th class="small-column">#</th>
+                                                <th class="large-column">Name</th>
+                                                <th class="small-column">Division</th>
+                                                <th>Type</th>
+                                                <th class="small-column">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for user in user_data %}
+                                            <tr>
+                                                <td>{{ loop.index }}.</td>
+                                                <td>{{ user.full_name }}</td>
+                                                <td>{{ user.division }}</td>
+                                                <td>{{ user.role.role_name }}</td>
+                                                <td class="action-column">
+                                                    <button class="btn p-0">
+                                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                                    </button>
+                                                    |
+                                                    <button class="btn p-0">
+                                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col role_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                    col 2
+                </div>
+
+                <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                    col 3
+                </div>
+                
+                <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                    col 3
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+{% include "admin_modals/itexmo_modal.html" %}
+{% include "global_modals/add_credentials.html" %}
+{% endblock %}
+
+{% block scripts %}
+
+
+
+{% endblock %}
