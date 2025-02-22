@@ -118,7 +118,7 @@
     padding: 0px;
     margin-left: 0px;
     margin-right: 0px;
-    margin-top: 20px;
+    margin-top: -20px;
 }
 
 .card_icon{
@@ -127,3 +127,35 @@
     height: 250px;
     width: 250px;
 }
+
+.info_text1{
+    height: 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.data_view{
+    cursor: pointer;
+}
+
+.add_container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end; 
+    position: relative;
+    z-index: 10;
+    margin-right: 5px;
+}
+
+.add_btn{
+    height: 30px;
+    width: 30px;
+    border: none;
+    padding: 0px;
+}
+
+.add_btn img{
+    height: 30px;
+    width: 30px;
+}
+

@@ -13,16 +13,24 @@
 }
 
 .matrix_theme-bg{
-    background: linear-gradient(180deg, #07010d 0%, #070727 100%);
+    background: linear-gradient(180deg, rgba(7, 1, 13, 0.7), rgba(7, 7, 39, 0.7)), 
+                url('/static/images/matrix/backgrounds/theme_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .matrix_theme-color{
-    color: rgb(7, 123, 20);
+    color: rgb(40, 238, 5);
 }
 
-.colorful_theme-bg{
-    background: linear-gradient(180deg, #c4bf7b 0%, #b7a767 100%);
+.floral_theme-bg{
+    background: linear-gradient(180deg, rgba(207, 197, 123, 0.7), rgba(213, 179, 57, 0.83)), 
+                url('/static/images/floral/backgrounds/theme_background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
-.colorful_theme-color{
+.floral_theme-color{
     color: rgb(82, 81, 5);
 }
 

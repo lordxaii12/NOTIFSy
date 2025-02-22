@@ -18,3 +18,10 @@ function deleteHris(hrpears_id) {
             .then(() => location.reload());
     }
 }
+
+function deleteLogin(login_api_id) {
+    if (confirm('Are you sure?')) {
+        fetch(`/delete_loginapi_route/${login_api_id}`, { method: 'POST' })
+            .then(() => location.reload());
+    }
+}

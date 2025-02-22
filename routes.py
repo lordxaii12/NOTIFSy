@@ -77,17 +77,22 @@ def edit_system_settings_route(sys_setting_id):
 def admin():
     itexmo_data = Itexmo.get_all()
     total_itexmo_data = len(itexmo_data)
+    
     email_data = Ecredss.get_all()
     total_email_data = len(email_data)
+    
     hrpears_data = Hrpears.get_all()
     total_hrpears_data = len(hrpears_data)
+    
     login_data = LogApi.get_all()
     total_login_data = len(login_data)
     
     user_data = User_v1.get_all()
     total_user = len(user_data)
+    
     role_data = Roles.get_all()
     total_role = len(role_data)
+    
     return render_template('admin.html',
                            role_data=role_data,
                            total_role=total_role,
@@ -394,7 +399,7 @@ def register_email_api():
     try:
         new_ecredss = add_ecreds()  
         if new_ecredss:
-            activity = f"ADDED {new_ecredss.ecreds_email} to Email API Credentials."
+            activity = f"ADDED {new_ecredss.ecreds_name} to Email API Credentials."
             flash('Email API credentials added successfully!', 'success')
         else:
             activity = f"FAILED TO ADD Email API Credentials. Missing or invalid data."

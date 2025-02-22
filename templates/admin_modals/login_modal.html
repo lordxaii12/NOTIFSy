@@ -1,0 +1,102 @@
+
+<div class="modal fade" id="login_display" tabindex="-1" aria-labelledby="login_displayLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="login_displayLabel">LOGIN API</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover ">
+                <thead class="header_tbl_user">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>API Name</th>
+                            <th>URL</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        {% for logdata in login_data %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{logdata.login_api_name }}</td>
+                            <td>{{logdata.login_api_url}}</td>
+                            <td>
+                            
+                                <button class="btn p-0 m-0 " onclick="deleteLogin({{ logdata.login_api_id }})">
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                </button>
+                                |
+                                <button class="edit_login-btn btn p-0 m-0 "
+                                data-logid="{{ logdata.login_api_id }}"
+                                data-logname="{{ logdata.login_api_name }}"
+                                data-logurl ="{{ logdata.login_api_url }}"
+                                data-logtoken ="{{ logdata.login_api_token }}"
+                                data-logcontenttype ="{{ logdata.login_api_content_type }}"
+                                >
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="login_edit" tabindex="-1" aria-labelledby="login_editLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="login_editLabel">Edit Login Credentials</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="login_editForm">
+                    <input type="hidden" id="login_api_id" name="login_api_id">
+                    <label for="login_api_name">Name</label>
+                    <input type="text" id="login_api_name" name="login_api_name" required>
+
+                    <label for="login_api_url">URL</label>
+                    <input type="text" id="login_api_url" name="login_api_url" required>
+                    
+                    <label for="login_api_token">Token</label>
+                    <input type="text" id="login_api_token" name="login_api_token" required>
+                    
+                    <label for="login_api_content_type">Content-Type</label>
+                    <input type="text" id="login_api_content_type" name="login_api_content_type" required>
+                    
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".edit_login-btn").forEach(button => {
+            button.addEventListener("click", function () {
+
+                let logid = this.getAttribute("data-logid");
+                let logname = this.getAttribute("data-logname");
+                let logurl = this.getAttribute("data-logurl");
+                let logtoken = this.getAttribute("data-logtoken");
+                let logcontenttype = this.getAttribute("data-logcontenttype");
+
+                document.getElementById("login_api_id").value = logid;
+                document.getElementById("login_api_name").value = logname;
+                document.getElementById("login_api_url").value = logurl;
+                document.getElementById("login_api_token").value = logtoken;
+                document.getElementById("login_api_content_type").value = logcontenttype;
+               
+                document.getElementById("login_editForm").action = `/edit_loginapi_route/${logid}`;
+                new bootstrap.Modal(document.getElementById("login_edit")).show();
+            });
+        });
+    });
+</script>

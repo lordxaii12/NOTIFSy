@@ -44,12 +44,13 @@ def edit_ecreds(ecreds_id):
     
     ecreds.updated_by = updated_by
     ecreds.updated_on = updated_on
-    
+
     try:
         ecreds.save()
+        return ecreds  
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+        return None  
 
 def delete_ecreds(ecreds_id):
     ecreds = Ecredss.get_by_id(ecreds_id)
