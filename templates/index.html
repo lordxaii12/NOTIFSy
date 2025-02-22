@@ -18,12 +18,20 @@ Home - FO-X NotiFS
     <div class="col">
         <div class="container-fluid main_container">
             <div class="setting_cont">
+                <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                    alt="settings"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#"
+                    id="infoIcon"
+                    style="cursor: pointer;">
+                    
                 <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/settings_icon.svg') }}" 
                     alt="settings"
                     data-bs-toggle="modal" 
                     data-bs-target="#themeModal"
                     id="settingsIcon"
                     style="cursor: pointer;">
+                
             </div>
         </div>
     </div>

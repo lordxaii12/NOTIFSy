@@ -5,9 +5,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
     overflow: hidden;
 }
+
 
 /* Top Navbar */
 .topbar {/*HAS THEME bg and color*/
@@ -31,40 +31,5 @@
 }
 .title {
     font-size: 20px;
-    font-weight: 100;
-}
-
-
-
-/* Footer */
-.footer {/*HAS THEME bg and color*/
-    width: 100vw;
-    height: 40px;
-    background: #04dd12;
-    color: white;
-    align-items: center;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    z-index: 1040;
-    overflow: hidden;
-}
-.footer h5{
-    font-size: 14px;
-}
-.foot_title{
-    margin-top: 5px;
-    margin-bottom: -2px;
-}
-.support_phone{
-    margin-top: 10px;
-}
-.supp_contact{
-    color: chocolate;
-}
-.support_email{
-    margin-top: 10px;
-}
-.supp_mail{
-    color: blue;
+    font-weight: bold;
 }

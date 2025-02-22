@@ -6,7 +6,7 @@
 }
 
 .light_theme-bg{
-    background: linear-gradient(180deg, #f2f1f4 0%, #929297 100%);
+    background: linear-gradient(180deg, #eae5f3 0%, #929297 100%);
 }
 .light_theme-color{
     color: rgb(17, 1, 1);
@@ -27,8 +27,8 @@
 }
 
 .default_theme-bg{
-    background: linear-gradient(180deg, #020343 0%, #080157 100%);
+    background: linear-gradient(180deg, #3e3ef0d5 20%, #3c3ceae4 30%, #4d4dd8d9 40%);
 }
 .default_theme-color{
-    color: rgb(247, 247, 240);
+    color: rgb(26, 4, 67);
 }

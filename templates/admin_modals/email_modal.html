@@ -1,0 +1,96 @@
+
+ <div class="modal fade" id="email_display" tabindex="-1" aria-labelledby="email_displayLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="itexmoDataModalLabel">EMAIL API</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover ">
+                <thead class="header_tbl_user">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Sender</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        {% for emails in email_data%}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{emails.ecreds_sender }}</td>
+                            <td>{{emails.ecreds_email}}</td>
+                            <td>
+                                <button class="btn p-0 m-0 " onclick="deleteEmail({{ emails.ecreds_id }})">
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                </button>
+                                |
+                                <button class="edit_email-btn btn p-0 m-0 "
+                                data-emid="{{ emails.ecreds_id }}"
+                                data-email="{{ emails.ecreds_email }}"
+                                data-sender ="{{ emails.ecreds_sender }}"
+                                data-password ="{{ emails.ecreds_password }}"
+                                >
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 2: Edit Form -->
+<div class="modal fade" id="email_edit" tabindex="-1" aria-labelledby="email_editLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="email_editLabel">Edit Email Credentials</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="email_editForm">
+                    <input type="hidden" id="ecreds_id" name="ecreds_id">
+                    <label for="ecreds_sender">Sender</label>
+                    <input type="text" id="ecreds_sender" name="ecreds_sender"required>
+
+                    <label for="ecreds_email">Email</label>
+                    <input type="email" id="ecreds_email" name="ecreds_email"required>
+                    
+                    <label for="ecreds_password">Password</label>
+                    <input type="password" id="ecreds_password" name="ecreds_password" required>
+                    
+                    <button type="submit" class="submit-btn">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".edit_email-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                let emid = this.getAttribute("data-emid");
+                let email = this.getAttribute("data-email");
+                let sender = this.getAttribute("data-sender");
+                let password = this.getAttribute("data-password");
+
+                document.getElementById("ecreds_id").value = emid;
+                document.getElementById("ecreds_email").value = email;
+                document.getElementById("ecreds_sender").value = sender;
+                document.getElementById("ecreds_password").value = password;
+                document.getElementById("email_editForm").action = `/edit_email_route/${emid}`;
+                
+                new bootstrap.Modal(document.getElementById("email_edit")).show();
+            });
+        });
+    });
+</script>

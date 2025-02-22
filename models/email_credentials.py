@@ -8,7 +8,6 @@ class Ecredss(db.Model):
     ecreds_email = db.Column(db.String(100), unique=True, nullable=False)
     ecreds_sender = db.Column(db.String(100), nullable=True)
     ecreds_password = db.Column(db.String(100), nullable=False)
-    ecreds_templates = db.Column(db.String(999), nullable=True)
     
     created_by = db.Column(db.String(100), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
@@ -26,7 +25,6 @@ class Ecredss(db.Model):
             'ecreds_email': self.ecreds_email,
             'ecreds_sender': self.ecreds_sender,
             'ecreds_password': self.ecreds_password,
-            'ecreds_templates': self.ecreds_templates,
             'created_by': self.created_by,
             'created_on': self.created_on,
             'updated_by': self.updated_by,

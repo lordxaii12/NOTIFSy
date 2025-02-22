@@ -28,7 +28,7 @@ Admin - FO-X NotiFS
                      data-bs-placement="bottom">
             </div>
             <div class="row first_row">
-                <div class="col itexmo_api {{user.theme.theme_bg}} {{user.theme.theme_bg}}">
+                <div class="col itexmo_api {{user.theme.theme_bg}}">
                     <div class="top_line {{user.theme.theme_font}}">
                         <div>
                             <h4>
@@ -56,7 +56,7 @@ Admin - FO-X NotiFS
                             <h4>
                                 <span
                                 {% if user.is_authenticated and user.role_id == 1 %}
-                                    data-bs-toggle="modal" data-bs-target="#"
+                                    data-bs-toggle="modal" data-bs-target="#email_display"
                                 {% endif %}>
                                 ({{total_email_data}}) Email API
                                 </span>
@@ -116,10 +116,19 @@ Admin - FO-X NotiFS
             </div>
 
             <div class="row second_row">
-                <!--<div class="col users_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
 
-                    
-                    <div class="top_line2 {{user.theme.theme_font}}">
+                    <div class="image_container">
+                        <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/users.svg') }}" alt="roles">
+                    </div>
+                    <h4> <span
+                            {% if user.is_authenticated and user.role_id == 1 %}
+                                data-bs-toggle="modal" data-bs-target="#itextmo_display"
+                            {% endif %}>
+                            ({{total_user}}) Users
+                            </span> </h4>
+
+                    <!--<div class="top_line2 {{user.theme.theme_font}}">
                         <div>
                             <h4>
                                 ({{total_user}}) Users
@@ -164,27 +173,43 @@ Admin - FO-X NotiFS
                                 {% endfor %}
                             </tbody>
                         </table>
-                    </div>
-                </div>-->
+                    </div>-->
+                </div>
 
-                <div class="col role_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
-                    <h4>
-                        <span
+                <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                    <div class="image_container">
+                        <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/roles.svg') }}" alt="roles">
+                    </div>
+                    <h4> <span
+                            {% if user.is_authenticated and user.role_id == 1 %}
+                                data-bs-toggle="modal" data-bs-target="#itextmo_display"
+                            {% endif %}>
+                            ({{total_role}}) User Roles
+                            </span> </h4>
+                </div>
+
+                <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                    <div class="image_container">
+                        <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/divisions.svg') }}" alt="roles">
+                    </div>
+                    <h4> <span
                         {% if user.is_authenticated and user.role_id == 1 %}
                             data-bs-toggle="modal" data-bs-target="#itextmo_display"
                         {% endif %}>
-                        ({{total_itexmo_data}}) ITEXMo API
-                        </span>
-                        <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/pages/text_small.svg') }}" alt="text">
-                    </h4>
-                </div>
-
-                <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
-                    col 3
+                        ({{total_user}}) Division
+                        </span> </h4>
                 </div>
                 
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
-                    col 3
+                    <div class="image_container">
+                        <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/logs.svg') }}" alt="roles">
+                    </div>
+                    <h4> <span
+                        {% if user.is_authenticated and user.role_id == 1 %}
+                            data-bs-toggle="modal" data-bs-target="#itextmo_display"
+                        {% endif %}>
+                        ({{total_user}}) Logs
+                        </span> </h4>
                 </div>
             </div>
 
@@ -193,6 +218,7 @@ Admin - FO-X NotiFS
         </div>
     </div>
 </div>
+{% include "admin_modals/email_modal.html" %}
 {% include "admin_modals/itexmo_modal.html" %}
 {% include "global_modals/add_credentials.html" %}
 {% endblock %}

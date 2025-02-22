@@ -8,7 +8,6 @@ def add_ecreds():
     ecreds_email = request.form.get('ecreds_email')
     ecreds_sender = request.form.get('ecreds_sender')
     ecreds_password = request.form.get('ecreds_password')
-    ecreds_templates = request.form.get('ecreds_templates')
     
     created_by = current_user.full_name
     created_on = get_manila_time()
@@ -17,7 +16,6 @@ def add_ecreds():
         ecreds_email=ecreds_email,
         ecreds_sender=ecreds_sender,
         ecreds_password=ecreds_password,
-        ecreds_templates=ecreds_templates,
 
         created_by=created_by,
         created_on=created_on
@@ -33,7 +31,6 @@ def edit_ecreds(ecreds_id):
     ecreds_email = request.form.get('ecreds_email',ecreds.ecreds_email)
     ecreds_sender = request.form.get('ecreds_sender',ecreds.ecreds_sender)
     ecreds_password = request.form.get('ecreds_password',ecreds.ecreds_password)
-    ecreds_templates = request.form.get('ecreds_templates',ecreds.ecreds_templates)
     
     updated_by = current_user.full_name
     updated_on = get_manila_time()
@@ -41,7 +38,6 @@ def edit_ecreds(ecreds_id):
     ecreds.ecreds_email = ecreds_email
     ecreds.ecreds_sender = ecreds_sender
     ecreds.ecreds_password = ecreds_password
-    ecreds.ecreds_templates = ecreds_templates
     
     ecreds.updated_by = updated_by
     ecreds.updated_on = updated_on
