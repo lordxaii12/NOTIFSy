@@ -500,13 +500,13 @@ def edit_user_route(user_id):
     cur_role = user_data.role.role_name
     cur_division = user_data.division
     
-    new_fullname = request.form.get('fullname')
+    new_fullname = request.form.get('full_name')
     new_username = request.form.get('username')
     new_role_id = request.form.get('role_id')
     role_data = Roles.get_by_id(new_role_id)
     new_role = role_data.role_name
-
     new_division = request.form.get('division')
+    
     try:
         if edit_user(user_id):
             activity = f"EDIT User data from: [{cur_fullname}, {cur_username}, {cur_role}, {cur_division}] to [{new_fullname}, {new_username}, {new_role}, {new_division}]."
