@@ -235,16 +235,25 @@ Admin - FO-X NotiFS
         </div>
     </div>
 </div>
+{% include "admin_modals/itexmo_modal.html" %}
+{% include "admin_modals/email_modal.html" %}
+{% include "admin_modals/hris_modal.html" %}
+{% include "admin_modals/login_modal.html" %}
+
+
+
 {% include "admin_modals/logs_modal.html" %}
 {% include "admin_modals/division_modal.html" %}
 {% include "admin_modals/role_modal.html" %}
+
 {% include "admin_modals/users_modal.html" %}
-{% include "admin_modals/login_modal.html" %}
-{% include "admin_modals/hris_modal.html" %}
-{% include "admin_modals/email_modal.html" %}
-{% include "admin_modals/itexmo_modal.html" %}
+
+
 {% include "global_modals/add_credentials.html" %}
+
 {% endblock %}
+
+
 
 {% block scripts %}
 
