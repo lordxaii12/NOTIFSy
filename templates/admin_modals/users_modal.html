@@ -32,7 +32,7 @@
                                 </button>
                                 |
                                 <button class="edit_user-btn btn p-0 m-0 "
-                                data-id="{{ users.user_id }}"
+                                data-uid="{{ users.user_id }}"
                                 data-uname="{{ users.username }}"
                                 data-fname ="{{ users.full_name }}"
                                 data-division ="{{ users.division }}"
@@ -80,7 +80,10 @@
                     </div>
 
                     <label for="division">Division <p class="required-text">( required* )</p></label>
-                    <input type="text" id="division" name="division" required>
+                    <select id="division" name="division" required>
+                        {% for division in division_data %}
+                            <option value="{{ division.division_name }}">{{ division.division_name }}</option>
+                        {% endfor %}
 
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>
                 </form>
@@ -93,19 +96,19 @@
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit_user-btn").forEach(button => {
             button.addEventListener("click", function () {
-                let id = this.getAttribute("data-id");
+                let uid = this.getAttribute("data-uid");
                 let uname = this.getAttribute("data-uname");
                 let fname = this.getAttribute("data-fname");
                 let division = this.getAttribute("data-division");
                 let rid = this.getAttribute("data-rid");
 
-                document.getElementById("user_id").value = id;
+                document.getElementById("user_id").value = uid;
                 document.getElementById("username").value = uname;
                 document.getElementById("full_name").value = fname;
                 document.getElementById("division").value = division;
                 document.getElementById("role_id").value = rid;
                 
-                document.getElementById("user_editForm").action = `/edit_user_route/${id}`;
+                document.getElementById("user_editForm").action = `/edit_user_route/${uid}`;
                 
                 new bootstrap.Modal(document.getElementById("user_edit")).show();
             });

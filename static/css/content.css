@@ -5,18 +5,39 @@
     cursor: pointer;
 }
 
-#itexmoModal {
-    z-index: 1040;
-}
-
 .modal-backdrop {
     z-index: 1045; /* Ensure backdrop does not block modals */
 }
 
-#edititextMoModal {
-    z-index: 1050; /* Make second modal appear on top */
-}
-
 .custom-backdrop {
     opacity: 1 !important;
+}
+
+.modal-body {
+    max-height: 70vh;  
+    overflow-y: hidden; 
+    padding: 0; 
+}
+
+.table-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    display: block;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 10; 
+}
+
+thead th {
+    background: rgb(119, 116, 116) !important;
+    color: white;
+    padding: 10px;
 }

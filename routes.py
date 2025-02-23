@@ -676,7 +676,6 @@ def delete_division_route(division_id):
     db.session.commit()
     return redirect(url_for('notifs.admin'))
 
-
 @notifs.route('/delete_logs_route/<int:log_id>', methods=['POST'])#delete user type
 @login_required
 def delete_logs_route(log_id):
@@ -686,9 +685,6 @@ def delete_logs_route(log_id):
         return redirect(url_for('notifs.admin'))
     delete_user_logs(log_id)
     return redirect(url_for('notifs.admin'))
-
-
-
 
 #===============================================================================================================================>
 #
