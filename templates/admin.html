@@ -149,7 +149,7 @@ Admin - FO-X NotiFS
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                     <div class="row add_container">
                         {% if user.is_authenticated and user.role_id == 1 %}
-                        <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#itextmo_display">
+                        <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#addRoleModal">
                             <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" alt="roles">
                         </button>
                         {% endif %}
@@ -161,7 +161,7 @@ Admin - FO-X NotiFS
                         <h4>
                             <span
                                 {% if user.is_authenticated and user.role_id == 1 %}
-                                    data-bs-toggle="modal" data-bs-target="#itextmo_display"
+                                    data-bs-toggle="modal" data-bs-target="#usertype_display"
                                 {% endif %}>
                                 ({{total_role}})
                                 <u>
@@ -179,7 +179,7 @@ Admin - FO-X NotiFS
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                     <div class="row add_container">
                         {% if user.is_authenticated and user.role_id == 1 %}
-                        <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#itextmo_display">
+                        <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#addDivisionModal">
                             <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" alt="roles">
                         </button>
                         {% endif %}
@@ -191,9 +191,9 @@ Admin - FO-X NotiFS
                         <h4>
                             <span
                                 {% if user.is_authenticated and user.role_id == 1 %}
-                                    data-bs-toggle="modal" data-bs-target="#itextmo_display"
+                                    data-bs-toggle="modal" data-bs-target="#division_display"
                                 {% endif %}>
-                                ({{total_role}})
+                                ({{total_division}})
                                 <u>
                                     User Divisions
                                     <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/data_search.svg') }}" alt="text">
@@ -207,12 +207,8 @@ Admin - FO-X NotiFS
                 </div>
                 
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
-                    <div class="row add_container">
-                        {% if user.is_authenticated and user.role_id == 1 %}
-                        <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#itextmo_display">
-                            <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" alt="roles">
-                        </button>
-                        {% endif %}
+                    <div class="row add_container add_btn">
+                        
                     </div>
                     <div class="image_container">
                         <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/logs.svg') }}" alt="roles">
@@ -221,9 +217,9 @@ Admin - FO-X NotiFS
                         <h4>
                             <span
                                 {% if user.is_authenticated and user.role_id == 1 %}
-                                    data-bs-toggle="modal" data-bs-target="#itextmo_display"
+                                    data-bs-toggle="modal" data-bs-target="#logs_display"
                                 {% endif %}>
-                                ({{total_role}})
+                                ({{total_log}})
                                 <u>
                                     User Logs
                                     <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/data_search.svg') }}" alt="text">
@@ -242,6 +238,9 @@ Admin - FO-X NotiFS
         </div>
     </div>
 </div>
+{% include "admin_modals/logs_modal.html" %}
+{% include "admin_modals/division_modal.html" %}
+{% include "admin_modals/role_modal.html" %}
 {% include "admin_modals/users_modal.html" %}
 {% include "admin_modals/login_modal.html" %}
 {% include "admin_modals/hris_modal.html" %}

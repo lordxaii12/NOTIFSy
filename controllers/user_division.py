@@ -6,45 +6,59 @@ from utils import get_manila_time
 
 def add_division():
     division_name = request.form.get('division_name')
+    if division_name:
+        existing_division = Divisions.query.filter_by(division_name=division_name).first()
+        if existing_division:
+            flash('Division already exists', 'error')
+            return None 
     division_description = request.form.get('division_description')
     created_by = current_user.full_name
     created_on = get_manila_time()
 
-    new_divisions = Divisions(
+    new_division = Divisions(
         division_name=division_name,
         division_description=division_description,
         created_by=created_by,
         created_on=created_on
     )
-    db.session.add(new_divisions)
-    db.session.commit()
-
-    flash("Division added successfully", "success")
-    return new_divisions
+    try:
+        db.session.add(new_division)
+        db.session.commit()
+        return new_division 
+    except Exception as e:
+        db.session.rollback()
+        return None 
     
 def edit_division(division_id):
     division = Divisions.get_by_id(division_id)
     
-    division_name = request.form.get('division_name',division.division_name)
-    division_description = request.form.get('division_description',division.division_description)
-    updated_by = current_user.full_name
-    updated_on = get_manila_time()
-   
-    division.division_name = division_name
-    division.division_description = division_description
-    division.updated_by = updated_by
-    division.updated_on = updated_on
+    division_name = request.form.get('division_name')
+    if division_name:
+        existing_division = Divisions.query.filter_by(division_name=division_name).first()
+        if existing_division and existing_division.division_id != division_id:
+            flash('Division already exists', 'error')
+            return None 
+        division.division_name = division_name
+
+    division.division_description = request.form.get('division_description', division.division_description)
+    division.updated_by = current_user.full_name
+    division.updated_on = get_manila_time()
     
     try:
         division.save()
+        return division 
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+        return None
 
 def delete_division(division_id):
     division = Divisions.get_by_id(division_id)
+    if not division:
+        return False 
     try:
         db.session.delete(division)
         db.session.commit()
+        return True
     except Exception as e:
         db.session.rollback()
+        return False

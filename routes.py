@@ -42,36 +42,6 @@ notifs = Blueprint('notifs', __name__, template_folder='templates')
 #
 #
 #================ Admin ========================================================================================================>
-
-@notifs.route('/register_system_settings', methods=['POST'])#add system settings
-@login_required
-def register_system_settings():
-    try:
-        new_sys_setting = add_sys_setting()  
-        if new_sys_setting:
-            flash('System settings added successfully!', 'success')
-        else:
-            flash('Failed to add system settings.', 'error')
-            return redirect(url_for('notifs.admin'))
-    except Exception as e:
-        db.session.rollback() 
-        flash(f"Error: {str(e)}", 'error')
-    return redirect(url_for('notifs.admin'))
-
-@notifs.route('/edit_system_settings_route/<int:sys_setting_id>', methods=['POST'])#edit system settings
-@login_required
-def edit_system_settings_route(sys_setting_id):
-    try:
-        if edit_itexmo(sys_setting_id):
-            flash('System settings updated successfully,  LOGOUT TO APPLY CHANGES.', 'success')
-        else:
-            flash('System settings not found or update failed', 'error')
-            return redirect(url_for('notifs.admin'))
-    except Exception as e:
-        flash(f'An error occurred: {str(e)}', 'error')
-        db.session.rollback() 
-    return redirect(url_for('notifs.admin'))
-
 @notifs.route('/admin', methods=['GET', 'POST'])#admin page
 @login_required
 def admin():
@@ -116,6 +86,36 @@ def admin():
                            total_division=total_division,
                            log_data=log_data,
                            total_log=total_log)
+
+
+@notifs.route('/register_system_settings', methods=['POST'])#add system settings
+@login_required
+def register_system_settings():
+    try:
+        new_sys_setting = add_sys_setting()  
+        if new_sys_setting:
+            flash('System settings added successfully!', 'success')
+        else:
+            flash('Failed to add system settings.', 'error')
+            return redirect(url_for('notifs.admin'))
+    except Exception as e:
+        db.session.rollback() 
+        flash(f"Error: {str(e)}", 'error')
+    return redirect(url_for('notifs.admin'))
+
+@notifs.route('/edit_system_settings_route/<int:sys_setting_id>', methods=['POST'])#edit system settings
+@login_required
+def edit_system_settings_route(sys_setting_id):
+    try:
+        if edit_itexmo(sys_setting_id):
+            flash('System settings updated successfully,  LOGOUT TO APPLY CHANGES.', 'success')
+        else:
+            flash('System settings not found or update failed', 'error')
+            return redirect(url_for('notifs.admin'))
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+    return redirect(url_for('notifs.admin'))
 
 @notifs.route('/login', methods=['GET', 'POST'])
 def login():
@@ -175,87 +175,6 @@ def logout():
     return redirect(url_for('notifs.login'))
 
 #----------------------------------------------------------------------------------------------------------->
-@notifs.route('/register_user', methods=['POST'])#add user
-@login_required
-def register_user():
-    new_user = add_user()
-    
-    if not new_user:
-        activity = f"FAILED TO ADD User Credentials. Missing or invalid data."
-        add_user_logs(activity)
-        db.session.commit()
-        return redirect(url_for('notifs.admin'))
-        
-    try:
-        role = Roles.get_by_id(new_user.role_id)
-        activity = f"ADDED {new_user.full_name} as {role.role_name} to Users."
-        flash('User Credentials added successfully!', 'success')
-        add_user_logs(activity)
-        db.session.commit()
-        
-    except Exception as e:
-        db.session.rollback() 
-        activity = f"FAILED TO ADD User Credentials due to error: {str(e)}."
-        add_user_logs(activity)
-        db.session.commit()
-        flash(f"Error: {str(e)}", 'error')
-    return redirect(url_for('notifs.admin'))
-    
-@notifs.route('/edit_user_route/<int:user_id>', methods=['POST'])#edit user
-@login_required
-def edit_user_route(user_id):
-    user_data = User_v1.get_by_id(user_id)
-
-    cur_fullname = user_data.full_name
-    cur_username = user_data.username
-    cur_role = user_data.role.role_name
-    cur_division = user_data.division
-    
-    new_fullname = request.form.get('fullname')
-    new_username = request.form.get('username')
-    new_role_id = request.form.get('role_id')
-    role_data = Roles.get_by_id(new_role_id)
-    new_role = role_data.role_name
-
-    new_division = request.form.get('division')
-    try:
-        if edit_user(user_id):
-            activity = f"EDIT User data from: [{cur_fullname}, {cur_username}, {cur_role}, {cur_division}] to [{new_fullname}, {new_username}, {new_role}, {new_division}]."
-            flash('User data updated successfully', 'success')
-        else:
-            activity = f"FAILED TO EDIT User data. Missing or invalid data."
-            add_user_logs(activity)
-            db.session.commit()
-            return redirect(url_for('notifs.admin'))
-        add_user_logs(activity)
-        db.session.commit()
-    except Exception as e:
-        flash(f'An error occurred: {str(e)}', 'error')
-        db.session.rollback() 
-        activity = f"FAILED TO EDIT User data due to error: {str(e)}."
-        add_user_logs(activity)
-        db.session.commit()
-    return redirect(url_for('notifs.admin'))
-
-@notifs.route('/delete_user_route/<int:user_id>', methods=['POST'])#delete user
-@login_required
-def delete_user_route(user_id):
-    user_data = User_v1.get_by_id(user_id)
-    if not user_data:
-        flash('User not found.', 'error')
-        return redirect(url_for('notifs.admin'))
-    success = delete_user(user_id)
-    if success:
-        activity = f"DELETED {user_data.full_name} from Users data."
-    else:
-        activity = f"FAILED TO DELETE {user_data.full_name} from Users data."
-    
-    add_user_logs(activity)
-    db.session.commit()
-    return redirect(url_for('notifs.admin'))
-
-
-#----------------------------------------------------------------------------------------------------------->
 @notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials
 @login_required
 def register_itexmo():
@@ -305,18 +224,14 @@ def edit_itexmo_route(itexmo_id):
         else:
             activity = f"FAILED TO EDIT iTexMo Credentials. Missing or invalid data."
             flash('iTexMo record not found or update failed', 'error')
-            add_user_logs(activity)
-            db.session.commit()
-            return redirect(url_for('notifs.admin'))
-        add_user_logs(activity)
-        db.session.commit()
 
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
         db.session.rollback() 
         activity = f"FAILED TO EIDT iTexMo Credentials due to error: {str(e)}."
-        add_user_logs(activity)
-        db.session.commit()
+        
+    add_user_logs(activity)
+    db.session.commit()
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/delete_itexmo/<int:itexmo_id>', methods=['POST'])#delete itexmo credentials
@@ -379,18 +294,14 @@ def edit_loginapi_route(login_api_id):
         else:
             activity = f"FAILED TO EDIT Login API Credentials. Missing or invalid data."
             flash('Login API record not found or update failed', 'error')
-            add_user_logs(activity)
-            db.session.commit()
-            return redirect(url_for('notifs.admin'))
-        add_user_logs(activity)
-        db.session.commit()
 
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
         db.session.rollback() 
         activity = f"FAILED TO EDIT Login API Credentials due to error: {str(e)}."
-        add_user_logs(activity)
-        db.session.commit()
+        
+    add_user_logs(activity)
+    db.session.commit()
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/delete_loginapi_route/<int:login_api_id>', methods=['POST'])#delete login API credentials
@@ -453,18 +364,14 @@ def edit_email_route(ecreds_id):
         else:
             activity = f"FAILED TO EDIT Email Credentials. Missing or invalid data."
             flash('Email API record not found or update failed', 'error')
-            add_user_logs(activity)
-            db.session.commit()
-            return redirect(url_for('notifs.admin'))
-        add_user_logs(activity)
-        db.session.commit()
 
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
         db.session.rollback() 
         activity = f"FAILED TO EIDT Email API Credentials due to error: {str(e)}."
-        add_user_logs(activity)
-        db.session.commit()
+        
+    add_user_logs(activity)
+    db.session.commit()
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/delete_email_route/<int:ecreds_id>', methods=['POST'])#delete email API credentials
@@ -531,18 +438,14 @@ def edit_hrpears_route(hrpears_id):
         else:
             activity = f"FAILED TO EDIT HRpears Credentials. Missing or invalid data."
             flash('HRpears API record not found or update failed', 'error')
-            add_user_logs(activity)
-            db.session.commit()
-            return redirect(url_for('notifs.admin'))
-        add_user_logs(activity)
-        db.session.commit()
 
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
         db.session.rollback() 
         activity = f"FAILED TO EDIT HRpears API Credentials due to error: {str(e)}."
-        add_user_logs(activity)
-        db.session.commit()
+        
+    add_user_logs(activity)
+    db.session.commit()
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/delete_hrpears_route/<int:hrpears_id>', methods=['POST'])#delete hrpears API credentials
@@ -559,6 +462,233 @@ def delete_hrpears_route(hrpears_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(request.referrer)
+
+#----------------------------------------------------------------------------------------------------------->
+@notifs.route('/register_user', methods=['POST'])#add user
+@login_required
+def register_user():
+    new_user = add_user()
+    
+    if not new_user:
+        activity = f"FAILED TO ADD User Credentials. Missing or invalid data."
+        add_user_logs(activity)
+        db.session.commit()
+        return redirect(url_for('notifs.admin'))
+        
+    try:
+        role = Roles.get_by_id(new_user.role_id)
+        activity = f"ADDED {new_user.full_name} as {role.role_name} to Users."
+        flash('User Credentials added successfully!', 'success')
+        add_user_logs(activity)
+        db.session.commit()
+        
+    except Exception as e:
+        db.session.rollback() 
+        activity = f"FAILED TO ADD User Credentials due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+        flash(f"Error: {str(e)}", 'error')
+    return redirect(url_for('notifs.admin'))
+    
+@notifs.route('/edit_user_route/<int:user_id>', methods=['POST'])#edit user
+@login_required
+def edit_user_route(user_id):
+    user_data = User_v1.get_by_id(user_id)
+
+    cur_fullname = user_data.full_name
+    cur_username = user_data.username
+    cur_role = user_data.role.role_name
+    cur_division = user_data.division
+    
+    new_fullname = request.form.get('fullname')
+    new_username = request.form.get('username')
+    new_role_id = request.form.get('role_id')
+    role_data = Roles.get_by_id(new_role_id)
+    new_role = role_data.role_name
+
+    new_division = request.form.get('division')
+    try:
+        if edit_user(user_id):
+            activity = f"EDIT User data from: [{cur_fullname}, {cur_username}, {cur_role}, {cur_division}] to [{new_fullname}, {new_username}, {new_role}, {new_division}]."
+            flash('User data updated successfully', 'success')
+        else:
+            activity = f"FAILED TO EDIT User data. Missing or invalid data."
+
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+        activity = f"FAILED TO EDIT User data due to error: {str(e)}."
+        
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+@notifs.route('/delete_user_route/<int:user_id>', methods=['POST'])#delete user
+@login_required
+def delete_user_route(user_id):
+    user_data = User_v1.get_by_id(user_id)
+    if not user_data:
+        flash('User not found.', 'error')
+        return redirect(url_for('notifs.admin'))
+    success = delete_user(user_id)
+    if success:
+        activity = f"DELETED {user_data.full_name} from Users data."
+    else:
+        activity = f"FAILED TO DELETE {user_data.full_name} from Users data."
+    
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+#----------------------------------------------------------------------------------------------------------->
+@notifs.route('/register_role', methods=['POST'])#add user type
+@login_required
+def register_role():
+    new_roles = add_role()
+    
+    if not new_roles:
+        activity = f"FAILED TO ADD User type due Missing or invalid data."
+        add_user_logs(activity)
+        db.session.commit()
+        return redirect(url_for('notifs.admin'))
+        
+    try:
+        activity = f"ADDED {new_roles.role_name} as User types."
+        flash('User type added successfully!', 'success')
+        add_user_logs(activity)
+        db.session.commit()
+        
+    except Exception as e:
+        db.session.rollback() 
+        activity = f"FAILED TO ADD User type due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+        flash(f"Error: {str(e)}", 'error')
+    return redirect(url_for('notifs.admin'))
+    
+@notifs.route('/edit_role_route/<int:role_id>', methods=['POST'])#edit user type
+@login_required
+def edit_role_route(role_id):
+    role_data = Roles.get_by_id(role_id)
+    cur_type = role_data.role_name
+    cur_description = role_data.role_description
+    new_type = request.form.get('role_name')
+    new_description = request.form.get('role_description')
+
+    try:
+        if edit_role(role_id):
+            activity = f"EDIT User Type from: [{cur_type}, {cur_description}] to [{new_type}, {new_description}]."
+            flash('User type updated successfully', 'success')
+        else:
+            activity = f"FAILED TO EDIT User type. Missing or invalid data."
+        
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+        activity = f"FAILED TO EDIT User type due to error: {str(e)}."
+
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+@notifs.route('/delete_role_route/<int:role_id>', methods=['POST'])#delete user type
+@login_required
+def delete_role_route(role_id):
+    role_data = Roles.get_by_id(role_id)
+    if not role_data:
+        flash('User not found.', 'error')
+        return redirect(url_for('notifs.admin'))
+    success = delete_role(role_id)
+    if success:
+        activity = f"DELETED {role_data.role_name} from User types."
+    else:
+        activity = f"FAILED TO DELETE {role_data.role_name} from User types."
+    
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+#----------------------------------------------------------------------------------------------------------->
+@notifs.route('/register_division', methods=['POST'])#add user type
+@login_required
+def register_division():
+    new_division = add_division()
+    
+    if not new_division:
+        activity = f"FAILED TO ADD Division due Missing or invalid data."
+        add_user_logs(activity)
+        db.session.commit()
+        return redirect(url_for('notifs.admin'))
+        
+    try:
+        activity = f"ADDED {new_division.division_name} as User Division."
+        flash('User type added successfully!', 'success')
+        add_user_logs(activity)
+        db.session.commit()
+        
+    except Exception as e:
+        db.session.rollback() 
+        activity = f"FAILED TO ADD User type due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+        flash(f"Error: {str(e)}", 'error')
+    return redirect(url_for('notifs.admin'))
+    
+@notifs.route('/edit_division_route/<int:division_id>', methods=['POST'])#edit user type
+@login_required
+def edit_division_route(division_id):
+    division_data = Divisions.get_by_id(division_id)
+    cur_division = division_data.division_name
+    cur_description = division_data.division_description
+    new_division = request.form.get('division_name')
+    new_description = request.form.get('division_description')
+    
+    try:
+        if edit_division(division_id):
+            activity = f"EDIT User division from: [{cur_division}, {cur_description}] to [{new_division}, {new_description}]."
+            flash('User division updated successfully', 'success')
+        else:
+            activity = f"FAILED TO EDIT User division. Missing or invalid data."
+   
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+        activity = f"FAILED TO EDIT User division due to error: {str(e)}."
+        
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+@notifs.route('/delete_division_route/<int:division_id>', methods=['POST'])#delete user type
+@login_required
+def delete_division_route(division_id):
+    division_data = Divisions.get_by_id(division_id)
+    if not division_data:
+        flash('User division not found.', 'error')
+        return redirect(url_for('notifs.admin'))
+    success = delete_division(division_id)
+    if success:
+        activity = f"DELETED {division_data.division_name} from User divisions."
+    else:
+        activity = f"FAILED TO DELETE {division_data.division_name} from User divisions."
+    
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+
+@notifs.route('/delete_logs_route/<int:log_id>', methods=['POST'])#delete user type
+@login_required
+def delete_logs_route(log_id):
+    log_data = User_logs.get_by_id(log_id)
+    if not log_data:
+        flash('User division not found.', 'error')
+        return redirect(url_for('notifs.admin'))
+    delete_user_logs(log_id)
+    return redirect(url_for('notifs.admin'))
+
+
+
 
 #===============================================================================================================================>
 #

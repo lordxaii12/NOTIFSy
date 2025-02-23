@@ -1,0 +1,90 @@
+
+<div class="modal fade" id="usertype_display" tabindex="-1" aria-labelledby="usertype_displayLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="usertype_displayLabel">USER TYPES</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover ">
+                <thead class="header_tbl_user">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User Type</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        {% for roles in role_data%}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{roles.role_name }}</td>
+                            <td>{{roles.role_description}}</td>
+                            <td>
+                            
+                                <button class="btn p-0 m-0 " onclick="deleteRole({{ roles.role_id }})">
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                </button>
+                                |
+                                <button class="edit_role-btn btn p-0 m-0 "
+                                data-rid="{{ roles.role_id }}"
+                                data-rname="{{ roles.role_name }}"
+                                data-rdesc ="{{ roles.role_description }}"
+                                >
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="role_edit" tabindex="-1" aria-labelledby="role_editLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="role_editLabel">Edit User Types</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="role_editForm">
+                    <input type="hidden" id="role_id" name="role_id">
+                    <label for="role_name">User Type <p class="required-text">( required* )</p></label>
+                    <input type="text" id="role_name" name="role_name" required>
+
+                    <label for="role_description">Description <p class="required-text">( required* )</p></label>
+                    <input type="text" id="role_description" name="role_description" required>
+
+                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".edit_role-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                let rid = this.getAttribute("data-rid");
+                let rname = this.getAttribute("data-rname");
+                let rdesc = this.getAttribute("data-rdesc");
+
+                document.getElementById("role_id").value = rid;
+                document.getElementById("role_name").value = rname;
+                document.getElementById("role_description").value = rdesc;
+
+                document.getElementById("role_editForm").action = `/edit_role_route/${rid}`;
+
+                new bootstrap.Modal(document.getElementById("role_edit")).show();
+            });
+        });
+    });
+</script>

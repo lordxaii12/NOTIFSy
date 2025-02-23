@@ -1,6 +1,5 @@
 from models.user_logs import User_logs
 from extensions import db
-from flask import request, jsonify, flash
 from flask_login import current_user
 from utils import get_manila_time
 
@@ -20,12 +19,11 @@ def add_user_logs(activity):
     
 def delete_user_logs(log_id):
     user_logs = User_logs.get_by_id(log_id)
-    if not user_logs:
-        return jsonify({'error': 'user_logs not found'}), 404
+
     try:
         db.session.delete(user_logs)
         db.session.commit()
-        return jsonify({'message': 'user_logs deleted successfully'}), 200
+
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+  

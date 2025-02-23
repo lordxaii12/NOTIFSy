@@ -1,0 +1,90 @@
+
+<div class="modal fade" id="division_display" tabindex="-1" aria-labelledby="division_displayLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="division_displayLabel">USER DIVISIONS</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover ">
+                <thead class="header_tbl_user">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Division</th>
+                            <th>Description</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        {% for divisions in division_data%}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{divisions.division_name }}</td>
+                            <td>{{divisions.division_description}}</td>
+                            <td>
+                            
+                                <button class="btn p-0 m-0 " onclick="deleteDivision({{ divisions.division_id }})">
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                </button>
+                                |
+                                <button class="edit_division-btn btn p-0 m-0 "
+                                data-did="{{ divisions.division_id }}"
+                                data-dname="{{ divisions.division_name }}"
+                                data-ddesc ="{{ divisions.division_description }}"
+                                >
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="division_edit" tabindex="-1" aria-labelledby="division_editLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="division_editLabel">Edit User Divisions</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="division_editForm">
+                    <input type="hidden" id="division_id" name="division_id">
+                    <label for="division_name">Division <p class="required-text">( required* )</p></label>
+                    <input type="text" id="division_name" name="division_name" required>
+
+                    <label for="division_description">Description <p class="required-text">( required* )</p></label>
+                    <input type="text" id="division_description" name="division_description" required>
+
+                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".edit_division-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                let did = this.getAttribute("data-did");
+                let dname = this.getAttribute("data-dname");
+                let ddesc = this.getAttribute("data-ddesc");
+
+                document.getElementById("division_id").value = did;
+                document.getElementById("division_name").value = dname;
+                document.getElementById("division_description").value = ddesc;
+
+                document.getElementById("division_editForm").action = `/edit_division_route/${did}`;
+
+                new bootstrap.Modal(document.getElementById("division_edit")).show();
+            });
+        });
+    });
+</script>

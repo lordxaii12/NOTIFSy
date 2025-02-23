@@ -32,3 +32,24 @@ function deleteUSer(user_id) {
             .then(() => location.reload());
     }
 }
+
+function deleteRole(role_id) {
+    if (confirm('Are you sure?')) {
+        fetch(`/delete_role_route/${role_id}`, { method: 'POST' })
+            .then(() => location.reload());
+    }
+}
+
+function deleteDivision(division_id) {
+    if (confirm('Are you sure?')) {
+        fetch(`/delete_division_route/${division_id}`, { method: 'POST' })
+            .then(() => location.reload());
+    }
+}
+
+function deleteLogs(log_id) {
+    if (confirm('Are you sure?')) {
+        fetch(`/delete_logs_route/${log_id}`, { method: 'POST' })
+            .then(() => location.reload());
+    }
+}
