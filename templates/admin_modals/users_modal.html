@@ -1,0 +1,114 @@
+
+<div class="modal fade" id="users_display" tabindex="-1" aria-labelledby="users_displayLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="users_displayLabel">Users</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-striped table-hover ">
+                <thead class="header_tbl_user">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Division</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        {% for users in user_data%}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{users.full_name }}</td>
+                            <td>{{users.division}}</td>
+                            <td>{{users.role.role_name}}</td>
+                            <td>
+                            
+                                <button class="btn p-0 m-0 " onclick="deleteUSer({{ users.user_id }})">
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                </button>
+                                |
+                                <button class="edit_user-btn btn p-0 m-0 "
+                                data-id="{{ users.user_id }}"
+                                data-uname="{{ users.username }}"
+                                data-fname ="{{ users.full_name }}"
+                                data-division ="{{ users.division }}"
+                                data-rid ="{{ users.role_id }}"
+                                >
+                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="user_edit" tabindex="-1" aria-labelledby="user_editLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user_editLabel">Edit Users Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="user_editForm">
+                    <input type="hidden" id="user_id" name="user_id">
+                    <label for="full_name">Full Name <p class="required-text">( required* )</p></label>
+                    <input type="text" id="full_name" name="full_name" required>
+
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label for="username">Username <p class="required-text">( required* )</p></label>
+                            <input type="text" id="username" name="username"  required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="role_id">Role <p class="required-text">( required* )</p></label>
+                            <select id="role_id" name="role_id"  required>
+                                {% for role in role_data %}
+                                    <option value="{{ role.role_id }}">{{ role.role_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <label for="division">Division <p class="required-text">( required* )</p></label>
+                    <input type="text" id="division" name="division" required>
+
+                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".edit_user-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                let id = this.getAttribute("data-id");
+                let uname = this.getAttribute("data-uname");
+                let fname = this.getAttribute("data-fname");
+                let division = this.getAttribute("data-division");
+                let rid = this.getAttribute("data-rid");
+
+                document.getElementById("user_id").value = id;
+                document.getElementById("username").value = uname;
+                document.getElementById("full_name").value = fname;
+                document.getElementById("division").value = division;
+                document.getElementById("role_id").value = rid;
+                
+                document.getElementById("user_editForm").action = `/edit_user_route/${id}`;
+                
+                new bootstrap.Modal(document.getElementById("user_edit")).show();
+            });
+        });
+    });
+</script>

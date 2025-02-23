@@ -26,7 +26,7 @@ class User_logs(db.Model):
 
     @staticmethod
     def get_all():
-        return User_logs.query.all()
+        return User_logs.query.order_by(User_logs.created_at.desc()).all()
 
     @staticmethod
     def get_by_id(log_id):

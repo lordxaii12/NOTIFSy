@@ -14,13 +14,21 @@
 .sidebar-title {
     font-size: 35px;
     font-weight: 700;
+    
 }
+
+.ds_logo{
+    margin-top: -20px;
+    padding: 5px;
+}
+
 
 .sidebar-subtitle {
     font-size: 30px;
     text-align: center;
     font-weight: bold;
     overflow: hidden;
+    margin-top: -20px;
 }
 
 .sidebar-line {/*HAS THEME color*/

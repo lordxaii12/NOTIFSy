@@ -119,7 +119,7 @@ Admin - FO-X NotiFS
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                     <div class="row add_container">
                         {% if user.is_authenticated and user.role_id == 1 %}
-                        <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#itextmo_display">
+                        <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#addUserModal">
                             <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" alt="roles">
                         </button>
                         {% endif %}
@@ -131,7 +131,7 @@ Admin - FO-X NotiFS
                         <h4>
                             <span
                                 {% if user.is_authenticated and user.role_id == 1 %}
-                                    data-bs-toggle="modal" data-bs-target="#itextmo_display"
+                                    data-bs-toggle="modal" data-bs-target="#users_display"
                                 {% endif %}>
                                 ({{total_user}})
                                 <u>
@@ -242,6 +242,7 @@ Admin - FO-X NotiFS
         </div>
     </div>
 </div>
+{% include "admin_modals/users_modal.html" %}
 {% include "admin_modals/login_modal.html" %}
 {% include "admin_modals/hris_modal.html" %}
 {% include "admin_modals/email_modal.html" %}

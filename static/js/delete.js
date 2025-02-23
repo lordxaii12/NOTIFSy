@@ -25,3 +25,10 @@ function deleteLogin(login_api_id) {
             .then(() => location.reload());
     }
 }
+
+function deleteUSer(user_id) {
+    if (confirm('Are you sure?')) {
+        fetch(`/delete_user_route/${user_id}`, { method: 'POST' })
+            .then(() => location.reload());
+    }
+}

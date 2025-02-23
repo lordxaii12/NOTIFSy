@@ -29,3 +29,11 @@
 .flash-message.error { background-color: rgba(224, 9, 9, 0.718); }
 .flash-message.warning { background-color: rgba(238, 157, 7, 0.612); }
 
+.required-text{
+    margin-top: -20px;
+    margin-left: 70px;
+    color: red;
+    font-weight: bold;
+    font-size: 10px;
+    
+}

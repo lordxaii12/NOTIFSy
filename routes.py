@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template, redirect, url_for, session, flash
+from flask import Blueprint, request, jsonify, render_template, redirect, url_for, session, flash, get_flashed_messages
 from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
@@ -22,7 +22,7 @@ from models.system_settings import SysSettings
 
 #Controllers
 from controllers.user_role import add_role, edit_role, delete_role
-from controllers.user import add_user, edit_user, delete_user, change_theme
+from controllers.user import add_user, edit_user, delete_user
 from controllers.user_logs import add_user_logs, delete_user_logs
 from controllers.user_division import add_division, edit_division, delete_division
 from controllers.external_credentials import add_external, edit_external, delete_external
@@ -51,11 +51,11 @@ def register_system_settings():
         if new_sys_setting:
             flash('System settings added successfully!', 'success')
         else:
-            flash('Failed to add system settings.', 'danger')
+            flash('Failed to add system settings.', 'error')
             return redirect(url_for('notifs.admin'))
     except Exception as e:
         db.session.rollback() 
-        flash(f"Error: {str(e)}", 'danger')
+        flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/edit_system_settings_route/<int:sys_setting_id>', methods=['POST'])#edit system settings
@@ -93,6 +93,12 @@ def admin():
     role_data = Roles.get_all()
     total_role = len(role_data)
     
+    division_data = Divisions.get_all()
+    total_division = len(division_data)
+    
+    log_data = User_logs.get_all()
+    total_log = len(log_data)
+    
     return render_template('admin.html',
                            role_data=role_data,
                            total_role=total_role,
@@ -105,7 +111,11 @@ def admin():
                            hrpears_data=hrpears_data,
                            total_hrpears_data=total_hrpears_data,
                            login_data=login_data,
-                           total_login_data=total_login_data)
+                           total_login_data=total_login_data,
+                           division_data=division_data,
+                           total_division=total_division,
+                           log_data=log_data,
+                           total_log=total_log)
 
 @notifs.route('/login', methods=['GET', 'POST'])
 def login():
@@ -138,15 +148,15 @@ def login():
                     flash('Login successful!', 'success')
                     return redirect(url_for('notifs.home'))
                 else:
-                    flash('Invalid username or password', 'danger')
+                    flash('Invalid username or password', 'error')
             else:
-                flash('Invalid username or password', 'danger')
+                flash('Invalid username or password', 'error')
         return render_template('login.html')
 
     except requests.exceptions.RequestException:
-        flash('There was an issue with the login request.', 'danger')
+        flash('There was an issue with the login request.', 'error')
     except Exception as e:
-        flash(f'An error occurred: {str(e)}', 'danger')
+        flash(f'An error occurred: {str(e)}', 'error')
     return render_template('login.html')
 
 @notifs.route('/logout')
@@ -169,17 +179,17 @@ def logout():
 @login_required
 def register_user():
     new_user = add_user()
+    
+    if not new_user:
+        activity = f"FAILED TO ADD User Credentials. Missing or invalid data."
+        add_user_logs(activity)
+        db.session.commit()
+        return redirect(url_for('notifs.admin'))
+        
     try:
         role = Roles.get_by_id(new_user.role_id)
-        if new_user:
-            activity = f"ADDED {new_user.full_name} as {role.role_name} to Users."
-            flash('User Credentials added successfully!', 'success')
-        else:
-            activity = f"FAILED TO ADD User Credentials. Missing or invalid data."
-            flash('Failed to add User credentials.', 'danger')
-            add_user_logs(activity)
-            db.session.commit()
-            return redirect(url_for('notifs.admin'))
+        activity = f"ADDED {new_user.full_name} as {role.role_name} to Users."
+        flash('User Credentials added successfully!', 'success')
         add_user_logs(activity)
         db.session.commit()
         
@@ -188,21 +198,25 @@ def register_user():
         activity = f"FAILED TO ADD User Credentials due to error: {str(e)}."
         add_user_logs(activity)
         db.session.commit()
-        flash(f"Error: {str(e)}", 'danger')
+        flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
     
 @notifs.route('/edit_user_route/<int:user_id>', methods=['POST'])#edit user
 @login_required
 def edit_user_route(user_id):
     user_data = User_v1.get_by_id(user_id)
+
     cur_fullname = user_data.full_name
     cur_username = user_data.username
-    cur_role = user_data.role_id
+    cur_role = user_data.role.role_name
     cur_division = user_data.division
     
     new_fullname = request.form.get('fullname')
     new_username = request.form.get('username')
-    new_role = request.form.get('role_id')
+    new_role_id = request.form.get('role_id')
+    role_data = Roles.get_by_id(new_role_id)
+    new_role = role_data.role_name
+
     new_division = request.form.get('division')
     try:
         if edit_user(user_id):
@@ -210,7 +224,6 @@ def edit_user_route(user_id):
             flash('User data updated successfully', 'success')
         else:
             activity = f"FAILED TO EDIT User data. Missing or invalid data."
-            flash('User data not found or update failed', 'error')
             add_user_logs(activity)
             db.session.commit()
             return redirect(url_for('notifs.admin'))
@@ -228,16 +241,19 @@ def edit_user_route(user_id):
 @login_required
 def delete_user_route(user_id):
     user_data = User_v1.get_by_id(user_id)
-    try:
-        delete_user(user_id)
-        activity = f"DELETE {user_data.full_name} from Users data."
-        flash('User data deleted successfully', 'success')
-    except Exception as e:
-        activity = f"FAILED TO DELETE iTexMo User data due to error: {str(e)}."
-        flash('An error occurred while deleting the record.', 'error')
+    if not user_data:
+        flash('User not found.', 'error')
+        return redirect(url_for('notifs.admin'))
+    success = delete_user(user_id)
+    if success:
+        activity = f"DELETED {user_data.full_name} from Users data."
+    else:
+        activity = f"FAILED TO DELETE {user_data.full_name} from Users data."
+    
     add_user_logs(activity)
     db.session.commit()
-    return redirect(request.referrer)
+    return redirect(url_for('notifs.admin'))
+
 
 #----------------------------------------------------------------------------------------------------------->
 @notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials
@@ -250,7 +266,7 @@ def register_itexmo():
             flash('iTexMo credentials added successfully!', 'success')
         else:
             activity = f"FAILED TO ADD iTexMo Credentials. Missing or invalid data."
-            flash('Failed to add iTexMo credentials.', 'danger')
+            flash('Failed to add iTexMo credentials.', 'error')
             add_user_logs(activity)
             db.session.commit()
             return redirect(url_for('notifs.admin'))
@@ -262,7 +278,7 @@ def register_itexmo():
         activity = f"FAILED TO ADD iTexMo Credentials due to error: {str(e)}."
         add_user_logs(activity)
         db.session.commit()
-        flash(f"Error: {str(e)}", 'danger')
+        flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/edit_itexmo_route/<int:itexmo_id>', methods=['POST'])#edit itexmo credentials
@@ -329,7 +345,7 @@ def register_login_api():
             flash('Login API credentials added successfully!', 'success')
         else:
             activity = f"FAILED TO ADD Login API Credentials. Missing or invalid data."
-            flash('Failed to add Login API credentials.', 'danger')
+            flash('Failed to add Login API credentials.', 'error')
             add_user_logs(activity)
             db.session.commit()
             return redirect(url_for('notifs.admin'))
@@ -340,7 +356,7 @@ def register_login_api():
         activity = f"FAILED TO ADD Login API Credentials due to error: {str(e)}."
         add_user_logs(activity)
         db.session.commit()
-        flash(f"Error: {str(e)}", 'danger')
+        flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/edit_loginapi_route/<int:login_api_id>', methods=['POST'])#edit login API credentials
@@ -403,7 +419,7 @@ def register_email_api():
             flash('Email API credentials added successfully!', 'success')
         else:
             activity = f"FAILED TO ADD Email API Credentials. Missing or invalid data."
-            flash('Failed to add Email API credentials.', 'danger')
+            flash('Failed to add Email API credentials.', 'error')
             add_user_logs(activity)
             db.session.commit()
             return redirect(url_for('notifs.admin'))
@@ -414,7 +430,7 @@ def register_email_api():
         activity = f"FAILED TO ADD Email API Credentials due to error: {str(e)}."
         add_user_logs(activity)
         db.session.commit()
-        flash(f"Error: {str(e)}", 'danger')
+        flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/edit_email_route/<int:ecreds_id>', methods=['POST'])#edit email API credentials
@@ -477,7 +493,7 @@ def register_hrpears_api():
             flash('Hrpears API credentials added successfully!', 'success')
         else:
             activity = f"FAILED TO ADD Hrpears API Credentials. Missing or invalid data."
-            flash('Failed to add Hrpears API credentials.', 'danger')
+            flash('Failed to add Hrpears API credentials.', 'error')
             add_user_logs(activity)
             db.session.commit()
             return redirect(url_for('notifs.admin'))
@@ -488,7 +504,7 @@ def register_hrpears_api():
         activity = f"FAILED TO ADD Hrpears API Credentials due to error: {str(e)}."
         add_user_logs(activity)
         db.session.commit()
-        flash(f"Error: {str(e)}", 'danger')
+        flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/edit_hrpears_route/<int:hrpears_id>', methods=['POST'])#edit hrpears API credentials
@@ -572,11 +588,11 @@ def select_theme():
             db.session.commit()
             flash('Successfully changed theme, refresh or re-login to take effect.', 'success')
         else:
-            flash('Error on changing theme.', 'danger')
+            flash('Error on changing theme.', 'error')
             
     except Exception as e:
         db.session.rollback() 
-        flash(f'Error on changing theme: {str(e)}', 'danger')
+        flash(f'Error on changing theme: {str(e)}', 'error')
     print(current_user.theme.theme_bg)
     return redirect(url_for('notifs.home'))
     

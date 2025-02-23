@@ -34,9 +34,6 @@
         </div>
         <div class="col">
             <div class="topbar d-flex {{user.theme.theme_bg}} {{user.theme.theme_font}}">
-                <div class="ds_logo">
-                    <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/backgrounds/dswd_logo.svg') }}" alt="DSWD Logo">
-                </div>
                 <p class="title mb-0">Notification Forwarding System</p>
                 <div class="logout">
                     <a href="{{ url_for('notifs.logout') }}" class="text-white">

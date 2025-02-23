@@ -1,78 +1,81 @@
 from models.user import User_v1
 from extensions import db
-from flask import request, jsonify, flash
+from flask import request,flash
+from flask_login import current_user
+from utils import get_manila_time
 
 def add_user():
     username = request.form.get('username')
-    full_name = request.form.get('fullname')
+    if username:
+        existing_user = User_v1.query.filter_by(username=username).first()
+        if existing_user:
+            flash('Username already exists', 'error')
+            return None 
+    full_name = request.form.get('full_name')
+    if full_name:
+        existing_fullname = User_v1.query.filter_by(full_name=full_name).first()
+        if existing_fullname:
+            flash('Full Name already exists', 'error')
+            return None
     division = request.form.get('division')
     role_id = request.form.get('role_id')
+    
+    created_by = current_user.full_name
+    created_on = get_manila_time()
 
     new_user = User_v1(
         username=username,
         full_name=full_name,
         division=division,
         role_id=role_id,
+        
+        created_by=created_by,
+        created_on=created_on
     )
-
-    db.session.add(new_user)
-    db.session.commit()
-
-    return new_user   
-
-def change_theme(user_id):
-    user = User_v1.get_by_id(user_id)
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
-    
-    theme_id = request.form.get('theme_id')
-    if theme_id:
-        user.theme_id = theme_id
     try:
-        user.save()
-        return jsonify({'message': 'User updated successfully', 'user': user.user_data}), 200
+        db.session.add(new_user)
+        db.session.commit()
+        return new_user 
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
-    
+        return None 
+
 def edit_user(user_id):
     user = User_v1.get_by_id(user_id)
-    if not user:
-        return jsonify({'error': 'User not found'}), 404
-    
     username = request.form.get('username')
-    full_name = request.form.get('full_name')
-    division = request.form.get('division')
-    role_id = request.form.get('role_id')
-    
     if username:
         existing_user = User_v1.query.filter_by(username=username).first()
         if existing_user and existing_user.user_id != user_id:
-            return jsonify({'error': 'Username already exists'}), 409
+            flash('Username already exists', 'error')
+            return None 
         user.username = username
+    full_name = request.form.get('full_name')
     if full_name:
+        existing_full_name = User_v1.query.filter_by(full_name=full_name).first()
+        if existing_full_name and existing_full_name.user_id != user_id:
+            flash('Full Name already exists', 'error')
+            return None 
         user.full_name = full_name
-    if division:
-        user.division = division
-    if role_id:
-        user.role_id = role_id
+    user.division = request.form.get('division', user.division)
+    user.role_id = request.form.get('role_id', user.role_id)
     
+    user.updated_by = current_user.full_name
+    user.updated_on = get_manila_time()
     try:
         user.save()
-        return jsonify({'message': 'User updated successfully', 'user': user.user_data}), 200
+        return user 
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+        return None 
 
 def delete_user(user_id):
     user = User_v1.get_by_id(user_id)
     if not user:
-        return jsonify({'error': 'User not found'}), 404
-    
+        return False 
     try:
         db.session.delete(user)
         db.session.commit()
-        return jsonify({'message': 'User deleted successfully'}), 200
+        return True
     except Exception as e:
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+        return False

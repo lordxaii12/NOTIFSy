@@ -21,6 +21,13 @@ class User_v1(db.Model, UserMixin):
     msg_sent = db.Column(db.Integer, unique=False, nullable=True)
     credit_used = db.Column(db.Integer, unique=False, nullable=True)
     
+    
+    created_by = db.Column(db.String(100), unique=False, nullable=True)
+    created_on = db.Column(db.String(100), unique=False, nullable=True)
+    
+    updated_by = db.Column(db.String(100), unique=False, nullable=True)
+    updated_on = db.Column(db.String(100), unique=False, nullable=True)
+    
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
     
@@ -42,7 +49,12 @@ class User_v1(db.Model, UserMixin):
             'last_login': self.last_login,
             'last_logout': self.last_logout,
             'msg_sent': self.msg_sent,
-            'credit_used': self.credit_used
+            'credit_used': self.credit_used,
+            
+            'created_by': self.created_by,
+            'created_on': self.created_on,
+            'updated_by': self.updated_by,
+            'updated_on': self.updated_on
         }
 
     def get_id(self):

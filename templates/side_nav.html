@@ -3,6 +3,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
 <aside class="sidebar {{user.theme.theme_bg}} {{user.theme.theme_font}}">
     <div class="d-flex flex-column align-items-center">
+        <div class="ds_logo">
+            <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/backgrounds/dswd_logo.svg') }}" alt="DSWD Logo">
+        </div>
         <h1 class="sidebar-subtitle text-center">🅽🅾🆃🅸🅵🆂</h1>
         <hr class="sidebar-line {{user.theme.theme_font}} mb-4">
 
