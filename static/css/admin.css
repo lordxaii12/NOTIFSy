@@ -32,7 +32,7 @@
     justify-content: center;
 }
 
-.add_user{
+.api-col{/*HAS THEME bg*/
     display: flex;
     flex-direction: column; 
     align-items: center;   
@@ -41,42 +41,11 @@
     overflow: hidden;
 }
 
+.api-col:hover{
+    margin-top: -5px;
+    height: 105px;
+    border-radius: 10px;
 
-
-.itexmo_api{/*HAS THEME bg*/
-    display: flex;
-    flex-direction: column; 
-    align-items: center;   
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
-
-.email_api{/*HAS THEME bg*/
-    display: flex;
-    flex-direction: column; 
-    align-items: center;   
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
-
-.pears_api{/*HAS THEME bg*/
-    display: flex;
-    flex-direction: column; 
-    align-items: center;   
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
-
-.login_api{/*HAS THEME bg*/
-    display: flex;
-    flex-direction: column; 
-    align-items: center;   
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
 }
 
 .top_line{/*HAS THEME color*/

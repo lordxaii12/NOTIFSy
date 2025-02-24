@@ -47,27 +47,77 @@ Home - FO-X NotiFS
             <div>
                 <h3 class="separator">{{ to_block_text("SERVICES") }}</h3>
             </div>
-
             <div class="row second_row">
-
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                     <div class="row service-row">
                         <div class="col service-col">
+                            <div class="service-content">
+                                <div class="service-info">
+                                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                        alt="settings"
+                                        data-bs-toggle="popover"
+                                        data-bs-placement="top"
+                                        data-bs-content="This service allows user to send a single message via sms or email, just click the image on the right.">
+                                </div>
+                                <div class="service-title">
+                                    <h5>{{ to_block_text("Single") }} Message</h5>
+                                </div>
+                            </div>
                             <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}" alt="roles">
                         </div>
+
                         <div class="col service-col">
+                            <div class="service-content">
+                                <div class="service-info">
+                                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                        alt="settings"
+                                        data-bs-toggle="popover"
+                                        data-bs-placement="top"
+                                        data-bs-content="This service allows user to send multiple messages via sms or email, just click the image on the right.">
+                                </div>
+                                <div class="service-title">
+                                    <h5>{{ to_block_text("Multi") }} Message</h5>
+                                </div>
+                            </div>
                             <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_multiple.svg') }}" alt="roles">
                         </div>
+
                     </div>
                     <div class="row service-row">
                         <div class="col service-col">
+                            <div class="service-content">
+                                <div class="service-info">
+                                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                        alt="settings"
+                                        data-bs-toggle="popover"
+                                        data-bs-placement="top"
+                                        data-bs-content="This service allows user to send multiple messages via sms or email by uploading a file, just click the image on the right.">
+                                </div>
+                                <div class="service-title">
+                                    <h5>{{ to_block_text("Upload") }} Message</h5>
+                                </div>
+                            </div>
                             <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_upload.svg') }}" alt="roles">
                         </div>
+
                         <div class="col service-col">
-                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}" alt="roles">
+                            <div class="service-content">
+                                <div class="service-info">
+                                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                        alt="settings"
+                                        data-bs-toggle="popover"
+                                        data-bs-placement="top"
+                                        data-bs-content="This space is allocated for new service.">
+                                </div>
+                                <div class="service-title">
+                                    <h5>{{ to_block_text("Coming") }} Soon</h5>
+                                </div>
+                            </div>
+                            <!--<img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}" alt="roles">-->
                         </div>
                     </div>
                 </div>
+                
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                 </div>
             </div>
