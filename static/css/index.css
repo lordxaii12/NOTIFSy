@@ -45,32 +45,51 @@
 .second_row{
     margin-top: -10px;
     gap: 20px;
-    height: 250px;
+    height: 400px;
 }
-.div_col{/*HAS THEME bg and color*/
+
+
+.div_col {
     border-radius: 20px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    padding: 10px;
 }
 
 
-.image_container {
-    padding: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
+
+
+.service-row {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    gap: 30px; 
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
-.card_icon{
+
+.service-col {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    background: linear-gradient(120deg, #d378cdd5 20%, #5252e9e4 30%, #e0fd02d9 80%);
+    padding: 10px;
+    border-radius: 10px;
+    width: 250px;
+    height: 150px;
+}
+
+
+.card_icon {
     padding: 0%;
-    height: 200px;
-    width: 200px;
+    margin: 0%;
+    border: none;
+    width: 120px; 
+    height: 120px;
 }
 
-.data_view{
-    cursor: pointer;
-}
 
-.info_text1{
-    height: 50px;
-    overflow-y: auto;
-    overflow-x: hidden;
-}
 

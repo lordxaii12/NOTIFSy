@@ -49,20 +49,24 @@ Home - FO-X NotiFS
             </div>
 
             <div class="row second_row">
+
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
-                    <div class="row add_container">
+                    <div class="row service-row">
+                        <div class="col service-col">
+                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}" alt="roles">
+                        </div>
+                        <div class="col service-col">
+                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_multiple.svg') }}" alt="roles">
+                        </div>
                     </div>
-                    <div class="image_container">
-                        <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}" alt="roles">
+                    <div class="row service-row">
+                        <div class="col service-col">
+                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_upload.svg') }}" alt="roles">
+                        </div>
+                        <div class="col service-col">
+                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}" alt="roles">
+                        </div>
                     </div>
-                    <div class="data_view">
-                        
-                    </div>
-                    <div class="info_text1">
-                        
-                    </div>
-                </div>
-                <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                 </div>
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                 </div>
