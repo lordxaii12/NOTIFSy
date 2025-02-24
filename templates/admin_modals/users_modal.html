@@ -70,17 +70,17 @@
             <div class="modal-body">
                 <form method="POST" id="user_editForm">
                     <input type="hidden" id="user_id" name="user_id">
-                    <label for="full_name">Full Name <p class="required-text">( required* )</p></label>
+                    <label for="full_name">Full Name</label>
                     <input type="text" id="full_name" name="full_name" required>
 
                     <div class="row-group">
                         <div class="input-group">
-                            <label for="username">Username <p class="required-text">( required* )</p></label>
+                            <label for="username">Username</label>
                             <input type="text" id="username" name="username"  required>
                         </div>
 
                         <div class="input-group">
-                            <label for="role_id">Role <p class="required-text">( required* )</p></label>
+                            <label for="role_id">Role</label>
                             <select id="role_id" name="role_id"  required>
                                 {% for role in role_data %}
                                     {% if user.role_id == 1 or role.role_id != 1 %}
@@ -91,7 +91,7 @@
                         </div>
                     </div>
 
-                    <label for="division">Division <p class="required-text">( required* )</p></label>
+                    <label for="division">Division</label>
                     <select id="division" name="division" required>
                         {% for division in division_data %}
                             <option value="{{ division.division_name }}">{{ division.division_name }}</option>

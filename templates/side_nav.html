@@ -6,6 +6,7 @@
         <div class="ds_logo">
             <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/backgrounds/dswd_logo.svg') }}" alt="DSWD Logo">
         </div>
+        <h5 class="sidebar-user"> {{g.sys_settings.sys_app_user}} </h5>
         <h1 class="sidebar-subtitle text-center">{{ to_block_text(g.sys_settings.sys_name) }}</h1>
         <hr class="sidebar-line {{user.theme.theme_font}} mb-4">
 

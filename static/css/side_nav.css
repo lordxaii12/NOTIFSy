@@ -22,13 +22,16 @@
     padding: 5px;
 }
 
+.sidebar-user{
+    margin-top: -20px;
+}
 
 .sidebar-subtitle {
     font-size: 30px;
     text-align: center;
     font-weight: bold;
     overflow: hidden;
-    margin-top: -20px;
+    margin-top: -10px;
 }
 
 .sidebar-line {/*HAS THEME color*/

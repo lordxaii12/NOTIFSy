@@ -1,0 +1,11 @@
+.offcanvas {
+    --bs-offcanvas-width: 300px;
+}
+
+.oc-head{
+    background: linear-gradient(120deg, rgba(238, 7, 192, 0.7), rgba(66, 11, 203, 0.83))
+}
+
+.oc-body{
+    background: linear-gradient(120deg, rgba(34, 2, 28, 0.7), rgba(19, 3, 58, 0.83))
+}
