@@ -14,32 +14,43 @@
                             <th>Name</th>
                             <th>Division</th>
                             <th>Type</th>
-                            <th>Actions</th>
+                            {% if user.is_authenticated and user.role_id in [1,3] %}
+                                <th>Actions</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody id="tableBody">
                         {% for users in user_data%}
                         <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{users.full_name }}</td>
-                            <td>{{users.division}}</td>
-                            <td>{{users.role.role_name}}</td>
-                            <td>
-                            
-                                <button class="btn p-0 m-0 " onclick="deleteUSer({{ users.user_id }})">
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
-                                </button>
-                                |
-                                <button class="edit_user-btn btn p-0 m-0 "
-                                data-uid="{{ users.user_id }}"
-                                data-uname="{{ users.username }}"
-                                data-fname ="{{ users.full_name }}"
-                                data-division ="{{ users.division }}"
-                                data-rid ="{{ users.role_id }}"
-                                >
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
-                                </button>
-                            </td>
+                            {% if user.role_id == 1 or users.role.role_id != 1 %}
+                                <td>{{ loop.index - 1 }}</td>
+                                <td>{{users.full_name }}</td>
+                                <td>{{users.division}}</td>
+                                <td>
+                                    {% if user.role_id == 1 or users.role.role_id != 1 %}
+                                        {{users.role.role_name}}
+                                    {% endif %}
+                                </td>
+                                {% if user.is_authenticated and user.role_id in [1,3] %}
+                                    <td>
+                                        {% if user.role_id == 1 or (user.role_id == 3 and users.role_id != 1) %}
+                                            <button class="btn p-0 m-0 " onclick="deleteUSer({{ users.user_id }})">
+                                                <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                            </button>
+                                            |
+                                            <button class="edit_user-btn btn p-0 m-0 "
+                                            data-uid="{{ users.user_id }}"
+                                            data-uname="{{ users.username }}"
+                                            data-fname ="{{ users.full_name }}"
+                                            data-division ="{{ users.division }}"
+                                            data-rid ="{{ users.role_id }}"
+                                            >
+                                                <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -72,7 +83,9 @@
                             <label for="role_id">Role <p class="required-text">( required* )</p></label>
                             <select id="role_id" name="role_id"  required>
                                 {% for role in role_data %}
-                                    <option value="{{ role.role_id }}">{{ role.role_name }}</option>
+                                    {% if user.role_id == 1 or role.role_id != 1 %}
+                                        <option value="{{ role.role_id }}">{{ role.role_name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                         </div>

@@ -12,7 +12,7 @@
         <!-- Sidebar Menu -->
         <nav class="menu w-100">
             <ul class="list-unstyled mb-0">
-                {% if user.is_authenticated and user.role_id == 1 %}
+                {% if user.is_authenticated and user.role_id in [1,3] %}
                     <li class="{% if request.endpoint == 'notifs.admin' %}active{% endif %}">
                         <a class="{{user.theme.theme_font}}" href="{{ url_for('notifs.admin') }}">
                             <img class="nav_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/admin_icon.svg') }}" alt="admin">

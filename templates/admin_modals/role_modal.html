@@ -19,23 +19,28 @@
                     <tbody id="tableBody">
                         {% for roles in role_data%}
                         <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{roles.role_name }}</td>
-                            <td>{{roles.role_description}}</td>
-                            <td>
-                            
-                                <button class="btn p-0 m-0 " onclick="deleteRole({{ roles.role_id }})">
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
-                                </button>
-                                |
-                                <button class="edit_role-btn btn p-0 m-0 "
-                                data-rid="{{ roles.role_id }}"
-                                data-rname="{{ roles.role_name }}"
-                                data-rdesc ="{{ roles.role_description }}"
-                                >
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
-                                </button>
-                            </td>
+                            {% if user.role_id == 1 or roles.role_id != 1 %}
+                                <td>{{ loop.index - 1 }}</td>
+                                <td>{{roles.role_name }}</td>
+                                <td>{{roles.role_description}}</td>
+                                {% if user.is_authenticated and user.role_id in [1,3] %}
+                                    <td>
+                                        {% if user.role_id == 1 or (user.role_id != 1 and roles.role_id != 1) %}
+                                            <button class="btn p-0 m-0 " onclick="deleteRole({{ roles.role_id }})">
+                                                <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                            </button>
+                                            |
+                                            <button class="edit_role-btn btn p-0 m-0 "
+                                            data-rid="{{ roles.role_id }}"
+                                            data-rname="{{ roles.role_name }}"
+                                            data-rdesc ="{{ roles.role_description }}"
+                                            >
+                                                <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                            </button>
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </tbody>
