@@ -60,8 +60,9 @@ select {/*HAS THEME bg*/
     border-radius: 4px;
     cursor: pointer;
     text-align: center;
-    width: 100%;
+    width: 70%;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 .submit-btn:hover {
     background: linear-gradient(90deg, #514c66 0%, #161519 100%);

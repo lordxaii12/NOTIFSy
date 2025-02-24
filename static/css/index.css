@@ -1,12 +1,76 @@
 .setting_cont {
-    right: 0;
+    position: absolute;  /* Make it float above other elements */
+    right: 10px;  /* Align to the right */
     display: flex;
     justify-content: flex-end; 
     align-items: center;
     padding: 10px;
     gap: 10px; 
+    z-index: 1000;  /* Ensures it appears above other elements */
 }
 .setting_icon{
     height: 25px;
     width: 25px;
 }
+
+.first_row{
+    gap: 10px;
+    height: 100px;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding-right: 10px;
+}
+
+.welcome{
+    margin-top: 10px;
+}
+
+.top-col{
+    margin-top: 10px;
+    background: linear-gradient(180deg, rgba(174, 173, 170, 0.7), rgba(213, 210, 200, 0.83));
+    border: 1px solid white;
+    border-radius: 10px;
+    height: 80px;
+    
+}
+
+.separator{
+    margin-top: 20px;
+    padding: 0%;
+}
+
+
+
+
+.second_row{
+    margin-top: -10px;
+    gap: 20px;
+    height: 250px;
+}
+.div_col{/*HAS THEME bg and color*/
+    border-radius: 20px;
+}
+
+
+.image_container {
+    padding: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.card_icon{
+    padding: 0%;
+    height: 200px;
+    width: 200px;
+}
+
+.data_view{
+    cursor: pointer;
+}
+
+.info_text1{
+    height: 50px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+

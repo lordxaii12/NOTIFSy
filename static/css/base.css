@@ -8,7 +8,6 @@
     overflow: hidden;
 }
 
-
 /* Top Navbar */
 .topbar {/*HAS THEME bg and color*/
     height: 50px;
@@ -31,4 +30,17 @@
     font-size: 20px;
     font-weight: bold;
     margin-left: 10px;
+}
+
+.support-contact{
+    margin-left: auto;
+}
+
+.support-email{
+    margin-left: auto;
+}
+
+.setting_icon{
+    height: 25px;
+    width: 25px;
 }

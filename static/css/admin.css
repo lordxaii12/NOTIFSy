@@ -107,6 +107,16 @@
     border-radius: 20px;
 }
 
+
+.add_container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end; 
+    position: relative;
+    z-index: 10;
+    margin-right: 5px;
+}
+
 .image_container {
     padding: 0px;
     margin-left: 0px;
@@ -131,14 +141,7 @@
     cursor: pointer;
 }
 
-.add_container{
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-end; 
-    position: relative;
-    z-index: 10;
-    margin-right: 5px;
-}
+
 
 .add_btn{
     height: 30px;
@@ -151,4 +154,3 @@
     height: 30px;
     width: 30px;
 }
-

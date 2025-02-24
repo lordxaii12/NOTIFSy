@@ -34,7 +34,16 @@
         </div>
         <div class="col">
             <div class="topbar d-flex {{user.theme.theme_bg}} {{user.theme.theme_font}}">
-                <p class="title mb-0">Notification Forwarding System</p>
+                <p class="title mb-0">{{g.sys_settings.sys_app_name}}</p>
+                <div class="support-contact">
+                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/contact.svg') }}" alt="text">
+                    {{g.sys_settings.sys_app_phone}}
+                </div>
+                <div class="support-email">
+                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/email.svg') }}" alt="text">
+                    <u>{{g.sys_settings.sys_app_email}}</u>
+                </div>
+
                 <div class="logout">
                     <a href="{{ url_for('notifs.logout') }}" class="text-white">
                         <img class="nav_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/logout.svg') }}" alt="logout">
