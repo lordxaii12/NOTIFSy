@@ -1,14 +1,25 @@
 from models.system_settings import SysSettings
 from extensions import db
-from flask import request
+from flask import request,flash
 from flask_login import current_user
 from utils import get_manila_time
 
 def add_sys_setting():
+    sys_name = request.form.get('sys_name')
+    if sys_name:
+        existing_sys_name = SysSettings.query.filter_by(sys_name=sys_name).first()
+        if existing_sys_name:
+            flash('Settings name already exists', 'error')
+            return None
     sys_app_name = request.form.get('sys_app_name')
     sys_app_user = request.form.get('sys_app_user')
     sys_app_email = request.form.get('sys_app_email')
     sys_app_phone = request.form.get('sys_app_phone')
+    
+    sys_app_user_text = request.form.get('sys_app_user_text')
+    sys_app_role_text = request.form.get('sys_app_role_text')
+    sys_app_division_text = request.form.get('sys_app_division_text')
+    sys_app_logs_text = request.form.get('sys_app_logs_text')
     
     msg_api_id = request.form.get('msg_api_id')
     email_api_id = request.form.get('email_api_id')
@@ -19,11 +30,16 @@ def add_sys_setting():
     created_on = get_manila_time()
 
     new_sys_setting = SysSettings(
-        
+        sys_name=sys_name,
         sys_app_name=sys_app_name,
         sys_app_user=sys_app_user,
         sys_app_email=sys_app_email,
         sys_app_phone=sys_app_phone,
+        
+        sys_app_user_text=sys_app_user_text,
+        sys_app_role_text=sys_app_role_text,
+        sys_app_division_text=sys_app_division_text,
+        sys_app_logs_text=sys_app_logs_text,
         
         msg_api_id=msg_api_id,
         email_api_id=email_api_id,
@@ -40,10 +56,23 @@ def add_sys_setting():
     
 def edit_sys_setting(sys_setting_id):
     sys_setting = SysSettings.get_by_id(sys_setting_id)
+    sys_name = request.form.get('sys_name')
+    if sys_name:
+        existing_sys_name = SysSettings.query.filter_by(sys_name=sys_name).first()
+        if existing_sys_name and existing_sys_name.sys_setting_id != sys_setting_id:
+            flash('Username already exists', 'error')
+            return None 
+        sys_setting.sys_name = sys_name
+        
     sys_setting.sys_app_name = request.form.get('sys_app_name', sys_setting.sys_app_name)
     sys_setting.sys_app_user = request.form.get('sys_app_user', sys_setting.sys_app_user)
     sys_setting.sys_app_email = request.form.get('sys_app_email', sys_setting.sys_app_email)
     sys_setting.sys_app_phone = request.form.get('sys_app_phone', sys_setting.sys_app_phone)
+    
+    sys_setting.sys_app_user_text = request.form.get('sys_app_user_text', sys_setting.sys_app_user_text)
+    sys_setting.sys_app_role_text = request.form.get('sys_app_role_text', sys_setting.sys_app_role_text)
+    sys_setting.sys_app_division_text = request.form.get('sys_app_division_text', sys_setting.sys_app_division_text)
+    sys_setting.sys_app_logs_text = request.form.get('sys_app_logs_text', sys_setting.sys_app_logs_text)
     
     sys_setting.msg_api_id = request.form.get('msg_api_id', sys_setting.msg_api_id)
     sys_setting.email_api_id = request.form.get('email_api_id', sys_setting.email_api_id)

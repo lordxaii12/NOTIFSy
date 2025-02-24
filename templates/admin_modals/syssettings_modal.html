@@ -1,0 +1,109 @@
+
+<div class="modal fade" id="sysSettingsModal{{ sys_settings_data.sys_setting_id }}" tabindex="-1" aria-labelledby="sysSettingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sysSettingsModalLabel">Edit Users Data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('notifs.edit_system_settings_route', sys_setting_id = sys_settings_data.sys_setting_id) }}"  method="POST" id="sysSettingsModal_editForm">
+                    <input type="hidden" name="sys_setting_id" value="{{ sys_settings_data.sys_setting_id }}">
+
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label for="sys_name">Name</label>
+                            <input type="text" id="sys_name" name="sys_name" value="{{sys_settings_data.sys_name}}" required>
+                        </div>
+                        <div class="input-group">
+                        </div>
+                    </div>
+
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label for="sys_app_name">App Name</label>
+                            <input type="text" id="sys_app_name" name="sys_app_name" value="{{sys_settings_data.sys_app_name}}" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="sys_app_user">App User</label>
+                            <input type="text" id="sys_app_user" name="sys_app_user" value="{{sys_settings_data.sys_app_user}}" required>
+                        </div>
+                    </div>
+
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label for="sys_app_email">app Email</label>
+                            <input type="text" id="sys_app_email" name="sys_app_email" value="{{sys_settings_data.sys_app_email}}" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="sys_app_phone">App Contact</label>
+                            <input type="text" id="sys_app_phone" name="sys_app_phone" value="{{sys_settings_data.sys_app_phone}}" required>
+                        </div>
+                    </div>
+
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label for="sys_app_user_text">Users Description</label>
+                            <input type="text" id="sys_app_user_text" name="sys_app_user_text" value="{{sys_settings_data.sys_app_user_text}}"required>
+                        </div>
+                        <div class="input-group">
+                            <label for="sys_app_role_text">Types Description</label>
+                            <input type="text" id="sys_app_role_text" name="sys_app_role_text" value="{{sys_settings_data.sys_app_role_text}}" required>
+                        </div>
+                    </div>
+
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label for="sys_app_division_text">Divisions Description</label>
+                            <input type="text" id="sys_app_division_text" name="sys_app_division_text" value="{{sys_settings_data.sys_app_division_text}}" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="sys_app_logs_text">Logs Description</label>
+                            <input type="text" id="sys_app_logs_text" name="sys_app_logs_text" value="{{sys_settings_data.sys_app_logs_text}}" required>
+                        </div>
+                    </div>
+
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label for="msg_api_id">SMS API</label>
+                            <select id="msg_api_id" name="msg_api_id"  required>
+                                {% for msg_api in itexmo_data %}
+                                    <option value="{{ msg_api.itexmo_id }}">{{ msg_api.itexmo_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="email_api_id">Email API</label>
+                            <select id="email_api_id" name="email_api_id"  required>
+                                {% for email_api in email_data %}
+                                    <option value="{{ email_api.ecreds_id }}">{{ email_api.ecreds_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label for="hris_api_id">HR Data API</label>
+                            <select id="hris_api_id" name="hris_api_id"  required>
+                                {% for hris_api in hrpears_data %}
+                                    <option value="{{ hris_api.hrpears_id }}">{{ hris_api.hrpears_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="login_api_id">Login API</label>
+                            <select id="login_api_id" name="login_api_id"  required>
+                                {% for login_api in login_data %}
+                                    <option value="{{ login_api.login_api_id }}">{{ login_api.login_api_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

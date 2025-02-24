@@ -1,9 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, g
 from flask_login import LoginManager, current_user
 from config import Config
 from extensions import db
 from flask_migrate import Migrate
+from models.system_settings import SysSettings
 from models.user import User_v1
+from utils import to_block_text
 from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging
@@ -42,6 +44,14 @@ def create_app():
     @app.context_processor
     def inject_user():
         return dict(user=current_user)
+    
+    @app.before_request
+    def load_sys_settings():
+        g.sys_settings = SysSettings.get_by_id(1)
+        
+    @app.context_processor
+    def inject_block_text():
+        return dict(to_block_text=to_block_text)
 
     return app
 

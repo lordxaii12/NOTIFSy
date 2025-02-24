@@ -21,11 +21,13 @@ Admin - FO-X NotiFS
     <div class="col">
         <div class="container-fluid main_container">
             <div class="setting_cont">
-                <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/settings_icon.svg') }}" 
-                     alt="settings" 
-                     data-bs-toggle="popover" 
-                     data-bs-content="App Settings" 
-                     data-bs-placement="bottom">
+                <span
+                    {% if user.is_authenticated and user.role_id == 1 %}
+                        data-bs-toggle="modal" 
+                        data-bs-target="#sysSettingsModal{{sys_settings_data.sys_setting_id}}"
+                    {% endif %}>
+                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/settings_icon.svg') }}" alt="settings">
+                </span>
             </div>
             <div class="row first_row">
                 <div class="col itexmo_api {{user.theme.theme_bg}}">
@@ -142,7 +144,7 @@ Admin - FO-X NotiFS
                         </h4>
                     </div>
                     <div class="info_text1">
-                        <p>User types define what users can view, click or use in the app.</p>
+                        <p>{{g.sys_settings.sys_app_user_text}}</p>
                     </div>
                 </div>
 
@@ -172,7 +174,7 @@ Admin - FO-X NotiFS
                         </h4>
                     </div>
                     <div class="info_text1">
-                        <p>User types define what users can view, click or use in the app.</p>
+                        <p>{{g.sys_settings.sys_app_role_text}}</p>
                     </div>
                 </div>
 
@@ -202,13 +204,12 @@ Admin - FO-X NotiFS
                         </h4>
                     </div>
                     <div class="info_text1">
-                        <p>User types define what users can view, click or use in the app.</p>
+                        <p>{{g.sys_settings.sys_app_division_text}}</p>
                     </div>
                 </div>
                 
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                     <div class="row add_container add_btn">
-                        
                     </div>
                     <div class="image_container">
                         <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/logs.svg') }}" alt="roles">
@@ -228,7 +229,7 @@ Admin - FO-X NotiFS
                         </h4>
                     </div>
                     <div class="info_text1">
-                        <p>User types define what users can view, click or use in the app.</p>
+                        <p>{{g.sys_settings.sys_app_logs_text}}</p>
                     </div>
                 </div>
             </div>
@@ -245,6 +246,7 @@ Admin - FO-X NotiFS
 {% include "admin_modals/division_modal.html" %}
 {% include "admin_modals/logs_modal.html" %}
 
+{% include "admin_modals/syssettings_modal.html" %}
 {% include "global_modals/add_credentials.html" %}
 
 {% endblock %}
@@ -252,7 +254,5 @@ Admin - FO-X NotiFS
 
 
 {% block scripts %}
-
-
 
 {% endblock %}

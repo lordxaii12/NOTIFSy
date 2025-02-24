@@ -1,9 +1,10 @@
 from flask import Blueprint, request, jsonify, render_template, redirect, url_for, session, flash, get_flashed_messages
+
 from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
 from flask_login import login_user, current_user
-from utils import get_manila_time
+from utils import get_manila_time, to_block_text
 import requests
 from extensions import db
 
@@ -69,6 +70,8 @@ def admin():
     log_data = User_logs.get_all()
     total_log = len(log_data)
     
+    sys_settings_data = SysSettings.get_by_id(1)
+    
     return render_template('admin.html',
                            role_data=role_data,
                            total_role=total_role,
@@ -85,29 +88,14 @@ def admin():
                            division_data=division_data,
                            total_division=total_division,
                            log_data=log_data,
-                           total_log=total_log)
-
-
-@notifs.route('/register_system_settings', methods=['POST'])#add system settings
-@login_required
-def register_system_settings():
-    try:
-        new_sys_setting = add_sys_setting()  
-        if new_sys_setting:
-            flash('System settings added successfully!', 'success')
-        else:
-            flash('Failed to add system settings.', 'error')
-            return redirect(url_for('notifs.admin'))
-    except Exception as e:
-        db.session.rollback() 
-        flash(f"Error: {str(e)}", 'error')
-    return redirect(url_for('notifs.admin'))
+                           total_log=total_log,
+                           sys_settings_data=sys_settings_data)
 
 @notifs.route('/edit_system_settings_route/<int:sys_setting_id>', methods=['POST'])#edit system settings
 @login_required
 def edit_system_settings_route(sys_setting_id):
     try:
-        if edit_itexmo(sys_setting_id):
+        if edit_sys_setting(sys_setting_id):
             flash('System settings updated successfully,  LOGOUT TO APPLY CHANGES.', 'success')
         else:
             flash('System settings not found or update failed', 'error')

@@ -5,25 +5,31 @@ from models.email_credentials import Ecredss
 from models.hrpears_credentials import Hrpears
 from models.login_credentials import LogApi
 
-
 class SysSettings(db.Model):
     __tablename__ = 'sys_setting'
     
     sys_setting_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
-    sys_app_name = db.Column(db.String(200),unique=False, nullable=False)
-    sys_app_user = db.Column(db.String(100),unique=False, nullable=False)
-    sys_app_email = db.Column(db.String(100),unique=False, nullable=False)
-    sys_app_phone = db.Column(db.String(100),unique=False, nullable=False)
+    sys_name = db.Column(db.String(200),unique=True, nullable=False)
+    sys_app_name = db.Column(db.String(200),unique=True, nullable=True)
+    sys_app_user = db.Column(db.String(100),unique=False, nullable=True)
+    sys_app_email = db.Column(db.String(100),unique=False, nullable=True)
+    sys_app_phone = db.Column(db.String(100),unique=False, nullable=True)
     
-    msg_api_id = db.Column(db.Integer, db.ForeignKey('itexmo_api.itexmo_id'), nullable=False)
-    email_api_id = db.Column(db.Integer, db.ForeignKey('email_api.ecreds_id'), nullable=False)
-    hris_api_id = db.Column(db.Integer, db.ForeignKey('hrpears_api.hrpears_id'), nullable=False)
-    login_api_id = db.Column(db.Integer, db.ForeignKey('login_api.login_api_id'), nullable=False)
+    sys_app_user_text = db.Column(db.String(900),unique=False, nullable=True)
+    sys_app_role_text = db.Column(db.String(900),unique=False, nullable=True)
+    sys_app_division_text = db.Column(db.String(900),unique=False, nullable=True)
+    sys_app_logs_text = db.Column(db.String(900),unique=False, nullable=True)
+    
+    msg_api_id = db.Column(db.Integer, db.ForeignKey('itexmo_api.itexmo_id'), nullable=True)
+    email_api_id = db.Column(db.Integer, db.ForeignKey('email_api.ecreds_id'), nullable=True)
+    hris_api_id = db.Column(db.Integer, db.ForeignKey('hrpears_api.hrpears_id'), nullable=True)
+    login_api_id = db.Column(db.Integer, db.ForeignKey('login_api.login_api_id'), nullable=True)
     
     created_by = db.Column(db.String(100), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
     updated_by = db.Column(db.String(100), unique=False, nullable=True)
     updated_on = db.Column(db.String(100), unique=False, nullable=True)
+    
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
     
@@ -34,13 +40,21 @@ class SysSettings(db.Model):
 
 
     @property
-    def itexmo_data(self):
+    def sys_settings_data(self):
         return {
             'sys_setting_id': self.sys_setting_id,
+            'sys_name': self.sys_name,
             'sys_app_name': self.sys_app_name,
             'sys_app_user': self.sys_app_user,
             'sys_app_email': self.sys_app_email,
             'sys_app_phone': self.sys_app_phone,
+            
+            'sys_app_user_text': self.sys_app_user_text,
+            'sys_app_role_text': self.sys_app_role_text,
+            'sys_app_division_text': self.sys_app_division_text,
+            'sys_app_logs_text': self.sys_app_logs_text,
+            
+        
             'msg_api_id': self.msg_api_id,
             'itexmo_name': self.msg_api.itexmo_name if self.msg_api else None,
             'email_api_id': self.email_api_id,
