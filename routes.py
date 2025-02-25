@@ -20,6 +20,7 @@ from models.itexmo_credentials import Itexmo
 from models.email_credentials import Ecredss
 from models.hrpears_credentials import Hrpears
 from models.system_settings import SysSettings
+from models.msg_log import Msg_log
 
 #Controllers
 from controllers.user_role import add_role, edit_role, delete_role
@@ -32,7 +33,8 @@ from controllers.user_themes import add_theme, edit_theme, delete_theme
 from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexmo
 from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
 from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hrpears
-from controllers.system_settings import add_sys_setting, edit_sys_setting, delete_sys_setting
+from controllers.system_settings import edit_sys_setting
+from controllers.msg_log import add_msg_log, delete_msg_log, send_msg
 
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 

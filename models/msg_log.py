@@ -14,6 +14,10 @@ class Msg_log(db.Model):
     msg_status = db.Column(db.String(50), unique=False, nullable=True)
     sent_on = db.Column(db.String(100), unique=False, nullable=True)
     
+    msg_sent = db.Column(db.Text, unique=False, nullable=True)
+    msg_unsent = db.Column(db.Text, unique=False, nullable=True)
+    credit_used = db.Column(db.String(100), unique=False, nullable=True)
+    
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
     
@@ -30,7 +34,11 @@ class Msg_log(db.Model):
             'msg_content': self.msg_content,
             
             'msg_status': self.msg_status,
-            'sent_on': self.sent_on
+            'sent_on': self.sent_on,
+            
+            'msg_sent': self.msg_sent,
+            'msg_unsent': self.msg_unsent,
+            'credit_used': self.credit_used
         }
 
     def get_id(self):
