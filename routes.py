@@ -6,7 +6,7 @@ from config import Config
 from flask_login import login_user, current_user
 from utils import get_manila_time, to_block_text
 import requests
-from extensions import db
+from extensions import db, limiter
 
 #Models
 from models.user import User_v1
@@ -108,6 +108,7 @@ def edit_system_settings_route(sys_setting_id):
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/login', methods=['GET', 'POST'])#Login
+@limiter.limit("5 per minute")
 def login():
     log_inCreds = LogApi.get_by_id(1)
     url = log_inCreds.login_api_url.strip()

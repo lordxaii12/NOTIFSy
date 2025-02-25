@@ -1,7 +1,7 @@
 from flask import Flask, render_template, g
 from flask_login import LoginManager, current_user
 from config import Config
-from extensions import db
+from extensions import db , limiter
 from flask_migrate import Migrate
 from models.system_settings import SysSettings
 from models.user import User_v1
@@ -25,7 +25,9 @@ def create_app():
         return User_v1.get_by_id(int(user_id))
 
     db.init_app(app)
-
+    
+    limiter.init_app(app)
+    
     @app.errorhandler(OperationalError)
     def handle_operational_error(error):
         app.logger.error(f"OperationalError: {error}")
