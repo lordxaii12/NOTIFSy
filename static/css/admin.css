@@ -44,6 +44,7 @@
 .api-col:hover{
     background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
     border: 2px solid black;
+    color: #2a0308e4;
 }
 
 .top_line{/*HAS THEME color*/
@@ -74,6 +75,11 @@
     border-radius: 20px;
 }
 
+.div_col:hover{
+    background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
+    border: 2px solid black;
+    color: #2a0308e4 
+}
 
 .add_container{
     margin-top: 10px;

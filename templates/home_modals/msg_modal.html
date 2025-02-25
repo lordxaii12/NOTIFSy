@@ -1,0 +1,209 @@
+<div class="modal fade" id="singleMsgModal" tabindex="-1" aria-labelledby="singleMsgModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                <h5 class="modal-title" id="singleMsgModalLabel">Send Single Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>SMS Sender</label>
+                            <input type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Send Via <span class="required">(required)</span></label>
+                            <select>
+                                <option>SENDING OPTION</option>
+                                <option>SEND SMS</option>
+                                <option>SEND EMAIL</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Recipient <small>(one word only)</small></label>
+                            <div class="input-icon">
+                                <span class="form-icon">📞</span>
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone <small>(09xxxxxxxxx)</small></label>
+                            <input type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email">
+                        </div>
+                    </div>
+                    <div class="form-row2">
+                        <div class="form-group">
+                            <label>Message Template <small>(Optional)</small></label>
+                            <select>
+                                <option>SELECT TEMPLATE</option>
+                                <option>SALARY</option>
+                                <option>TEV</option>
+                                <option>PREMIUM</option>
+                            </select>
+                        </div>
+                        <div class="form-group2">
+                            <label>Message:</label>
+                            <div class="textarea-container">
+                                <textarea></textarea>
+                                <span class="search-icon">🔍</span>
+                            </div>
+                        </div>
+                    </div>                
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="addName">
+                        <label for="addName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="send-btn">Send</button>
+                        <button type="button" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="multiMsgModal" tabindex="-1" aria-labelledby="multiMsgModalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                <h5 class="modal-title" id="multiMsgModalModalLabel">Send Multiple Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>SMS Sender</label>
+                            <input type="text">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Send Via <span class="required">(required)</span></label>
+                            <select>
+                                <option>SENDING OPTION</option>
+                                <option>SEND SMS</option>
+                                <option>SEND EMAIL</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Recipient <small>(one word only)</small></label>
+                            <div class="input-icon">
+                                <span class="form-icon">📞</span>
+                                <input type="text">
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Phone <small>(09xxxxxxxxx)</small></label>
+                            <input type="text">
+                        </div>
+    
+                        <div class="form-group">
+                            <label>Email</label>
+                            <div class="input-icon">
+                                <input type="email">
+                                <span class="form-icon">➕</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="form-row2">
+                        <div class="form-group">
+                            <label>Message Template <small>(Optional)</small></label>
+                            <select>
+                                <option>SELECT TEMPLATE</option>
+                                <option>SALARY</option>
+                                <option>TEV</option>
+                                <option>PREMIUM</option>
+                            </select>
+                        </div>
+                        <div class="form-group2">
+                            <label>Message:</label>
+                            <div class="textarea-container">
+                                <textarea></textarea>
+                                <span class="search-icon">🔍</span>
+                            </div>
+                        </div>
+                    </div>                
+    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="addName">
+                        <label for="addName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="submit" class="send-btn">Send</button>
+                        <button type="button" class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="uploadMsgModal" tabindex="-1" aria-labelledby="uploadMsgModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                <h5 class="modal-title" id="uploadMsgModalLabel">Upload Contacts</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>SMS Sender</label>
+                            <input type="text" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Send Via <span class="required">(required)</span></label>
+                            <select>
+                                <option>SENDING OPTION</option>
+                                <option>SEND SMS</option>
+                                <option>SEND EMAIL</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Message Template <span class="optional">(Optional)</span></label>
+                            <select>
+                                <option>SELECT TEMPLATE</option>
+                                <option>SALARY</option>
+                                <option>TEV</option>
+                                <option>PREMIUM</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload File</label>
+                            <div class="file-input">
+                                <input type="file">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Message:</label>
+                        <textarea></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button class="send-btn">Send</button>
+                        <button class="cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, render_template, redirect, url_for, session, flash, get_flashed_messages
+from flask import Blueprint, request, render_template, redirect, url_for, session, flash
 
 from flask_login import login_required, logout_user
 from flask_migrate import Migrate

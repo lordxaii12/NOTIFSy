@@ -8,6 +8,7 @@ Home - FO-X NotiFS
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/theme_settings.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/msgs.css') }}">
 {% endblock %}
 
 
@@ -35,7 +36,7 @@ Home - FO-X NotiFS
             </div>
             <div class="row first_row {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                 <div class="col">
-                    <h3 class="welcome">Welcome <u>{{ user.full_name.split(' ')[0].title() }} {{ user.full_name.split(' ')[1].title() if '.' not in user.full_name.split(' ')[1] else '' }}</u></h3>
+                    <h2 class="welcome">Welcome <u>{{ user.full_name.split(' ')[0].title() }} {{ user.full_name.split(' ')[1].title() if '.' not in user.full_name.split(' ')[1] else '' }}</u></h2>
                     <h5 class="user-type">you are logged as {{user.role.role_name}} </h5>
                 </div>
                 <div class="col top-col ">
@@ -46,7 +47,7 @@ Home - FO-X NotiFS
                 </div>
             </div>
             <div>
-                <h3 class="separator">{{ to_block_text("SERVICES") }}</h3>
+                <h4 class="separator">{{ to_block_text("SERVICES") }}</h4>
             </div>
             <div class="row second_row">
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
@@ -61,10 +62,13 @@ Home - FO-X NotiFS
                                         data-bs-content="This service allows user to send a single message via sms or email, just click the image on the right.">
                                 </div>
                                 <div class="service-title">
-                                    <h5>{{ to_block_text("Single") }} Message</h5>
+                                    <h5>{{ to_block_text("Single") }} Contact</h5>
                                 </div>
                             </div>
-                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}" alt="roles">
+                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}"
+                            alt="roles"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#singleMsgModal">
                         </div>
 
                         <div class="col service-col">
@@ -77,10 +81,13 @@ Home - FO-X NotiFS
                                         data-bs-content="This service allows user to send multiple messages via sms or email, just click the image on the right.">
                                 </div>
                                 <div class="service-title">
-                                    <h5>{{ to_block_text("Multi") }} Message</h5>
+                                    <h5>{{ to_block_text("Multi") }} Contacts</h5>
                                 </div>
                             </div>
-                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_multiple.svg') }}" alt="roles">
+                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_multiple.svg') }}" 
+                            alt="roles"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#multiMsgModal">
                         </div>
 
                     </div>
@@ -95,10 +102,13 @@ Home - FO-X NotiFS
                                         data-bs-content="This service allows user to send multiple messages via sms or email by uploading a file, just click the image on the right.">
                                 </div>
                                 <div class="service-title">
-                                    <h5>{{ to_block_text("Upload") }} Message</h5>
+                                    <h5>{{ to_block_text("Upload") }} Contacts</h5>
                                 </div>
                             </div>
-                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_upload.svg') }}" alt="roles">
+                            <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_upload.svg') }}"
+                            alt="roles"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#uploadMsgModal">
                         </div>
 
                         <div class="col service-col">
@@ -127,6 +137,7 @@ Home - FO-X NotiFS
 </div>
 
 {% include "home_modals/theme_offcanvas.html" %}
+{% include "home_modals/msg_modal.html" %}
 
 {% endblock %}
 

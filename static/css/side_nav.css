@@ -70,11 +70,13 @@
 /* Hover effect */
 .menu li a:hover {
     background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
+    color:  #690c19d5;
 }
 
 /* Active state */
 .menu li.active a {
-    background: linear-gradient(120deg, #584959d5 20%, #607978e4 50%, #5a4e6dd9 80%);
+    background: linear-gradient(120deg, #ee00ffd5 20%, #01fff7e4 50%, #00ff08d9 80%);
+    color:  #690c19d5;
 }
 
 /* Ensure images and text are aligned */
