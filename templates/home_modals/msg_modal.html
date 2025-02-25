@@ -6,59 +6,65 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{ url_for('notifs.send_single_msg') }}" method="POST">
                     <div class="form-row">
                         <div class="form-group">
-                            <label>SMS Sender</label>
-                            <input type="text">
-                        </div>
+                            <label for="sender">SMS Sender</label>
+                            <input type="text" id="sender" name="sender" 
+                                value="{% if user.full_name %}{{ user.full_name.split(' ')[0].title() }} 
+                                            {% if user.full_name.split(' ')|length > 1 and '.' not in user.full_name.split(' ')[1] %}
+                                                {{ user.full_name.split(' ')[1].title() }}
+                                            {% endif %}
+                                        {% endif %}" required>
+
+                        </div> 
                         <div class="form-group">
-                            <label>Send Via <span class="required">(required)</span></label>
-                            <select>
-                                <option>SENDING OPTION</option>
-                                <option>SEND SMS</option>
-                                <option>SEND EMAIL</option>
+                            <label for="sending_option">Send Via <span class="required">(required)</span></label>
+                            <select id="sending_option" name="sending_option"  required onchange="toggleRequiredFields()">
+                                <option value="" disabled selected>SENDING OPTION</option>
+                                <option value="sms">SEND SMS</option>
+                                <option value="email">SEND EMAIL</option>
                             </select>
                         </div>
                     </div>
     
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Recipient <small>(one word only)</small></label>
+                            <label for="recipient">Recipient <small>(one word only)</small></label>
                             <div class="input-icon">
                                 <span class="form-icon">📞</span>
-                                <input type="text">
+                                <input type="text" id="recipient" name="recipient" required> 
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Phone <small>(09xxxxxxxxx)</small></label>
-                            <input type="text">
+                            <label for="phone">Phone <small>(09xxxxxxxxx)</small></label>
+                            <input type="text" id="phone" name="phone">
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email">
                         </div>
                     </div>
                     <div class="form-row2">
                         <div class="form-group">
-                            <label>Message Template <small>(Optional)</small></label>
-                            <select>
-                                <option>SELECT TEMPLATE</option>
+                            <label for="template">Message Template <small>(Optional)</small></label>
+                            <select id="template" name="template">
+                                <option value="" disabled selected>SELECT TEMPLATE</option>
                                 <option>SALARY</option>
                                 <option>TEV</option>
                                 <option>PREMIUM</option>
                             </select>
                         </div>
                         <div class="form-group2">
-                            <label>Message:</label>
+                            <label for"message">Message:</label>
                             <div class="textarea-container">
-                                <textarea></textarea>
+                                <textarea id="message" name="message" required></textarea>
                                 <span class="search-icon">🔍</span>
                             </div>
                         </div>
                     </div>                
                     <div class="checkbox-group">
-                        <input type="checkbox" id="addName">
+                        <input type="checkbox" id="addName" name="addName">
                         <label for="addName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
                     </div>
                     
@@ -71,6 +77,10 @@
         </div>
     </div>
 </div>
+
+
+
+
 
 <div class="modal fade" id="multiMsgModal" tabindex="-1" aria-labelledby="multiMsgModalModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -207,3 +217,5 @@
         </div>
     </div>
 </div>
+
+

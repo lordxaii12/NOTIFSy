@@ -692,14 +692,14 @@ def delete_logs_route(log_id):
 #
 #================ Home =========================================================================================================>
 
-@notifs.route('/', methods=['GET', 'POST'])
+@notifs.route('/', methods=['GET', 'POST'])#Home page
 @login_required
 def home():
     theme_data = Theme.get_all()
     return render_template("index.html",
                            theme_data=theme_data)
 
-@notifs.route('/select_theme/<int:theme_id>', methods=['POST'])
+@notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
 def select_theme(theme_id):
     try:
@@ -717,7 +717,26 @@ def select_theme(theme_id):
         return redirect(url_for('notifs.home'))
     
 
-
+@notifs.route('/send_single_msg', methods=['POST'])
+@login_required
+def send_single_msg():
+    
+    sender = request.form.get('sender')
+    sending_option = request.form.get('sending_option')
+    recipient_name = request.form.get('recipient')
+    message = request.form.get('message')
+    
+    if sending_option == 'sms':
+        recipient_contact = request.form.get('phone')
+    elif sending_option == 'email':
+        recipient_contact = request.form.get('email')
+    else:
+        recipient_contact = "none"
+    
+    flash('message sent', 'success')
+    print(f"DATA:\nMessage:{message}\nSender:{sender}\nRecipient:{recipient_name}\nSend to:{recipient_contact} as {sending_option}")
+    
+    return redirect(url_for('notifs.home'))
 #===============================================================================================================================>
 #
 #
