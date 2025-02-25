@@ -105,7 +105,7 @@ def edit_system_settings_route(sys_setting_id):
         db.session.rollback() 
     return redirect(url_for('notifs.admin'))
 
-@notifs.route('/login', methods=['GET', 'POST'])
+@notifs.route('/login', methods=['GET', 'POST'])#Login
 def login():
     log_inCreds = LogApi.get_by_id(1)
     url = log_inCreds.login_api_url.strip()
@@ -147,7 +147,7 @@ def login():
         flash(f'An error occurred: {str(e)}', 'error')
     return render_template('login.html')
 
-@notifs.route('/logout')
+@notifs.route('/logout')#Logout
 @login_required
 def logout():
     current_user.last_logout = get_manila_time()
@@ -163,6 +163,7 @@ def logout():
     return redirect(url_for('notifs.login'))
 
 #----------------------------------------------------------------------------------------------------------->
+
 @notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials
 @login_required
 def register_itexmo():
@@ -520,8 +521,10 @@ def delete_user_route(user_id):
         return redirect(url_for('notifs.admin'))
     success = delete_user(user_id)
     if success:
+        flash('User record deleted successfully', 'success')
         activity = f"DELETED {user_data.full_name} from Users data."
     else:
+        flash('User record delete failed', 'error')
         activity = f"FAILED TO DELETE {user_data.full_name} from Users data."
     
     add_user_logs(activity)
@@ -588,8 +591,10 @@ def delete_role_route(role_id):
         return redirect(url_for('notifs.admin'))
     success = delete_role(role_id)
     if success:
+        flash('User type record deleted successfully', 'success')
         activity = f"DELETED {role_data.role_name} from User types."
     else:
+        flash('User type record delete failed', 'error')
         activity = f"FAILED TO DELETE {role_data.role_name} from User types."
     
     add_user_logs(activity)
@@ -597,7 +602,7 @@ def delete_role_route(role_id):
     return redirect(url_for('notifs.admin'))
 
 #----------------------------------------------------------------------------------------------------------->
-@notifs.route('/register_division', methods=['POST'])#add user type
+@notifs.route('/register_division', methods=['POST'])#add user division
 @login_required
 def register_division():
     new_division = add_division()
@@ -622,7 +627,7 @@ def register_division():
         flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
     
-@notifs.route('/edit_division_route/<int:division_id>', methods=['POST'])#edit user type
+@notifs.route('/edit_division_route/<int:division_id>', methods=['POST'])#edit user division
 @login_required
 def edit_division_route(division_id):
     division_data = Divisions.get_by_id(division_id)
@@ -647,7 +652,7 @@ def edit_division_route(division_id):
     db.session.commit()
     return redirect(url_for('notifs.admin'))
 
-@notifs.route('/delete_division_route/<int:division_id>', methods=['POST'])#delete user type
+@notifs.route('/delete_division_route/<int:division_id>', methods=['POST'])#delete user division
 @login_required
 def delete_division_route(division_id):
     division_data = Divisions.get_by_id(division_id)
@@ -656,21 +661,24 @@ def delete_division_route(division_id):
         return redirect(url_for('notifs.admin'))
     success = delete_division(division_id)
     if success:
+        flash('User division record deleted successfully', 'success')
         activity = f"DELETED {division_data.division_name} from User divisions."
     else:
+        flash('User division record delete failed', 'error')
         activity = f"FAILED TO DELETE {division_data.division_name} from User divisions."
     
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
 
-@notifs.route('/delete_logs_route/<int:log_id>', methods=['POST'])#delete user type
+@notifs.route('/delete_logs_route/<int:log_id>', methods=['POST'])#delete user logs
 @login_required
 def delete_logs_route(log_id):
     log_data = User_logs.get_by_id(log_id)
     if not log_data:
         flash('User division not found.', 'error')
         return redirect(url_for('notifs.admin'))
+    flash('User logs record deleted successfully', 'success')
     delete_user_logs(log_id)
     return redirect(url_for('notifs.admin'))
 
@@ -688,27 +696,23 @@ def home():
     theme_data = Theme.get_all()
     return render_template("index.html",
                            theme_data=theme_data)
-    
 
-@notifs.route('/select_theme', methods=['POST'])
+@notifs.route('/select_theme/<int:theme_id>', methods=['POST'])
 @login_required
-def select_theme():
-    theme = request.form.get('theme_id')
-    user_id = current_user.user_id
+def select_theme(theme_id):
     try:
-        if theme and theme.isdigit():
-            user_theme = User_v1.get_by_id(user_id)
-            user_theme.theme_id = int(theme)
-            db.session.commit()
-            flash('Successfully changed theme, refresh or re-login to take effect.', 'success')
-        else:
-            flash('Error on changing theme.', 'error')
-            
+        user_id = current_user.user_id
+        user_theme = User_v1.get_by_id(user_id)
+        user_theme.theme_id = theme_id
+        db.session.commit()
+
+        flash('Successfully changed theme, refresh or re-login to take effect.', 'success')
+        return redirect(url_for('notifs.home'))
+
     except Exception as e:
-        db.session.rollback() 
+        db.session.rollback()
         flash(f'Error on changing theme: {str(e)}', 'error')
-    print(current_user.theme.theme_bg)
-    return redirect(url_for('notifs.home'))
+        return redirect(url_for('notifs.home'))
     
 
 

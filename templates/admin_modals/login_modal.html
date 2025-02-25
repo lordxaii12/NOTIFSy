@@ -24,7 +24,7 @@
                             <td>{{logdata.login_api_url}}</td>
                             <td>
                             
-                                <button class="btn p-0 m-0 " onclick="deleteLogin({{ logdata.login_api_id }})">
+                                <button class="login-log-btn btn p-0 m-0 " data-log-id="{{ logdata.login_api_id }}">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                 </button>
                                 |

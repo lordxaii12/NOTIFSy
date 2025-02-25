@@ -1,55 +1,144 @@
-function deleteItExmo(itexmo_id) {
-    if (confirm('Are you sure?')) {
-        fetch(`/delete_itexmo/${itexmo_id}`, { method: 'POST' })
-            .then(() => location.reload());
-    }
-}
 
-function deleteEmail(ecreds_id) {
-    if (confirm('Are you sure?')) {
-        fetch(`/delete_email_route/${ecreds_id}`, { method: 'POST' })
-            .then(() => location.reload());
-    }
-}
+//Delete Logs//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".delete-log-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let logId = this.getAttribute("data-log-id");
 
-function deleteHris(hrpears_id) {
-    if (confirm('Are you sure?')) {
-        fetch(`/delete_hrpears_route/${hrpears_id}`, { method: 'POST' })
-            .then(() => location.reload());
-    }
-}
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_logs_route/${logId}`;
 
-function deleteLogin(login_api_id) {
-    if (confirm('Are you sure?')) {
-        fetch(`/delete_loginapi_route/${login_api_id}`, { method: 'POST' })
-            .then(() => location.reload());
-    }
-}
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
 
-function deleteUSer(user_id) {
-    if (confirm('Are you sure?')) {
-        fetch(`/delete_user_route/${user_id}`, { method: 'POST' })
-            .then(() => location.reload());
-    }
-}
+//Delete Itexmo Credential//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".itexmo-log-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let itexmoId = this.getAttribute("data-log-id");
 
-function deleteRole(role_id) {
-    if (confirm('Are you sure?')) {
-        fetch(`/delete_role_route/${role_id}`, { method: 'POST' })
-            .then(() => location.reload());
-    }
-}
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_itexmo/${itexmoId}`;
 
-function deleteDivision(division_id) {
-    if (confirm('Are you sure?')) {
-        fetch(`/delete_division_route/${division_id}`, { method: 'POST' })
-            .then(() => location.reload());
-    }
-}
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
 
-function deleteLogs(log_id) {
-    if (confirm('Are you sure?')) {
-        fetch(`/delete_logs_route/${log_id}`, { method: 'POST' })
-            .then(() => location.reload());
-    }
-}
+//Delete Email Credential//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".email-log-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let emailId = this.getAttribute("data-log-id");
+
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_email_route/${emailId}`;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
+
+//Delete HRIS Credential//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".hris-log-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let hrisId = this.getAttribute("data-log-id");
+
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_hrpears_route/${hrisId}`;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
+
+//Delete Login Credential//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".login-log-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let loginId = this.getAttribute("data-log-id");
+
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_loginapi_route/${loginId}`;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
+
+//Delete User Credential//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".user-log-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let userId = this.getAttribute("data-log-id");
+
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_user_route/${userId}`;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
+
+//Delete User type Credential//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".role-log-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let roleId = this.getAttribute("data-log-id");
+
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_role_route/${roleId}`;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
+
+//Delete User division Credential//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".division-log-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let divisionId = this.getAttribute("data-log-id");
+
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_division_route/${divisionId}`;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});

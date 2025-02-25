@@ -84,9 +84,7 @@
 }
 
 .service-col:hover{
-    height: 200px;
-    background: linear-gradient(120deg, #7c1f76d5 20%, #4e4e91e4 30%, #8e952ed9 80%);
-    border-radius: 10px;
+    background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
 }
 
 .service-content {

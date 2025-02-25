@@ -69,12 +69,12 @@
 
 /* Hover effect */
 .menu li a:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
 }
 
 /* Active state */
 .menu li.active a {
-    background: rgba(255, 255, 255, 0.4);
+    background: linear-gradient(120deg, #584959d5 20%, #607978e4 50%, #5a4e6dd9 80%);
 }
 
 /* Ensure images and text are aligned */

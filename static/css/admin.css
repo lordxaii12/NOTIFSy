@@ -42,10 +42,8 @@
 }
 
 .api-col:hover{
-    margin-top: -5px;
-    height: 105px;
-    border-radius: 10px;
-
+    background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
+    border: 2px solid black;
 }
 
 .top_line{/*HAS THEME color*/

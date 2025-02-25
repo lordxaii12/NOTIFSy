@@ -25,7 +25,7 @@
                             <td>{{emails.ecreds_email}}</td>
                             <td>{{emails.ecreds_sender}}</td>
                             <td>
-                                <button class="btn p-0 m-0 " onclick="deleteEmail({{ emails.ecreds_id }})">
+                                <button class="email-log-btn btn p-0 m-0 " data-log-id="{{ emails.ecreds_id }}">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                 </button>
                                 |

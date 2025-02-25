@@ -24,7 +24,7 @@
                             <td>{{data.hrpears_host}}</td>
                             <td>
                             
-                                <button class="btn p-0 m-0 " onclick="deleteHris({{ data.hrpears_id }})">
+                                <button class="hris-log-btn btn p-0 m-0 " data-log-id="{{ data.hrpears_id }}">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                 </button>
                                 |
