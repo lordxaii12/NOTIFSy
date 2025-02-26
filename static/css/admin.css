@@ -1,3 +1,4 @@
+
 .setting_cont {
     right: 0;
     display: flex;
@@ -70,6 +71,7 @@
     gap: 10px;
     height: 400px;
 }
+
 .div_col{/*HAS THEME bg and color*/
     margin-top: 20px;
     border-radius: 20px;
@@ -113,8 +115,6 @@
 .data_view{
     cursor: pointer;
 }
-
-
 
 .add_btn{
     height: 30px;

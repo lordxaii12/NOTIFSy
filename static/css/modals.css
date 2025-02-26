@@ -1,11 +1,23 @@
-.modal-backdrop {
-    z-index: 1045 !important; /* Ensures the backdrop stays behind both modals */
+
+/*ADMIN MODALS ===================================================================================================================>*/
+.admin-modal .modal-body {
+    overflow-y: auto;
+    max-height: 80vh; 
+    padding: 0;
 }
 
-#itexmoModal {
-    z-index: 1050 !important; /* First modal */
+.admin-modal_sm .modal-body {
+    overflow-y: auto;
+    max-height: 80vh; 
 }
 
-#edititextMoModal {
-    z-index: 1055 !important; /* Second modal (edit modal) is on top) */
+.admin-modal .modal-backdrop {
+    z-index: 1045;
+}
+
+.admin-modal .table_icons{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
 }

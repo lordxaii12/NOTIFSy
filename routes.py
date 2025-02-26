@@ -728,13 +728,33 @@ def select_theme(theme_id):
         return redirect(url_for('notifs.home'))
     
 
+@notifs.route('/delete_msglogs_route/<int:msg_id>', methods=['POST'])#delete message logs
+@login_required
+def delete_msglogs_route(msg_id):
+    msglog_data = Msg_log.get_by_id(msg_id)
+    if not msglog_data:
+        flash('User division not found.', 'error')
+        return redirect(url_for('notifs.home'))
+    success = delete_msg_log(msg_id)
+    msg_sender = msglog_data.msg_sender
+    sent_on = msglog_data.sent_on
+    msg_content = msglog_data.msg_content
+    credit_used = msglog_data.credit_used
+    msg_recipient = msglog_data.msg_recipient
+    
+    if success:
+        flash('Message Log deleted successfully', 'success')
+        activity = f"DELETED {credit_used} Credit/s Message/s:{msg_content} sent to {msg_recipient} on {sent_on}| Sender: {msg_sender}."
+    else:
+        flash('Message Log delete failed', 'error')
+        activity = f"DELETED {credit_used} Credit/s Message/s:{msg_content} sent to {msg_recipient} on {sent_on}| Sender: {msg_sender}."
+    
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(url_for('notifs.home'))
 
 
-
-
-
-
-@notifs.route('/send_single_msg', methods=['POST'])
+@notifs.route('/send_single_msg', methods=['POST'])#Send single message
 @login_required
 def send_single_msg():
     sender_div = current_user.division

@@ -1,7 +1,7 @@
 
 <div class="modal fade" id="division_display" tabindex="-1" aria-labelledby="division_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="division_displayLabel">USER DIVISIONS</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -47,7 +47,7 @@
 
 <div class="modal fade" id="division_edit" tabindex="-1" aria-labelledby="division_editLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm">
             <div class="modal-header">
                 <h5 class="modal-title" id="division_editLabel">Edit User Divisions</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -55,10 +55,10 @@
             <div class="modal-body">
                 <form method="POST" id="division_editForm">
                     <input type="hidden" id="division_id" name="division_id">
-                    <label for="division_name">Division <p class="required-text">( required* )</p></label>
+                    <label for="division_name">Division</label>
                     <input type="text" id="division_name" name="division_name" required>
 
-                    <label for="division_description">Description <p class="required-text">( required* )</p></label>
+                    <label for="division_description">Description</label>
                     <input type="text" id="division_description" name="division_description" required>
 
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>

@@ -1,88 +1,46 @@
-.directory-content {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Label and Select */
-label {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-select {
-    width: 100%;
-    margin-top: 5px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    background-color: rgb(229, 228, 228);
-    border-radius: 5px;
-    font-size: 14px;
-    outline: none;
-}
-
-/* Search Bar - Stays on Top */
-.search-bar {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    background-color: rgb(229, 228, 228);
-    border-radius: 5px;
-    font-size: 14px;
-    outline: none;
-    position: sticky;
-    top: 0;
-    z-index: 2; /* Keeps it above the table */
-}
-
-/* Scrollable Table */
-.directory {
-    overflow-y: auto;
-    height: 300px; /* Set the max height of the scrollable table */
-    border: 1px solid #ccc;
-    background-color: rgb(229, 228, 228);
-    border-radius: 5px;
-    margin-top: 10px;
-    font-size: 14px;
-}
-
-/* Table Layout */
-.table {
-    width: 100%;
-    table-layout: fixed; /* Ensures column width control */
-    border-collapse: collapse;
-}
-
-/* Column Width Adjustments */
-.table th, .table td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-.table th {
-    background-color: #f1f1f1;
-    position: sticky;
-    top: 0;
-    z-index: 1; /* Keeps headers on top while scrolling */
-}
-
-/* Column Specific Widths */
-.table th:nth-child(1), .table td:nth-child(1) {
-    width: 40%; /* Adjust name column width */
-}
-
-.table th:nth-child(2), .table td:nth-child(2) {
-    width: 30%; /* Adjust mobile column width */
-}
-
-.table th:nth-child(3), .table td:nth-child(3) {
-    width: 30%; /* Adjust email column width */
-}
-
-/* Hover Effect for Clickable Rows */
-.clickable-row:hover {
-    background-color: #dcdcdc;
+.table_icons{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
     cursor: pointer;
 }
+
+.table{
+    border-radius: 10px;
+}
+
+
+.equal-header{
+    background: rgb(47, 17, 41) !important;
+    color: rgb(207, 178, 178) !important;
+    font-size: 12px;
+    width: 200px;
+}
+
+.action-header{
+    background: rgb(47, 17, 41) !important;
+    color: rgb(207, 178, 178) !important;
+    font-size: 12px;
+    width: 50px;
+}
+
+.equal-column{
+    background: rgb(205, 144, 198) !important;
+    color: rgb(33, 0, 248) !important;
+    font-size: 12px;
+    font-weight: bold;
+    width: 200px;
+    justify-content: center;
+}
+
+.action-column{
+    background: rgb(205, 144, 198) !important;
+    color: rgb(33, 0, 248) !important;
+    font-size: 12px;
+    font-weight: bold;
+    width: 50px;
+    justify-content: center; 
+}
+
+
+

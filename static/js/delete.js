@@ -142,3 +142,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+
+//Delete Message-logs//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".msg-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let msglogId = this.getAttribute("data-log-id");
+
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_msglogs_route/${msglogId}`;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
