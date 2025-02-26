@@ -1,6 +1,8 @@
 from datetime import datetime
 import pytz
 
+import random
+
 def get_manila_time():
     manila_tz = pytz.timezone('Asia/Manila')
     utc_time = datetime.now(pytz.utc)
@@ -12,3 +14,9 @@ def to_block_text(text):
     blocky = ["🅰", "🅱", "🅲", "🅳", "🅴", "🅵", "🅶", "🅷", "🅸", "🅹", "🅺", "🅻", "🅼", "🅽", "🅾", "🅿", "🆀", "🆁", "🆂", "🆃", "🆄", "🆅", "🆆", "🆇", "🆈", "🆉"]
 
     return ''.join(blocky[normal.index(char)] if char in normal else char for char in text.upper())
+
+def generate_tracker(sender_div, msg_type):
+    random_number = random.randint(1, 9999)
+    tracking_number = f"{sender_div}-{msg_type}:{random_number}"
+    return tracking_number
+    

@@ -4,7 +4,7 @@ from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
 from flask_login import login_user, current_user
-from utils import get_manila_time, to_block_text
+from utils import get_manila_time, to_block_text, generate_tracker
 import requests
 from extensions import db, limiter
 
@@ -108,7 +108,7 @@ def edit_system_settings_route(sys_setting_id):
     return redirect(url_for('notifs.admin'))
 
 @notifs.route('/login', methods=['GET', 'POST'])#Login
-@limiter.limit("5 per minute")
+# @limiter.limit("5 per minute")
 def login():
     log_inCreds = LogApi.get_by_id(1)
     url = log_inCreds.login_api_url.strip()
@@ -696,9 +696,11 @@ def delete_logs_route(log_id):
 @notifs.route('/', methods=['GET', 'POST'])#Home page
 @login_required
 def home():
+    msg_data = Msg_log.get_all()
     theme_data = Theme.get_all()
     return render_template("index.html",
-                           theme_data=theme_data)
+                           theme_data=theme_data,
+                           msg_data=msg_data)
 
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
@@ -718,26 +720,80 @@ def select_theme(theme_id):
         return redirect(url_for('notifs.home'))
     
 
+
+
+
+
+
+
 @notifs.route('/send_single_msg', methods=['POST'])
 @login_required
 def send_single_msg():
-    
+    sender_div = current_user.division
+
     sender = request.form.get('sender')
     sending_option = request.form.get('sending_option')
-    recipient_name = request.form.get('recipient')
-    message = request.form.get('message')
-    
     if sending_option == 'sms':
         recipient_contact = request.form.get('phone')
+        msg_type = 'sms'
     elif sending_option == 'email':
         recipient_contact = request.form.get('email')
+        msg_type = 'email'
     else:
         recipient_contact = "none"
+    recipient_name = request.form.get('recipient')
+    content = request.form.get('message')
+    add_name = request.form.get('addName')
+    if add_name == "on":
+        message = f"Hello {recipient_name}!, {content}\n\n{sender}"
+    else:
+        message = content
     
-    flash('message sent', 'success')
-    print(f"DATA:\nMessage:{message}\nSender:{sender}\nRecipient:{recipient_name}\nSend to:{recipient_contact} as {sending_option}")
+    msg_tracker = generate_tracker(sender_div,msg_type)
+    msg_recipient = f"{recipient_name}:{recipient_contact}"
     
+    sent=[]
+    unsent=[]
+    
+    msg_data = f"{recipient_name}:{recipient_contact}:{message}"
+    status, data = send_msg(message, recipient_contact)
+    if status == 200:
+        msg_status = 'sent'
+        credit_used = data.get('TotalCreditUsed')
+        sent.append(msg_data)
+        flash('message sent', 'success')
+    else:
+        msg_status = 'unsent'
+        credit_used = 0
+        unsent.append(msg_data)
+        flash('sending message error', 'error')
+
+    add_msg_log(msg_tracker, msg_type, msg_recipient, message, msg_status, sent, unsent, credit_used)
+    db.session.commit()
     return redirect(url_for('notifs.home'))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #===============================================================================================================================>
 #
 #

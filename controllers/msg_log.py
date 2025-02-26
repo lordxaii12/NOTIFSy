@@ -6,12 +6,16 @@ from utils import get_manila_time
 from flask import g, flash
 from models.email_credentials import Ecredss
 from models.itexmo_credentials import Itexmo
+import json
 
 
 def add_msg_log(msg_tracker, msg_type, msg_recipient, msg_content, msg_status, msg_sent, msg_unsent, credit_used):
     
     msg_sender = current_user.full_name
     sent_on = get_manila_time()
+    
+    msg_sent_str = json.dumps(msg_sent) if isinstance(msg_sent, list) else msg_sent
+    msg_unsent_str = json.dumps(msg_unsent) if isinstance(msg_unsent, list) else msg_unsent
 
     new_msg = Msg_log(
         msg_tracker=msg_tracker,
@@ -23,8 +27,9 @@ def add_msg_log(msg_tracker, msg_type, msg_recipient, msg_content, msg_status, m
         msg_sender=msg_sender,
         sent_on=sent_on,
         
-        msg_sent=msg_sent,
-        msg_unsent=msg_unsent,
+        msg_sent=msg_sent_str,
+        msg_unsent=msg_unsent_str,
+        
         credit_used=credit_used
     )
     try:

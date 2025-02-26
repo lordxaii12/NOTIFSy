@@ -26,7 +26,7 @@ def create_app():
 
     db.init_app(app)
     
-    limiter.init_app(app)
+    # limiter.init_app(app)
     
     @app.errorhandler(OperationalError)
     def handle_operational_error(error):

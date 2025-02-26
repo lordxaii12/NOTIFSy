@@ -16,7 +16,7 @@ class Msg_log(db.Model):
     
     msg_sent = db.Column(db.Text, unique=False, nullable=True)
     msg_unsent = db.Column(db.Text, unique=False, nullable=True)
-    credit_used = db.Column(db.String(100), unique=False, nullable=True)
+    credit_used = db.Column(db.Integer, unique=False, nullable=True)
     
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
