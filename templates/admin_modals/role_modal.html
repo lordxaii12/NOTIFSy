@@ -1,7 +1,7 @@
 
 <div class="modal fade" id="usertype_display" tabindex="-1" aria-labelledby="usertype_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="usertype_displayLabel">USER TYPES</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -52,7 +52,7 @@
 
 <div class="modal fade" id="role_edit" tabindex="-1" aria-labelledby="role_editLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm admin">
             <div class="modal-header">
                 <h5 class="modal-title" id="role_editLabel">Edit User Types</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -60,10 +60,10 @@
             <div class="modal-body">
                 <form method="POST" id="role_editForm">
                     <input type="hidden" id="role_id" name="role_id">
-                    <label for="role_name">User Type <p class="required-text">( required* )</p></label>
+                    <label for="role_name">User Type</label>
                     <input type="text" id="role_name" name="role_name" required>
 
-                    <label for="role_description">Description <p class="required-text">( required* )</p></label>
+                    <label for="role_description">Description</label>
                     <input type="text" id="role_description" name="role_description" required>
 
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>

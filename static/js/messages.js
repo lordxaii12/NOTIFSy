@@ -17,7 +17,6 @@ function toggleRequiredFields() {
     }
 }
 
-
 //open directory //
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".directory-btn").forEach(button => {

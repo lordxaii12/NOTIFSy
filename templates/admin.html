@@ -18,7 +18,7 @@ Admin - FO-X NotiFS
     <div class="col-auto">
     </div>
     <div class="col">
-        <div class="container-fluid main_container">
+        <div class="container-fluid main_container admin">
             <div class="setting_cont">
                 <span
                     {% if user.is_authenticated and user.role_id == 1 %}
@@ -256,12 +256,15 @@ Admin - FO-X NotiFS
 {% include "admin_modals/logs_modal.html" %}
 
 {% include "admin_modals/syssettings_modal.html" %}
-{% include "global_modals/add_credentials.html" %}
+{% include "admin_modals/add_modal.html" %}
+
+    {% block scripts %}
+
+    {% endblock %}
+
 
 {% endblock %}
 
 
 
-{% block scripts %}
 
-{% endblock %}

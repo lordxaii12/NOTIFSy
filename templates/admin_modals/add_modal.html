@@ -1,14 +1,13 @@
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/add_creds.css') }}">
 
 <div class="modal fade" id="itextMoModal" tabindex="-1" aria-labelledby="itextMoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
             <div class="modal-header">
                 <h2>ITEXMO API <br>  Credentials</h2>
                 <button type="button" class="{{user.theme.theme_font}} btn-close close-btn " data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body admin-modal">
+            <div class="modal-body">
                 <form action="{{ url_for('notifs.register_itexmo') }}" method="POST">
                     <label for="itexmo_name">Api Name</label>
                     <input type="text" id="itexmo_name" name="itexmo_name" required>
@@ -42,13 +41,13 @@
 
 <div class="modal fade" id="emailCredsModal" tabindex="-1" aria-labelledby="emailCredsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
             <div class="modal-header">
                 <h2>Email Credentials</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body admin-modal">
-                <form action="{{ url_for('notifs.register_email_api') }}" method="POST">ecreds_name
+            <div class="modal-body">
+                <form action="{{ url_for('notifs.register_email_api') }}" method="POST">
                     <label for="ecreds_name">Name</label>
                     <input type="text" id="ecreds_name" name="ecreds_name" required>
 
@@ -70,12 +69,12 @@
 
 <div class="modal fade" id="pearsCredsModal" tabindex="-1" aria-labelledby="pearsCredsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
             <div class="modal-header">
                 <h2>HRPears API Credentials</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body admin-modal">
+            <div class="modal-body">
                 <form action="{{ url_for('notifs.register_hrpears_api') }}" method="POST">
                     <label for="hrpears_name">Name</label>
                     <input type="text" id="hrpears_name" name="hrpears_name" required>
@@ -112,12 +111,12 @@
 
 <div class="modal fade" id="loginCredsModal" tabindex="-1" aria-labelledby="loginCredsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
             <div class="modal-header">
                 <h2>Login API Credentials</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body admin-modal">
+            <div class="modal-body">
                 <form action="{{ url_for('notifs.register_login_api') }}" method="POST">
                     <label for="login_api_name">Name</label>
                     <input type="text" id="login_api_name" name="login_api_name" required>
@@ -140,12 +139,12 @@
 
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
             <div class="modal-header">
                 <h2>Add User</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body admin-modal">
+            <div class="modal-body">
                 <form action="{{ url_for('notifs.register_user') }}" method="POST">
                     <label for="full_name">Full Name</label>
                     <input type="text" id="full_name" name="full_name" required>
@@ -186,12 +185,12 @@
 
 <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
             <div class="modal-header">
                 <h2>Add User Type</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body admin-modal">
+            <div class="modal-body">
                 <form action="{{ url_for('notifs.register_role') }}" method="POST">
                     <label for="role_name">User Type</label>
                     <input type="text" id="role_name" name="role_name" required>
@@ -208,12 +207,12 @@
 
 <div class="modal fade" id="addDivisionModal" tabindex="-1" aria-labelledby="addDivisionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
             <div class="modal-header">
                 <h2>Add User Division</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body admin-modal">
+            <div class="modal-body">
                 <form action="{{ url_for('notifs.register_division') }}" method="POST">
                     <label for="division_name">Division</label>
                     <input type="text" id="division_name" name="division_name" required>
