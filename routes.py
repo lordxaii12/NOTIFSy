@@ -4,7 +4,7 @@ from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
 from flask_login import login_user, current_user
-from utils import get_manila_time, to_block_text, generate_tracker, get_table_data
+from utils import get_manila_time, to_block_text, generate_tracker
 import requests
 from extensions import db, limiter
 
@@ -702,13 +702,13 @@ def home():
     
     theme_data = Theme.get_all()
     
-    directory = get_table_data()
+    # directory = get_table_data()
     return render_template("index.html",
                            theme_data=theme_data,
                            msg_data=msg_data,
                            total_sent=total_sent,
-                           total_unsent=total_unsent,
-                           directory=directory)
+                           total_unsent=total_unsent)
+                        #    directory=directory)
 
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
