@@ -1,4 +1,5 @@
-
+//-CODE BY: RYRUBIO-//
+//==================================================================================================================================//
 //Delete Logs//
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".delete-log-btn").forEach(button => {
@@ -16,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
+//==================================================================================================================================//
 //Delete Itexmo Credential//
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".itexmo-log-btn").forEach(button => {
@@ -34,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
+//==================================================================================================================================//
 //Delete Email Credential//
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".email-log-btn").forEach(button => {
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
+//==================================================================================================================================//
 //Delete HRIS Credential//
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".hris-log-btn").forEach(button => {
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
+//==================================================================================================================================//
 //Delete Login Credential//
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".login-log-btn").forEach(button => {
@@ -88,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
+//==================================================================================================================================//
 //Delete User Credential//
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".user-log-btn").forEach(button => {
@@ -106,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
+//==================================================================================================================================//
 //Delete User type Credential//
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".role-log-btn").forEach(button => {
@@ -124,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
+//==================================================================================================================================//
 //Delete User division Credential//
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".division-log-btn").forEach(button => {
@@ -142,8 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
-
+//==================================================================================================================================//
 //Delete Message-logs//
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".msg-btn").forEach(button => {
@@ -161,3 +161,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+//==================================================================================================================================//

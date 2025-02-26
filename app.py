@@ -1,3 +1,5 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from flask import Flask, render_template, g
 from flask_login import LoginManager, current_user
 from config import Config
@@ -9,7 +11,7 @@ from utils import to_block_text
 from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging
-
+#===============================================================================================================================>
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -56,7 +58,8 @@ def create_app():
         return dict(to_block_text=to_block_text)
 
     return app
-
+#===============================================================================================================================>
 if __name__ == "__main__":
     app = create_app()
     app.run(host="0.0.0.0", port=5000, debug=True)
+#===============================================================================================================================>

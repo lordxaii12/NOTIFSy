@@ -1,5 +1,6 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from flask import Blueprint, request, render_template, redirect, url_for, session, flash
-
 from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
@@ -7,7 +8,7 @@ from flask_login import login_user, current_user
 from utils import get_manila_time, to_block_text, generate_tracker
 import requests
 from extensions import db, limiter
-
+#===============================================================================================================================>
 #Models
 from models.user import User_v1
 from models.user_role import Roles
@@ -21,7 +22,7 @@ from models.email_credentials import Ecredss
 from models.hrpears_credentials import Hrpears
 from models.system_settings import SysSettings
 from models.msg_log import Msg_log
-
+#===============================================================================================================================>
 #Controllers
 from controllers.user_role import add_role, edit_role, delete_role
 from controllers.user import add_user, edit_user, delete_user
@@ -35,9 +36,8 @@ from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
 from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hrpears
 from controllers.system_settings import edit_sys_setting
 from controllers.msg_log import add_msg_log, delete_msg_log, send_msg
-
+#===============================================================================================================================>
 notifs = Blueprint('notifs', __name__, template_folder='templates')
-
 #===============================================================================================================================>
 #
 #
@@ -860,3 +860,4 @@ def reports():
 @login_required
 def profile():
     return render_template('profile.html')
+#===============================================================================================================================>

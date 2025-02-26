@@ -1,3 +1,5 @@
+//-CODE BY: RYRUBIO-//
+//==================================================================================================================================//
 //Pop Over Display//
 document.addEventListener("DOMContentLoaded", function () {
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
@@ -10,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-
+//==================================================================================================================================//
 //Flash Message Auto Hide//
 document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
