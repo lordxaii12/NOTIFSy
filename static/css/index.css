@@ -43,9 +43,6 @@
     padding: 0%;
 }
 
-
-
-
 .second_row{
     margin-top: -10px;
     gap: 20px;
@@ -97,19 +94,6 @@
     overflow-y: auto;
 }
 
-.table_icons{
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.table{
-    border-radius: 10px;
-}
-.tbl-head {
-    color: brown;
-}
 
 
 
@@ -189,4 +173,21 @@
     justify-content: center;
     align-items: center;
     border: 2px solid white; /* Optional: Adds a white border for better visibility */
+}
+
+
+
+
+
+.modal-backdrop {
+    z-index: 1045; /* Ensure backdrop does not block modals */
+}
+
+.custom-backdrop {
+    opacity: 1 !important;
+}
+
+.modal-body {
+    max-height: 80vh;   
+    padding: 0; 
 }

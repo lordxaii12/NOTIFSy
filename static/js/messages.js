@@ -16,3 +16,13 @@ function toggleRequiredFields() {
         emailInput.setAttribute("required", "required");
     }
 }
+
+
+//open directory //
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".directory-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            new bootstrap.Modal(document.getElementById("foxDirectoryModal")).show();
+        });
+    });
+});

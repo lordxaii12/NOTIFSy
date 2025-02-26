@@ -9,6 +9,7 @@ Home - FO-X NotiFS
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme_settings.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/msgs.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_tables.css') }}">
 {% endblock %}
 
 
@@ -145,7 +146,9 @@ Home - FO-X NotiFS
                                     </div>
                                 </div>
                                 <div class="msg-wrapper">
-                                    <p class="notifier">5</p>
+                                    {% if total_sent != 0 %}
+                                        <p class="notifier">{{total_sent}}</p>
+                                    {% endif %}
                                     <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/msg_sent.svg') }}" 
                                     alt="roles"
                                     data-bs-toggle="modal" 
@@ -167,7 +170,9 @@ Home - FO-X NotiFS
                                     </div>
                                 </div>
                                 <div class="msg-wrapper">
-                                    <p class="notifier">5</p>
+                                    {% if total_unsent != 0 %}
+                                        <p class="notifier">{{total_unsent}}</p>
+                                    {% endif %}
                                     <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/msg_unsent.svg') }}" 
                                     alt="roles"
                                     data-bs-toggle="modal" 
@@ -182,12 +187,12 @@ Home - FO-X NotiFS
                                 <table class="table table-striped table-hover">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Type</th>
-                                            <th>Content</th>
-                                            <th>Date</th>
+                                            <th class="equal-header">ID</th>
+                                            <th class="equal-header">Type</th>
+                                            <th class="equal-header">Content</th>
+                                            <th class="equal-header">Date</th>
                                             {% if user.is_authenticated and user.role_id in [1,3] %}
-                                                <th>Actions</th>
+                                                <th class="action-header">Actions</th>
                                             {% endif %}
                                         </tr>
                                     </thead>
@@ -195,12 +200,12 @@ Home - FO-X NotiFS
                                     <tbody id="tableBody">
                                         {% for messages in msg_data%}
                                         <tr>
-                                            <td>{{messages.msg_tracker }}</td>
-                                            <td>{{messages.msg_type}}</td>
-                                            <td>{{messages.msg_content}}</td>
-                                            <td>{{messages.sent_on}}</td>
+                                            <td class="equal-column">{{messages.msg_tracker }}</td>
+                                            <td class="equal-column">{{messages.msg_type}}</td>
+                                            <td class="equal-column">{{messages.msg_content}}</td>
+                                            <td class="equal-column">{{messages.sent_on}}</td>
                                             {% if user.is_authenticated and user.role_id in [1,3] %}
-                                                <td>
+                                                <td class="action-column">
                                                     <button class="user-log-btn btn p-0 m-0 " data-log-id="{{ user.user_id }}">
                                                         <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                                     </button>
@@ -220,6 +225,8 @@ Home - FO-X NotiFS
 
     {% include "home_modals/theme_offcanvas.html" %}
     {% include "home_modals/msg_modal.html" %}
+    {% include "home_modals/directory.html" %}
+
 
 
 

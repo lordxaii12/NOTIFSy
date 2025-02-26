@@ -1,0 +1,60 @@
+<div class="modal fade" id="foxDirectoryModal" tabindex="-1" aria-labelledby="foxDirectoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="user_editLabel">FOX-Directory</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="directory-content">
+                    <label for="directory-type">Directory Type :</label>
+                    <select id="directory-type">
+                        <option>Internal</option>
+                        <option>External</option>
+                    </select>
+                
+                    <input type="text" placeholder="Search..." class="search-bar">
+                
+                    <div class="directory">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>MOBILE</th>
+                                    <th>EMAIL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in directory %}
+                                <tr class="clickable-row" data-name="{{ row.last_name }}, {{ row.first_name }} {{ row.middle_name }}" 
+                                    data-mobile="{{ row.mobile_no }}" data-email="{{ row.email }}">
+                                    <td>{{ row.last_name }}, {{ row.first_name }} {{ row.middle_name }}</td>
+                                    <td>{{ row.mobile_no }}</td>
+                                    <td>{{ row.email }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".clickable-row").forEach(row => {
+            row.addEventListener("click", function() {
+                let name = this.dataset.name;
+                let mobile = this.dataset.mobile;
+                let email = this.dataset.email;
+
+                alert(`Selected:\nName: ${name}\nMobile: ${mobile}\nEmail: ${email}`);
+            });
+        });
+    });
+</script>-->

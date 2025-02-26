@@ -4,7 +4,7 @@ from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
 from flask_login import login_user, current_user
-from utils import get_manila_time, to_block_text, generate_tracker
+from utils import get_manila_time, to_block_text, generate_tracker, get_table_data
 import requests
 from extensions import db, limiter
 
@@ -696,11 +696,19 @@ def delete_logs_route(log_id):
 @notifs.route('/', methods=['GET', 'POST'])#Home page
 @login_required
 def home():
-    msg_data = Msg_log.get_all()
+    msg_data = Msg_log.query.filter_by(msg_sender=current_user.full_name).all()
+    total_sent = sum(1 for msg in msg_data if msg.msg_status == 'sent')
+    total_unsent = sum(1 for msg in msg_data if msg.msg_status == 'unsent')
+    
     theme_data = Theme.get_all()
+    
+    directory = get_table_data()
     return render_template("index.html",
                            theme_data=theme_data,
-                           msg_data=msg_data)
+                           msg_data=msg_data,
+                           total_sent=total_sent,
+                           total_unsent=total_unsent,
+                           directory=directory)
 
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
@@ -747,7 +755,7 @@ def send_single_msg():
     if add_name == "on":
         message = f"Hello {recipient_name}!, {content}\n\n{sender}"
     else:
-        message = content
+        message = f"Hello, {content}\n\n{sender}"
     
     msg_tracker = generate_tracker(sender_div,msg_type)
     msg_recipient = f"{recipient_name}:{recipient_contact}"
