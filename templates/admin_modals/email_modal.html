@@ -1,5 +1,6 @@
 <!--CODE BY: RYRUBIO-->
-
+<!--=============================================================================================================================-->
+<!--EMAIL CREDENTIALS DATA TABLE MODAL-->
  <div class="modal fade" id="email_display" tabindex="-1" aria-labelledby="email_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
@@ -48,7 +49,8 @@
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--EMAIL CREDENTIALS EDIT FORM MODAL-->
 <div class="modal fade" id="email_edit" tabindex="-1" aria-labelledby="email_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm admin">
@@ -59,26 +61,21 @@
             <div class="modal-body">
                 <form method="POST" id="email_editForm">
                     <input type="hidden" id="ecreds_id" name="ecreds_id">
-                    
                     <label for="ecreds_name">Name</label>
                     <input type="text" id="ecreds_name" name="ecreds_name" required>
-                    
                     <label for="ecreds_email">Email</label>
                     <input type="email" id="ecreds_email" name="ecreds_email"required>
-
                     <label for="ecreds_sender">Sender</label>
                     <input type="text" id="ecreds_sender" name="ecreds_sender"required>
-                    
                     <label for="ecreds_password">Password</label>
                     <input type="password" id="ecreds_password" name="ecreds_password" required>
-                    
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit_email-btn").forEach(button => {

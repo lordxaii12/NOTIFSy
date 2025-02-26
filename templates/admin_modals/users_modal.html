@@ -1,5 +1,6 @@
 <!--CODE BY: RYRUBIO-->
-
+<!--=============================================================================================================================-->
+<!--USER DATA TABLE MODAL-->
 <div class="modal fade" id="users_display" tabindex="-1" aria-labelledby="users_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
@@ -60,7 +61,8 @@
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--USER EDIT FORM MODAL-->
 <div class="modal fade" id="user_edit" tabindex="-1" aria-labelledby="user_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm admin">
@@ -73,13 +75,11 @@
                     <input type="hidden" id="user_id" name="user_id">
                     <label for="full_name">Full Name</label>
                     <input type="text" id="full_name" name="full_name" required>
-
                     <div class="row-group">
                         <div class="input-group">
                             <label for="username">Username</label>
                             <input type="text" id="username" name="username"  required>
                         </div>
-
                         <div class="input-group">
                             <label for="role_id">Role</label>
                             <select id="role_id" name="role_id"  required>
@@ -91,21 +91,19 @@
                             </select>
                         </div>
                     </div>
-
                     <label for="division">Division</label>
                     <select id="division" name="division" required>
                         {% for division in division_data %}
                             <option value="{{ division.division_name }}">{{ division.division_name }}</option>
                         {% endfor %}
                     </select>
-
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit_user-btn").forEach(button => {

@@ -1,5 +1,6 @@
 <!--CODE BY: RYRUBIO-->
-
+<!--=============================================================================================================================-->
+<!--DIVISION DATA TABLE MODAL-->
 <div class="modal fade" id="division_display" tabindex="-1" aria-labelledby="division_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
@@ -24,7 +25,6 @@
                             <td>{{divisions.division_name }}</td>
                             <td>{{divisions.division_description}}</td>
                             <td>
-                            
                                 <button class="division-log-btn btn p-0 m-0 " data-log-id="{{ divisions.division_id }}">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                 </button>
@@ -45,7 +45,8 @@
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--DIVISION EDIT FORM MODAL-->
 <div class="modal fade" id="division_edit" tabindex="-1" aria-labelledby="division_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
@@ -58,17 +59,15 @@
                     <input type="hidden" id="division_id" name="division_id">
                     <label for="division_name">Division</label>
                     <input type="text" id="division_name" name="division_name" required>
-
                     <label for="division_description">Description</label>
                     <input type="text" id="division_description" name="division_description" required>
-
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit_division-btn").forEach(button => {

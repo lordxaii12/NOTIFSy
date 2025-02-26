@@ -1,5 +1,6 @@
 <!--CODE BY: RYRUBIO-->
-
+<!--=============================================================================================================================-->
+<!--LOGIN API CREDENTIALS DATA TABLE MODAL-->
 <div class="modal fade" id="login_display" tabindex="-1" aria-labelledby="login_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
@@ -24,7 +25,6 @@
                             <td>{{logdata.login_api_name }}</td>
                             <td>{{logdata.login_api_url}}</td>
                             <td>
-                            
                                 <button class="login-log-btn btn p-0 m-0 " data-log-id="{{ logdata.login_api_id }}">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                 </button>
@@ -47,7 +47,8 @@
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--LOGIN API CREDENTIALS EDIT FORM MODAL-->
 <div class="modal fade" id="login_edit" tabindex="-1" aria-labelledby="login_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm admin">
@@ -60,23 +61,19 @@
                     <input type="hidden" id="login_api_id" name="login_api_id">
                     <label for="login_api_name">Name</label>
                     <input type="text" id="login_api_name" name="login_api_name" required>
-
                     <label for="login_api_url">URL</label>
                     <input type="text" id="login_api_url" name="login_api_url" required>
-                    
                     <label for="login_api_token">Token</label>
                     <input type="password" id="login_api_token" name="login_api_token" required>
-                    
                     <label for="login_api_content_type">Content-Type</label>
                     <input type="password" id="login_api_content_type" name="login_api_content_type" required>
-                    
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit_login-btn").forEach(button => {

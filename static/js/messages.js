@@ -1,4 +1,5 @@
-
+//-CODE BY: RYRUBIO-//
+//==================================================================================================================================//
 //toggle required attribute on email or phone number//
 function toggleRequiredFields() {
     let sendingOption = document.getElementById("sending_option").value;
@@ -16,7 +17,7 @@ function toggleRequiredFields() {
         emailInput.setAttribute("required", "required");
     }
 }
-
+//==================================================================================================================================//
 //open directory //
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".directory-btn").forEach(button => {
@@ -25,3 +26,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+//==================================================================================================================================//

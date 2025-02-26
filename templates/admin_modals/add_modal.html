@@ -1,5 +1,6 @@
 <!--CODE BY: RYRUBIO-->
-
+<!--=============================================================================================================================-->
+<!--ADD ITEXMO CREDENTIALS-->
 <div class="modal fade" id="itextMoModal" tabindex="-1" aria-labelledby="itextMoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
@@ -11,13 +12,10 @@
                 <form action="{{ url_for('notifs.register_itexmo') }}" method="POST">
                     <label for="itexmo_name">Api Name</label>
                     <input type="text" id="itexmo_name" name="itexmo_name" required>
-
                     <label for="itexmo_url">URL</label>
                     <input type="text" id="itexmo_url" name="itexmo_url" required>
-                    
                     <label for="itexmo_email">Email</label>
                     <input type="email" id="itexmo_email" name="itexmo_email" required>
-                    
                     <div class="row-group">
                         <div class="input-group content">
                             <label for="itexmo_password">Password</label>
@@ -28,17 +26,16 @@
                             <input type="text" id="itexmo_apicode" name="itexmo_apicode" required>
                         </div>
                     </div>
-                    
                     <label for="itexmo_contenttype">Content-Type</label>
                     <input type="text" id="itexmo_contenttype" name="itexmo_contenttype" required>
-                    
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--ADD EMAIL CREDENTIALS-->
 <div class="modal fade" id="emailCredsModal" tabindex="-1" aria-labelledby="emailCredsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
@@ -50,23 +47,20 @@
                 <form action="{{ url_for('notifs.register_email_api') }}" method="POST">
                     <label for="ecreds_name">Name</label>
                     <input type="text" id="ecreds_name" name="ecreds_name" required>
-
                     <label for="ecreds_email">Email</label>
                     <input type="email" id="ecreds_email" name="ecreds_email" required>
-
                     <label for="ecreds_sender">Sender</label>
                     <input type="text" id="ecreds_sender" name="ecreds_sender" required>
-                    
                     <label for="ecreds_password">Password</label>
                     <input type="password" id="ecreds_password" name="ecreds_password" required>
-                    
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--ADD HRIS CREDENTIALS-->
 <div class="modal fade" id="pearsCredsModal" tabindex="-1" aria-labelledby="pearsCredsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
@@ -78,13 +72,10 @@
                 <form action="{{ url_for('notifs.register_hrpears_api') }}" method="POST">
                     <label for="hrpears_name">Name</label>
                     <input type="text" id="hrpears_name" name="hrpears_name" required>
-
                     <label for="hrpears_host">Host</label>
                     <input type="text" id="hrpears_host" name="hrpears_host" required>
-                    
                     <label for="hrpears_root">Port</label>
                     <input type="text" id="hrpears_root" name="hrpears_root" required>
-                    
                     <div class="row-group">
                         <div class="input-group">
                             <label for="hrpears_user">User</label>
@@ -95,20 +86,18 @@
                             <input type="password" id="hrpears_password" name="hrpears_password" required>
                         </div>
                     </div>
-                    
                     <label for="hrpears_dbname">DB Name</label>
                     <input type="text" id="hrpears_dbname" name="hrpears_dbname" required>
-        
                     <label for="hrpears_table">Table Name</label>
                     <input type="text" id="hrpears_table" name="hrpears_table" required>
-                    
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--ADD LOGIN API CREDENTIALS-->
 <div class="modal fade" id="loginCredsModal" tabindex="-1" aria-labelledby="loginCredsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
@@ -120,23 +109,20 @@
                 <form action="{{ url_for('notifs.register_login_api') }}" method="POST">
                     <label for="login_api_name">Name</label>
                     <input type="text" id="login_api_name" name="login_api_name" required>
-
                     <label for="login_api_url">URL</label>
                     <input type="text" id="login_api_url" name="login_api_url" required>
-                    
                     <label for="login_api_token">Token</label>
                     <input type="text" id="login_api_token" name="login_api_token" required>
-                    
                     <label for="login_api_content_type">Content-Type</label>
                     <input type="text" id="login_api_content_type" name="login_api_content_type" required>
-                    
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--ADD USER-->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
@@ -148,13 +134,11 @@
                 <form action="{{ url_for('notifs.register_user') }}" method="POST">
                     <label for="full_name">Full Name</label>
                     <input type="text" id="full_name" name="full_name" required>
-
                     <div class="row-group">
                         <div class="input-group">
                             <label for="username">Username</label>
                             <input type="text" id="username" name="username"  required>
                         </div>
-
                         <div class="input-group">
                             <label for="role_id">Role</label>
                             <select id="role_id" name="role_id"  required>
@@ -167,7 +151,6 @@
                             </select>
                         </div>
                     </div>
-
                     <label for="division">Division</label>
                     <select id="division" name="division" required>
                         <option value="" disabled selected>Select a Division</option>
@@ -175,14 +158,14 @@
                             <option value="{{ division.division_name }}">{{ division.division_name }}</option>
                         {% endfor %}
                     </select>
-
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--ADD USER ROLES/TYPES-->
 <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
@@ -194,17 +177,16 @@
                 <form action="{{ url_for('notifs.register_role') }}" method="POST">
                     <label for="role_name">User Type</label>
                     <input type="text" id="role_name" name="role_name" required>
-
                     <label for="role_description">Description</label>
                     <input type="text" id="role_description" name="role_description" required>
-
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--ADD USER DIVISIONS-->
 <div class="modal fade" id="addDivisionModal" tabindex="-1" aria-labelledby="addDivisionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
@@ -216,15 +198,15 @@
                 <form action="{{ url_for('notifs.register_division') }}" method="POST">
                     <label for="division_name">Division</label>
                     <input type="text" id="division_name" name="division_name" required>
-
                     <label for="division_description">Description</label>
                     <input type="text" id="division_description" name="division_description" required>
-
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<!--=============================================================================================================================-->
+
 
 

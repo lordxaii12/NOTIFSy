@@ -42,8 +42,6 @@ notifs = Blueprint('notifs', __name__, template_folder='templates')
 #
 #
 #
-#
-#
 #================ Admin ========================================================================================================>
 @notifs.route('/admin', methods=['GET', 'POST'])#admin page
 @login_required
@@ -166,7 +164,6 @@ def logout():
     return redirect(url_for('notifs.login'))
 
 #----------------------------------------------------------------------------------------------------------->
-
 @notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials
 @login_required
 def register_itexmo():
@@ -689,10 +686,7 @@ def delete_logs_route(log_id):
 #
 #
 #
-#
-#
 #================ Home =========================================================================================================>
-
 @notifs.route('/', methods=['GET', 'POST'])#Home page
 @login_required
 def home():
@@ -826,10 +820,7 @@ def send_single_msg():
 #
 #
 #
-#
-#
 #================ Libraries ====================================================================================================>
-
 @notifs.route('/libraries', methods=['GET', 'POST'])
 @login_required
 def libraries():
@@ -839,10 +830,7 @@ def libraries():
 #
 #
 #
-#
-#
 #================ Reports ======================================================================================================>
-
 @notifs.route('/reports', methods=['GET', 'POST'])
 @login_required
 def reports():
@@ -852,10 +840,7 @@ def reports():
 #
 #
 #
-#
-#
 #================ Profile ======================================================================================================>
-
 @notifs.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():

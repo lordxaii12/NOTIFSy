@@ -1,6 +1,7 @@
 <!--CODE BY: RYRUBIO-->
-
- <div class="modal fade" id="hris_display" tabindex="-1" aria-labelledby="hris_displayLabel" aria-hidden="true">
+<!--=============================================================================================================================-->
+<!--HRIS CREDENTIALS DATA TABLE MODAL-->
+<div class="modal fade" id="hris_display" tabindex="-1" aria-labelledby="hris_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
             <div class="modal-header">
@@ -24,7 +25,6 @@
                             <td>{{data.hrpears_name }}</td>
                             <td>{{data.hrpears_host}}</td>
                             <td>
-                            
                                 <button class="hris-log-btn btn p-0 m-0 " data-log-id="{{ data.hrpears_id }}">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                 </button>
@@ -50,7 +50,8 @@
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--EMAIL CREDENTIALS EDIT FORM MODAL-->
 <div class="modal fade" id="hris_edit" tabindex="-1" aria-labelledby="hris_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
@@ -63,13 +64,10 @@
                     <input type="hidden" id="hrpears_id" name="hrpears_id">
                     <label for="hrpears_name">Name</label>
                     <input type="text" id="hrpears_name" name="hrpears_name" required>
-
                     <label for="hrpears_host">Host</label>
                     <input type="password" id="hrpears_host" name="hrpears_host" required>
-                    
                     <label for="hrpears_root">Port</label>
                     <input type="password" id="hrpears_root" name="hrpears_root" required>
-                    
                     <div class="row-group">
                         <div class="input-group">
                             <label for="hrpears_user">User</label>
@@ -80,20 +78,17 @@
                             <input type="password" id="hrpears_password" name="hrpears_password" required>
                         </div>
                     </div>
-                    
                     <label for="hrpears_dbname">DB Name</label>
                     <input type="password" id="hrpears_dbname" name="hrpears_dbname" required>
-        
                     <label for="hrpears_table">Table Name</label>
                     <input type="password" id="hrpears_table" name="hrpears_table" required>
-                    
                     <button type="submit" class="submit-btn">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit_hris-btn").forEach(button => {

@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from models.email_credentials import Ecredss
 from extensions import db
 from flask import request, jsonify, flash
 from flask_login import current_user
 from utils import get_manila_time
 
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def add_ecreds():
     ecreds_name = request.form.get('ecreds_name')
     ecreds_email = request.form.get('ecreds_email')
@@ -24,9 +29,11 @@ def add_ecreds():
     )
     db.session.add(new_ecredss)
     db.session.commit()
-
     return new_ecredss   
-    
+
+#===============================================================================================================================>
+#
+#================ EDIT =========================================================================================================>
 def edit_ecreds(ecreds_id):
     ecreds = Ecredss.get_by_id(ecreds_id)
     ecreds_name = request.form.get('ecreds_name',ecreds.ecreds_name)
@@ -52,6 +59,9 @@ def edit_ecreds(ecreds_id):
         db.session.rollback()
         return None  
 
+#===============================================================================================================================>
+#
+#================ DELETE =======================================================================================================>
 def delete_ecreds(ecreds_id):
     ecreds = Ecredss.get_by_id(ecreds_id)
     try:
@@ -59,3 +69,5 @@ def delete_ecreds(ecreds_id):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
+
+#===============================================================================================================================>

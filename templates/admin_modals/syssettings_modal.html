@@ -1,5 +1,6 @@
 <!--CODE BY: RYRUBIO-->
-
+<!--=============================================================================================================================-->
+<!--SYSTEM SETTINGS EDIT MODAL-->
 <div class="modal fade" id="sysSettingsModal{{ sys_settings_data.sys_setting_id }}" tabindex="-1" aria-labelledby="sysSettingsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
@@ -19,7 +20,6 @@
                         <div class="input-group">
                         </div>
                     </div>
-
                     <div class="row-group">
                         <div class="input-group">
                             <label for="sys_app_name">App Name</label>
@@ -30,7 +30,6 @@
                             <input type="text" id="sys_app_user" name="sys_app_user" value="{{sys_settings_data.sys_app_user}}" required>
                         </div>
                     </div>
-
                     <div class="row-group">
                         <div class="input-group">
                             <label for="sys_app_email">Support Email</label>
@@ -41,7 +40,6 @@
                             <input type="text" id="sys_app_phone" name="sys_app_phone" value="{{sys_settings_data.sys_app_phone}}" required>
                         </div>
                     </div>
-
                     <div class="row-group">
                         <div class="input-group">
                             <label for="sys_app_user_text">Users Description</label>
@@ -52,7 +50,6 @@
                             <input type="text" id="sys_app_role_text" name="sys_app_role_text" value="{{sys_settings_data.sys_app_role_text}}" required>
                         </div>
                     </div>
-
                     <div class="row-group">
                         <div class="input-group">
                             <label for="sys_app_division_text">Divisions Description</label>
@@ -63,7 +60,6 @@
                             <input type="text" id="sys_app_logs_text" name="sys_app_logs_text" value="{{sys_settings_data.sys_app_logs_text}}" required>
                         </div>
                     </div>
-
                     <div class="row-group">
                         <div class="input-group">
                             <label for="msg_api_id">SMS API</label>
@@ -82,7 +78,6 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="row-group">
                         <div class="input-group">
                             <label for="hris_api_id">HR Data API</label>
@@ -101,10 +96,10 @@
                             </select>
                         </div>
                     </div>
-
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<!--=============================================================================================================================-->

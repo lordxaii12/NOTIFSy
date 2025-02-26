@@ -1,5 +1,6 @@
 <!--CODE BY: RYRUBIO-->
-
+<!--=============================================================================================================================-->
+<!--USER ROLE/TYPE DATA TABLE MODAL-->
 <div class="modal fade" id="usertype_display" tabindex="-1" aria-labelledby="usertype_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
@@ -50,7 +51,8 @@
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--USER ROLE/TYPE EDIT FORM MODAL-->
 <div class="modal fade" id="role_edit" tabindex="-1" aria-labelledby="role_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm admin">
@@ -63,17 +65,15 @@
                     <input type="hidden" id="role_id" name="role_id">
                     <label for="role_name">User Type</label>
                     <input type="text" id="role_name" name="role_name" required>
-
                     <label for="role_description">Description</label>
                     <input type="text" id="role_description" name="role_description" required>
-
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit_role-btn").forEach(button => {
