@@ -26,16 +26,19 @@
                             </thead>
                             <tbody>
                                 {% for row in directory %}
-                                <tr class="clickable-row" data-name="{{ row.last_name }}, {{ row.first_name }} {{ row.middle_name }}" 
+                                <tr class="clickable-row" data-name="{{ row.name }}" 
                                     data-mobile="{{ row.mobile_no }}" data-email="{{ row.email }}">
-                                    <td>{{ row.last_name }}, {{ row.first_name }} {{ row.middle_name }}</td>
+                                    <td>{{ row.name }}</td>
                                     <td>{{ row.mobile_no }}</td>
                                     <td>{{ row.email }}</td>
                                 </tr>
-                                {% endfor %}
+                                {% endfor %}   
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="send-btn" data-bs-dismiss="modal" aria-label="Close">Ok</button>
                 </div>
             </div>
         </div>
@@ -52,8 +55,11 @@
                 let mobile = this.dataset.mobile;
                 let email = this.dataset.email;
 
-                alert(`Selected:\nName: ${name}\nMobile: ${mobile}\nEmail: ${email}`);
+                document.getElementById("recipient").value = name;
+                document.getElementById("phone").value = mobile;
+                document.getElementById("email").value = email;
+
             });
         });
     });
-</script>-->
+</script> -->

@@ -27,3 +27,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 //==================================================================================================================================//
+//open directory //
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".clickable-row").forEach(row => {
+        row.addEventListener("click", function() {
+            let name = this.dataset.name;
+            let mobile = this.dataset.mobile;
+            let email = this.dataset.email;
+
+            document.getElementById("recipient").value = name;
+            document.getElementById("phone").value = mobile;
+            document.getElementById("email").value = email;
+
+        });
+    });
+});
+//==================================================================================================================================//

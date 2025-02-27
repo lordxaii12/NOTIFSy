@@ -11,6 +11,7 @@ from models.itexmo_credentials import Itexmo
 import json
 from models.hrpears_credentials import Hrpears
 import pymysql
+import re
 
 #===============================================================================================================================>
 #
@@ -95,6 +96,31 @@ def send_msg(message, recipient):
 #===============================================================================================================================>
 #
 #================ FETCH DATE FROM HRIS =========================================================================================>
+
+def format_mobile_number(mobile_no):
+    if not mobile_no:
+        return "Not Found"
+    mobile_no = mobile_no.strip()
+    if mobile_no.startswith("+63"):
+        mobile_no = "0" + mobile_no[3:]
+    if not mobile_no.startswith("0"):
+        mobile_no = "0" + mobile_no
+    if mobile_no == "0" * 11:
+        return "Not Found"
+    return mobile_no if len(mobile_no) == 11 and mobile_no.isdigit() else "Not Found"
+
+def format_email(email):
+    if not email:
+        return "Not Found"
+    email = email.strip()
+    if "@" not in email:
+        return "Not Found"
+    if not email.endswith(".com"):
+        email += ".com"
+    if email.startswith("default"):
+        return "Not Found"
+    return email if re.match(r"[^@]+@[^@]+\.[a-zA-Z]{2,}", email) else "Not Found"
+
 @cache.cached(timeout=300)
 def get_table_data():
     hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 1
@@ -115,13 +141,26 @@ def get_table_data():
     )
     try:
         with connection.cursor() as cursor:
-
             query = f"SELECT first_name, last_name, middle_name, email, mobile_no FROM {DB_TABLE}"
             cursor.execute(query)
-            data = cursor.fetchall()
+            raw_data = cursor.fetchall()
+            formatted_data = []
+            for row in raw_data:
+                last_name = row["last_name"].upper() if row["last_name"] else ""
+                first_name = row["first_name"].upper() if row["first_name"] else ""
+                middle_name = row["middle_name"].upper() if row["middle_name"] else ""
+                formatted_name = f"{last_name}, {first_name} {middle_name}".strip()
+                formatted_mobile = format_mobile_number(row["mobile_no"])
+                formatted_email = format_email(row["email"])
+                formatted_data.append({
+                    "name": formatted_name,
+                    "email": formatted_email,
+                    "mobile_no": formatted_mobile
+                })
+            return formatted_data
+
     finally:
         if 'connection' in locals() and connection.open:
             connection.close()
-    return data
 
 #===============================================================================================================================>
