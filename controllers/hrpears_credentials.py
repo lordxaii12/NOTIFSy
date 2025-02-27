@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from models.hrpears_credentials import Hrpears
 from extensions import db
 from flask import request
 from flask_login import current_user
 from utils import get_manila_time
 
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def add_hrpears():
     hrpears_name = request.form.get('hrpears_name')
     hrpears_host = request.form.get('hrpears_host')
@@ -13,7 +18,6 @@ def add_hrpears():
     hrpears_dbname = request.form.get('hrpears_dbname')
     hrpears_table = request.form.get('hrpears_table')
 
-    
     created_by = current_user.full_name
     created_on = get_manila_time()
 
@@ -33,7 +37,10 @@ def add_hrpears():
     db.session.commit()
 
     return new_hrpears 
-    
+
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def edit_hrpears(hrpears_id):
     hrpears = Hrpears.get_by_id(hrpears_id)
     hrpears.hrpears_name = request.form.get('hrpears_name', hrpears.hrpears_name)
@@ -53,7 +60,10 @@ def edit_hrpears(hrpears_id):
     except Exception as e:
         db.session.rollback()
         return None  
-    
+
+#===============================================================================================================================>
+#
+#================ DELETE =======================================================================================================>  
 def delete_hrpears(hrpears_id):
     hrpears = Hrpears.get_by_id(hrpears_id)
     try:
@@ -61,3 +71,5 @@ def delete_hrpears(hrpears_id):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
+
+#===============================================================================================================================>

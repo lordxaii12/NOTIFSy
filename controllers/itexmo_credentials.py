@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from models.itexmo_credentials import Itexmo
 from extensions import db
 from flask import request
 from flask_login import current_user
 from utils import get_manila_time
 
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def add_itexmo():
     itexmo_name = request.form.get('itexmo_name')
     itexmo_url = request.form.get('itexmo_url')
@@ -12,7 +17,6 @@ def add_itexmo():
     itexmo_apicode = request.form.get('itexmo_apicode')
     itexmo_contenttype = request.form.get('itexmo_contenttype')
 
-    
     created_by = current_user.full_name
     created_on = get_manila_time()
 
@@ -31,7 +35,10 @@ def add_itexmo():
     db.session.commit()
 
     return new_itexmo 
-    
+
+#===============================================================================================================================>
+#
+#================ EDIT =========================================================================================================>   
 def edit_itexmo(itexmo_id):
     itexmo = Itexmo.get_by_id(itexmo_id)
     itexmo.itexmo_name = request.form.get('itexmo_name', itexmo.itexmo_name)
@@ -50,7 +57,10 @@ def edit_itexmo(itexmo_id):
     except Exception as e:
         db.session.rollback()
         return None  
-    
+
+#===============================================================================================================================>
+#
+#================ DELETE =======================================================================================================>    
 def delete_itexmo(itexmo_id):
     itexmo = Itexmo.get_by_id(itexmo_id)
     try:
@@ -58,3 +68,5 @@ def delete_itexmo(itexmo_id):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
+
+#===============================================================================================================================>

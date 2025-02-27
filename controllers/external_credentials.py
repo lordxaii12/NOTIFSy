@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from models.external_credentials import External
 from extensions import db
 from flask import request, jsonify, flash
 from flask_login import current_user
 from utils import get_manila_time
 
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def add_external():
     external_name = request.form.get('external_name')
     external_mobile = request.form.get('external_mobile')
@@ -26,7 +31,10 @@ def add_external():
 
     flash("Contact added successfully", "success")
     return new_externals 
-    
+
+#===============================================================================================================================>
+#
+#================ EDIT =========================================================================================================> 
 def edit_external(external_id):
     external = External.get_by_id(external_id)
     
@@ -51,6 +59,9 @@ def edit_external(external_id):
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
 
+#===============================================================================================================================>
+#
+#================ EDIT =========================================================================================================>
 def delete_external(external_id):
     external = External.get_by_id(external_id)
     try:
@@ -58,3 +69,5 @@ def delete_external(external_id):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
+
+#===============================================================================================================================>
