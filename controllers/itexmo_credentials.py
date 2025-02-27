@@ -1,4 +1,4 @@
-#--CODE BY: RYRUBIO--#
+#--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
 from models.itexmo_credentials import Itexmo
 from extensions import db

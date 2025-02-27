@@ -1,4 +1,4 @@
-#--CODE BY: RYRUBIO--#
+#--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
 from flask import Flask, render_template, g
 from flask_login import LoginManager, current_user

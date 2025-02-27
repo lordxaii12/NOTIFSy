@@ -1,4 +1,4 @@
-#--CODE BY: RYRUBIO--#
+#--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
 from flask import Blueprint, request, render_template, redirect, url_for, session, flash, jsonify
 from flask_login import login_required, logout_user
@@ -696,14 +696,11 @@ def home():
 
     theme_data = Theme.get_all()
 
-    # directory = get_table_data()
     return render_template("index.html",
                            theme_data=theme_data,
                            msg_data=msg_data,
                            total_sent=total_sent,
                            total_unsent=total_unsent)
-                        #    directory=directory)
-
 
 @notifs.route('/display_data', methods=['GET', 'POST'])#Display data to directory
 @login_required
@@ -714,7 +711,6 @@ def display_data():
         return jsonify(data)
     else:
         flash('Cannot connect to server.', 'error')
-
 
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
@@ -732,7 +728,6 @@ def select_theme(theme_id):
         db.session.rollback()
         flash(f'Error on changing theme: {str(e)}', 'error')
         return redirect(url_for('notifs.home'))
-    
 
 @notifs.route('/delete_msglogs_route/<int:msg_id>', methods=['POST'])#delete message logs
 @login_required

@@ -1,4 +1,4 @@
-#--CODE BY: RYRUBIO--#
+#--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
 from models.system_settings import SysSettings
 from extensions import db

@@ -1,4 +1,4 @@
-#--CODE BY: RYRUBIO--#
+#--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
 from models.email_credentials import Ecredss
 from extensions import db

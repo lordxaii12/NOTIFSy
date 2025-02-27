@@ -1,81 +1,65 @@
+<!--HTML CODE FOR 'NOTIFS' BY: RYRUBIO-->
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}
-        Dashboard - FO-X NotiFS
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}
+            Dashboard - FO-X NotiFS
+            {% endblock %}
+        </title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/utils.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        {% block css %}
         {% endblock %}
-    </title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/utils.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    {% block css %}
-    {% endblock %}
-</head>
+    </head>
 
-<body>
-    {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-            <div class="flash-messages">
-                {% for category, message in messages %}
-                    <div class="flash-message {{ category }}">{{ message }}</div>
-                {% endfor %}
+    <body>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <div class="row g-0 p-0 m-0">
+            <div class="col-auto base">
+                {% include 'side_nav.html' %}
             </div>
-        {% endif %}
-    {% endwith %}
-    <div class="row g-0 p-0 m-0">
-        <div class="col-auto">
-            {% include 'side_nav.html' %}
-        </div>
-        <div class="col">
-            <div class="topbar d-flex {{user.theme.theme_bg}} {{user.theme.theme_font}}">
-                <p class="title mb-0">{{g.sys_settings.sys_app_name}}</p>
-                <div class="support-contact">
-                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/contact.svg') }}" alt="text">
-                    {{g.sys_settings.sys_app_phone}}
-                </div>
-                <div class="support-email">
-                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/email.svg') }}" alt="text">
-                    <u>{{g.sys_settings.sys_app_email}}</u>
-                </div>
+            <div class="col base">
+                <div class="topbar d-flex {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                    <p class="title mb-0">{{g.sys_settings.sys_app_name}}</p>
+                    <div class="support-contact">
+                        <img class="support_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/contact.svg') }}" alt="text">
+                        {{g.sys_settings.sys_app_phone}}
+                    </div>
+                    <div class="support-email">
+                        <img class="support_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/email.svg') }}" alt="text">
+                        <u>{{g.sys_settings.sys_app_email}}</u>
+                    </div>
 
-                <div class="logout">
-                    <a href="{{ url_for('notifs.logout') }}" class="text-white">
-                        <img class="nav_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/logout.svg') }}" alt="logout">
-                    </a>
+                    <div class="logout">
+                        <a href="{{ url_for('notifs.logout') }}" class="text-white">
+                            <img class="logout_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/logout.svg') }}" alt="logout">
+                        </a>
+                    </div>
+                </div>
+                <div class="content p-3">
+                    {% block content %}
+                    {% endblock %}
                 </div>
             </div>
-
-            <div class="content p-3">
-                {% block content %}
-                {% endblock %}
-            </div>
         </div>
-    </div>
-
-    <!--<footer class="footer {{user.theme.theme_bg}} {{user.theme.theme_font}}">
-        <div class="row">
-            <div class="col">
-                <i class="fas fa-phone-alt support_phone"></i><span class="supp_contact"> 207</span>
-            </div>
-            <div class="col">
-                <h5 class="foot_title">FO-X NotiFS. All rights reserved</h5>
-                <h5 class="foot_office">DSWD - FIELD OFFICE 10</h5>
-            </div>
-            <div class="col">
-                <i class="fas fa-envelope support_email"></i><span class="supp_mail"> ictsupportfo10@dswd.gov.ph</span>
-            </div>
-        </div>
-    </footer>-->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/edit.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/delete.js') }}"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/edit.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/delete.js') }}"></script>
+    </body>
 
 </html>

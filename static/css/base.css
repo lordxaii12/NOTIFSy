@@ -1,14 +1,15 @@
-/* base.css */
-
-/* Base CSS Reset */
+/* CSS CODE FOR 'NOTIFS' BY: RYRUBIO */
+/*===============================================================================================================================>*/
+/*BASE CSS ======================================================================================================================>*/
+    /*BASE SETTINGS*/
 * {
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
-
-/* Top Navbar */
-.topbar {/*HAS THEME bg and color*/
+/*TOP BAR ========================================================================================================================>*/
+    /*TOP BAR CONTAINER*/
+.base .topbar {
     height: 50px;
     display: flex;
     align-items: center;
@@ -17,29 +18,127 @@
     overflow: hidden;
     width: 100%;
 }
-
-.ds_logo img{
-    height: 90px;
-    width: 150px;
-}
-.logout{
-    margin-left: auto;
-}
-.title {
+    /*TOP BAR TITLE / SYSTEM HEADING */
+.base .title {
     font-size: 20px;
     font-weight: bold;
     margin-left: 10px;
 }
-
-.support-contact{
+    /*TOP BAR CONTACT ICON CONTAINER*/
+.base .support-contact{
     margin-left: auto;
 }
-
-.support-email{
-    margin-left: auto;
-}
-
-.setting_icon{
+    /*TOP BAR CONTACT ICON IMG*/
+.base .support_icon{
     height: 25px;
     width: 25px;
 }
+    /*TOP BAR SUPPORT EMAIL BUTTON*/
+.base .support-email{
+    margin-left: auto;
+}
+    /*TOP BAR LOGOUT BUTTON*/
+.base .logout{
+    margin-left: auto;
+}
+    /*TOP BAR LOGOUT BUTTON IMG*/
+.base .logout_icon{
+    width: 40px;
+    height: 40px;
+}
+/*===============================================================================================================================>*/
+/*===============================================================================================================================>*/
+/*
+/*
+/*
+/*===============================================================================================================================>*/
+/*SIDE NAV ======================================================================================================================>*/
+    /*SIDE NAVBAR CONTAINER*/
+.base .sidebar {
+    width: 200px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    z-index: 1050;
+}
+    /*SIDE NAVBAR LOGO CONTAINER*/
+.base .ds_logo{
+    margin-top: -20px;
+    padding: 5px;
+}
+    /*SIDE NAVBAR LOGO IMG*/
+.base .ds_logo img{
+    height: 90px;
+    width: 150px;
+}
+    /*SIDE NAVBAR USER OFFICE*/
+.base .sidebar-user{
+    margin-top: -20px;
+}
+    /*SIDE NAVBAR TITLE / APP NAME*/
+.base .sidebar-app_name {
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    overflow: hidden;
+    margin-top: -10px;
+}
+    /*SIDE NAVBAR SEPARATOR LINE*/
+.base .sidebar-line {
+    width: 80%;
+}
+    /*SIDE NAVBAR MENU UL*/
+.base .menu ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+}
+    /*SIDE NAVBAR MENU LINK*/
+.base .menu li {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    font-size: 20px;
+    font-weight: 700;
+    border-radius: 10px;
+}
+.base .menu li a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 700;
+    transition: background 0.3s;
+}
+.base .menu li a:hover {
+    background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
+    color:  #690c19d5;
+}
+.base .menu li.active a {
+    background: linear-gradient(120deg, #ee00ffd5 20%, #01fff7e4 50%, #00ff08d9 80%);
+    color:  #690c19d5;
+}
+.base .menu li a img {
+    width: 40px;
+    height: 40px;
+    margin-right: 15px;
+}
+/*===============================================================================================================================>*/
+/*===============================================================================================================================>*/
+
+
+
+
+
+
+
+
+
+
+

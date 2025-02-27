@@ -1,4 +1,4 @@
-//-CODE BY: RYRUBIO-//
+//-JS CODE FOR 'NOTIFS' BY: RYRUBIO-//
 //==================================================================================================================================//
 //Delete Logs//
 document.addEventListener("DOMContentLoaded", function () {

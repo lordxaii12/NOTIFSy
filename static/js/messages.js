@@ -1,4 +1,4 @@
-//-CODE BY: RYRUBIO-//
+//-JS CODE FOR 'NOTIFS' BY: RYRUBIO-//
 //==================================================================================================================================//
 //========= SINGLE MSG =============================================================================================================//
 //toggle required attribute on email or phone number//
@@ -70,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
 //==================================================================================================================================//
 //get data from directory single message//
 document.addEventListener("DOMContentLoaded", function() {

@@ -1,18 +1,16 @@
-#--CODE BY: RYRUBIO--#
+#--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
 from models.msg_log import Msg_log
 from extensions import db, cache
 import requests
 from flask_login import current_user
-from utils import get_manila_time
+from utils import get_manila_time, format_mobile_number, format_email
 from flask import g, flash
 from models.email_credentials import Ecredss
 from models.itexmo_credentials import Itexmo
 import json
 from models.hrpears_credentials import Hrpears
 import pymysql
-import re
-
 #===============================================================================================================================>
 #
 #================ ADD ==========================================================================================================>
@@ -96,31 +94,6 @@ def send_msg(message, recipient):
 #===============================================================================================================================>
 #
 #================ FETCH DATE FROM HRIS =========================================================================================>
-
-def format_mobile_number(mobile_no):
-    if not mobile_no:
-        return "Not Found"
-    mobile_no = mobile_no.strip()
-    if mobile_no.startswith("+63"):
-        mobile_no = "0" + mobile_no[3:]
-    if not mobile_no.startswith("0"):
-        mobile_no = "0" + mobile_no
-    if mobile_no == "0" * 11:
-        return "Not Found"
-    return mobile_no if len(mobile_no) == 11 and mobile_no.isdigit() else "Not Found"
-
-def format_email(email):
-    if not email:
-        return "Not Found"
-    email = email.strip()
-    if "@" not in email:
-        return "Not Found"
-    if not email.endswith(".com"):
-        email += ".com"
-    if email.startswith("default"):
-        return "Not Found"
-    return email if re.match(r"[^@]+@[^@]+\.[a-zA-Z]{2,}", email) else "Not Found"
-
 @cache.cached(timeout=300)
 def get_table_data():
     hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 1

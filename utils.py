@@ -1,9 +1,10 @@
-#--CODE BY: RYRUBIO--#
+#--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
 from datetime import datetime
 import pytz
 import random
 from flask import g
+import re
 
 #===============================================================================================================================>
     #Get datetime in manila based timezone
@@ -38,3 +39,34 @@ def extract_first_name(full_name):
             return word
     return "Not Found"
 #===============================================================================================================================>
+    #Format mobile number to 09xxxxxxxxx
+def format_mobile_number(mobile_no):
+    if not mobile_no:
+        return "Not Found"
+    mobile_no = mobile_no.strip()
+    if mobile_no.startswith("+63"):
+        mobile_no = "0" + mobile_no[3:]
+    if not mobile_no.startswith("0"):
+        mobile_no = "0" + mobile_no
+    if mobile_no == "0" * 11:
+        return "Not Found"
+    return mobile_no if len(mobile_no) == 11 and mobile_no.isdigit() else "Not Found"
+#===============================================================================================================================>
+    #Format email with '@' and '.com'
+def format_email(email):
+    if not email:
+        return "Not Found"
+    email = email.strip()
+    if "@" not in email:
+        return "Not Found"
+    if not email.endswith(".com"):
+        email += ".com"
+    if email.startswith("default"):
+        return "Not Found"
+    return email if re.match(r"[^@]+@[^@]+\.[a-zA-Z]{2,}", email) else "Not Found"
+#===============================================================================================================================>
+
+
+
+
+

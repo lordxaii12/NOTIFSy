@@ -1,4 +1,4 @@
-<!--CODE BY: RYRUBIO-->
+<!--HTML CODE FOR 'NOTIFS' BY: RYRUBIO-->
 {% extends "base.html" %}
 
     {% block title %}
@@ -7,7 +7,7 @@
 
     {% block css %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/theme_settings.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/theme_offcanvas.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/msgs.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_tables.css') }}">
     {% endblock %}
@@ -213,7 +213,7 @@
             </div>
         </div>
 
-        {% include "home_modals/theme_offcanvas.html" %}
+        {% include "global_modals/theme.html" %}
         {% include "home_modals/msg_modal.html" %}
         {% include "home_modals/directory.html" %}
 

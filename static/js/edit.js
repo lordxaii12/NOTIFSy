@@ -1,4 +1,4 @@
-//-CODE BY: RYRUBIO-//
+//-JS CODE FOR 'NOTIFS' BY: RYRUBIO-//
 //==================================================================================================================================//
 //Edit Email API Credentials Table//
 document.addEventListener("DOMContentLoaded", function () {

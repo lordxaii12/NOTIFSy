@@ -1,4 +1,4 @@
-//-CODE BY: RYRUBIO-//
+//-JS CODE FOR 'NOTIFS' BY: RYRUBIO-//
 //==================================================================================================================================//
 //Pop Over Display//
 document.addEventListener("DOMContentLoaded", function () {
@@ -31,3 +31,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 //==================================================================================================================================//
+//Theme options button change from Activate-Active//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".submit-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let themeId = this.getAttribute("data-theme-id");
+
+            document.getElementById("theme_id").value = themeId;
+            document.getElementById("themeForm").action = `/select_theme/${themeId}`;
+            document.getElementById("themeForm").submit();
+        });
+    });
+}); 
+//==================================================================================================================================//
+
