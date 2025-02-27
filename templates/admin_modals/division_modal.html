@@ -68,22 +68,3 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".edit_division-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                let did = this.getAttribute("data-did");
-                let dname = this.getAttribute("data-dname");
-                let ddesc = this.getAttribute("data-ddesc");
-
-                document.getElementById("division_id").value = did;
-                document.getElementById("division_name").value = dname;
-                document.getElementById("division_description").value = ddesc;
-
-                document.getElementById("division_editForm").action = `/edit_division_route/${did}`;
-
-                new bootstrap.Modal(document.getElementById("division_edit")).show();
-            });
-        });
-    });
-</script>

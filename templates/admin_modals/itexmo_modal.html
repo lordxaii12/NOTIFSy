@@ -86,31 +86,3 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".edit_itexmo-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                let txtid = this.getAttribute("data-txtid");
-                let txtname = this.getAttribute("data-txtname");
-                let txturl = this.getAttribute("data-txturl");
-                let txtemail = this.getAttribute("data-txtemail");
-                let txtpassword = this.getAttribute("data-txtpassword");
-                let txtapicode = this.getAttribute("data-txtapicode");
-                let txtcontenttype = this.getAttribute("data-txtcontenttype");
-               
-                
-                document.getElementById("itexmo_id").value = txtid;
-                document.getElementById("itexmo_name").value = txtname;
-                document.getElementById("itexmo_url").value = txturl;
-                document.getElementById("itexmo_email").value = txtemail;
-                document.getElementById("itexmo_password").value = txtpassword;
-                document.getElementById("itexmo_apicode").value = txtapicode;
-                document.getElementById("itexmo_contenttype").value = txtcontenttype;
-                
-                document.getElementById("itextmo_editForm").action = `/edit_itexmo_route/${txtid}`;
-                
-                new bootstrap.Modal(document.getElementById("itextmo_edit")).show();
-            });
-        });
-    });
-</script>

@@ -74,26 +74,3 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".edit_login-btn").forEach(button => {
-            button.addEventListener("click", function () {
-
-                let logid = this.getAttribute("data-logid");
-                let logname = this.getAttribute("data-logname");
-                let logurl = this.getAttribute("data-logurl");
-                let logtoken = this.getAttribute("data-logtoken");
-                let logcontenttype = this.getAttribute("data-logcontenttype");
-
-                document.getElementById("login_api_id").value = logid;
-                document.getElementById("login_api_name").value = logname;
-                document.getElementById("login_api_url").value = logurl;
-                document.getElementById("login_api_token").value = logtoken;
-                document.getElementById("login_api_content_type").value = logcontenttype;
-               
-                document.getElementById("login_editForm").action = `/edit_loginapi_route/${logid}`;
-                new bootstrap.Modal(document.getElementById("login_edit")).show();
-            });
-        });
-    });
-</script>

@@ -74,22 +74,3 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".edit_role-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                let rid = this.getAttribute("data-rid");
-                let rname = this.getAttribute("data-rname");
-                let rdesc = this.getAttribute("data-rdesc");
-
-                document.getElementById("role_id").value = rid;
-                document.getElementById("role_name").value = rname;
-                document.getElementById("role_description").value = rdesc;
-
-                document.getElementById("role_editForm").action = `/edit_role_route/${rid}`;
-
-                new bootstrap.Modal(document.getElementById("role_edit")).show();
-            });
-        });
-    });
-</script>

@@ -20,3 +20,4 @@ document.addEventListener("DOMContentLoaded", function () {
         flashMessages.forEach(msg => msg.style.display = "none");
     }, 5000); // Hide after 5 seconds
 });
+//==================================================================================================================================//

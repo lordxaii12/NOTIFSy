@@ -89,34 +89,3 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".edit_hris-btn").forEach(button => {
-            button.addEventListener("click", function () {
-
-                let hrid = this.getAttribute("data-hrid");
-                let hrname = this.getAttribute("data-hrname");
-                let host = this.getAttribute("data-host");
-                let root = this.getAttribute("data-root");
-                let user = this.getAttribute("data-user");
-                let password = this.getAttribute("data-password");
-                let db = this.getAttribute("data-db");
-                let table = this.getAttribute("data-table");
-               
-                
-                document.getElementById("hrpears_id").value = hrid;
-                document.getElementById("hrpears_name").value = hrname;
-                document.getElementById("hrpears_host").value = host;
-                document.getElementById("hrpears_root").value = root;
-                document.getElementById("hrpears_user").value = user;
-                document.getElementById("hrpears_password").value = password;
-                document.getElementById("hrpears_dbname").value = db;
-                document.getElementById("hrpears_table").value = table;
-                
-                document.getElementById("hris_editForm").action = `/edit_hrpears_route/${hrid}`;
-                
-                new bootstrap.Modal(document.getElementById("hris_edit")).show();
-            });
-        });
-    });
-</script>

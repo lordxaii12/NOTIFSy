@@ -76,25 +76,3 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".edit_email-btn").forEach(button => {
-            button.addEventListener("click", function () {
-                let emid = this.getAttribute("data-emid");
-                let ename = this.getAttribute("data-name");
-                let email = this.getAttribute("data-email");
-                let sender = this.getAttribute("data-sender");
-                let password = this.getAttribute("data-password");
-
-                document.getElementById("ecreds_id").value = emid;
-                document.getElementById("ecreds_name").value = ename;
-                document.getElementById("ecreds_email").value = email;
-                document.getElementById("ecreds_sender").value = sender;
-                document.getElementById("ecreds_password").value = password;
-
-                document.getElementById("email_editForm").action = `/edit_email_route/${emid}`;
-                new bootstrap.Modal(document.getElementById("email_edit")).show();
-            });
-        });
-    });
-</script>
