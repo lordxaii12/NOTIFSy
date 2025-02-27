@@ -1,7 +1,7 @@
 #--CODE BY: RYRUBIO--#
 #===============================================================================================================================>
 from models.msg_log import Msg_log
-from extensions import db
+from extensions import db, cache
 import requests
 from flask_login import current_user
 from utils import get_manila_time
@@ -9,6 +9,8 @@ from flask import g, flash
 from models.email_credentials import Ecredss
 from models.itexmo_credentials import Itexmo
 import json
+from models.hrpears_credentials import Hrpears
+import pymysql
 
 #===============================================================================================================================>
 #
@@ -61,7 +63,7 @@ def delete_msg_log(msg_id):
 
 #===============================================================================================================================>
 #
-#================ DELETE =======================================================================================================>
+#================ SEND MESSAGE =================================================================================================>
 def send_msg(message, recipient):
     sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
     sms_data = Itexmo.get_by_id(sms_id)
@@ -91,4 +93,35 @@ def send_msg(message, recipient):
         flash('PLEASE CHECK SMS API CREDENTIALS.', 'error')
 
 #===============================================================================================================================>
+#
+#================ FETCH DATE FROM HRIS =========================================================================================>
+@cache.cached(timeout=300)
+def get_table_data():
+    hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 1
+    hris_data = Hrpears.get_by_id(hris_id)
+    
+    DB_HOST = hris_data.hrpears_host
+    DB_USER = hris_data.hrpears_user
+    DB_PASSWORD = hris_data.hrpears_password
+    DB_NAME = hris_data.hrpears_dbname
+    DB_TABLE = hris_data.hrpears_table
 
+    connection = pymysql.connect(
+        host=DB_HOST,
+        user=DB_USER,
+        password=DB_PASSWORD,
+        database=DB_NAME,
+        cursorclass=pymysql.cursors.DictCursor
+    )
+    try:
+        with connection.cursor() as cursor:
+
+            query = f"SELECT first_name, last_name, middle_name, email, mobile_no FROM {DB_TABLE}"
+            cursor.execute(query)
+            data = cursor.fetchall()
+    finally:
+        if 'connection' in locals() and connection.open:
+            connection.close()
+    return data
+
+#===============================================================================================================================>

@@ -35,7 +35,7 @@ from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexm
 from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
 from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hrpears
 from controllers.system_settings import edit_sys_setting
-from controllers.msg_log import add_msg_log, delete_msg_log, send_msg
+from controllers.msg_log import add_msg_log, delete_msg_log, send_msg, get_table_data
 #===============================================================================================================================>
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 #===============================================================================================================================>
@@ -693,16 +693,16 @@ def home():
     msg_data = Msg_log.query.filter_by(msg_sender=current_user.full_name).all()
     total_sent = sum(1 for msg in msg_data if msg.msg_status == 'sent')
     total_unsent = sum(1 for msg in msg_data if msg.msg_status == 'unsent')
-    
+
     theme_data = Theme.get_all()
-    
-    # directory = get_table_data()
+
+    directory = get_table_data()
     return render_template("index.html",
                            theme_data=theme_data,
                            msg_data=msg_data,
                            total_sent=total_sent,
-                           total_unsent=total_unsent)
-                        #    directory=directory)
+                           total_unsent=total_unsent,
+                           directory=directory)
 
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
@@ -746,7 +746,6 @@ def delete_msglogs_route(msg_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.home'))
-
 
 @notifs.route('/send_single_msg', methods=['POST'])#Send single message
 @login_required

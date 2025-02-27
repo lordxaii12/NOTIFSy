@@ -3,7 +3,7 @@
 from flask import Flask, render_template, g
 from flask_login import LoginManager, current_user
 from config import Config
-from extensions import db , limiter
+from extensions import db , limiter, cache
 from flask_migrate import Migrate
 from models.system_settings import SysSettings
 from models.user import User_v1
@@ -11,10 +11,15 @@ from utils import to_block_text
 from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging
+
 #===============================================================================================================================>
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    
+    app.config['CACHE_TYPE'] = 'simple' 
+    app.config['CACHE_DEFAULT_TIMEOUT'] = 300  
+    cache.init_app(app)
 
     migrate = Migrate(app, db)
 

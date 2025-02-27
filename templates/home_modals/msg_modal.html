@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ url_for('notifs.send_single_msg') }}" method="POST">
+                <form action="{{ url_for('notifs.send_single_msg') }}" method="POST" id="send_single_msg">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="sender">SMS Sender</label>
@@ -79,7 +79,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="modal fade" id="multiMsgModal" tabindex="-1" aria-labelledby="multiMsgModalModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
