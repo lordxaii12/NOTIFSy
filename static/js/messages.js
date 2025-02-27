@@ -1,7 +1,7 @@
 //-JS CODE FOR 'NOTIFS' BY: RYRUBIO-//
 //==================================================================================================================================//
 //========= SINGLE MSG =============================================================================================================//
-//toggle required attribute on email or phone number//
+//toggle required attribute on email or phone number for single message//
 function toggleRequiredFields() {
     let sendingOption = document.getElementById("sending_option").value;
     let phoneInput = document.getElementById("phone");
@@ -26,64 +26,64 @@ document.addEventListener("DOMContentLoaded", function () {
             let modal = new bootstrap.Modal(document.getElementById("foxDirectoryModal"));
             modal.show();
 
-            let tableBody = document.getElementById("directoryTable");
-            tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>'; // Show loading message
+            let directoryType = document.getElementById("directory-type").value;
+            fetchAndDisplayData(directoryType);
 
-            fetch("/display_data")
-                .then(response => response.json())
-                .then(data => {
-                    tableBody.innerHTML = "";
-                    data.forEach(row => {
-                        let tr = document.createElement("tr");
-                        tr.classList.add("clickable-row");
-                        tr.dataset.name = row.name;
-                        tr.dataset.mobile = row.mobile_no;
-                        tr.dataset.email = row.email;
-                        tr.innerHTML = `
-                            <td>${row.name}</td>
-                            <td>${row.mobile_no}</td>
-                            <td>${row.email}</td>
-                        `;
-                        tableBody.appendChild(tr);
-                    });
-
-                    addRowClickEvent();
-                })
-                .catch(error => {
-                    console.error("Error fetching data:", error);
-                    tableBody.innerHTML = '<tr><td colspan="3">Failed to load data</td></tr>';
-                });
+            let directoryTypeElement = document.getElementById("directory-type");
+            directoryTypeElement.removeEventListener("change", onDirectoryTypeChange);
+            directoryTypeElement.addEventListener("change", onDirectoryTypeChange);
         });
     });
+
+    function onDirectoryTypeChange() {
+        let selectedType = this.value;
+        
+        document.getElementById("searchBar").value = "";
+
+        fetchAndDisplayData(selectedType);
+    }
+
+    function fetchAndDisplayData(type) {
+        let tableBody = document.getElementById("directoryTable");
+        tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
+
+        let endpoint = type === "external" ? "/display_external_data" : "/display_data";
+
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(data => {
+                tableBody.innerHTML = "";
+                data.forEach(row => {
+                    let tr = document.createElement("tr");
+                    tr.classList.add("clickable-row");
+                    tr.dataset.name = row.name;
+                    tr.dataset.mobile = row.mobile_no;
+                    tr.dataset.email = row.email;
+                    tr.innerHTML = `
+                        <td>${row.name}</td>
+                        <td>${row.mobile_no}</td>
+                        <td>${row.email}</td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+
+                addRowClickEvent();
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                tableBody.innerHTML = '<tr><td colspan="3">Failed to load data</td></tr>';
+            });
+    }
 
     function addRowClickEvent() {
         document.querySelectorAll(".clickable-row").forEach(row => {
             row.addEventListener("click", function () {
-                let name = this.dataset.name;
-                let mobile = this.dataset.mobile;
-                let email = this.dataset.email;
-
-                document.getElementById("recipient").value = name;
-                document.getElementById("phone").value = mobile;
-                document.getElementById("email").value = email;
+                document.getElementById("recipient").value = this.dataset.name;
+                document.getElementById("phone").value = this.dataset.mobile;
+                document.getElementById("email").value = this.dataset.email;
             });
         });
     }
-});
-//==================================================================================================================================//
-//get data from directory single message//
-document.addEventListener("DOMContentLoaded", function() {
-    document.querySelectorAll(".clickable-row").forEach(row => {
-        row.addEventListener("click", function() {
-            let name = this.dataset.name;
-            let mobile = this.dataset.mobile;
-            let email = this.dataset.email;
-
-            document.getElementById("recipient").value = name;
-            document.getElementById("phone").value = mobile;
-            document.getElementById("email").value = email;
-        });
-    });
 });
 //==================================================================================================================================//
 //search directory for single message//
@@ -112,6 +112,76 @@ document.addEventListener("DOMContentLoaded", function () {
 //
 //
 //========= MULTI MSG ==============================================================================================================//
+//toggle required attribute on email or phone number for Multi messagge//
+function mtoggleRequiredFields() {
+    let msendingOption = document.getElementById("msending_option").value;
+    let mphoneInput = document.getElementById("mphone");
+    let memailInput = document.getElementById("memail");
+
+    // Reset required attributes
+    mphoneInput.removeAttribute("required");
+    memailInput.removeAttribute("required");
+
+    // Add required based on selection
+    if (msendingOption === "sms") {
+        mphoneInput.setAttribute("required", "required");
+    } else if (msendingOption === "email") {
+        memailInput.setAttribute("required", "required");
+    }
+}
+//==================================================================================================================================//
+//open directory for Multi messagge //
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".multi_directory-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let modal = new bootstrap.Modal(document.getElementById("multi_foxDirectoryModal"));
+            modal.show();
+
+            let tableBody = document.getElementById("mdirectoryTable");
+            tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>'; // Show loading message
+
+            fetch("/display_data")
+                .then(response => response.json())
+                .then(data => {
+                    tableBody.innerHTML = "";
+                    data.forEach(row => {
+                        let tr = document.createElement("tr");
+                        tr.classList.add("clickable-row");
+                        tr.dataset.name = row.name;
+                        tr.dataset.mobile = row.mobile_no;
+                        tr.dataset.email = row.email;
+                        tr.innerHTML = `
+                            <td><input type="checkbox" class="row-checkbox"></td>
+                            <td>${row.name}</td>
+                            <td>${row.mobile_no}</td>
+                            <td>${row.email}</td>
+                        `;
+                        tableBody.appendChild(tr);
+                    });
+
+                    addRowClickEvent();
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                    tableBody.innerHTML = '<tr><td colspan="3">Failed to load data</td></tr>';
+                });
+        });
+    });
+
+    function addRowClickEvent() {
+        document.querySelectorAll(".clickable-row").forEach(row => {
+            row.addEventListener("click", function () {
+                let name = this.dataset.name;
+                let mobile = this.dataset.mobile;
+                let email = this.dataset.email;
+
+                document.getElementById("mrecipient").value = name;
+                document.getElementById("mphone").value = mobile;
+                document.getElementById("memail").value = email;
+            });
+        });
+    }
+});
 //Add recipients to recipient list//
 function addRecipient() {
     let recipient = document.getElementById("mrecipient").value.trim();
@@ -132,56 +202,33 @@ function addRecipient() {
     document.getElementById("memail").value = "";
 }
 //==================================================================================================================================//
-//open directory for Multi messagge //
+//search directory for Multi message//
 document.addEventListener("DOMContentLoaded", function () {
-    // Fetch data before opening the modal
-    document.querySelectorAll(".multi_directory-btn").forEach(button => {
-        button.addEventListener("click", function () {
-            fetch("/display_data")
-                .then(response => response.json())
-                .then(data => {
-                    let tableBody = document.getElementById("mdirectoryTable");
-                    tableBody.innerHTML = ""; // Clear old data
+    const searchBar = document.getElementById("msearchBar");
 
-                    data.forEach(row => {
-                        let newRow = document.createElement("tr");
-                        newRow.classList.add("clickable-row");
-                        newRow.setAttribute("data-name", row.name);
-                        newRow.setAttribute("data-mobile", row.mobile_no);
-                        newRow.setAttribute("data-email", row.email);
+    searchBar.addEventListener("keyup", function () {
+        let searchValue = searchBar.value.toLowerCase();
+        let tableRows = document.querySelectorAll("#mdirectoryTable tr");
 
-                        newRow.innerHTML = `
-                            <td><input type="checkbox" class="row-checkbox"></td>
-                            <td>${row.name}</td>
-                            <td>${row.mobile_no}</td>
-                            <td>${row.email}</td>
-                        `;
+        tableRows.forEach(row => {
+            let name = row.dataset.name ? row.dataset.name.toLowerCase() : "";
+            let mobile = row.dataset.mobile ? row.dataset.mobile.toLowerCase() : "";
+            let email = row.dataset.email ? row.dataset.email.toLowerCase() : "";
 
-                        tableBody.appendChild(newRow);
-                    });
-
-                    // Reattach click event for new rows
-                    addRowClickEvent();
-
-                    // Open modal after data is loaded
-                    new bootstrap.Modal(document.getElementById("multi_foxDirectoryModal")).show();
-                })
-                .catch(error => console.error("Error fetching data:", error));
+            if (name.includes(searchValue) || mobile.includes(searchValue) || email.includes(searchValue)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
         });
     });
-
-    // Function to add event listener to clickable rows
-    function addRowClickEvent() {
-        document.querySelectorAll(".clickable-row").forEach(row => {
-            row.addEventListener("click", function () {
-                let name = this.dataset.name;
-                let mobile = this.dataset.mobile;
-                let email = this.dataset.email;
-
-                document.getElementById("mrecipient").value = name;
-                document.getElementById("mphone").value = mobile;
-                document.getElementById("memail").value = email;
-            });
-        });
-    }
 });
+//==================================================================================================================================//
+
+
+
+
+
+
+
+

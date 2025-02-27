@@ -1,3 +1,6 @@
+<!--HTML CODE FOR 'NOTIFS' BY: RYRUBIO-->
+<!--=============================================================================================================================-->
+<!--SEND SINGLE MESSAGE MODAL-->
 <div class="modal fade" id="singleMsgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="singleMsgModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -79,7 +82,8 @@
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--SEND MULTI MESSAGE MODAL-->
 <div class="modal fade" id="multiMsgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="multiMsgModalModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -117,7 +121,7 @@
                                 <span class="form-icon multi_directory-btn">
                                     📞
                                 </span>
-                                <input type="text" id="mrecipient" name="recipient" >
+                                <input type="text" id="mrecipient" name="recipient" required>
                             </div>
                         </div>
     
@@ -150,22 +154,22 @@
                         <div class="form-group2">
                             <label for="mlist">Recipient List:</label>
                             <div class="textarea-container">
-                                <textarea id="mlist" name="list"></textarea>
+                                <textarea id="mlist" name="list" required></textarea>
                             </div>
                         </div>
                        
                         <div class="form-group2">
                             <label for="mmessage">Message:</label>
                             <div class="textarea-container">
-                                <textarea id="mmessage" name="message"></textarea>
+                                <textarea id="mmessage" name="message" required></textarea>
                                 <span class="search-icon">🔍</span>
                             </div>
                         </div>
                     </div>            
     
                     <div class="checkbox-group">
-                        <input type="checkbox" id="maddName" name="maddName" value="on">
-                        <label for="addName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
+                        <input type="checkbox" id="maddName" name="addName" value="on">
+                        <label for="maddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
                     </div>
                     
                     <div class="button-group">
@@ -177,7 +181,8 @@
         </div>
     </div>
 </div>
-
+<!--=============================================================================================================================-->
+<!--SEND UPLOAD MESSAGE MODAL-->
 <div class="modal fade" id="uploadMsgModal" tabindex="-1" aria-labelledby="uploadMsgModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -231,6 +236,7 @@
         </div>
     </div>
 </div>
+<!--=============================================================================================================================-->
 
 
 

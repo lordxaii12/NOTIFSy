@@ -14,7 +14,7 @@ from models.user import User_v1
 from models.user_role import Roles
 from models.user_logs import User_logs
 from models.user_division import Divisions
-from models.external_credentials import External
+from models.external_contacts import External
 from models.login_credentials import LogApi
 from models.user_themes import Theme
 from models.itexmo_credentials import Itexmo
@@ -28,7 +28,7 @@ from controllers.user_role import add_role, edit_role, delete_role
 from controllers.user import add_user, edit_user, delete_user
 from controllers.user_logs import add_user_logs, delete_user_logs
 from controllers.user_division import add_division, edit_division, delete_division
-from controllers.external_credentials import add_external, edit_external, delete_external
+from controllers.external_contacts import add_external, edit_external, delete_external
 from controllers.login_credentials import add_login_api, edit_login_api, delete_login_api
 from controllers.user_themes import add_theme, edit_theme, delete_theme
 from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexmo
@@ -702,7 +702,7 @@ def home():
                            total_sent=total_sent,
                            total_unsent=total_unsent)
 
-@notifs.route('/display_data', methods=['GET', 'POST'])#Display data to directory
+@notifs.route('/display_data', methods=['GET', 'POST'])#Display Internal data from HRIS to directory
 @login_required
 def display_data():
     
@@ -711,6 +711,25 @@ def display_data():
         return jsonify(data)
     else:
         flash('Cannot connect to server.', 'error')
+
+@notifs.route('/display_external_data', methods=['GET', 'POST'])#Display External data from local database to directory
+@login_required
+def display_external_data():
+    data = External.get_all()
+    if data:
+        return jsonify([
+            {
+                'name': item.external_name,
+                'mobile_no': item.external_mobile,
+                'email': item.external_email
+            } 
+            for item in data
+        ])
+    else:
+        flash('Cannot connect to database.', 'error')
+
+
+
 
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
