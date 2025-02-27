@@ -11,7 +11,7 @@ label {
 }
 
 select {
-    width: 90%;
+    width: 95%;
     margin-top: 5px;
     padding: 5px;
     border: 1px solid #ccc;
@@ -49,7 +49,7 @@ select {
 
 /* Table Layout */
 .table {
-    width: 100%;
+    width: 95%;
     table-layout: fixed; /* Ensures column width control */
     border-collapse: collapse;
 }

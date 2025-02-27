@@ -59,24 +59,6 @@ small {
     color: gray;
 }
 
-input:not([type="checkbox"]), select, textarea {
-    width: 95%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-input[type="checkbox"] {
-    width: auto; 
-    height: auto; 
-    margin: 0;
-}
-textarea {
-    height: 80px;
-    resize: none;
-}
-
 /* Input with Icon */
 .input-icon {
     display: flex;
@@ -109,13 +91,21 @@ textarea {
     position: relative;
     display: flex;
     width: 100%;
+    max-height: 300px; /* Prevents overflow restriction */
+    overflow-y: auto;
 }
 
 .textarea-container textarea {
     width: 100%;
+    height: 150px; /* Adjust as needed */
+    resize: vertical;
     padding: 10px;
-    padding-right: 15px; 
-    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    overflow-y: scroll !important; /* Forces vertical scrolling */
+    display: block;
+    max-height: 300px; /* Prevents over-expansion */
 }
 
 .search-icon {
@@ -154,6 +144,8 @@ textarea {
     margin-top: 20px;
 }
 
+
+
 /* Buttons */
 .send-btn, .cancel-btn {
     border: none;
@@ -163,6 +155,8 @@ textarea {
     border-radius: 5px;
     font-size: 14px;
 }
+
+
 
 .send-btn {
     background: #220066;
@@ -180,20 +174,4 @@ textarea {
 
 .cancel-btn:hover {
     background: #777;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .modal-container {
-        width: 90%;
-    }
-
-    .form-row {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .form-group {
-        width: 100%;
-    }
 }

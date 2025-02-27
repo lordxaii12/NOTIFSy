@@ -18,7 +18,7 @@ function toggleRequiredFields() {
     }
 }
 //==================================================================================================================================//
-//open directory //
+//open directory for single messagge //
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".directory-btn").forEach(button => {
         button.addEventListener("click", function () {
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 //==================================================================================================================================//
-//open directory //
+//get data from directory single message//
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".clickable-row").forEach(row => {
         row.addEventListener("click", function() {
@@ -38,12 +38,11 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("recipient").value = name;
             document.getElementById("phone").value = mobile;
             document.getElementById("email").value = email;
-
         });
     });
 });
 //==================================================================================================================================//
-//search directory //
+//search directory for single message//
 document.addEventListener("DOMContentLoaded", function () {
     const searchBar = document.getElementById("searchBar");
     const tableRows = document.querySelectorAll("#directoryTable tr");
@@ -65,5 +64,26 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 //==================================================================================================================================//
+//Add recipients to recipient list//
+function addRecipient() {
+    let recipient = document.getElementById("mrecipient").value.trim();
+    let mobile = document.getElementById("mphone").value.trim();
+    let email = document.getElementById("memail").value.trim();
+    let list = document.getElementById("mlist");
+
+    if (recipient === "" || mobile === "" || email === "") {
+        alert("Please fill in all fields before adding.");
+        return;
+    }
+
+    let entry = `${recipient}:${mobile}:${email}`;
+    list.value = list.value ? list.value + "\n" + entry : entry;
+
+    document.getElementById("mrecipient").value = "";
+    document.getElementById("mphone").value = "";
+    document.getElementById("memail").value = "";
+}
+//==================================================================================================================================//
+
 
 
