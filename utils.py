@@ -59,7 +59,7 @@ def format_email(email):
     email = email.strip()
     if "@" not in email:
         return "Not Found"
-    if not email.endswith(".com"):
+    if "dswd.gov.ph" not in email and not email.endswith(".com"):
         email += ".com"
     if email.startswith("default"):
         return "Not Found"
