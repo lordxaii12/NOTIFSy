@@ -43,3 +43,27 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 //==================================================================================================================================//
+//search directory //
+document.addEventListener("DOMContentLoaded", function () {
+    const searchBar = document.getElementById("searchBar");
+    const tableRows = document.querySelectorAll("#directoryTable tr");
+
+    searchBar.addEventListener("keyup", function () {
+        let searchValue = searchBar.value.toLowerCase();
+
+        tableRows.forEach(row => {
+            let name = row.getAttribute("data-name").toLowerCase();
+            let mobile = row.getAttribute("data-mobile").toLowerCase();
+            let email = row.getAttribute("data-email").toLowerCase();
+
+            if (name.includes(searchValue) || mobile.includes(searchValue) || email.includes(searchValue)) {
+                row.style.display = ""; 
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+});
+//==================================================================================================================================//
+
+

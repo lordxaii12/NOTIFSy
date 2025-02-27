@@ -5,7 +5,7 @@ from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
 from flask_login import login_user, current_user
-from utils import get_manila_time, to_block_text, generate_tracker
+from utils import get_manila_time, to_block_text, generate_tracker, extract_first_name
 import requests
 from extensions import db, limiter
 #===============================================================================================================================>
@@ -762,14 +762,15 @@ def send_single_msg():
         msg_type = 'email'
     else:
         recipient_contact = "none"
-    recipient_name = request.form.get('recipient')
+    recipient = request.form.get('recipient')
+    recipient_name = extract_first_name(recipient)
     content = request.form.get('message')
     add_name = request.form.get('addName')
     if add_name == "on":
         message = f"Hello {recipient_name}!, {content}\n\n{sender}"
     else:
         message = f"Hello, {content}\n\n{sender}"
-    
+
     msg_tracker = generate_tracker(sender_div,msg_type)
     msg_recipient = f"{recipient_name}:{recipient_contact}"
     

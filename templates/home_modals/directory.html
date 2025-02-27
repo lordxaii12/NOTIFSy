@@ -14,7 +14,7 @@
                         <option>Internal</option>
                         <option>External</option>
                     </select>
-                    <input type="text" placeholder="Search..." class="search-bar">
+                    <input type="text" placeholder="Search..." class="search-bar" id="searchBar">
                     <div class="directory">
                         <table class="table table-hover">
                             <thead>
@@ -24,7 +24,7 @@
                                     <th>EMAIL</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="directoryTable">
                                 {% for row in directory %}
                                 <tr class="clickable-row" data-name="{{ row.name }}" 
                                     data-mobile="{{ row.mobile_no }}" data-email="{{ row.email }}">
