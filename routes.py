@@ -1,6 +1,6 @@
 #--CODE BY: RYRUBIO--#
 #===============================================================================================================================>
-from flask import Blueprint, request, render_template, redirect, url_for, session, flash
+from flask import Blueprint, request, render_template, redirect, url_for, session, flash, jsonify
 from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
@@ -696,13 +696,25 @@ def home():
 
     theme_data = Theme.get_all()
 
-    directory = get_table_data()
+    # directory = get_table_data()
     return render_template("index.html",
                            theme_data=theme_data,
                            msg_data=msg_data,
                            total_sent=total_sent,
-                           total_unsent=total_unsent,
-                           directory=directory)
+                           total_unsent=total_unsent)
+                        #    directory=directory)
+
+
+@notifs.route('/display_data', methods=['GET', 'POST'])#Display data to directory
+@login_required
+def display_data():
+    
+    data = get_table_data()
+    if data:
+        return jsonify(data)
+    else:
+        flash('Cannot connect to server.', 'error')
+
 
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
@@ -713,7 +725,7 @@ def select_theme(theme_id):
         user_theme.theme_id = theme_id
         db.session.commit()
 
-        flash('Successfully changed theme, refresh or re-login to take effect.', 'success')
+        flash('Successfully changed theme, refresh or re-login if theme does not take effect.', 'success')
         return redirect(url_for('notifs.home'))
 
     except Exception as e:

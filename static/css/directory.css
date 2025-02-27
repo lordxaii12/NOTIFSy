@@ -23,7 +23,7 @@ select {
 
 /* Search Bar - Stays on Top */
 .search-bar {
-    width: 100%;
+    width: 95% !important;
     padding: 8px;
     margin-top: 10px;
     border: 1px solid #ccc;
@@ -41,22 +41,21 @@ select {
     overflow-y: auto;
     height: 300px; /* Set the max height of the scrollable table */
     border: 1px solid #ccc;
-    background-color: rgb(229, 228, 228);
     border-radius: 5px;
     margin-top: 10px;
     font-size: 14px;
+    width: 700px;
 }
 
 /* Table Layout */
 .table {
-    width: 95%;
+    width: 100%;
     table-layout: fixed; /* Ensures column width control */
     border-collapse: collapse;
 }
 
 /* Column Width Adjustments */
 .table th, .table td {
-    padding: 8px;
     text-align: left;
     border: 1px solid #ddd;
 }

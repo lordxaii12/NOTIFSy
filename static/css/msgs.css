@@ -49,9 +49,9 @@ small {
 }
 
 input:not([type="checkbox"]), select, textarea {
-    width: 95%;
+    width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #4c4343;
     border-radius: 5px;
     font-size: 14px;
 }
@@ -61,10 +61,7 @@ input[type="checkbox"] {
     height: auto; 
     margin: 0;
 }
-textarea {
-    height: 80px;
-    resize: none;
-}
+
 
 /* Input with Icon */
 .input-icon {
@@ -90,7 +87,7 @@ textarea {
 
 .form-row2 {
     display: flex;
-    gap: 15px;
+    gap: 10px;
     justify-content: space-between;
 }
 
@@ -103,8 +100,13 @@ textarea {
 .textarea-container textarea {
     width: 100%;
     padding: 10px;
-    padding-right: 15px; 
-    resize: none;
+    padding-right: 15px;
+    overflow-y: auto !important;
+}
+
+textarea {
+    height: 80px;
+    text-align: start;
 }
 
 .search-icon {

@@ -1,7 +1,7 @@
-<div class="modal fade" id="singleMsgModal" tabindex="-1" aria-labelledby="singleMsgModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="singleMsgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="singleMsgModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}} home">
                 <h5 class="modal-title" id="singleMsgModalLabel">Send Single Message</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="form-row2">
-                        <div class="form-group">
+                        <div class="form-group2">
                             <label for="template">Message Template <small>(Optional)</small></label>
                             <select id="template" name="template">
                                 <option value="" disabled selected>SELECT TEMPLATE</option>
@@ -80,10 +80,10 @@
     </div>
 </div>
 
-<div class="modal fade" id="multiMsgModal" tabindex="-1" aria-labelledby="multiMsgModalModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="multiMsgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="multiMsgModalModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}} home">
                 <h5 class="modal-title" id="multiMsgModalModalLabel">Send Multiple Message</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -114,7 +114,9 @@
                         <div class="form-group">
                             <label for="mrecipient">Recipient <small>(one word only)</small></label>
                             <div class="input-icon">
-                                <span class="form-icon">📞</span>
+                                <span class="form-icon multi_directory-btn">
+                                    📞
+                                </span>
                                 <input type="text" id="mrecipient" name="recipient" >
                             </div>
                         </div>
@@ -137,7 +139,7 @@
                         <div class="form-group">
                             <label>Message Template <small>(Optional)</small></label>
                             <select>
-                                <option>SELECT TEMPLATE</option>
+                                <option value="" disabled selected>SELECT TEMPLATE</option>
                                 <option>SALARY</option>
                                 <option>TEV</option>
                                 <option>PREMIUM</option>
@@ -146,35 +148,23 @@
                     </div>
                     <div class="form-row2">
                         <div class="form-group2">
-                            <label>Recipient List:</label>
+                            <label for="mlist">Recipient List:</label>
                             <div class="textarea-container">
-                                <textarea id="mlist"></textarea>
-                                <span class="search-icon">🔍</span>
+                                <textarea id="mlist" name="list"></textarea>
                             </div>
                         </div>
                        
                         <div class="form-group2">
-                            <label>Message:</label>
+                            <label for="mmessage">Message:</label>
                             <div class="textarea-container">
-                                <textarea>
-                                    Line 1
-                                    Line 2
-                                    Line 3
-                                    Line 4
-                                    Line 5
-                                    Line 6
-                                    Line 7
-                                    Line 8
-                                    Line 9
-                                    Line 10
-                                </textarea>
+                                <textarea id="mmessage" name="message"></textarea>
                                 <span class="search-icon">🔍</span>
                             </div>
                         </div>
                     </div>            
     
                     <div class="checkbox-group">
-                        <input type="checkbox" id="addName">
+                        <input type="checkbox" id="maddName" name="maddName" value="on">
                         <label for="addName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
                     </div>
                     
@@ -191,7 +181,7 @@
 <div class="modal fade" id="uploadMsgModal" tabindex="-1" aria-labelledby="uploadMsgModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}} home">
                 <h5 class="modal-title" id="uploadMsgModalLabel">Upload Contacts</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>

@@ -21,3 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 5000); // Hide after 5 seconds
 });
 //==================================================================================================================================//
+//Modal back drop auto removal after closing//
+document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("hidden.bs.modal", function () {
+        document.querySelectorAll(".modal-backdrop").forEach(backdrop => {
+            backdrop.remove();
+        });
+        document.body.classList.remove("modal-open");
+    });
+});
+//==================================================================================================================================//

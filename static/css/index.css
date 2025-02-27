@@ -80,7 +80,6 @@
     border: 2px solid black;
 }
 
-
 .table-col {
     display: flex;
     justify-content: center; 
@@ -93,10 +92,6 @@
     border: 2px solid black;
     overflow-y: auto;
 }
-
-
-
-
 
 .service-col:hover{
     background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
@@ -175,10 +170,6 @@
     border: 2px solid white; /* Optional: Adds a white border for better visibility */
 }
 
-
-
-
-
 .modal-backdrop {
     z-index: 1045; /* Ensure backdrop does not block modals */
 }
@@ -191,3 +182,14 @@
     max-height: 80vh;   
     padding: 0; 
 }
+/*===============================================================================================================================>*/
+/*===============================================================================================================================>*/
+/*
+/*
+/*
+/*===============================================================================================================================>*/
+
+
+
+
+
