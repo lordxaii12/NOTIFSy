@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from models.user_division import Divisions
 from extensions import db
 from flask import request, jsonify, flash
 from flask_login import current_user
 from utils import get_manila_time
 
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def add_division():
     division_name = request.form.get('division_name')
     if division_name:
@@ -28,7 +33,10 @@ def add_division():
     except Exception as e:
         db.session.rollback()
         return None 
-    
+
+#===============================================================================================================================>
+#
+#================ EDIT =========================================================================================================>   
 def edit_division(division_id):
     division = Divisions.get_by_id(division_id)
     
@@ -51,6 +59,9 @@ def edit_division(division_id):
         db.session.rollback()
         return None
 
+#===============================================================================================================================>
+#
+#================ DELETE =======================================================================================================>
 def delete_division(division_id):
     division = Divisions.get_by_id(division_id)
     if not division:
@@ -62,3 +73,5 @@ def delete_division(division_id):
     except Exception as e:
         db.session.rollback()
         return False
+
+#===============================================================================================================================>

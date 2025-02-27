@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from extensions import db
 from sqlalchemy.sql import func
 from flask_login import UserMixin
 from models.user_role import Roles
 from models.user_themes import Theme
 
+#===============================================================================================================================>
+#
+#================ CLASS ========================================================================================================>
 class User_v1(db.Model, UserMixin):
     __tablename__ = 'userv1'
     
@@ -20,7 +25,6 @@ class User_v1(db.Model, UserMixin):
     
     msg_sent = db.Column(db.Integer, unique=False, nullable=True)
     credit_used = db.Column(db.Integer, unique=False, nullable=True)
-    
     
     created_by = db.Column(db.String(100), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
@@ -75,3 +79,5 @@ class User_v1(db.Model, UserMixin):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+#===============================================================================================================================>

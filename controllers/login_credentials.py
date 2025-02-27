@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from models.login_credentials import LogApi
 from extensions import db
 from flask import request, jsonify, flash
 from flask_login import current_user
 from utils import get_manila_time
 
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def add_login_api():
     login_api_name = request.form.get('login_api_name')
     login_api_url = request.form.get('login_api_url')
@@ -26,7 +31,10 @@ def add_login_api():
     db.session.commit()
     
     return new_login_api 
-    
+
+#===============================================================================================================================>
+#
+#================ EDIT =========================================================================================================>   
 def edit_login_api(login_api_id):
     log_api = LogApi.get_by_id(login_api_id)
     
@@ -45,6 +53,9 @@ def edit_login_api(login_api_id):
         db.session.rollback()
         return None 
 
+#===============================================================================================================================>
+#
+#================ DELETE =======================================================================================================>
 def delete_login_api(login_api_id):
     log_api = LogApi.get_by_id(login_api_id)
     try:
@@ -52,3 +63,5 @@ def delete_login_api(login_api_id):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
+
+#===============================================================================================================================>

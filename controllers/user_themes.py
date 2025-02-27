@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from models.user_themes import Theme
 from extensions import db
 from flask import request
 from flask_login import current_user
 from utils import get_manila_time
 
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def add_theme():
     theme_name = request.form.get('theme_name')
     theme_description = request.form.get('theme_description')
@@ -28,9 +33,11 @@ def add_theme():
     )
     db.session.add(new_themes)
     db.session.commit()
-
     return new_themes 
 
+#===============================================================================================================================>
+#
+#================ EDIT =========================================================================================================>   
 def edit_theme(theme_id):
     theme = Theme.get_by_id(theme_id)
     
@@ -51,6 +58,9 @@ def edit_theme(theme_id):
         db.session.rollback()
         return None
 
+#===============================================================================================================================>
+#
+#================ DELETE =======================================================================================================>
 def delete_theme(theme_id):
     theme = Theme.get_by_id(theme_id)
     try:
@@ -58,3 +68,5 @@ def delete_theme(theme_id):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
+
+#===============================================================================================================================>

@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from models.system_settings import SysSettings
 from extensions import db
 from flask import request,flash
 from flask_login import current_user
 from utils import get_manila_time
 
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def add_sys_setting():
     sys_name = request.form.get('sys_name')
     if sys_name:
@@ -53,7 +58,10 @@ def add_sys_setting():
     db.session.commit()
 
     return new_sys_setting 
-    
+
+#===============================================================================================================================>
+#
+#================ EDIT =========================================================================================================>     
 def edit_sys_setting(sys_setting_id):
     sys_setting = SysSettings.get_by_id(sys_setting_id)
     sys_name = request.form.get('sys_name')
@@ -88,7 +96,10 @@ def edit_sys_setting(sys_setting_id):
     except Exception as e:
         db.session.rollback()
         return None  
-    
+
+#===============================================================================================================================>
+#
+#================ DELETE =======================================================================================================> 
 def delete_sys_setting(sys_setting_id):
     sys_setting = SysSettings.get_by_id(sys_setting_id)
     try:
@@ -96,3 +107,5 @@ def delete_sys_setting(sys_setting_id):
         db.session.commit()
     except Exception as e:
         db.session.rollback()
+
+#===============================================================================================================================>

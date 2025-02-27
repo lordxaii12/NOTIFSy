@@ -1,3 +1,5 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from extensions import db
 from sqlalchemy.sql import func
 from models.itexmo_credentials import Itexmo
@@ -5,6 +7,9 @@ from models.email_credentials import Ecredss
 from models.hrpears_credentials import Hrpears
 from models.login_credentials import LogApi
 
+#===============================================================================================================================>
+#
+#================ CLASS ========================================================================================================>
 class SysSettings(db.Model):
     __tablename__ = 'sys_setting'
     
@@ -38,7 +43,6 @@ class SysSettings(db.Model):
     hris_api = db.relationship('Hrpears', backref='sys_settings')
     login_api = db.relationship('LogApi', backref='sys_settings')
 
-
     @property
     def sys_settings_data(self):
         return {
@@ -53,8 +57,7 @@ class SysSettings(db.Model):
             'sys_app_role_text': self.sys_app_role_text,
             'sys_app_division_text': self.sys_app_division_text,
             'sys_app_logs_text': self.sys_app_logs_text,
-            
-        
+
             'msg_api_id': self.msg_api_id,
             'itexmo_name': self.msg_api.itexmo_name if self.msg_api else None,
             'email_api_id': self.email_api_id,
@@ -88,3 +91,5 @@ class SysSettings(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+#===============================================================================================================================>

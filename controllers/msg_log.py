@@ -1,3 +1,5 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from models.msg_log import Msg_log
 from extensions import db
 import requests
@@ -8,7 +10,9 @@ from models.email_credentials import Ecredss
 from models.itexmo_credentials import Itexmo
 import json
 
-
+#===============================================================================================================================>
+#
+#================ ADD ==========================================================================================================>
 def add_msg_log(msg_tracker, msg_type, msg_recipient, msg_content, msg_status, msg_sent, msg_unsent, credit_used):
     
     msg_sender = current_user.full_name
@@ -40,8 +44,10 @@ def add_msg_log(msg_tracker, msg_type, msg_recipient, msg_content, msg_status, m
         db.session.rollback()
         return None 
 
+#===============================================================================================================================>
+#
+#================ EDIT =========================================================================================================>   
 def delete_msg_log(msg_id):
-    
     msg = Msg_log.get_by_id(msg_id)
     if not msg:
         return False 
@@ -53,6 +59,9 @@ def delete_msg_log(msg_id):
         db.session.rollback()
         return False
 
+#===============================================================================================================================>
+#
+#================ DELETE =======================================================================================================>
 def send_msg(message, recipient):
     sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
     sms_data = Itexmo.get_by_id(sms_id)
@@ -81,8 +90,5 @@ def send_msg(message, recipient):
     else:
         flash('PLEASE CHECK SMS API CREDENTIALS.', 'error')
 
+#===============================================================================================================================>
 
-
-# status, data = send_msg("Hello", ["09263302179"])
-# print("Status Code:", status)
-# print("Response Data:", data)

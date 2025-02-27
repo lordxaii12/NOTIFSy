@@ -1,9 +1,14 @@
+#--CODE BY: RYRUBIO--#
+#===============================================================================================================================>
 from extensions import db
 from sqlalchemy.sql import func
 
+#===============================================================================================================================>
+#
+#================ CLASS ========================================================================================================>
 class External(db.Model):
     __tablename__ = 'external_contacts'
-    
+
     external_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
     external_name = db.Column(db.String(100), nullable=False)
     external_mobile = db.Column(db.String(100), nullable=False)
@@ -51,3 +56,5 @@ class External(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+
+#===============================================================================================================================>
