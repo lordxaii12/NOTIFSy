@@ -46,6 +46,10 @@ def format_mobile_number(mobile_no):
     mobile_no = mobile_no.strip()
     if mobile_no.startswith("+63"):
         mobile_no = "0" + mobile_no[3:]
+        
+    if mobile_no.startswith("09000"): 
+        return "Not Found"
+    
     if not mobile_no.startswith("0"):
         mobile_no = "0" + mobile_no
     if mobile_no == "0" * 11:
@@ -62,6 +66,8 @@ def format_email(email):
     if "dswd.gov.ph" not in email and not email.endswith(".com"):
         email += ".com"
     if email.startswith("default"):
+        return "Not Found"
+    if email.startswith("defeault"):
         return "Not Found"
     return email if re.match(r"[^@]+@[^@]+\.[a-zA-Z]{2,}", email) else "Not Found"
 #===============================================================================================================================>

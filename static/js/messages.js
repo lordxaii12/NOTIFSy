@@ -105,8 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-
-
 //==================================================================================================================================//
 //search directory for single message//
 document.addEventListener("DOMContentLoaded", function () {

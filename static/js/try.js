@@ -1,28 +1,9 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
-    let cache = {}; // Cache object to store fetched data
+    let cache = {};
 
     let directoryTypeElement = document.getElementById("directory-type");
 
-    // **Initial fetch when the page loads**
-    let initialType = directoryTypeElement.value; // Get default selected value
+    let initialType = directoryTypeElement.value;
     fetchAndDisplayData(initialType);
 
     document.querySelectorAll(".directory-btn").forEach(button => {
@@ -30,10 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
             let modal = new bootstrap.Modal(document.getElementById("foxDirectoryModal"));
             modal.show();
 
-            let directoryType = directoryTypeElement.value; // Get current value
-            fetchAndDisplayData(directoryType); // Fetch data based on the selected option
+            let directoryType = directoryTypeElement.value;
+            fetchAndDisplayData(directoryType);
 
-            // Prevent duplicate event listeners
             directoryTypeElement.removeEventListener("change", onDirectoryTypeChange);
             directoryTypeElement.addEventListener("change", onDirectoryTypeChange);
         });
@@ -42,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function onDirectoryTypeChange() {
         let selectedType = this.value;
 
-        // Clear the search bar when the directory type changes
         document.getElementById("searchBar").value = "";
 
         fetchAndDisplayData(selectedType);
@@ -51,14 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
     function fetchAndDisplayData(type) {
         let tableBody = document.getElementById("directoryTable");
 
-        // Check if data is already cached
         if (cache[type]) {
             console.log(`Using cached data for ${type}`);
-            displayData(cache[type]); // Use cached data
+            displayData(cache[type]);
             return;
         }
 
-        // Show loading message while fetching data
         tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
 
         let endpoint = type === "external" ? "/display_external_data" : "/display_data";
@@ -66,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(endpoint)
             .then(response => response.json())
             .then(data => {
-                cache[type] = data; // Store data in cache
+                cache[type] = data;
                 displayData(data);
             })
             .catch(error => {
@@ -106,3 +83,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
