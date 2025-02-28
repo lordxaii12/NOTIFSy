@@ -728,9 +728,6 @@ def display_external_data():
     else:
         flash('Cannot connect to database.', 'error')
 
-
-
-
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
 def select_theme(theme_id):

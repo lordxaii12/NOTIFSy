@@ -46,14 +46,13 @@ def format_mobile_number(mobile_no):
     mobile_no = mobile_no.strip()
     if mobile_no.startswith("+63"):
         mobile_no = "0" + mobile_no[3:]
-        
-    if mobile_no.startswith("09000"): 
-        return "Not Found"
-    
     if not mobile_no.startswith("0"):
         mobile_no = "0" + mobile_no
     if mobile_no == "0" * 11:
         return "Not Found"
+    if mobile_no.startswith("090000"): 
+        return "Not Found"
+    
     return mobile_no if len(mobile_no) == 11 and mobile_no.isdigit() else "Not Found"
 #===============================================================================================================================>
     #Format email with '@' and '.com'
