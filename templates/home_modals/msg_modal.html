@@ -96,7 +96,7 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="msender">SMS Sender</label>
-                            <input type="text" id="msender" name="sender" 
+                            <input type="text" id="msender" name="msender" 
                                     value="{% if user.full_name %}{{ user.full_name.split(' ')[0].title() }} 
                                                 {% if user.full_name.split(' ')|length > 1 and '.' not in user.full_name.split(' ')[1] %}
                                                     {{ user.full_name.split(' ')[1].title() }}
@@ -106,7 +106,7 @@
                         
                         <div class="form-group">
                             <label for="msending_option">Send Via <span class="required">(required)</span></label>
-                            <select id="msending_option" name="sending_option"  required onchange="mtoggleRequiredFields()">
+                            <select id="msending_option" name="msending_option"  required onchange="mtoggleRequiredFields()">
                                 <option value="" disabled selected>SENDING OPTION</option>
                                 <option value="sms">SEND SMS</option>
                                 <option value="email">SEND EMAIL</option>
@@ -121,24 +121,23 @@
                                 <span class="form-icon multi_directory-btn">
                                     📞
                                 </span>
-                                <input type="text" id="mrecipient" name="recipient">
+                                <input type="text" id="mrecipient" name="mrecipient">
                             </div>
                         </div>
     
                         <div class="form-group">
                             <label for="mphone">Phone <small>(09xxxxxxxxx)</small></label>
-                            <input type="text" id="mphone" name="phone">
+                            <input type="text" id="mphone" name="mphone">
                         </div>
     
                         <div class="form-group">
                             <label for="memail">Email</label>
                             <div class="input-icon">
-                                <input type="email" id="memail" name="email">
+                                <input type="email" id="memail" name="memail">
                                 <span class="form-icon" onclick="addRecipient()">➕</span>
                             </div>
                         </div>
                     </div>
-    
                     <div class="form-row2">
                         <div class="form-group">
                             <label>Message Template <small>(Optional)</small></label>
@@ -154,24 +153,21 @@
                         <div class="form-group2">
                             <label for="mlist">Recipient List:</label>
                             <div class="textarea-container">
-                                <textarea id="mlist" name="list" required readonly></textarea>
+                                <textarea id="mlist" name="mlist" required readonly></textarea>
                             </div>
                         </div>
-                       
                         <div class="form-group2">
                             <label for="mmessage">Message:</label>
                             <div class="textarea-container">
-                                <textarea id="mmessage" name="message" required></textarea>
+                                <textarea id="mmessage" name="mmessage" required></textarea>
                                 <span class="search-icon">🔍</span>
                             </div>
                         </div>
                     </div>            
-    
                     <div class="checkbox-group">
-                        <input type="checkbox" id="maddName" name="addName" value="on">
+                        <input type="checkbox" id="maddName" name="maddName" value="on">
                         <label for="maddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
                     </div>
-                    
                     <div class="button-group">
                         <button type="submit" class="send-btn">Send</button>
                         <button type="button" class="cancel-btn">Cancel</button>

@@ -5,7 +5,7 @@ from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
 from flask_login import login_user, current_user
-from utils import get_manila_time, to_block_text, generate_tracker, extract_first_name
+from utils import get_manila_time, to_block_text, generate_tracker, extract_first_name, format_mobile_number, format_email
 import requests
 from extensions import db, limiter
 #===============================================================================================================================>
@@ -790,9 +790,9 @@ def send_single_msg():
     content = request.form.get('message')
     add_name = request.form.get('addName')
     if add_name == "on":
-        message = f"Hello {recipient_name}!, {content}\n\n{sender}"
+        message = f"Hello {recipient_name}!, {content}\n\n{sender}-{sender_div}"
     else:
-        message = f"Hello, {content}\n\n{sender}"
+        message = f"Hello, {content}\n\n{sender}-{sender_div}"
 
     msg_tracker = generate_tracker(sender_div,msg_type)
     msg_recipient = f"{recipient_name}:{recipient_contact}"
@@ -816,6 +816,36 @@ def send_single_msg():
     add_msg_log(msg_tracker, msg_type, msg_recipient, message, msg_status, sent, unsent, credit_used)
     db.session.commit()
     return redirect(url_for('notifs.home'))
+
+@notifs.route('/send_multi_msg', methods=['POST'])#Send Multi message
+@login_required
+def send_multi_msg():
+    sender_div = current_user.division
+    
+    sender = request.form.get('msender')
+    sending_option = request.form.get('smending_option')
+    content = request.form.get('mmessage')
+    
+    data = request.form.get('mlist')
+    data_lines = data.strip().split("\n")
+    
+    for data_line in data_lines:
+        data_parts = data_line.split(":")
+        name = data_parts[0].strip()
+        mobile = data_parts[1].strip()
+        email = data_parts[2].strip()
+
+        formatted_name = extract_first_name(name)
+        formatted_mobile = format_mobile_number(mobile)
+        formatted_email = format_email(email)
+        
+        
+        
+        
+        
+        
+        
+    
 
 
 
