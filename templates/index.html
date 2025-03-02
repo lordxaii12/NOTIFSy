@@ -50,6 +50,11 @@
                         <h4 class="separator">{{ to_block_text("SERVICES") }}</h4>
                     </div>
                     <div class="row second_row">
+                        <div id="loading-spinner" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Processing...</span>
+                            </div>
+                        </div>
                         <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                             <div class="row service-row">
                                 <div class="col service-col">
@@ -220,6 +225,8 @@
 
         {% block scripts %}
             <script src="{{ url_for('static', filename='js/messages.js') }}"></script>
+            
+                
         {% endblock %}
 
     {% endblock %}

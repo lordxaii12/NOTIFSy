@@ -43,6 +43,7 @@ def add_msg_log(msg_tracker, msg_type, msg_recipient, msg_content, msg_status, m
         return new_msg 
     except Exception as e:
         db.session.rollback()
+        print(f"Error saving message log: {str(e)}")
         return None 
 
 #===============================================================================================================================>
@@ -85,11 +86,8 @@ def send_msg(message, recipient):
             "Content-Type": content_type
         }
         
-        response = requests.post(url, json=payload, headers=headers)
-        return (response.status_code, response.json())
+        return (url,payload,headers)
 
-    else:
-        flash('PLEASE CHECK SMS API CREDENTIALS.', 'error')
 
 #===============================================================================================================================>
 #

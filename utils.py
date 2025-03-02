@@ -70,8 +70,16 @@ def format_email(email):
         return "Not Found"
     return email if re.match(r"[^@]+@[^@]+\.[a-zA-Z]{2,}", email) else "Not Found"
 #===============================================================================================================================>
-
-
-
-
-
+    #Format message for including/excluding name
+def message_content(add_name,recipient_name,msg_content,sender,sender_div):
+    if add_name == 'on':
+        message = f"Hello {recipient_name}!, {msg_content}\n\n{sender}\n{sender_div}"
+    else:
+        message = f"Hello, {msg_content}\n\n{sender}\n{sender_div}"
+    return message
+#===============================================================================================================================>
+    #Create status data for message logs status
+def get_status_data(recipient_name,recipient_contact,message):
+    status_data = f"{recipient_name}:{recipient_contact}:{message}"
+    return status_data
+#===============================================================================================================================>

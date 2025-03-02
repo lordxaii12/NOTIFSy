@@ -23,10 +23,10 @@
                         </div> 
                         <div class="form-group">
                             <label for="sending_option">Send Via <span class="required">(required)</span></label>
-                            <select id="sending_option" name="sending_option"  required onchange="toggleRequiredFields()">
-                                <option value="" disabled selected>SENDING OPTION</option>
-                                <option value="sms">SEND SMS</option>
-                                <option value="email">SEND EMAIL</option>
+                            <select id="sending_option" name="sending_option"  required>
+                                <option value="sms"  selected>SMS</option>
+                                <option value="email">EMAIL</option>
+                                <option value="both">SMS and EMAIL</option>
                             </select>
                         </div>
                     </div>
@@ -92,7 +92,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{ url_for('notifs.send_multi_msg') }}" method="POST" id="send_multi_msg">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="msender">SMS Sender</label>
@@ -107,9 +107,9 @@
                         <div class="form-group">
                             <label for="msending_option">Send Via <span class="required">(required)</span></label>
                             <select id="msending_option" name="msending_option"  required onchange="mtoggleRequiredFields()">
-                                <option value="" disabled selected>SENDING OPTION</option>
-                                <option value="sms">SEND SMS</option>
-                                <option value="email">SEND EMAIL</option>
+                                <option value="sms" selected>SMS</option>
+                                <option value="email">EMAIL</option>
+                                <option value="both">SMS and EMAIL</option>
                             </select>
                         </div>
                     </div>
@@ -233,8 +233,3 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
-
-
-
-
-

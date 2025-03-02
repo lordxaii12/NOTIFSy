@@ -5,9 +5,10 @@ from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
 from flask_login import login_user, current_user
-from utils import get_manila_time, to_block_text, generate_tracker, extract_first_name, format_mobile_number, format_email
+from utils import get_manila_time, message_content, generate_tracker, extract_first_name, format_mobile_number, format_email, get_status_data
 import requests
 from extensions import db, limiter
+import json
 #===============================================================================================================================>
 #Models
 from models.user import User_v1
@@ -773,72 +774,127 @@ def delete_msglogs_route(msg_id):
 @notifs.route('/send_single_msg', methods=['POST'])#Send single message
 @login_required
 def send_single_msg():
+    sent=[]
+    unsent=[]
+    msg_recipient=[]
+    total_credit=0
+    
     sender_div = current_user.division
 
     sender = request.form.get('sender')
     sending_option = request.form.get('sending_option')
+
+    recipient = request.form.get('recipient')
+    formatted_name = extract_first_name(recipient)
+    content = request.form.get('message')
+    
+    add_name = request.form.get('addName')
+
+    msg_tracker = generate_tracker(sender_div,sending_option)
+    
+    message = message_content(add_name,formatted_name,content,sender,sender_div)
     if sending_option == 'sms':
-        recipient_contact = request.form.get('phone')
-        msg_type = 'sms'
+        mobile = request.form.get('phone')
+        formatted_mobile = format_mobile_number(mobile)
+        status_data = get_status_data(recipient,formatted_mobile,message)
+        url, payload, headers = send_msg(message, formatted_mobile)
+        response = requests.post(url, json=payload, headers=headers)
+        data = response.json()
+        
+        if response.status_code == 200:
+            credit_used = int(data.get('TotalCreditUsed', 0))
+            total_credit += int(credit_used)
+            sent.append(status_data)
+        else:
+            unsent.append(status_data)
+
     elif sending_option == 'email':
-        recipient_contact = request.form.get('email')
-        msg_type = 'email'
+        email = request.form.get('email')
+        formatted_email = format_email(email)
+        flash(f'email: {formatted_email}','error')
+        
     else:
         recipient_contact = "none"
-    recipient = request.form.get('recipient')
-    recipient_name = extract_first_name(recipient)
-    content = request.form.get('message')
-    add_name = request.form.get('addName')
-    if add_name == "on":
-        message = f"Hello {recipient_name}!, {content}\n\n{sender}-{sender_div}"
-    else:
-        message = f"Hello, {content}\n\n{sender}-{sender_div}"
-
-    msg_tracker = generate_tracker(sender_div,msg_type)
-    msg_recipient = f"{recipient_name}:{recipient_contact}"
+        
+    total_sent = len(sent)
+    total_unsent = len(unsent)
+    msg_sent_str = json.dumps(sent) if isinstance(sent, list) else str(sent)
+    msg_unsent_str = json.dumps(unsent) if isinstance(unsent, list) else str(unsent)
+    msg_recipient_str = json.dumps(msg_recipient)
     
-    sent=[]
-    unsent=[]
-    
-    msg_data = f"{recipient_name}:{recipient_contact}:{message}"
-    status, data = send_msg(message, recipient_contact)
-    if status == 200:
-        msg_status = 'sent'
-        credit_used = data.get('TotalCreditUsed')
-        sent.append(msg_data)
-        flash('message sent', 'success')
+    if total_unsent == 0 and total_sent == 0:
+        msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
+        flash(f'{msg_status}','success')
     else:
-        msg_status = 'unsent'
-        credit_used = 0
-        unsent.append(msg_data)
-        flash('sending message error', 'error')
+        msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
+        flash(f'{msg_status}','error')
 
-    add_msg_log(msg_tracker, msg_type, msg_recipient, message, msg_status, sent, unsent, credit_used)
-    db.session.commit()
+    add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
     return redirect(url_for('notifs.home'))
 
 @notifs.route('/send_multi_msg', methods=['POST'])#Send Multi message
 @login_required
 def send_multi_msg():
     sender_div = current_user.division
-    
     sender = request.form.get('msender')
-    sending_option = request.form.get('smending_option')
-    content = request.form.get('mmessage')
+    sending_option = request.form.get('msending_option')
+    content = request.form.get('mmessage') 
+    add_name = request.form.get('maddName')
     
     data = request.form.get('mlist')
     data_lines = data.strip().split("\n")
+    
+    msg_tracker = generate_tracker(sender_div,sending_option)
+    
+    sent=[]
+    unsent=[]
+    msg_recipient=[]
+    total_credit=0
     
     for data_line in data_lines:
         data_parts = data_line.split(":")
         name = data_parts[0].strip()
         mobile = data_parts[1].strip()
         email = data_parts[2].strip()
-
         formatted_name = extract_first_name(name)
         formatted_mobile = format_mobile_number(mobile)
         formatted_email = format_email(email)
+        message = message_content(add_name,formatted_name,content,sender,sender_div)
+        status_data = get_status_data(name,formatted_mobile,message)
+        recipient =f"{name}:{formatted_mobile}"
+        msg_recipient.append(recipient)
         
+        if sending_option == 'sms':
+            url, payload, headers = send_msg(message, formatted_mobile)
+            response = requests.post(url, json=payload, headers=headers)
+            data = response.json()
+            
+            if response.status_code == 200:
+                credit_used = int(data.get('TotalCreditUsed', 0))
+                total_credit += int(credit_used)
+                sent.append(status_data)
+            else:
+                unsent.append(status_data)
+        elif sending_option == 'email':
+            flash(f'email: {formatted_email}','error')
+
+    total_sent = len(sent)
+    total_unsent = len(unsent)
+    msg_sent_str = json.dumps(sent) if isinstance(sent, list) else str(sent)
+    msg_unsent_str = json.dumps(unsent) if isinstance(unsent, list) else str(unsent)
+    msg_recipient_str = json.dumps(msg_recipient)
+    
+    if total_unsent == 0 and total_sent == 0:
+        msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
+        flash(f'{msg_status}','success')
+    else:
+        msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
+        flash(f'{msg_status}','error')
+
+    add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
+    return redirect(url_for('notifs.home'))
+
+
         
         
         

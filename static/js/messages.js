@@ -2,22 +2,30 @@
 //==================================================================================================================================//
 //========= SINGLE MSG =============================================================================================================//
 //toggle required attribute on email or phone number for single message//
-function toggleRequiredFields() {
-    let sendingOption = document.getElementById("sending_option").value;
+document.addEventListener("DOMContentLoaded", function () {
     let phoneInput = document.getElementById("phone");
     let emailInput = document.getElementById("email");
+    let sendingOptionSelect = document.getElementById("sending_option");
 
-    // Reset required attributes
-    phoneInput.removeAttribute("required");
-    emailInput.removeAttribute("required");
+    function toggleRequiredFields() {
+        let sendingOption = sendingOptionSelect.value;
 
-    // Add required based on selection
-    if (sendingOption === "sms") {
-        phoneInput.setAttribute("required", "required");
-    } else if (sendingOption === "email") {
-        emailInput.setAttribute("required", "required");
+        phoneInput.removeAttribute("required");
+        emailInput.removeAttribute("required");
+
+        if (sendingOption === "sms") {
+            phoneInput.setAttribute("required", "required");
+        } else if (sendingOption === "email") {
+            emailInput.setAttribute("required", "required");
+        } else if (sendingOption === "both") {
+            phoneInput.setAttribute("required", "required");
+            emailInput.setAttribute("required", "required");
+        }
     }
-}
+    toggleRequiredFields();
+    sendingOptionSelect.addEventListener("change", toggleRequiredFields);
+});
+
 //==================================================================================================================================//
 //open directory for single messagge //
 document.addEventListener("DOMContentLoaded", function () {
