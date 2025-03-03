@@ -142,24 +142,8 @@ def send_msg(message, recipient):
         return (url,payload,headers)
 
 #===============================================================================================================================>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    #Upload file and search in hr data
 def convert_file_to_inputs(file):
-    
     hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 1
     hris_data = Hrpears.get_by_id(hris_id)
     DB_HOST = hris_data.hrpears_host
@@ -215,10 +199,19 @@ def convert_file_to_inputs(file):
                         middle_name = row["middle_name"] if row["middle_name"] else ""
                         last_name = row["last_name"] if row["last_name"] else ""
                         fullname = f"{last_name}, {first_name} {middle_name}".strip()
-
-
-
-
+                        
+                        
+                        print("Match found:")
+                        print("Account Number:", row["account_number"])
+                        print("Full Name:", fullname)
+                        print("First Name:", first_name)
+                        print("Mobile:", format_mobile_number(row["mobile_no"]))
+                        print("Email:", format_email(row["email"]))
+                        print("-\n\n")
+                        
+            for i, name in enumerate(name_list):
+                if name not in matched_names:
+                    print(f"Not found: {raw_names[i].upper()}")  # Print original format
 
     finally:
         connection.close()
