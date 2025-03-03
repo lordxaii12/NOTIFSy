@@ -3,7 +3,7 @@
 from models.user_logs import User_logs
 from extensions import db
 from flask_login import current_user
-from utils import get_manila_time
+from utility.sys_utils import get_manila_time
 
 #===============================================================================================================================>
 #

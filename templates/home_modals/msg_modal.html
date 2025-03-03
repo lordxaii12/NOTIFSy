@@ -106,7 +106,7 @@
                         
                         <div class="form-group">
                             <label for="msending_option">Send Via <span class="required">(required)</span></label>
-                            <select id="msending_option" name="msending_option"  required onchange="mtoggleRequiredFields()">
+                            <select id="msending_option" name="msending_option"  required>
                                 <option value="sms" selected>SMS</option>
                                 <option value="email">EMAIL</option>
                                 <option value="both">SMS and EMAIL</option>
@@ -190,15 +190,20 @@
                 <form>
                     <div class="form-row">
                         <div class="form-group">
-                            <label>SMS Sender</label>
-                            <input type="text" placeholder="">
+                            <label for="usender">SMS Sender</label>
+                            <input type="text" id="usender" name="usender" 
+                                    value="{% if user.full_name %}{{ user.full_name.split(' ')[0].title() }} 
+                                                {% if user.full_name.split(' ')|length > 1 and '.' not in user.full_name.split(' ')[1] %}
+                                                    {{ user.full_name.split(' ')[1].title() }}
+                                                {% endif %}
+                                            {% endif %}" required>
                         </div>
                         <div class="form-group">
                             <label>Send Via <span class="required">(required)</span></label>
-                            <select>
-                                <option>SENDING OPTION</option>
-                                <option>SEND SMS</option>
-                                <option>SEND EMAIL</option>
+                            <select id="usending_option" name="usending_option"  required>
+                                <option value="sms" selected>SMS</option>
+                                <option value="email">EMAIL</option>
+                                <option value="both">SMS and EMAIL</option>
                             </select>
                         </div>
                     </div>
@@ -215,13 +220,13 @@
                         <div class="form-group">
                             <label>Upload File</label>
                             <div class="file-input">
-                                <input type="file">
+                                <input type="file" name="uploaded" id="uploaded" accept=".txt, .xls, .xlsx, .csv">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Message:</label>
-                        <textarea></textarea>
+                        <label for="umessage">Message:</label>
+                        <textarea id="umessage" name="umessage"></textarea>
                     </div>
                     <div class="button-group">
                         <button class="send-btn">Send</button>

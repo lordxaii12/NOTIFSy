@@ -7,7 +7,7 @@ from extensions import db , limiter, cache
 from flask_migrate import Migrate
 from models.system_settings import SysSettings
 from models.user import User_v1
-from utils import to_block_text
+from utility.sys_utils import to_block_text
 from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging

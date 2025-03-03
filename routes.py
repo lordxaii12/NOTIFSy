@@ -5,10 +5,13 @@ from flask_login import login_required, logout_user
 from flask_migrate import Migrate
 from config import Config
 from flask_login import login_user, current_user
-from utils import get_manila_time, message_content, generate_tracker, extract_first_name, format_mobile_number, format_email, get_status_data
 import requests
 from extensions import db, limiter
 import json
+import pymysql
+from io import StringIO
+from utility.sys_utils import get_manila_time
+from utility.msg_utils import message_content, generate_tracker, extract_first_name, format_mobile_number, format_email, get_status_data, send_msg, get_table_data
 #===============================================================================================================================>
 #Models
 from models.user import User_v1
@@ -36,10 +39,12 @@ from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexm
 from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
 from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hrpears
 from controllers.system_settings import edit_sys_setting
-from controllers.msg_log import add_msg_log, delete_msg_log, send_msg, get_table_data
+from controllers.msg_log import add_msg_log, delete_msg_log
 #===============================================================================================================================>
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 #===============================================================================================================================>
+#
+#
 #
 #
 #
@@ -687,6 +692,8 @@ def delete_logs_route(log_id):
 #
 #
 #
+#
+#
 #================ Home =========================================================================================================>
 @notifs.route('/', methods=['GET', 'POST'])#Home page
 @login_required
@@ -703,6 +710,7 @@ def home():
                            total_sent=total_sent,
                            total_unsent=total_unsent)
 
+#----------------------------------------------------------------------------------------------------------->
 @notifs.route('/display_data', methods=['GET', 'POST'])#Display Internal data from HRIS to directory
 @login_required
 def display_data():
@@ -713,6 +721,7 @@ def display_data():
     else:
         flash('Cannot connect to server.', 'error')
 
+#----------------------------------------------------------------------------------------------------------->
 @notifs.route('/display_external_data', methods=['GET', 'POST'])#Display External data from local database to directory
 @login_required
 def display_external_data():
@@ -729,6 +738,7 @@ def display_external_data():
     else:
         flash('Cannot connect to database.', 'error')
 
+#----------------------------------------------------------------------------------------------------------->
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
 @login_required
 def select_theme(theme_id):
@@ -746,6 +756,7 @@ def select_theme(theme_id):
         flash(f'Error on changing theme: {str(e)}', 'error')
         return redirect(url_for('notifs.home'))
 
+#----------------------------------------------------------------------------------------------------------->
 @notifs.route('/delete_msglogs_route/<int:msg_id>', methods=['POST'])#delete message logs
 @login_required
 def delete_msglogs_route(msg_id):
@@ -771,6 +782,7 @@ def delete_msglogs_route(msg_id):
     db.session.commit()
     return redirect(url_for('notifs.home'))
 
+#----------------------------------------------------------------------------------------------------------->
 @notifs.route('/send_single_msg', methods=['POST'])#Send single message
 @login_required
 def send_single_msg():
@@ -822,7 +834,7 @@ def send_single_msg():
     msg_unsent_str = json.dumps(unsent) if isinstance(unsent, list) else str(unsent)
     msg_recipient_str = json.dumps(msg_recipient)
     
-    if total_unsent == 0 and total_sent == 0:
+    if total_unsent == 0:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
         flash(f'{msg_status}','success')
     else:
@@ -884,7 +896,7 @@ def send_multi_msg():
     msg_unsent_str = json.dumps(unsent) if isinstance(unsent, list) else str(unsent)
     msg_recipient_str = json.dumps(msg_recipient)
     
-    if total_unsent == 0 and total_sent == 0:
+    if total_unsent == 0:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
         flash(f'{msg_status}','success')
     else:
@@ -895,19 +907,104 @@ def send_multi_msg():
     return redirect(url_for('notifs.home'))
 
 
-        
-        
-        
-        
-        
-        
+# @notifs.route('/send_multi_msg', methods=['POST'])  # Send via upload
+# # @login_required
+# def send_via_upload():
     
+#     message = request.form.get('umessage')
+#     if 'file' not in request.files:
+#         return jsonify({"error": "No file part"}), 400
+    
+#     file = request.files['file']
+
+#     if file.filename == '':
+#         return jsonify({"error": "No selected file"}), 400
+
+#     # Read file content
+#     file_content = file.read().decode("utf-8")
+#     file_stream = StringIO(file_content)
+
+#     # Process the file
+#     data_list = []
+#     name_list = []
+#     raw_names = []
+
+#     for line in file_stream:
+#         account_number = line[:10].strip()
+#         account_name = line[10:50].strip().lower()
+#         raw_names.append(account_name)  # Keep original format
+#         name_search = account_name.replace(" ", "").replace(",", "").replace(".", "")
+
+#         if account_number == "9999999999":
+#             break
+
+#         data_list.append(account_number)
+#         name_list.append(name_search)
+
+#     # Connect to the database
+#     DB_HOST = "172.31.160.80"
+#     DB_USER = "rrubio"
+#     DB_PASSWORD = "Dswd@!234"
+#     DB_NAME = "cdo_portal"
+#     DB_TABLE = "emploee_view_info"
+#     connection = pymysql.connect(
+#         host= DB_HOST,
+#         user= DB_USER,
+#         password= DB_PASSWORD,
+#         database= DB_NAME,
+#         cursorclass=pymysql.cursors.DictCursor
+#     )
+
+#     results = []
+#     not_found = []
+
+#     try:
+#         with connection.cursor() as cursor:
+#             query = f"SELECT first_name, last_name, middle_name, email, mobile_no, account_number FROM {DB_TABLE}"
+#             cursor.execute(query)
+#             raw_data = cursor.fetchall()
+
+#             matched_names = set()
+
+#             for row in raw_data:
+#                 db_fn = row["first_name"] if row["first_name"] else ""
+#                 db_mn = row["middle_name"] if row["middle_name"] else ""
+#                 db_ln = row["last_name"] if row["last_name"] else ""
+
+#                 format_name = f"{db_ln}{db_fn}"
+#                 db_format_name = format_name.replace(" ", "").replace(",", "").replace(".", "").lower()
+
+#                 for file_name in name_list:
+#                     if db_format_name in file_name or file_name in db_format_name:
+#                         matched_names.add(file_name)
+
+#                         results.append({
+#                             "account_number": row["account_number"],
+#                             "full_name": f"{row['last_name']}, {row['first_name']} {row['middle_name']}".strip(),
+#                             "first_name": row["first_name"],
+#                             "mobile": format_mobile_number(row["mobile_no"]),
+#                             "email": format_email(row["email"])
+#                         })
+#                         formatted_mobile = format_mobile_number(row["mobile_no"])
+#                         url, payload, headers = send_msg(message, formatted_mobile)
+#                         response = requests.post(url, json=payload, headers=headers)
+#                         data = response.json()
 
 
+            
+#             for i, name in enumerate(name_list):
+#                 if name not in matched_names:
+#                     not_found.append(raw_names[i].upper())
+
+#     finally:
+#         connection.close()
+
+#     return jsonify({"matched": results, "not_found": not_found})
 
 
-
-
+# @notifs.route('/send_via_upload', methods=['POST'])  # Send via upload
+# @login_required
+# def send_via_upload():
 
 
 
@@ -926,6 +1023,8 @@ def send_multi_msg():
 
 
 #===============================================================================================================================>
+#
+#
 #
 #
 #
@@ -939,6 +1038,8 @@ def libraries():
 #
 #
 #
+#
+#
 #================ Reports ======================================================================================================>
 @notifs.route('/reports', methods=['GET', 'POST'])
 @login_required
@@ -946,6 +1047,8 @@ def reports():
     return render_template('reports.html')
 
 #===============================================================================================================================>
+#
+#
 #
 #
 #

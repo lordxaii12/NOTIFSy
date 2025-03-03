@@ -2,9 +2,9 @@
 #===============================================================================================================================>
 from models.email_credentials import Ecredss
 from extensions import db
-from flask import request, jsonify, flash
+from flask import request
 from flask_login import current_user
-from utils import get_manila_time
+from utility.sys_utils import get_manila_time
 
 #===============================================================================================================================>
 #
