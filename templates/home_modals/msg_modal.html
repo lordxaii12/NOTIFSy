@@ -180,14 +180,14 @@
 <!--=============================================================================================================================-->
 <!--SEND UPLOAD MESSAGE MODAL-->
 <div class="modal fade" id="uploadMsgModal" tabindex="-1" aria-labelledby="uploadMsgModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}} home">
                 <h5 class="modal-title" id="uploadMsgModalLabel">Upload Contacts</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{ url_for('notifs.send_upload_msg') }}" method="POST" id="send_upload_msg" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="usender">SMS Sender</label>
@@ -223,14 +223,35 @@
                                 <input type="file" name="uploaded" id="uploaded" accept=".txt, .xls, .xlsx, .csv">
                             </div>
                         </div>
+                         <span class="form-icon" id="searchIcon">🔍</span>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ufounddata">Found Data:</label>
+                            <div class="textarea-container">
+                                <textarea id="ufounddata" name="ufounddata" readonly required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="unodatafound">No Data Found:</label>
+                            <div class="textarea-container">
+                                <textarea id="unodatafound" name="unodatafound" readonly></textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="umessage">Message:</label>
-                        <textarea id="umessage" name="umessage"></textarea>
+                        <div class="textarea-container">
+                            <textarea id="umessage" name="umessage" required></textarea>
+                        </div>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="uaddName" name="uaddName" value="on">
+                        <label for="uaddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
                     </div>
                     <div class="button-group">
-                        <button class="send-btn">Send</button>
-                        <button class="cancel-btn">Cancel</button>
+                        <button class="send-btn" type="submit">Send</button>
+                        <button class="cancel-btn"  data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>

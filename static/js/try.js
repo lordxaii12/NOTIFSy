@@ -18,10 +18,41 @@
 
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("searchIcon").addEventListener("click", function () {
+        let fileInput = document.getElementById("uploaded");
+        let file = fileInput.files[0];
 
+        if (!file) {
+            alert("Please upload a file first.");
+            return;
+        }
 
+        let formData = new FormData();
+        formData.append("uploaded", file);
 
+        fetch("/generate_from_upload", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json()) // Expect JSON
+        .then(data => {
+            console.log("Response from Flask:", data); // Debugging log
 
+            // ✅ Convert matched records to a readable format
+            let formattedRecords = data.matched_records.map(record => {
+                return `${record.fullname}:${record.mobile}:${record.email}\n`;
+            }).join(""); // Join as a string with spacing
+
+            // ✅ Set matched records in textarea
+            document.getElementById("ufounddata").value = formattedRecords || "No data found";
+
+            // ✅ Set unmatched names
+            document.getElementById("unodatafound").value = data.unmatched_names.join("\n");
+        })
+        .catch(error => console.error("Error:", error));
+    });
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     let cache = {};

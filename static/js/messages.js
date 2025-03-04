@@ -296,10 +296,42 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 //==================================================================================================================================//
+//
+//
+//
+//========= UPLOAD MSG =============================================================================================================//
+//Extract recipient from file upload//
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("searchIcon").addEventListener("click", function () {
+        let fileInput = document.getElementById("uploaded");
+        let file = fileInput.files[0];
 
+        if (!file) {
+            alert("Please upload a file first.");
+            return;
+        }
+        let formData = new FormData();
+        formData.append("uploaded", file);
 
+        fetch("/generate_from_upload", {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Response from Flask:", data);
 
+            let formattedRecords = data.matched_records.map(record => {
+                return `${record.fullname}:${record.mobile}:${record.email}\n`;
+            }).join("");
 
+            document.getElementById("ufounddata").value = formattedRecords || "No data found";
+            document.getElementById("unodatafound").value = data.unmatched_names.join("\n");
+        })
+        .catch(error => console.error("Error:", error));
+    });
+});
+//==================================================================================================================================//
 
 
 

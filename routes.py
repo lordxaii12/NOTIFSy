@@ -11,7 +11,7 @@ import json
 import pymysql
 from io import StringIO
 from utility.sys_utils import get_manila_time
-from utility.msg_utils import message_content, generate_tracker, extract_first_name, format_mobile_number, format_email, get_status_data, send_msg, get_table_data
+from utility.msg_utils import message_content, generate_tracker, extract_first_name, format_mobile_number, format_email, get_status_data, send_msg, get_table_data, convert_file_to_inputs
 #===============================================================================================================================>
 #Models
 from models.user import User_v1
@@ -906,110 +906,82 @@ def send_multi_msg():
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
     return redirect(url_for('notifs.home'))
 
+@notifs.route('/generate_from_upload', methods=['POST'])  #Generate recipient from upload
+@login_required
+def generate_from_upload():
+    file = request.files.get('uploaded')
+    if not file:
+        print("No file uploaded")
+        return redirect(url_for('notifs.home'))
+    matched_records, not_found = convert_file_to_inputs(file)
 
-# @notifs.route('/send_multi_msg', methods=['POST'])  # Send via upload
-# # @login_required
-# def send_via_upload():
+    return {
+        "matched_records": matched_records if matched_records else ["No data found"],
+        "unmatched_names": not_found if not_found else ["All data are found"]
+    }
+
+@notifs.route('/send_upload_msg', methods=['POST'])#Send Upload message
+@login_required
+def send_upload_msg():
+    sender_div = current_user.division
+    sender = request.form.get('usender')
+    sending_option = request.form.get('usending_option')
+    content = request.form.get('umessage')
+    add_name = request.form.get('uaddName')
     
-#     message = request.form.get('umessage')
-#     if 'file' not in request.files:
-#         return jsonify({"error": "No file part"}), 400
+    data = request.form.get('ufounddata')
+    if data == "No data found":
+        flash("","error")
+        return redirect(url_for('notifs.home'))
     
-#     file = request.files['file']
-
-#     if file.filename == '':
-#         return jsonify({"error": "No selected file"}), 400
-
-#     # Read file content
-#     file_content = file.read().decode("utf-8")
-#     file_stream = StringIO(file_content)
-
-#     # Process the file
-#     data_list = []
-#     name_list = []
-#     raw_names = []
-
-#     for line in file_stream:
-#         account_number = line[:10].strip()
-#         account_name = line[10:50].strip().lower()
-#         raw_names.append(account_name)  # Keep original format
-#         name_search = account_name.replace(" ", "").replace(",", "").replace(".", "")
-
-#         if account_number == "9999999999":
-#             break
-
-#         data_list.append(account_number)
-#         name_list.append(name_search)
-
-#     # Connect to the database
-#     DB_HOST = "172.31.160.80"
-#     DB_USER = "rrubio"
-#     DB_PASSWORD = "Dswd@!234"
-#     DB_NAME = "cdo_portal"
-#     DB_TABLE = "emploee_view_info"
-#     connection = pymysql.connect(
-#         host= DB_HOST,
-#         user= DB_USER,
-#         password= DB_PASSWORD,
-#         database= DB_NAME,
-#         cursorclass=pymysql.cursors.DictCursor
-#     )
-
-#     results = []
-#     not_found = []
-
-#     try:
-#         with connection.cursor() as cursor:
-#             query = f"SELECT first_name, last_name, middle_name, email, mobile_no, account_number FROM {DB_TABLE}"
-#             cursor.execute(query)
-#             raw_data = cursor.fetchall()
-
-#             matched_names = set()
-
-#             for row in raw_data:
-#                 db_fn = row["first_name"] if row["first_name"] else ""
-#                 db_mn = row["middle_name"] if row["middle_name"] else ""
-#                 db_ln = row["last_name"] if row["last_name"] else ""
-
-#                 format_name = f"{db_ln}{db_fn}"
-#                 db_format_name = format_name.replace(" ", "").replace(",", "").replace(".", "").lower()
-
-#                 for file_name in name_list:
-#                     if db_format_name in file_name or file_name in db_format_name:
-#                         matched_names.add(file_name)
-
-#                         results.append({
-#                             "account_number": row["account_number"],
-#                             "full_name": f"{row['last_name']}, {row['first_name']} {row['middle_name']}".strip(),
-#                             "first_name": row["first_name"],
-#                             "mobile": format_mobile_number(row["mobile_no"]),
-#                             "email": format_email(row["email"])
-#                         })
-#                         formatted_mobile = format_mobile_number(row["mobile_no"])
-#                         url, payload, headers = send_msg(message, formatted_mobile)
-#                         response = requests.post(url, json=payload, headers=headers)
-#                         data = response.json()
-
-
+    data_lines = data.strip().split("\n")
+    msg_tracker = generate_tracker(sender_div,sending_option)
+    sent=[]
+    unsent=[]
+    msg_recipient=[]
+    total_credit=0
+    for data_line in data_lines:
+        data_parts = data_line.split(":")
+        name = data_parts[0].strip()
+        mobile = data_parts[1].strip()
+        email = data_parts[2].strip()
+        formatted_name = extract_first_name(name)
+        formatted_mobile = format_mobile_number(mobile)
+        formatted_email = format_email(email)
+        message = message_content(add_name,formatted_name,content,sender,sender_div)
+        status_data = get_status_data(name,formatted_mobile,message)
+        recipient =f"{name}:{formatted_mobile}"
+        msg_recipient.append(recipient)
+        
+        if sending_option == 'sms':
+            url, payload, headers = send_msg(message, formatted_mobile)
+            response = requests.post(url, json=payload, headers=headers)
+            data = response.json()
             
-#             for i, name in enumerate(name_list):
-#                 if name not in matched_names:
-#                     not_found.append(raw_names[i].upper())
+            if response.status_code == 200:
+                credit_used = int(data.get('TotalCreditUsed', 0))
+                total_credit += int(credit_used)
+                sent.append(status_data)
+            else:
+                unsent.append(status_data)
+        elif sending_option == 'email':
+            flash(f'email: {formatted_email}','error')
 
-#     finally:
-#         connection.close()
+    total_sent = len(sent)
+    total_unsent = len(unsent)
+    msg_sent_str = json.dumps(sent) if isinstance(sent, list) else str(sent)
+    msg_unsent_str = json.dumps(unsent) if isinstance(unsent, list) else str(unsent)
+    msg_recipient_str = json.dumps(msg_recipient)
+    
+    if total_unsent == 0:
+        msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
+        flash(f'{msg_status}','success')
+    else:
+        msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
+        flash(f'{msg_status}','error')
 
-#     return jsonify({"matched": results, "not_found": not_found})
-
-
-# @notifs.route('/send_via_upload', methods=['POST'])  # Send via upload
-# @login_required
-# def send_via_upload():
-
-
-
-
-
+    add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
+    return redirect(url_for('notifs.home'))
 
 
 

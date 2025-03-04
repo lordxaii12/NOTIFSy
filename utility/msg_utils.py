@@ -144,6 +144,18 @@ def send_msg(message, recipient):
 #===============================================================================================================================>
     #Upload file and search in hr data
 def convert_file_to_inputs(file):
+    if file is None:
+        print("No file received in function")
+        return [], []
+
+    try:
+        content = file.stream.read().decode("utf-8")
+    except Exception as e:
+        print(f"Error reading file: {e}")
+        return [], []
+
+    file.stream.seek(0) 
+    
     hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 1
     hris_data = Hrpears.get_by_id(hris_id)
     DB_HOST = hris_data.hrpears_host
@@ -151,20 +163,21 @@ def convert_file_to_inputs(file):
     DB_PASSWORD = hris_data.hrpears_password
     DB_NAME = hris_data.hrpears_dbname
     DB_TABLE = hris_data.hrpears_table
-    
+
     data_list = []
     name_list = []
-    raw_names = []
-    
-    if file:
-        for line in file.stream.read().decode("utf-8").splitlines():
+    raw_names = [] 
+
+    for line in content.splitlines():
             account_number = line[:10].strip()
             account_name = line[10:50].strip().lower()
             raw_names.append(account_name)
-            name_search = account_name.replace(" ", "").replace(",", "").replace(".", "")
+
+            name_search = account_name.replace(" ", "").replace(",", "").replace(".", "").lower()
 
             if account_number == "9999999999":
                 break
+
             data_list.append(account_number)
             name_list.append(name_search)
 
@@ -175,22 +188,24 @@ def convert_file_to_inputs(file):
         database=DB_NAME,
         cursorclass=pymysql.cursors.DictCursor
     )
+    
+    matched_records = []
+    matched_names = set()
+    not_found_list = []
     try:
         with connection.cursor() as cursor:
             query = f"SELECT first_name, last_name, middle_name, email, mobile_no, account_number FROM {DB_TABLE}"
             cursor.execute(query)
             raw_data = cursor.fetchall()
-            
-            matched_names = set()
 
             for row in raw_data:
                 db_fn = row["first_name"] if row["first_name"] else ""
                 db_mn = row["middle_name"] if row["middle_name"] else ""
                 db_ln = row["last_name"] if row["last_name"] else ""
 
-                format_name = f"{db_ln}{db_fn}"
-                db_format_name = format_name.replace(" ", "").replace(",", "").replace(".", "").lower()
-                
+                format_name = f"{db_ln} {db_fn} {db_mn}".strip().lower()
+                db_format_name = format_name.replace(" ", "").replace(",", "").replace(".", "")
+
                 for file_name in name_list:
                     if db_format_name in file_name or file_name in db_format_name:
                         matched_names.add(file_name)
@@ -199,19 +214,22 @@ def convert_file_to_inputs(file):
                         middle_name = row["middle_name"] if row["middle_name"] else ""
                         last_name = row["last_name"] if row["last_name"] else ""
                         fullname = f"{last_name}, {first_name} {middle_name}".strip()
-                        
-                        
-                        print("Match found:")
-                        print("Account Number:", row["account_number"])
-                        print("Full Name:", fullname)
-                        print("First Name:", first_name)
-                        print("Mobile:", format_mobile_number(row["mobile_no"]))
-                        print("Email:", format_email(row["email"]))
-                        print("-\n\n")
-                        
+
+                        matched_records.append({
+                            "account_number": row["account_number"],
+                            "fullname": fullname.upper(),
+                            "first_name": extract_first_name(fullname),
+                            "mobile": format_mobile_number(row["mobile_no"]),
+                            "email": format_email(row["email"]),
+                        })
+
             for i, name in enumerate(name_list):
                 if name not in matched_names:
-                    print(f"Not found: {raw_names[i].upper()}")  # Print original format
+                    not_found_list.append(raw_names[i].upper())
 
     finally:
         connection.close()
+
+    return matched_records, not_found_list 
+
+#===============================================================================================================================>
