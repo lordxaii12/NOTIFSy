@@ -4,6 +4,7 @@ from datetime import datetime
 import pytz
 from flask import g
 
+from cryptography.fernet import Fernet
 #===============================================================================================================================>
     #Get datetime in manila based timezone
 def get_manila_time():

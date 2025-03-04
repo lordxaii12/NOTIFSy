@@ -24,8 +24,8 @@
         <div class="login-container login">
             <div class="login-left"></div>
             <div class="login-right">
-                <h1 style="color:black;" class="title">🅵🅾-🆇NotiFS</h1>
-                <p class="subtitle">Field Office X Notification Forwarding System</p>
+                <h1 style="color:black;" class="title">{{ to_block_text(g.sys_settings.sys_name) }}</h1>
+                <p class="subtitle">{{g.sys_settings.sys_app_name}}</p>
                 <div class="form-container">
                     <form class="login-form" action="{{ url_for('notifs.login') }}" method="POST">
                         <label for="username">🆄🆂🅴🆁🅽🅰🅼🅴</label>
