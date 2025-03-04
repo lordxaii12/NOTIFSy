@@ -3,6 +3,7 @@
 from datetime import datetime
 import pytz
 from flask import g
+from config import Config
 
 from cryptography.fernet import Fernet
 #===============================================================================================================================>
@@ -22,4 +23,15 @@ def to_block_text(text):
     return ''.join(blocky[normal.index(char)] if char in normal else char for char in text.upper())
 
 #===============================================================================================================================>
-    
+    #Encrypt data
+def encrypt_content(content):
+     encrypted_text = Config.cipher.encrypt(content.encode()).decode()
+     return encrypted_text
+
+#===============================================================================================================================>
+    #Decrypt data
+def decrypt_content(content):
+     decrypted_text = Config.cipher.decrypt(content.encode()).decode()
+     return decrypted_text
+
+#===============================================================================================================================>
