@@ -26,7 +26,6 @@ db_track_mod = config['db_track_mod']
 
 uri = f"{database_uri_head1}+{database_uri_head2}://{db_user}:{password}@{db_host}:{db_port}/{dbname}"
 
-print(uri)
 #===============================================================================================================================>
 class Config:
     SECRET_KEY = secret_key
