@@ -1,8 +1,8 @@
-secret_key = 1234
+secret_key = Tx7SS5OihZaJOSv2QtdIzWFCeQdW3OEN2z1WY3ZLdhg=
 database_uri_head1 = mysql
 database_uri_head2 = pymysql
 db_user = root 
-db_password = " "
+db_password = none
 db_host = 127.0.0.1
 db_port = 3306
 dbname = notifs
