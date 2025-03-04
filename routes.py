@@ -1,16 +1,19 @@
 #--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
-from flask import Blueprint, request, render_template, redirect, url_for, session, flash, jsonify
-from flask_login import login_required, logout_user
-from flask_migrate import Migrate
-from config import Config
-from flask_login import login_user, current_user
-import requests
-from extensions import db, limiter
+#flask / requirements libraries
 import json
 import pymysql
+import requests
+from flask_migrate import Migrate
+from config import Config
 from io import StringIO
-from utility.sys_utils import get_manila_time
+from extensions import db, limiter
+from flask import Blueprint, request, render_template, redirect, url_for, session, flash, jsonify
+from flask_login import login_required, logout_user
+from flask_login import login_user, current_user
+#===============================================================================================================================>
+#Utils
+from utility.sys_utils import get_manila_time, encrypt_content, decrypt_content
 from utility.msg_utils import message_content, generate_tracker, extract_first_name, format_mobile_number, format_email, get_status_data, send_msg, get_table_data, convert_file_to_inputs
 #===============================================================================================================================>
 #Models
@@ -1030,3 +1033,6 @@ def reports():
 def profile():
     return render_template('profile.html')
 #===============================================================================================================================>
+
+
+
