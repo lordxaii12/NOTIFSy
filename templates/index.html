@@ -46,15 +46,13 @@
                             <h6>SYSTEM NOTICE:</h6>
                         </div>
                     </div>
+
                     <div>
                         <h4 class="separator">{{ to_block_text("SERVICES") }}</h4>
                     </div>
+
                     <div class="row second_row">
-                        <div id="loading-spinner" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Processing...</span>
-                            </div>
-                        </div>
+                        
                         <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                             <div class="row service-row">
                                 <div class="col service-col">
@@ -109,27 +107,33 @@
                                         </div>
                                     </div>
                                     <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_upload.svg') }}"
-                                    alt="roles"
+                                    alt="upload_msg"
                                     data-bs-toggle="modal" 
                                     data-bs-target="#uploadMsgModal">
                                 </div>
+
                                 <div class="col service-col">
                                     <div class="service-content">
                                         <div class="service-info">
-                                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" 
                                                 alt="settings"
                                                 data-bs-toggle="popover"
                                                 data-bs-placement="top"
                                                 data-bs-content="This space is allocated for new service.">
                                         </div>
                                         <div class="service-title">
-                                            <h5>{{ to_block_text("Coming") }} Soon</h5>
+                                            <h5>{{ to_block_text("Message") }} Templates</h5>
                                         </div>
                                     </div>
-                                    <!--<img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}" alt="roles">-->
+                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/message_templates.svg') }}" alt="message_temps"
+                                    alt="upload_msg"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#">
                                 </div>
+
                             </div>
                         </div>
+
                         <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                             <div class="row service-row">
 
@@ -183,34 +187,20 @@
 
 
                             </div>
-                            <div class="row service-row">
-                                <div class="col table-col">
+                            <div class="row service-row temp_table">
+                                <div class="col table-col ">
                                     <table class="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="equal-header">ID</th>
-                                                <th class="equal-header">Type</th>
+                                                <th class="equal-header">Template</th>
                                                 <th class="equal-header">Content</th>
-                                                <th class="equal-header">Date</th>
-                                                {% if user.is_authenticated and user.role_id in [1,3] %}
-                                                    <th class="action-header">Actions</th>
-                                                {% endif %}
                                             </tr>
                                         </thead>
                                         <tbody id="tableBody">
                                             {% for messages in msg_data%}
                                             <tr>
                                                 <td class="equal-column">{{messages.msg_tracker }}</td>
-                                                <td class="equal-column">{{messages.msg_type}}</td>
                                                 <td class="equal-column">{{messages.msg_content}}</td>
-                                                <td class="equal-column">{{messages.sent_on}}</td>
-                                                {% if user.is_authenticated and user.role_id in [1,3] %}
-                                                    <td class="action-column">
-                                                        <button class="msg-btn btn p-0 m-0 " data-log-id="{{ messages.msg_id }}">
-                                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
-                                                        </button>
-                                                    </td>
-                                                {% endif %}
                                             </tr>
                                             {% endfor %}
                                         </tbody>

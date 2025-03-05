@@ -29,6 +29,7 @@ from models.email_credentials import Ecredss
 from models.hrpears_credentials import Hrpears
 from models.system_settings import SysSettings
 from models.msg_log import Msg_log
+from models.message_temp import Msg_templates
 #===============================================================================================================================>
 #Controllers
 from controllers.user_role import add_role, edit_role, delete_role
@@ -43,6 +44,7 @@ from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
 from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hrpears
 from controllers.system_settings import edit_sys_setting
 from controllers.msg_log import add_msg_log, delete_msg_log
+from controllers.message_temp import add_msg_temp, edit_msg_temp, delete_msg_temp
 #===============================================================================================================================>
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 #===============================================================================================================================>

@@ -67,18 +67,6 @@ select {
     z-index: 1; /* Keeps headers on top while scrolling */
 }
 
-/* Column Specific Widths */
-.table th:nth-child(1), .table td:nth-child(1) {
-    width: 40%; /* Adjust name column width */
-}
-
-.table th:nth-child(2), .table td:nth-child(2) {
-    width: 30%; /* Adjust mobile column width */
-}
-
-.table th:nth-child(3), .table td:nth-child(3) {
-    width: 30%; /* Adjust email column width */
-}
 
 /* Hover Effect for Clickable Rows */
 .clickable-row:hover {

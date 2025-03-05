@@ -191,5 +191,17 @@
 
 
 
-
-
+.temp_table .table th, .table td {
+    text-align: left;
+    border: 1px solid #ddd;
+}
+.temp_table .table th {
+    background-color: #f1f1f1;
+    position: sticky;
+    top: 0;
+    z-index: 1; 
+}
+.temp_table .clickable-row:hover {
+    background-color: #dcdcdc;
+    cursor: pointer;
+}
