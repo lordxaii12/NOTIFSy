@@ -7,7 +7,7 @@ from extensions import db , limiter, cache
 from flask_migrate import Migrate
 from models.system_settings import SysSettings
 from models.user import User_v1
-from utility.sys_utils import to_block_text
+from utility.sys_utils import to_block_text, decrypt_content, encrypt_content
 from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging
@@ -61,6 +61,14 @@ def create_app():
     @app.context_processor
     def inject_block_text():
         return dict(to_block_text=to_block_text)
+    
+    @app.context_processor
+    def inject_encryptor():
+        return dict(encrypt_content=encrypt_content)
+    
+    @app.context_processor
+    def inject_decryptor():
+        return dict(decrypt_content=decrypt_content)
 
     return app
 #===============================================================================================================================>
