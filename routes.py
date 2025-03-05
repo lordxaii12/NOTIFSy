@@ -54,7 +54,8 @@ notifs = Blueprint('notifs', __name__, template_folder='templates')
 #
 #
 #================ Admin ========================================================================================================>
-@notifs.route('/admin', methods=['GET', 'POST'])#admin page
+    #Admin page
+@notifs.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
     itexmo_data = Itexmo.get_all()
@@ -101,8 +102,9 @@ def admin():
                            log_data=log_data,
                            total_log=total_log,
                            sys_settings_data=sys_settings_data)
-
-@notifs.route('/edit_system_settings_route/<int:sys_setting_id>', methods=['POST'])#edit system settings
+#===========================================================================================================>
+    #System settings
+@notifs.route('/edit_system_settings_route/<int:sys_setting_id>', methods=['POST'])
 @login_required
 def edit_system_settings_route(sys_setting_id):
     try:
@@ -115,8 +117,9 @@ def edit_system_settings_route(sys_setting_id):
         flash(f'An error occurred: {str(e)}', 'error')
         db.session.rollback() 
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/login', methods=['GET', 'POST'])#Login
+#===========================================================================================================>
+    #Login
+@notifs.route('/login', methods=['GET', 'POST'])
 # @limiter.limit("5 per minute")
 def login():
     log_inCreds = LogApi.get_by_id(1)
@@ -158,8 +161,9 @@ def login():
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
     return render_template('login.html')
-
-@notifs.route('/logout')#Logout
+#===========================================================================================================>
+    #Logout
+@notifs.route('/logout')
 @login_required
 def logout():
     current_user.last_logout = get_manila_time()
@@ -174,8 +178,10 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('notifs.login'))
 
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/register_itexmo', methods=['POST'])#add itexmo credentials
+#===========================================================================================================>
+#===========================================================================================================>
+    #add itexmo credentials
+@notifs.route('/register_itexmo', methods=['POST'])
 @login_required
 def register_itexmo():
     try:
@@ -199,8 +205,9 @@ def register_itexmo():
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/edit_itexmo_route/<int:itexmo_id>', methods=['POST'])#edit itexmo credentials
+#===========================================================================================================>
+    #edit itexmo credentials
+@notifs.route('/edit_itexmo_route/<int:itexmo_id>', methods=['POST'])
 @login_required
 def edit_itexmo_route(itexmo_id):
     creds_data = Itexmo.get_by_id(itexmo_id)
@@ -233,8 +240,9 @@ def edit_itexmo_route(itexmo_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/delete_itexmo/<int:itexmo_id>', methods=['POST'])#delete itexmo credentials
+#===========================================================================================================>
+    #delete itexmo credentials
+@notifs.route('/delete_itexmo/<int:itexmo_id>', methods=['POST'])
 @login_required
 def delete_itexmo_route(itexmo_id):
     creds_data = Itexmo.get_by_id(itexmo_id)
@@ -249,8 +257,10 @@ def delete_itexmo_route(itexmo_id):
     db.session.commit()
     return redirect(request.referrer)
 
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/register_login_api', methods=['POST'])#add login API credentials
+#===========================================================================================================>
+#===========================================================================================================>
+    #add login API credentials
+@notifs.route('/register_login_api', methods=['POST'])
 @login_required
 def register_login_api():
     try:
@@ -273,8 +283,9 @@ def register_login_api():
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/edit_loginapi_route/<int:login_api_id>', methods=['POST'])#edit login API credentials
+#===========================================================================================================>
+    #edit login API credentials
+@notifs.route('/edit_loginapi_route/<int:login_api_id>', methods=['POST'])
 @login_required
 def edit_loginapi_route(login_api_id):
     loginapi_data = LogApi.get_by_id(login_api_id)
@@ -303,8 +314,9 @@ def edit_loginapi_route(login_api_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/delete_loginapi_route/<int:login_api_id>', methods=['POST'])#delete login API credentials
+#===========================================================================================================>
+    #delete login API credentials
+@notifs.route('/delete_loginapi_route/<int:login_api_id>', methods=['POST'])
 @login_required
 def delete_loginapi_route(login_api_id):
     loginapi_data = LogApi.get_by_id(login_api_id)
@@ -319,8 +331,10 @@ def delete_loginapi_route(login_api_id):
     db.session.commit()
     return redirect(request.referrer)
 
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/register_email_api', methods=['POST'])#add email API credentials
+#===========================================================================================================>
+#===========================================================================================================>
+    #add email API credentials
+@notifs.route('/register_email_api', methods=['POST'])
 @login_required
 def register_email_api():
     try:
@@ -343,8 +357,9 @@ def register_email_api():
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/edit_email_route/<int:ecreds_id>', methods=['POST'])#edit email API credentials
+#===========================================================================================================>
+    #edit email API credentials
+@notifs.route('/edit_email_route/<int:ecreds_id>', methods=['POST'])
 @login_required
 def edit_email_route(ecreds_id):
     ecreds_data = Ecredss.get_by_id(ecreds_id)
@@ -373,8 +388,9 @@ def edit_email_route(ecreds_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/delete_email_route/<int:ecreds_id>', methods=['POST'])#delete email API credentials
+#===========================================================================================================>
+    #delete email API credentials
+@notifs.route('/delete_email_route/<int:ecreds_id>', methods=['POST'])
 @login_required
 def delete_email_route(ecreds_id):
     ecreds_data = Ecredss.get_by_id(ecreds_id)
@@ -389,8 +405,10 @@ def delete_email_route(ecreds_id):
     db.session.commit()
     return redirect(request.referrer)
 
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/register_hrpears_api', methods=['POST'])#add hrpears API credentials
+#===========================================================================================================>
+#===========================================================================================================>
+    #add hrpears API credentials
+@notifs.route('/register_hrpears_api', methods=['POST'])
 @login_required
 def register_hrpears_api():
     try:
@@ -413,8 +431,9 @@ def register_hrpears_api():
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/edit_hrpears_route/<int:hrpears_id>', methods=['POST'])#edit hrpears API credentials
+#===========================================================================================================>
+    #edit hrpears API credentials
+@notifs.route('/edit_hrpears_route/<int:hrpears_id>', methods=['POST'])
 @login_required
 def edit_hrpears_route(hrpears_id):
     hrpears_data = Hrpears.get_by_id(hrpears_id)
@@ -447,8 +466,9 @@ def edit_hrpears_route(hrpears_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/delete_hrpears_route/<int:hrpears_id>', methods=['POST'])#delete hrpears API credentials
+#===========================================================================================================>
+    #delete hrpears API credentials
+@notifs.route('/delete_hrpears_route/<int:hrpears_id>', methods=['POST'])
 @login_required
 def delete_hrpears_route(hrpears_id):
     hrpears_data = Hrpears.get_by_id(hrpears_id)
@@ -463,8 +483,10 @@ def delete_hrpears_route(hrpears_id):
     db.session.commit()
     return redirect(request.referrer)
 
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/register_user', methods=['POST'])#add user
+#===========================================================================================================>
+#===========================================================================================================>
+    #add user
+@notifs.route('/register_user', methods=['POST'])
 @login_required
 def register_user():
     new_user = add_user()
@@ -489,8 +511,9 @@ def register_user():
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
-    
-@notifs.route('/edit_user_route/<int:user_id>', methods=['POST'])#edit user
+#===========================================================================================================>
+    #edit user
+@notifs.route('/edit_user_route/<int:user_id>', methods=['POST'])
 @login_required
 def edit_user_route(user_id):
     user_data = User_v1.get_by_id(user_id)
@@ -522,8 +545,9 @@ def edit_user_route(user_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/delete_user_route/<int:user_id>', methods=['POST'])#delete user
+#===========================================================================================================>
+    #delete user
+@notifs.route('/delete_user_route/<int:user_id>', methods=['POST'])
 @login_required
 def delete_user_route(user_id):
     user_data = User_v1.get_by_id(user_id)
@@ -542,8 +566,10 @@ def delete_user_route(user_id):
     db.session.commit()
     return redirect(url_for('notifs.admin'))
 
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/register_role', methods=['POST'])#add user type
+#===========================================================================================================>
+#===========================================================================================================>
+    #add user type/role
+@notifs.route('/register_role', methods=['POST'])
 @login_required
 def register_role():
     new_roles = add_role()
@@ -567,8 +593,9 @@ def register_role():
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
-    
-@notifs.route('/edit_role_route/<int:role_id>', methods=['POST'])#edit user type
+#===========================================================================================================>
+    #edit user type/role
+@notifs.route('/edit_role_route/<int:role_id>', methods=['POST'])
 @login_required
 def edit_role_route(role_id):
     role_data = Roles.get_by_id(role_id)
@@ -592,8 +619,9 @@ def edit_role_route(role_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/delete_role_route/<int:role_id>', methods=['POST'])#delete user type
+#===========================================================================================================>
+    #delete user type/role
+@notifs.route('/delete_role_route/<int:role_id>', methods=['POST'])
 @login_required
 def delete_role_route(role_id):
     role_data = Roles.get_by_id(role_id)
@@ -612,8 +640,10 @@ def delete_role_route(role_id):
     db.session.commit()
     return redirect(url_for('notifs.admin'))
 
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/register_division', methods=['POST'])#add user division
+#===========================================================================================================>
+#===========================================================================================================>
+    #add user division
+@notifs.route('/register_division', methods=['POST'])
 @login_required
 def register_division():
     new_division = add_division()
@@ -637,8 +667,9 @@ def register_division():
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
-    
-@notifs.route('/edit_division_route/<int:division_id>', methods=['POST'])#edit user division
+#===========================================================================================================>
+    #edit user division
+@notifs.route('/edit_division_route/<int:division_id>', methods=['POST'])
 @login_required
 def edit_division_route(division_id):
     division_data = Divisions.get_by_id(division_id)
@@ -662,8 +693,9 @@ def edit_division_route(division_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/delete_division_route/<int:division_id>', methods=['POST'])#delete user division
+#===========================================================================================================>
+    #delete user division
+@notifs.route('/delete_division_route/<int:division_id>', methods=['POST'])
 @login_required
 def delete_division_route(division_id):
     division_data = Divisions.get_by_id(division_id)
@@ -681,8 +713,9 @@ def delete_division_route(division_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
-@notifs.route('/delete_logs_route/<int:log_id>', methods=['POST'])#delete user logs
+#===========================================================================================================>
+    #delete user logs
+@notifs.route('/delete_logs_route/<int:log_id>', methods=['POST'])
 @login_required
 def delete_logs_route(log_id):
     log_data = User_logs.get_by_id(log_id)
@@ -700,7 +733,8 @@ def delete_logs_route(log_id):
 #
 #
 #================ Home =========================================================================================================>
-@notifs.route('/', methods=['GET', 'POST'])#Home page
+    #Home page
+@notifs.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
     msg_data = Msg_log.query.filter_by(msg_sender=current_user.full_name).all()
@@ -708,15 +742,19 @@ def home():
     total_unsent = sum(1 for msg in msg_data if msg.msg_status == 'unsent')
 
     theme_data = Theme.get_all()
+    msg_temp_data = Msg_templates.get_all()
 
     return render_template("index.html",
                            theme_data=theme_data,
+                           msg_temp_data=msg_temp_data,
                            msg_data=msg_data,
                            total_sent=total_sent,
                            total_unsent=total_unsent)
 
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/display_data', methods=['GET', 'POST'])#Display Internal data from HRIS to directory
+#===========================================================================================================>
+#===========================================================================================================>
+    #Display Internal data from HRIS to directory
+@notifs.route('/display_data', methods=['GET', 'POST'])
 @login_required
 def display_data():
     
@@ -725,9 +763,9 @@ def display_data():
         return jsonify(data)
     else:
         flash('Cannot connect to server.', 'error')
-
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/display_external_data', methods=['GET', 'POST'])#Display External data from local database to directory
+#===========================================================================================================>
+    #Display External data from local database to directory
+@notifs.route('/display_external_data', methods=['GET', 'POST'])
 @login_required
 def display_external_data():
     data = External.get_all()
@@ -742,9 +780,9 @@ def display_external_data():
         ])
     else:
         flash('Cannot connect to database.', 'error')
-
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/select_theme/<int:theme_id>', methods=['POST'])#Select theme
+#===========================================================================================================>
+    #Select theme
+@notifs.route('/select_theme/<int:theme_id>', methods=['POST'])
 @login_required
 def select_theme(theme_id):
     try:
@@ -760,9 +798,9 @@ def select_theme(theme_id):
         db.session.rollback()
         flash(f'Error on changing theme: {str(e)}', 'error')
         return redirect(url_for('notifs.home'))
-
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/delete_msglogs_route/<int:msg_id>', methods=['POST'])#delete message logs
+#===========================================================================================================>
+    #delete message logs
+@notifs.route('/delete_msglogs_route/<int:msg_id>', methods=['POST'])
 @login_required
 def delete_msglogs_route(msg_id):
     msglog_data = Msg_log.get_by_id(msg_id)
@@ -787,8 +825,10 @@ def delete_msglogs_route(msg_id):
     db.session.commit()
     return redirect(url_for('notifs.home'))
 
-#----------------------------------------------------------------------------------------------------------->
-@notifs.route('/send_single_msg', methods=['POST'])#Send single message
+#===========================================================================================================>
+#===========================================================================================================>
+    #Send single message
+@notifs.route('/send_single_msg', methods=['POST'])
 @login_required
 def send_single_msg():
     sent=[]
@@ -848,8 +888,9 @@ def send_single_msg():
 
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
     return redirect(url_for('notifs.home'))
-
-@notifs.route('/send_multi_msg', methods=['POST'])#Send Multi message
+#===========================================================================================================>
+    #Send Multi message
+@notifs.route('/send_multi_msg', methods=['POST'])
 @login_required
 def send_multi_msg():
     sender_div = current_user.division
@@ -910,8 +951,9 @@ def send_multi_msg():
 
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
     return redirect(url_for('notifs.home'))
-
-@notifs.route('/generate_from_upload', methods=['POST'])  #Generate recipient from upload
+#===========================================================================================================>
+    #Generate recipient from upload
+@notifs.route('/generate_from_upload', methods=['POST'])
 @login_required
 def generate_from_upload():
     file = request.files.get('uploaded')
@@ -924,8 +966,9 @@ def generate_from_upload():
         "matched_records": matched_records if matched_records else ["No data found"],
         "unmatched_names": not_found if not_found else ["All data are found"]
     }
-
-@notifs.route('/send_upload_msg', methods=['POST'])#Send Upload message
+#===========================================================================================================>
+    #Send Upload message
+@notifs.route('/send_upload_msg', methods=['POST'])
 @login_required
 def send_upload_msg():
     sender_div = current_user.division
@@ -987,6 +1030,90 @@ def send_upload_msg():
 
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
     return redirect(url_for('notifs.home'))
+
+#===========================================================================================================>
+#===========================================================================================================>
+    #Add message template
+@notifs.route('/register_msg_temp', methods=['POST'])
+@login_required
+def register_msg_temp():
+    new_msg_temp = add_msg_temp()
+    
+    if not new_msg_temp:
+        activity = f"FAILED TO ADD Message template due Missing or invalid data."
+        add_user_logs(activity)
+        db.session.commit()
+        return redirect(url_for('notifs.admin'))
+        
+    try:
+        activity = f"ADDED {new_msg_temp.msg_temp_name} as Message template."
+        flash('Message template added successfully!', 'success')
+        add_user_logs(activity)
+        db.session.commit()
+        
+    except Exception as e:
+        db.session.rollback() 
+        activity = f"FAILED TO ADD Message template due to error: {str(e)}."
+        add_user_logs(activity)
+        db.session.commit()
+        flash(f"Error: {str(e)}", 'error')
+    return redirect(url_for('notifs.admin'))
+#===========================================================================================================>
+    #edit Message template
+@notifs.route('/edit_msg_temp/<int:msg_temp_id>', methods=['POST'])
+@login_required
+def edit_msg_temp(msg_temp_id):
+    msg_temp_data = Msg_templates.get_by_id(msg_temp_id)
+    cur_msg_temp = msg_temp_data.msg_temp_name
+    cur_msg_temp_description = msg_temp_data.msg_temp_description
+    new_msg_temp = request.form.get('msg_temp_name')
+    new_msg_temp_description = request.form.get('msg_temp_description')
+    
+    try:
+        if edit_msg_temp(msg_temp_id):
+            activity = f"EDIT Message template from: [{cur_msg_temp}, {cur_msg_temp_description}] to [{new_msg_temp}, {new_msg_temp_description}]."
+            flash('User division updated successfully', 'success')
+        else:
+            activity = f"FAILED TO EDIT Message template. Missing or invalid data."
+   
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+        activity = f"FAILED TO EDIT Message template due to error: {str(e)}."
+        
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(url_for('notifs.admin'))
+#===========================================================================================================>
+    #delete Message template
+@notifs.route('/delete_msg_temp/<int:msg_temp_id>', methods=['POST'])
+@login_required
+def delete_msg_temp(msg_temp_id):
+    msg_temp_data = Msg_templates.get_by_id(msg_temp_id)
+    if not msg_temp_data:
+        flash('Message template not found.', 'error')
+        return redirect(url_for('notifs.admin'))
+    success = delete_msg_temp(msg_temp_id)
+    if success:
+        flash('Message template record deleted successfully', 'success')
+        activity = f"DELETED {msg_temp_data.msg_temp_name} from Message template."
+    else:
+        flash('Message template record delete failed', 'error')
+        activity = f"FAILED TO DELETE {msg_temp_data.msg_temp_name} from Message template."
+    
+    add_user_logs(activity)
+    db.session.commit()
+    return redirect(url_for('notifs.admin'))
+
+#===========================================================================================================>
+#===========================================================================================================>
+
+
+
+
+
+
+
 
 
 
