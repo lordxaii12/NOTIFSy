@@ -177,8 +177,8 @@ def logout():
     logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('notifs.login'))
-
 #===========================================================================================================>
+                            #ITEXMO API CREDENTIALS
 #===========================================================================================================>
     #add itexmo credentials
 @notifs.route('/register_itexmo', methods=['POST'])
@@ -256,8 +256,8 @@ def delete_itexmo_route(itexmo_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(request.referrer)
-
 #===========================================================================================================>
+                            #LOGIN API CREDENTIALS
 #===========================================================================================================>
     #add login API credentials
 @notifs.route('/register_login_api', methods=['POST'])
@@ -330,8 +330,8 @@ def delete_loginapi_route(login_api_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(request.referrer)
-
 #===========================================================================================================>
+                            #EMAIL API CREDENTIALS
 #===========================================================================================================>
     #add email API credentials
 @notifs.route('/register_email_api', methods=['POST'])
@@ -404,8 +404,8 @@ def delete_email_route(ecreds_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(request.referrer)
-
 #===========================================================================================================>
+                            #HRIS DATABASE CREDENTIALS
 #===========================================================================================================>
     #add hrpears API credentials
 @notifs.route('/register_hrpears_api', methods=['POST'])
@@ -482,8 +482,8 @@ def delete_hrpears_route(hrpears_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(request.referrer)
-
 #===========================================================================================================>
+                            #APP USERS
 #===========================================================================================================>
     #add user
 @notifs.route('/register_user', methods=['POST'])
@@ -565,8 +565,8 @@ def delete_user_route(user_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
 #===========================================================================================================>
+                            #APP USERS ROLES/TYPES
 #===========================================================================================================>
     #add user type/role
 @notifs.route('/register_role', methods=['POST'])
@@ -639,8 +639,8 @@ def delete_role_route(role_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.admin'))
-
 #===========================================================================================================>
+                            #APP USERS DIVISIONS
 #===========================================================================================================>
     #add user division
 @notifs.route('/register_division', methods=['POST'])
@@ -725,7 +725,6 @@ def delete_logs_route(log_id):
     flash('User logs record deleted successfully', 'success')
     delete_user_logs(log_id)
     return redirect(url_for('notifs.admin'))
-
 #===============================================================================================================================>
 #
 #
@@ -750,36 +749,6 @@ def home():
                            msg_data=msg_data,
                            total_sent=total_sent,
                            total_unsent=total_unsent)
-
-#===========================================================================================================>
-#===========================================================================================================>
-    #Display Internal data from HRIS to directory
-@notifs.route('/display_data', methods=['GET', 'POST'])
-@login_required
-def display_data():
-    
-    data = get_table_data()
-    if data:
-        return jsonify(data)
-    else:
-        flash('Cannot connect to server.', 'error')
-#===========================================================================================================>
-    #Display External data from local database to directory
-@notifs.route('/display_external_data', methods=['GET', 'POST'])
-@login_required
-def display_external_data():
-    data = External.get_all()
-    if data:
-        return jsonify([
-            {
-                'name': item.external_name,
-                'mobile_no': item.external_mobile,
-                'email': item.external_email
-            } 
-            for item in data
-        ])
-    else:
-        flash('Cannot connect to database.', 'error')
 #===========================================================================================================>
     #Select theme
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])
@@ -824,8 +793,38 @@ def delete_msglogs_route(msg_id):
     add_user_logs(activity)
     db.session.commit()
     return redirect(url_for('notifs.home'))
-
 #===========================================================================================================>
+                            #MESSAGE SENDER DIRECTORY
+#===========================================================================================================>
+    #Display Internal data from HRIS to directory
+@notifs.route('/display_data', methods=['GET', 'POST'])
+@login_required
+def display_data():
+    
+    data = get_table_data()
+    if data:
+        return jsonify(data)
+    else:
+        flash('Cannot connect to server.', 'error')
+#===========================================================================================================>
+    #Display External data from local database to directory
+@notifs.route('/display_external_data', methods=['GET', 'POST'])
+@login_required
+def display_external_data():
+    data = External.get_all()
+    if data:
+        return jsonify([
+            {
+                'name': item.external_name,
+                'mobile_no': item.external_mobile,
+                'email': item.external_email
+            } 
+            for item in data
+        ])
+    else:
+        flash('Cannot connect to database.', 'error')
+#===========================================================================================================>
+                            #MESSAGE SENDER FORM
 #===========================================================================================================>
     #Send single message
 @notifs.route('/send_single_msg', methods=['POST'])
@@ -1030,8 +1029,8 @@ def send_upload_msg():
 
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
     return redirect(url_for('notifs.home'))
-
 #===========================================================================================================>
+                            #MESSAGE TEMPLATES
 #===========================================================================================================>
     #Add message template
 @notifs.route('/register_msg_temp', methods=['POST'])
