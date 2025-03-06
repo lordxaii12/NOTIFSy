@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
     toggleRequiredFields();
     sendingOptionSelect.addEventListener("change", toggleRequiredFields);
 });
-
 //==================================================================================================================================//
 //open directory for single messagge //
 document.addEventListener("DOMContentLoaded", function () {
@@ -134,6 +133,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+});
+//==================================================================================================================================//
+//select message template to message area content single message//
+document.getElementById("stemplate").addEventListener("change", function() {
+    let s_selectedOption = this.options[this.selectedIndex];
+    let s_description = s_selectedOption.getAttribute("data-descS") || "";
+    
+    document.getElementById("message").value = s_description;
 });
 //==================================================================================================================================//
 //
@@ -296,6 +303,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 //==================================================================================================================================//
+//select message template to message area content multi message//
+document.getElementById("mtemplate").addEventListener("change", function() {
+    let m_selectedOption = this.options[this.selectedIndex];
+    let m_description = m_selectedOption.getAttribute("data-descM") || "";
+    
+    document.getElementById("mmessage").value = m_description;
+});
+//==================================================================================================================================//
 //
 //
 //
@@ -330,6 +345,14 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => console.error("Error:", error));
     });
+});
+//==================================================================================================================================//
+//select message template to message area content upload message//
+document.getElementById("utemplate").addEventListener("change", function() {
+    let u_selectedOption = this.options[this.selectedIndex];
+    let u_description = u_selectedOption.getAttribute("data-descU") || "";
+    
+    document.getElementById("umessage").value = u_description;
 });
 //==================================================================================================================================//
 

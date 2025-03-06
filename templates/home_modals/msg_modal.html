@@ -53,11 +53,11 @@
                     <div class="form-row2">
                         <div class="form-group2">
                             <label for="template">Message Template <small>(Optional)</small></label>
-                            <select id="template" name="template">
+                            <select id="stemplate" name="stemplate">
                                 <option value="" disabled selected>SELECT TEMPLATE</option>
-                                <option>SALARY</option>
-                                <option>TEV</option>
-                                <option>PREMIUM</option>
+                                {% for templates in msg_temp_data %}
+                                    <option value="{{ templates.msg_temp_name }}" data-descS = "{{templates.msg_temp_description}}">{{ templates.msg_temp_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group2">
@@ -141,11 +141,11 @@
                     <div class="form-row2">
                         <div class="form-group">
                             <label>Message Template <small>(Optional)</small></label>
-                            <select>
+                            <select id="mtemplate" name="mtemplate">
                                 <option value="" disabled selected>SELECT TEMPLATE</option>
-                                <option>SALARY</option>
-                                <option>TEV</option>
-                                <option>PREMIUM</option>
+                                {% for templates in msg_temp_data %}
+                                    <option value="{{ templates.msg_temp_name }}"data-descM ="{{templates.msg_temp_description}}">{{ templates.msg_temp_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -210,11 +210,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>Message Template <span class="optional">(Optional)</span></label>
-                            <select>
-                                <option>SELECT TEMPLATE</option>
-                                <option>SALARY</option>
-                                <option>TEV</option>
-                                <option>PREMIUM</option>
+                            <select id="utemplate" name="utemplate">
+                                <option value="" disabled selected>SELECT TEMPLATE</option>
+                                {% for templates in msg_temp_data %}
+                                    <option value="{{ templates.msg_temp_name }}" data-descU="{{templates.msg_temp_description}}" >{{ templates.msg_temp_name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group">

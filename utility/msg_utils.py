@@ -180,6 +180,7 @@ def convert_file_to_inputs(file):
 
             data_list.append(account_number)
             name_list.append(name_search)
+            
 
     connection = pymysql.connect(
         host=DB_HOST,
