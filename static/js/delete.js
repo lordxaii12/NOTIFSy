@@ -162,3 +162,21 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 //==================================================================================================================================//
+//Delete Message templates//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".msg_temp-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let msgTempId = this.getAttribute("data-msgtemp-id");
+
+            if (confirm("Are you sure?")) {
+                let form = document.createElement("form");
+                form.method = "POST";
+                form.action = `/delete_msg_temp_route/${msgTempId}`;
+
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    });
+});
+//==================================================================================================================================//

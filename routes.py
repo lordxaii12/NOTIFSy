@@ -1042,7 +1042,7 @@ def register_msg_temp():
         activity = f"FAILED TO ADD Message template due Missing or invalid data."
         add_user_logs(activity)
         db.session.commit()
-        return redirect(url_for('notifs.admin'))
+        return redirect(url_for('notifs.home'))
         
     try:
         activity = f"ADDED {new_msg_temp.msg_temp_name} as Message template."
@@ -1056,12 +1056,12 @@ def register_msg_temp():
         add_user_logs(activity)
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
-    return redirect(url_for('notifs.admin'))
+    return redirect(url_for('notifs.home'))
 #===========================================================================================================>
     #edit Message template
-@notifs.route('/edit_msg_temp/<int:msg_temp_id>', methods=['POST'])
+@notifs.route('/edit_msg_temp_route/<int:msg_temp_id>', methods=['POST'])
 @login_required
-def edit_msg_temp(msg_temp_id):
+def edit_msg_temp_route(msg_temp_id):
     msg_temp_data = Msg_templates.get_by_id(msg_temp_id)
     cur_msg_temp = msg_temp_data.msg_temp_name
     cur_msg_temp_description = msg_temp_data.msg_temp_description
@@ -1082,12 +1082,12 @@ def edit_msg_temp(msg_temp_id):
         
     add_user_logs(activity)
     db.session.commit()
-    return redirect(url_for('notifs.admin'))
+    return redirect(url_for('notifs.home'))
 #===========================================================================================================>
     #delete Message template
-@notifs.route('/delete_msg_temp/<int:msg_temp_id>', methods=['POST'])
+@notifs.route('/delete_msg_temp_route/<int:msg_temp_id>', methods=['POST'])
 @login_required
-def delete_msg_temp(msg_temp_id):
+def delete_msg_temp_route(msg_temp_id):
     msg_temp_data = Msg_templates.get_by_id(msg_temp_id)
     if not msg_temp_data:
         flash('Message template not found.', 'error')
@@ -1102,7 +1102,7 @@ def delete_msg_temp(msg_temp_id):
     
     add_user_logs(activity)
     db.session.commit()
-    return redirect(url_for('notifs.admin'))
+    return redirect(url_for('notifs.home'))
 
 #===========================================================================================================>
 #===========================================================================================================>

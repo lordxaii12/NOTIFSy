@@ -162,3 +162,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+//==================================================================================================================================//
+//Edit Message Templates Table//
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".edit_msg_temp-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let mtid = this.getAttribute("data-mtid");
+            let mtname = this.getAttribute("data-mtname");
+            let mtdesc = this.getAttribute("data-mtdesc");
+
+            document.getElementById("msg_temp_id").value = mtid;
+            document.getElementById("msg_temp_name").value = mtname;
+            document.getElementById("msg_temp_description").value = mtdesc;
+
+            document.getElementById("msgTemp_editForm").action = `/edit_msg_temp_route/${mtid}`;
+
+            new bootstrap.Modal(document.getElementById("msg_temp_edit")).show();
+        });
+    });
+});
+//==================================================================================================================================//

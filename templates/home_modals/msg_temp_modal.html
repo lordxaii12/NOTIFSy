@@ -1,38 +1,43 @@
 <!--HTML CODE FOR 'NOTIFS' BY: RYRUBIO-->
 <!--=============================================================================================================================-->
 <!--MESSAGE TEMPLATES DATA TABLE MODAL-->
-<div class="modal fade" id="msg_temp_display" tabindex="-1" aria-labelledby="msg_temp_displayLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="add_msg_temp_display" tabindex="-1" aria-labelledby="add_msg_temp_displayLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="msg_temp_displayLabel">MESSAGE TEMPLATES</h1>
+                <h1 class="modal-title fs-5" id="add_msg_temp_displayLabel">MESSAGE TEMPLATES</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <table class="table table-striped table-hover ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Division</th>
-                            <th>Description</th>
+                            <th>Name</th>
+                            <th>Message</th>
+                            <th>Created by</th>
+                            <th>Created on</th>
+                            <th>Updated by</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        {% for divisions in division_data%}
+                        {% for msg_templates in msg_temp_data%}
                         <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{divisions.division_name }}</td>
-                            <td>{{divisions.division_description}}</td>
+                            <td>{{msg_templates.msg_temp_name}}</td>
+                            <td>{{msg_templates.msg_temp_description}}</td>
+                            <td>{{msg_templates.created_by}}</td>
+                            <td>{{msg_templates.created_on}}</td>
+                            <td>{{msg_templates.updated_by}} on [{{msg_templates.updated_on}}]</td>
+
                             <td>
-                                <button class="division-log-btn btn p-0 m-0 " data-log-id="{{ divisions.division_id }}">
+                                <button class="msg_temp-btn btn p-0 m-0 " data-msgtemp-id="{{ msg_templates.msg_temp_id}}">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                 </button>
                                 |
-                                <button class="edit_division-btn btn p-0 m-0 "
-                                data-did="{{ divisions.division_id }}"
-                                data-dname="{{ divisions.division_name }}"
-                                data-ddesc ="{{ divisions.division_description }}"
+                                <button class="edit_msg_temp-btn btn p-0 m-0 "
+                                data-mtid="{{ msg_templates.msg_temp_id }}"
+                                data-mtname="{{ msg_templates.msg_temp_name }}"
+                                data-mtdesc ="{{ msg_templates.msg_temp_description }}"
                                 >
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
                                 </button>
@@ -47,42 +52,46 @@
 </div>
 <!--=============================================================================================================================-->
 <!--MESSAGE TEMPLATES EDIT FORM MODAL-->
-<div class="modal fade" id="division_edit" tabindex="-1" aria-labelledby="division_editLabel" aria-hidden="true">
+<div class="modal fade" id="msg_temp_edit" tabindex="-1" aria-labelledby="msg_temp_editLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} add-msg-template">
             <div class="modal-header">
-                <h5 class="modal-title" id="division_editLabel">Edit User Divisions</h5>
+                <h5 class="modal-title" id="msg_temp_editLabel">Edit Message Templates</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" id="division_editForm">
-                    <input type="hidden" id="division_id" name="division_id">
-                    <label for="division_name">Division</label>
-                    <input type="text" id="division_name" name="division_name" required>
-                    <label for="division_description">Description</label>
-                    <input type="text" id="division_description" name="division_description" required>
-                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                <form id="msgTemp_editForm" method="POST">
+                    <input type="hidden" id="msg_temp_id" name="msg_temp_id">
+                    <label for="msg_temp_name">Template for:</label>
+                    <input type="text" id="msg_temp_name" name="msg_temp_name" required>
+
+                    <label for="msg_temp_description">Content:</label>
+                    <textarea id="msg_temp_description" name="msg_temp_description" required></textarea>
+
+                    <button type="submit" class="btn submit-template-btn mt-3">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <!--=============================================================================================================================-->
-<!--ADD USER DIVISIONS-->
-<div class="modal fade" id="addDivisionModal" tabindex="-1" aria-labelledby="addDivisionModalLabel" aria-hidden="true">
+<!--ADD MESSAGE TEMPLATES-->
+<div class="modal fade" id="addMessageTemplates" tabindex="-1" aria-labelledby="addMessageTemplatesLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} add-msg-template">
             <div class="modal-header">
-                <h2>Add User Division</h2>
-                <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h2 class="modal-title" id="addMessageTemplatesLabel">Add Message Template</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form action="{{ url_for('notifs.register_division') }}" method="POST">
-                    <label for="division_name">Division</label>
-                    <input type="text" id="division_name" name="division_name" required>
-                    <label for="division_description">Description</label>
-                    <input type="text" id="division_description" name="division_description" required>
-                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+            <div class="modal-body ">
+                <form action="{{ url_for('notifs.register_msg_temp') }}" method="POST">
+                    <label for="msg_temp_name">Template for:</label>
+                    <input type="text" id="msg_temp_name" name="msg_temp_name" required>
+
+                    <label for="msg_temp_description">Content:</label>
+                    <textarea id="msg_temp_description" name="msg_temp_description" required></textarea>
+
+                    <button type="submit" class="btn submit-template-btn mt-3">Submit</button>
                 </form>
             </div>
         </div>

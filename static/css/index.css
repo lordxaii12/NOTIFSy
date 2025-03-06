@@ -191,6 +191,13 @@
 
 
 
+
+
+
+
+/*===============================================================================================================================>*/
+/*TOP ROW / CREDENTIALS COLUMNS CONTAINER =======================================================================================>*/
+    /*MESSAGE TEMPLATES TABLE*/
 .temp_table .table th, .table td {
     text-align: left;
     border: 1px solid #ddd;
@@ -205,3 +212,81 @@
     background-color: #dcdcdc;
     cursor: pointer;
 }
+
+
+/*===============================================================================================================================>*/
+/*TOP ROW / CREDENTIALS COLUMNS CONTAINER =======================================================================================>*/
+    /*MESSAGE TEMPLATES BUTTON*/
+.home .add_btn{
+    height: 28px;
+    width: 28px;
+    border: none;
+    padding: 0px;
+}
+
+/*===============================================================================================================================>*/
+/*ADD MESSAGE TEMPLATE MODALS ===================================================================================================>*/
+    /*ADD MESSAGE TEMPLATE-MODAL FORMS*/
+    .add-msg-template form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+    /*ADMIN-MODAL FORMS LABEL*/
+.add-msg-template label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    align-self: flex-start;
+}
+    /*ADMIN-MODAL FORMS INPUTS*/
+.add-msg-template input {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+}
+    /*ADMIN-MODAL FORMS SELECT*/
+.add-msg-template select {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+}
+    /*ADMIN-MODAL FORMS INPUT GROUPS*/
+.add-msg-template .input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+}
+    /*ADMIN-MODAL FORMS SUBMIT BUTTONS*/
+.add-msg-template .submit-template-btn {
+    background: linear-gradient(90deg, #180570 0%, #2F09D6 100%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    width: 70%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.add-msg-template.submit-template-btn:hover {
+    background: linear-gradient(90deg, #514c66 0%, #161519 100%);
+}
+    /*ADMIN-MODAL FORMS ROW GROUPS*/
+.add-msg-template .row-group {
+    display: flex;
+    justify-content: space-between;
+    width: 97%;
+    gap: 10;
+}
+/*===============================================================================================================================>*/
