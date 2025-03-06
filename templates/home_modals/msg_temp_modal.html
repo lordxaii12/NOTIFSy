@@ -3,7 +3,7 @@
 <!--MESSAGE TEMPLATES DATA TABLE MODAL-->
 <div class="modal fade" id="add_msg_temp_display" tabindex="-1" aria-labelledby="add_msg_temp_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} home-data-table">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="add_msg_temp_displayLabel">MESSAGE TEMPLATES</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -30,11 +30,11 @@
                             <td>{{msg_templates.updated_by}} on [{{msg_templates.updated_on}}]</td>
 
                             <td>
-                                <button class="msg_temp-btn btn p-0 m-0 " data-msgtemp-id="{{ msg_templates.msg_temp_id}}">
+                                <button class="msg_temp-btn btn table_buttons" data-msgtemp-id="{{ msg_templates.msg_temp_id}}">
                                     <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                 </button>
                                 |
-                                <button class="edit_msg_temp-btn btn p-0 m-0 "
+                                <button class="edit_msg_temp-btn btn table_buttons"
                                 data-mtid="{{ msg_templates.msg_temp_id }}"
                                 data-mtname="{{ msg_templates.msg_temp_name }}"
                                 data-mtdesc ="{{ msg_templates.msg_temp_description }}"

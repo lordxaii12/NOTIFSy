@@ -194,38 +194,62 @@
 
 
 
-
 /*===============================================================================================================================>*/
-/*TOP ROW / CREDENTIALS COLUMNS CONTAINER =======================================================================================>*/
+/*===============================================================================================================================>*/
+/*
+/*
+/*
+/*===============================================================================================================================>*/
+/*ADD / DISPLAY MESSAGE TEMPLATE MODALS / FRONTS =================================================================================>*/
     /*MESSAGE TEMPLATES TABLE*/
-.temp_table .table th, .table td {
+.temp_table .table{
+    border-radius: 10px;
+}
+    /*MESSAGE TEMPLATES TABLE HEADERS*/
+.temp_table .tempname-header{
     text-align: left;
-    border: 1px solid #ddd;
-}
-.temp_table .table th {
-    background-color: #f1f1f1;
-    position: sticky;
-    top: 0;
-    z-index: 1; 
-}
-.temp_table .clickable-row:hover {
-    background-color: #dcdcdc;
-    cursor: pointer;
-}
+    background: rgb(47, 17, 41) !important;
+    color: rgb(207, 178, 178) !important;
+    font-size: 12px;
+    width: 150px;
 
+}
+.temp_table .tempcontent-header{
+    text-align: left;
+    background: rgb(47, 17, 41) !important;
+    color: rgb(207, 178, 178) !important;
+    font-size: 12px;
+    width: 400px;
 
-/*===============================================================================================================================>*/
-/*TOP ROW / CREDENTIALS COLUMNS CONTAINER =======================================================================================>*/
-    /*MESSAGE TEMPLATES BUTTON*/
+}
+    /*MESSAGE TEMPLATES TABLE COLUMNS*/
+.temp_table .tempname-column{
+    text-align: left;
+    width: 150px;
+    background: rgb(205, 144, 198) !important;
+    color: rgb(33, 0, 248) !important;
+    font-size: 12px;
+    font-weight: bold;
+    justify-content: center;
+
+}
+.temp_table .tempcontent-column{
+    text-align: left;
+    width: 400px;
+    background: rgb(205, 144, 198) !important;
+    color: rgb(33, 0, 248) !important;
+    font-size: 12px;
+    font-weight: bold;
+    justify-content: center;
+    
+}
+    /*ADD MESSAGE TEMPLATES BUTTON*/
 .home .add_btn{
     height: 28px;
     width: 28px;
     border: none;
     padding: 0px;
 }
-
-/*===============================================================================================================================>*/
-/*ADD MESSAGE TEMPLATE MODALS ===================================================================================================>*/
     /*ADD MESSAGE TEMPLATE-MODAL FORMS*/
     .add-msg-template form {
     display: flex;
@@ -233,14 +257,14 @@
     width: 100%;
     align-items: center;
 }
-    /*ADMIN-MODAL FORMS LABEL*/
+    /*ADD MESSAGE TEMPLATE-MODALL FORMS LABEL*/
 .add-msg-template label {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 5px;
     align-self: flex-start;
 }
-    /*ADMIN-MODAL FORMS INPUTS*/
+    /*ADD MESSAGE TEMPLATE-MODAL FORMS INPUTS*/
 .add-msg-template input {
     width: 95%;
     padding: 8px;
@@ -249,7 +273,7 @@
     border-radius: 4px;
     background-color: #f5f5f5;
 }
-    /*ADMIN-MODAL FORMS SELECT*/
+    /*ADD MESSAGE TEMPLATE-MODAL FORMS SELECT*/
 .add-msg-template select {
     width: 95%;
     padding: 8px;
@@ -258,13 +282,13 @@
     border-radius: 4px;
     background-color: #f5f5f5;
 }
-    /*ADMIN-MODAL FORMS INPUT GROUPS*/
+    /*ADD MESSAGE TEMPLATE-MODAL FORMS INPUT GROUPS*/
 .add-msg-template .input-group {
     flex: 1;
     display: flex;
     flex-direction: column; 
 }
-    /*ADMIN-MODAL FORMS SUBMIT BUTTONS*/
+    /*ADD MESSAGE TEMPLATE-MODAL FORMS SUBMIT BUTTONS*/
 .add-msg-template .submit-template-btn {
     background: linear-gradient(90deg, #180570 0%, #2F09D6 100%);
     color: white;
@@ -282,11 +306,25 @@
 .add-msg-template.submit-template-btn:hover {
     background: linear-gradient(90deg, #514c66 0%, #161519 100%);
 }
-    /*ADMIN-MODAL FORMS ROW GROUPS*/
+    /*ADD MESSAGE TEMPLATE-MODAL FORMS ROW GROUPS*/
 .add-msg-template .row-group {
     display: flex;
     justify-content: space-between;
     width: 97%;
     gap: 10;
 }
+    /*ADD MESSAGE TEMPLATE-DATA MODAL EDIT/DELETE BUTTONS*/
+.home-data-table .table_buttons{
+    height: 30px;
+    width: 20px;
+    border: none;
+    padding: 0px;
+    cursor: pointer;
+}
+    /*ADD MESSAGE TEMPLATE-DATA MODAL EDIT/DELETE BUTTONS IMG*/
+.home-data-table .table_icons{
+    width: 20px;
+    height: 20px;
+}
+/*===============================================================================================================================>*/
 /*===============================================================================================================================>*/

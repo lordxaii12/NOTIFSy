@@ -182,19 +182,19 @@
                                 </div>
                             </div>
                             <div class="row service-row temp_table">
-                                <div class="col table-col ">
+                                <div class="col table-col">
                                     <table class="table table-striped table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="equal-header">Template</th>
-                                                <th class="equal-header">Content</th>
+                                                <th class="tempname-header">Message Template</th>
+                                                <th class="tempcontent-header">Template Content</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tableBody">
                                             {% for templates in msg_temp_data%}
                                             <tr>
-                                                <td class="equal-column">{{templates.msg_temp_name }}</td>
-                                                <td class="equal-column">{{templates.msg_temp_description}}</td>
+                                                <td class="tempname-column">{{templates.msg_temp_name }}</td>
+                                                <td class="tempcontent-column">{{templates.msg_temp_description}}</td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
