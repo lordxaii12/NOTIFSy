@@ -129,14 +129,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group2">
-                            <label for="mlist">Recipient List:</label>
-                            <div class="textarea-container">
-                                <textarea id="mlist" name="mlist" required readonly></textarea>
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-row2">
                         <div class="form-group">
                             <label>Message Template <small>(Optional)</small></label>
@@ -149,19 +141,25 @@
                         </div>
                     </div>
                     <div class="form-row2">
-                        
                         <div class="form-group2">
                             <label for="mmessage">Message:</label>
                             <div class="textarea-container">
                                 <textarea id="mmessage" name="mmessage" required></textarea>
                                 <span class="search-icon">🔍</span>
                             </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="maddName" name="maddName" value="on">
+                                <label for="maddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
+                            </div>
+                        </div>
+                        <div class="form-group2">
+                            <label for="mlist">Recipient List:</label>
+                            <div class="textarea-container">
+                                <textarea id="mlist" name="mlist" required readonly></textarea>
+                            </div>
                         </div>
                     </div>            
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="maddName" name="maddName" value="on">
-                        <label for="maddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
-                    </div>
+                    
                     <div class="button-group">
                         <button type="submit" class="send-btn">Send</button>
                         <button type="button" class="cancel-btn">Cancel</button>
@@ -253,3 +251,7 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
+
+
+
+

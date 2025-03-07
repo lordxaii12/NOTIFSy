@@ -258,3 +258,13 @@ def convert_file_to_inputs(file):
     return matched_records, not_found_list 
 
 #===============================================================================================================================>
+    #Extracts messages based on status ('sent')
+def process_messages_sent(sent_data):
+    sent_list = [msg.msg_sent.replace("\n", " ") for msg in sent_data if msg.msg_sent]
+    return sent_list, len(sent_list)
+        
+    #Extracts messages based on status ('unsent')
+def process_messages_unsent(sent_data):
+    unsent_list = [msg.msg_unsent.replace("\n", " ") for msg in sent_data if msg.msg_unsent]
+    return unsent_list, len(unsent_list)   
+#===============================================================================================================================>
