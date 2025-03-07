@@ -93,17 +93,13 @@
             </div>
             <div class="modal-body">
                 <form action="{{ url_for('notifs.send_multi_msg') }}" method="POST" id="send_multi_msg">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="msender">SMS Sender</label>
-                            <input type="text" id="msender" name="msender" 
+                    <input type="hidden" id="msender" name="msender" 
                                     value="{% if user.full_name %}{{ user.full_name.split(' ')[0].title() }} 
                                                 {% if user.full_name.split(' ')|length > 1 and '.' not in user.full_name.split(' ')[1] %}
                                                     {{ user.full_name.split(' ')[1].title() }}
                                                 {% endif %}
                                             {% endif %}" required>
-                        </div>
-                        
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="msending_option">Send Via <span class="required">(required)</span></label>
                             <select id="msending_option" name="msending_option"  required>
@@ -112,9 +108,6 @@
                                 <option value="both">SMS and EMAIL</option>
                             </select>
                         </div>
-                    </div>
-    
-                    <div class="form-row">
                         <div class="form-group">
                             <label for="mrecipient">Recipient <small>(one word only)</small></label>
                             <div class="input-icon">
@@ -124,17 +117,23 @@
                                 <input type="text" id="mrecipient" name="mrecipient">
                             </div>
                         </div>
-    
                         <div class="form-group">
                             <label for="mphone">Phone <small>(09xxxxxxxxx)</small></label>
                             <input type="text" id="mphone" name="mphone">
                         </div>
-    
                         <div class="form-group">
                             <label for="memail">Email</label>
                             <div class="input-icon">
                                 <input type="email" id="memail" name="memail">
                                 <span class="form-icon" onclick="addRecipient()">➕</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group2">
+                            <label for="mlist">Recipient List:</label>
+                            <div class="textarea-container">
+                                <textarea id="mlist" name="mlist" required readonly></textarea>
                             </div>
                         </div>
                     </div>
@@ -150,12 +149,7 @@
                         </div>
                     </div>
                     <div class="form-row2">
-                        <div class="form-group2">
-                            <label for="mlist">Recipient List:</label>
-                            <div class="textarea-container">
-                                <textarea id="mlist" name="mlist" required readonly></textarea>
-                            </div>
-                        </div>
+                        
                         <div class="form-group2">
                             <label for="mmessage">Message:</label>
                             <div class="textarea-container">
