@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Response from Flask:", data);
 
             let formattedRecords = data.matched_records.map(record => {
-                return `${record.fullname}:${record.mobile}:${record.email}\n`;
+                return `${record.fullname}:${record.mobile}:${record.email}:${record.amount}\n`;
             }).join("");
 
             document.getElementById("ufounddata").value = formattedRecords || "No data found";

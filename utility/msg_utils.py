@@ -62,12 +62,29 @@ def format_email(email):
     return email if re.match(r"[^@]+@[^@]+\.[a-zA-Z]{2,}", email) else "Not Found"
 
 #===============================================================================================================================>
+    #Format amount with separator comma every thousand'
+def format_amount(amount):
+    try:
+        return f"{float(amount):,.2f}"  
+    except ValueError:
+        return "Invalid amount"
+#===============================================================================================================================>
     #Format message for including/excluding name
 def message_content(add_name,recipient_name,msg_content,sender,sender_div):
     if add_name == 'on':
-        message = f"Hello {recipient_name}!, {msg_content}\n\n{sender}\n{sender_div}"
+        message = f"Hi {recipient_name}!, {msg_content}\n\n{sender}\n{sender_div}"
     else:
-        message = f"Hello, {msg_content}\n\n{sender}\n{sender_div}"
+        message = f"Hi, {msg_content}\n\n{sender}\n{sender_div}"
+    return message
+
+#===============================================================================================================================>
+    #Format message for including/excluding name
+def message_content2(add_name,recipient_name,amount,msg_content,sender,sender_div):
+    
+    if add_name == 'on':
+        message = f"Hi {recipient_name}!,an amount of {amount} {msg_content}\n\n{sender}\n{sender_div}"
+    else:
+        message = f"Hi, an amount of {amount} {msg_content}\n\n{sender}\n{sender_div}"
     return message
 
 #===============================================================================================================================>
@@ -166,7 +183,8 @@ def convert_file_to_inputs(file):
 
     data_list = []
     name_list = []
-    raw_names = [] 
+    raw_names = []
+    amount_list = []
 
     for line in content.splitlines():
             account_number = line[:10].strip()
@@ -175,11 +193,15 @@ def convert_file_to_inputs(file):
 
             name_search = account_name.replace(" ", "").replace(",", "").replace(".", "").lower()
 
+            amount_raw = line[51:65].strip().lstrip("0")
+            amount = f"{int(amount_raw) / 100:.2f}" if amount_raw else "0.00"
+
             if account_number == "9999999999":
                 break
 
             data_list.append(account_number)
             name_list.append(name_search)
+            amount_list.append(amount)
             
 
     connection = pymysql.connect(
@@ -207,7 +229,7 @@ def convert_file_to_inputs(file):
                 format_name = f"{db_ln} {db_fn} {db_mn}".strip().lower()
                 db_format_name = format_name.replace(" ", "").replace(",", "").replace(".", "")
 
-                for file_name in name_list:
+                for i, file_name in enumerate(name_list):
                     if db_format_name in file_name or file_name in db_format_name:
                         matched_names.add(file_name)
 
@@ -222,11 +244,13 @@ def convert_file_to_inputs(file):
                             "first_name": extract_first_name(fullname),
                             "mobile": format_mobile_number(row["mobile_no"]),
                             "email": format_email(row["email"]),
+                            "amount": amount_list[i]
                         })
 
             for i, name in enumerate(name_list):
                 if name not in matched_names:
-                    not_found_list.append(raw_names[i].upper())
+                    not_found_details = f"{raw_names[i].upper()} - {amount_list[i]}"
+                    not_found_list.append(not_found_details)
 
     finally:
         connection.close()

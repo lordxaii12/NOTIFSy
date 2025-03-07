@@ -14,7 +14,7 @@ from flask_login import login_user, current_user
 #===============================================================================================================================>
 #Utils
 from utility.sys_utils import get_manila_time, encrypt_content, decrypt_content
-from utility.msg_utils import message_content, generate_tracker, extract_first_name, format_mobile_number, format_email, get_status_data, send_msg, get_table_data, convert_file_to_inputs
+from utility.msg_utils import message_content, message_content2, generate_tracker, extract_first_name, format_mobile_number, format_email, format_amount, get_status_data, send_msg, get_table_data, convert_file_to_inputs
 #===============================================================================================================================>
 #Models
 from models.user import User_v1
@@ -992,10 +992,12 @@ def send_upload_msg():
         name = data_parts[0].strip()
         mobile = data_parts[1].strip()
         email = data_parts[2].strip()
+        amount = data_parts[3].strip()
         formatted_name = extract_first_name(name)
         formatted_mobile = format_mobile_number(mobile)
         formatted_email = format_email(email)
-        message = message_content(add_name,formatted_name,content,sender,sender_div)
+        formatted_amount = format_amount(amount)
+        message = message_content2(add_name,formatted_name,formatted_amount,content,sender,sender_div)
         status_data = get_status_data(name,formatted_mobile,message)
         recipient =f"{name}:{formatted_mobile}"
         msg_recipient.append(recipient)
