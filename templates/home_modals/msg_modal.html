@@ -11,16 +11,9 @@
             <div class="modal-body">
                 <form action="{{ url_for('notifs.send_single_msg') }}" method="POST" id="send_single_msg">
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="sender">SMS Sender</label>
-                            <input type="text" id="sender" name="sender" 
-                                value="{% if user.full_name %}{{ user.full_name.split(' ')[0].title() }} 
-                                            {% if user.full_name.split(' ')|length > 1 and '.' not in user.full_name.split(' ')[1] %}
-                                                {{ user.full_name.split(' ')[1].title() }}
-                                            {% endif %}
-                                        {% endif %}" required>
+                        <input type="hidden" id="sender" name="sender" 
+                            value="{% set name_parts = user.full_name.split(' ') %}{{ ' '.join(name_parts[:2]).title() if name_parts else '' }}" required>
 
-                        </div> 
                         <div class="form-group">
                             <label for="sending_option">Send Via <span class="required">(required)</span></label>
                             <select id="sending_option" name="sending_option"  required>
@@ -29,9 +22,6 @@
                                 <option value="both">SMS and EMAIL</option>
                             </select>
                         </div>
-                    </div>
-    
-                    <div class="form-row">
                         <div class="form-group">
                             <label for="recipient">Recipient <small>(one word only)</small></label>
                             <div class="input-icon">
@@ -60,22 +50,23 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="form-group2">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
                             <label for"message">Message:</label>
                             <div class="textarea-container">
                                 <textarea id="message" name="message" required></textarea>
                                 <span class="search-icon">🔍</span>
                             </div>
                         </div>
-                    </div>                
+                    </div>              
                     <div class="checkbox-group">
                         <input type="checkbox" id="addName" name="addName" value="on">
                         <label for="addName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
                     </div>
-                    
                     <div class="button-group">
                         <button type="submit" class="send-btn">Send</button>
-                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="button" class="cancel-btn"  data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -93,13 +84,9 @@
             </div>
             <div class="modal-body">
                 <form action="{{ url_for('notifs.send_multi_msg') }}" method="POST" id="send_multi_msg">
-                    <input type="hidden" id="msender" name="msender" 
-                                    value="{% if user.full_name %}{{ user.full_name.split(' ')[0].title() }} 
-                                                {% if user.full_name.split(' ')|length > 1 and '.' not in user.full_name.split(' ')[1] %}
-                                                    {{ user.full_name.split(' ')[1].title() }}
-                                                {% endif %}
-                                            {% endif %}" required>
                     <div class="form-row">
+                        <input type="hidden" id="msender" name="msender" 
+                            value="{% set name_parts = user.full_name.split(' ') %}{{ ' '.join(name_parts[:2]).title() if name_parts else '' }}" required>
                         <div class="form-group">
                             <label for="msending_option">Send Via <span class="required">(required)</span></label>
                             <select id="msending_option" name="msending_option"  required>
@@ -130,7 +117,7 @@
                         </div>
                     </div>
                     <div class="form-row2">
-                        <div class="form-group">
+                        <div class="form-group2">
                             <label>Message Template <small>(Optional)</small></label>
                             <select id="mtemplate" name="mtemplate">
                                 <option value="" disabled selected>SELECT TEMPLATE</option>
@@ -140,8 +127,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-row2">
-                        <div class="form-group2">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="mlist">Recipient List:</label>
+                            <div class="textarea-container">
+                                <textarea id="mlist" name="mlist" required readonly></textarea>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="form-row">
+                        <div class="form-group">
                             <label for="mmessage">Message:</label>
                             <div class="textarea-container">
                                 <textarea id="mmessage" name="mmessage" required></textarea>
@@ -152,17 +147,10 @@
                                 <label for="maddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
                             </div>
                         </div>
-                        <div class="form-group2">
-                            <label for="mlist">Recipient List:</label>
-                            <div class="textarea-container">
-                                <textarea id="mlist" name="mlist" required readonly></textarea>
-                            </div>
-                        </div>
                     </div>            
-                    
                     <div class="button-group">
                         <button type="submit" class="send-btn">Send</button>
-                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="button" class="cancel-btn"  data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -171,7 +159,7 @@
 </div>
 <!--=============================================================================================================================-->
 <!--SEND UPLOAD MESSAGE MODAL-->
-<div class="modal fade" id="uploadMsgModal" tabindex="-1" aria-labelledby="uploadMsgModalLabel" aria-hidden="true">
+<div class="modal fade" id="uploadMsgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="uploadMsgModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}} home">
@@ -181,15 +169,8 @@
             <div class="modal-body">
                 <form action="{{ url_for('notifs.send_upload_msg') }}" method="POST" id="send_upload_msg" enctype="multipart/form-data">
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="usender">SMS Sender</label>
-                            <input type="text" id="usender" name="usender" 
-                                    value="{% if user.full_name %}{{ user.full_name.split(' ')[0].title() }} 
-                                                {% if user.full_name.split(' ')|length > 1 and '.' not in user.full_name.split(' ')[1] %}
-                                                    {{ user.full_name.split(' ')[1].title() }}
-                                                {% endif %}
-                                            {% endif %}" required>
-                        </div>
+                        <input type="hidden" id="usender" name="usender" 
+                            value="{% set name_parts = user.full_name.split(' ') %}{{ ' '.join(name_parts[:2]).title() if name_parts else '' }}" required>
                         <div class="form-group">
                             <label>Send Via <span class="required">(required)</span></label>
                             <select id="usending_option" name="usending_option"  required>
@@ -198,8 +179,6 @@
                                 <option value="both">SMS and EMAIL</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-row">
                         <div class="form-group">
                             <label>Message Template <span class="optional">(Optional)</span></label>
                             <select id="utemplate" name="utemplate">
@@ -215,7 +194,7 @@
                                 <input type="file" name="uploaded" id="uploaded" accept=".txt, .xls, .xlsx, .csv">
                             </div>
                         </div>
-                         <span class="form-icon" id="searchIcon">🔍</span>
+                         <span class="form-icon" id="searchIcon">⏬</span>
                     </div>
                     <div class="form-row">
                         <div class="form-group">

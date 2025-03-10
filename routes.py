@@ -845,20 +845,22 @@ def send_single_msg():
 
     sender = request.form.get('sender')
     sending_option = request.form.get('sending_option')
-
     recipient = request.form.get('recipient')
     formatted_name = extract_first_name(recipient)
     content = request.form.get('message')
-    
-    add_name = request.form.get('addName')
 
+    add_name = request.form.get('addName')
     msg_tracker = generate_tracker(sender_div,sending_option)
+    
     
     message = message_content(add_name,formatted_name,content,sender,sender_div)
     if sending_option == 'sms':
         mobile = request.form.get('phone')
         formatted_mobile = format_mobile_number(mobile)
         status_data = get_status_data(recipient,formatted_mobile,message)
+        formatted_recipient =f"{recipient}:{formatted_mobile}"
+        msg_recipient.append(formatted_recipient)
+        
         url, payload, headers = send_msg(message, formatted_mobile)
         response = requests.post(url, json=payload, headers=headers)
         data = response.json()
@@ -880,8 +882,8 @@ def send_single_msg():
         
     total_sent = len(sent)
     total_unsent = len(unsent)
-    msg_sent_str = json.dumps(sent) if isinstance(sent, list) else str(sent)
-    msg_unsent_str = json.dumps(unsent) if isinstance(unsent, list) else str(unsent)
+    msg_sent_str = json.dumps(sent) if sent else ""
+    msg_unsent_str = json.dumps(unsent) if unsent else ""
     msg_recipient_str = json.dumps(msg_recipient)
     
     if total_unsent == 0:
@@ -943,8 +945,8 @@ def send_multi_msg():
 
     total_sent = len(sent)
     total_unsent = len(unsent)
-    msg_sent_str = json.dumps(sent) if isinstance(sent, list) else str(sent)
-    msg_unsent_str = json.dumps(unsent) if isinstance(unsent, list) else str(unsent)
+    msg_sent_str = json.dumps(sent) if sent else ""
+    msg_unsent_str = json.dumps(unsent) if unsent else ""
     msg_recipient_str = json.dumps(msg_recipient)
     
     if total_unsent == 0:
@@ -1024,8 +1026,8 @@ def send_upload_msg():
 
     total_sent = len(sent)
     total_unsent = len(unsent)
-    msg_sent_str = json.dumps(sent) if isinstance(sent, list) else str(sent)
-    msg_unsent_str = json.dumps(unsent) if isinstance(unsent, list) else str(unsent)
+    msg_sent_str = json.dumps(sent) if sent else ""
+    msg_unsent_str = json.dumps(unsent) if unsent else ""
     msg_recipient_str = json.dumps(msg_recipient)
     
     if total_unsent == 0:
