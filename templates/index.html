@@ -154,7 +154,7 @@
                                         <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/msg_sent.svg') }}" 
                                         alt="roles"
                                         data-bs-toggle="modal" 
-                                        data-bs-target="#">
+                                        data-bs-target="#sent_display">
                                     </div>
                                 </div>
                                 <div class="col msg-col">
@@ -211,6 +211,7 @@
         {% include "home_modals/msg_modal.html" %}
         {% include "home_modals/directory.html" %}
         {% include "home_modals/msg_temp_modal.html" %}
+        {% include "home_modals/sent_unsent_modal.html" %}
 
         {% block scripts %}
             <script src="{{ url_for('static', filename='js/messages.js') }}"></script>
