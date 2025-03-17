@@ -24,7 +24,7 @@ db_port = config['db_port']
 dbname = config['dbname']
 db_track_mod = config['db_track_mod']
 
-uri = f"{database_uri_head1}+{database_uri_head2}://{db_user}:{password}@{db_host}:{db_port}/{dbname}"
+uri = f"{database_uri_head1}+{database_uri_head2}://{db_user}:{password}@{db_host}:{db_port}/{dbname}?charset=utf8mb4"
 
 #===============================================================================================================================>
 class Config:

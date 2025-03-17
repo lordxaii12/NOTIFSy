@@ -882,9 +882,9 @@ def send_single_msg():
         
     total_sent = len(sent)
     total_unsent = len(unsent)
-    msg_sent_str = json.dumps(sent) if sent else ""
-    msg_unsent_str = json.dumps(unsent) if unsent else ""
-    msg_recipient_str = json.dumps(msg_recipient)
+    msg_sent_str = json.dumps(sent, ensure_ascii=False) if sent else ""
+    msg_unsent_str = json.dumps(unsent, ensure_ascii=False) if unsent else ""
+    msg_recipient_str = json.dumps(msg_recipient, ensure_ascii=False)
     
     if total_unsent == 0:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
@@ -1028,9 +1028,9 @@ def send_upload_msg():
 
     total_sent = len(sent)
     total_unsent = len(unsent)
-    msg_sent_str = json.dumps(sent) if sent else ""
-    msg_unsent_str = json.dumps(unsent) if unsent else ""
-    msg_recipient_str = json.dumps(msg_recipient)
+    msg_sent_str = json.dumps(sent, ensure_ascii=False) if sent else ""
+    msg_unsent_str = json.dumps(unsent, ensure_ascii=False) if unsent else ""
+    msg_recipient_str = json.dumps(msg_recipient, ensure_ascii=False)
     
     if total_unsent == 0:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
