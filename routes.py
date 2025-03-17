@@ -737,13 +737,22 @@ def delete_logs_route(log_id):
 @login_required
 def home():
     msg_data = Msg_log.query.filter_by(msg_sender=current_user.full_name).all()
+    emails = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="email").all()
+    smss = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="sms").all()
     
+    emails_sent = len(emails)
+    sms_sent = len(smss)
+  
     
     theme_data = Theme.get_all()
     msg_temp_data = Msg_templates.get_all()
 
     return render_template("index.html",
                            theme_data=theme_data,
+                           emails=emails,
+                           smss=smss,
+                           emails_sent=emails_sent,
+                           sms_sent=sms_sent,
                            msg_temp_data=msg_temp_data,
                            msg_data=msg_data)
 #===========================================================================================================>
@@ -936,9 +945,10 @@ def send_multi_msg():
 
     total_sent = len(sent)
     total_unsent = len(unsent)
-    msg_sent_str = json.dumps(sent) if sent else ""
-    msg_unsent_str = json.dumps(unsent) if unsent else ""
-    msg_recipient_str = json.dumps(msg_recipient)
+    msg_sent_str = json.dumps(sent, ensure_ascii=False) if sent else ""
+    msg_unsent_str = json.dumps(unsent, ensure_ascii=False) if unsent else ""
+    msg_recipient_str = json.dumps(msg_recipient, ensure_ascii=False)
+    
     
     if total_unsent == 0:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
@@ -947,6 +957,7 @@ def send_multi_msg():
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
         flash(f'{msg_status}','error')
 
+    print(repr(msg_recipient_str))
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
     return redirect(url_for('notifs.home'))
 #===========================================================================================================>

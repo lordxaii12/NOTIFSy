@@ -148,8 +148,8 @@
                                         </div>
                                     </div>
                                     <div class="msg-wrapper">
-                                        {% if total_sent != 0 %}
-                                            <p class="notifier">{{total_sent}}</p>
+                                        {% if sms_sent != 0 %}
+                                            <p class="notifier">{{sms_sent}}</p>
                                         {% endif %}
                                         <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/msg_sent.svg') }}" 
                                         alt="messages"
@@ -167,12 +167,12 @@
                                                 data-bs-content="This space is allocated for new service.">
                                         </div>
                                         <div class="service-title">
-                                            <h5>{{ to_block_text("sent") }} Messages</h5>
+                                            <h5>{{ to_block_text("email") }} Messages</h5>
                                         </div>
                                     </div>
                                     <div class="msg-wrapper">
-                                        {% if total_unsent != 0 %}
-                                            <p class="notifier">{{total_unsent}}</p>
+                                        {% if emails_sent != 0 %}
+                                            <p class="notifier">{{emails_sent}}</p>
                                         {% endif %}
                                         <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/email_sent.svg') }}" 
                                         alt="email"

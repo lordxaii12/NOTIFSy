@@ -72,7 +72,7 @@ def format_amount(amount):
     #Format message for including/excluding name
 def message_content(add_name,recipient_name,msg_content,sender,sender_div):
     if add_name == 'on':
-        message = f"Hi {recipient_name}!, {msg_content}\n\n{sender}\n{sender_div}"
+        message = f"Hi {recipient_name}, {msg_content}\n\n{sender}\n{sender_div}"
     else:
         message = f"Hi, {msg_content}\n\n{sender}\n{sender_div}"
     return message
@@ -82,7 +82,7 @@ def message_content(add_name,recipient_name,msg_content,sender,sender_div):
 def message_content2(add_name,recipient_name,amount,msg_content,sender,sender_div):
     
     if add_name == 'on':
-        message = f"Hi {recipient_name}!,an amount of {amount} {msg_content}\n\n{sender}\n{sender_div}"
+        message = f"Hi {recipient_name}, an amount of {amount} as {msg_content}\n\n{sender}\n{sender_div}"
     else:
         message = f"Hi, an amount of {amount} {msg_content}\n\n{sender}\n{sender_div}"
     return message
