@@ -14,7 +14,7 @@ from flask_login import login_user, current_user
 #===============================================================================================================================>
 #Utils
 from utility.sys_utils import get_manila_time, encrypt_content, decrypt_content
-from utility.msg_utils import message_content, process_messages_sent, process_messages_unsent, message_content2, generate_tracker, extract_first_name, format_mobile_number, format_email, format_amount, get_status_data, send_msg, get_table_data, convert_file_to_inputs
+from utility.msg_utils import message_content, message_content2, generate_tracker, extract_first_name, format_mobile_number, format_email, format_amount, get_status_data, send_msg, get_table_data, convert_file_to_inputs
 #===============================================================================================================================>
 #Models
 from models.user import User_v1
@@ -738,20 +738,11 @@ def delete_logs_route(log_id):
 def home():
     msg_data = Msg_log.query.filter_by(msg_sender=current_user.full_name).all()
     
-    sent_messages, total_sent = process_messages_sent(msg_data)
-    unsent_messages, total_unsent = process_messages_unsent(msg_data)
-    
-    print(sent_messages)
-    print(unsent_messages)
     
     theme_data = Theme.get_all()
     msg_temp_data = Msg_templates.get_all()
 
     return render_template("index.html",
-                           sent_messages=sent_messages,
-                           total_sent=total_sent,
-                           unsent_messages=unsent_messages,
-                           total_unsent=total_unsent,
                            theme_data=theme_data,
                            msg_temp_data=msg_temp_data,
                            msg_data=msg_data)

@@ -152,7 +152,7 @@
                                             <p class="notifier">{{total_sent}}</p>
                                         {% endif %}
                                         <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/msg_sent.svg') }}" 
-                                        alt="roles"
+                                        alt="messages"
                                         data-bs-toggle="modal" 
                                         data-bs-target="#sent_display">
                                     </div>
@@ -167,15 +167,15 @@
                                                 data-bs-content="This space is allocated for new service.">
                                         </div>
                                         <div class="service-title">
-                                            <h5>Un{{ to_block_text("sent") }} Messages</h5>
+                                            <h5>{{ to_block_text("sent") }} Messages</h5>
                                         </div>
                                     </div>
                                     <div class="msg-wrapper">
                                         {% if total_unsent != 0 %}
                                             <p class="notifier">{{total_unsent}}</p>
                                         {% endif %}
-                                        <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/msg_unsent.svg') }}" 
-                                        alt="roles"
+                                        <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/email_sent.svg') }}" 
+                                        alt="email"
                                         data-bs-toggle="modal" 
                                         data-bs-target="#">
                                     </div>
