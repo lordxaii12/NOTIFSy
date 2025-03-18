@@ -1143,11 +1143,15 @@ def delete_msg_temp_route(msg_temp_id):
 #
 #
 #
-#================ Libraries ====================================================================================================>
-@notifs.route('/libraries', methods=['GET', 'POST'])
+#================ Reports =====================================================================================================>
+@notifs.route('/reports', methods=['GET', 'POST'])
 @login_required
-def libraries():
-    return render_template('libraries.html')
+def reports():
+    return render_template('reports.html')
+
+
+
+
 
 #===============================================================================================================================>
 #
@@ -1155,12 +1159,11 @@ def libraries():
 #
 #
 #
-#================ Reports ======================================================================================================>
-@notifs.route('/reports', methods=['GET', 'POST'])
+#================ Libraries ====================================================================================================>
+@notifs.route('/libraries', methods=['GET', 'POST'])
 @login_required
-def reports():
-    return render_template('reports.html')
-
+def libraries():
+    return render_template('libraries.html')
 #===============================================================================================================================>
 #
 #
