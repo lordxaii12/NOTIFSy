@@ -6,6 +6,7 @@
 Reports - FO-X NotiFS
 {% endblock %}
 {% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reports.css') }}">
 {% endblock %}
 
 
@@ -15,7 +16,32 @@ Reports - FO-X NotiFS
     <div class="col-auto">
     </div>
     <div class="col">
-        Reports
+        <div class="container-fluid main_container">
+            <div class="row first_row {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                <div class="row service-row">
+                    <div class="col service-col">
+                        service col 1
+                    </div>
+                    <div class="col service-col">
+                        service col 2
+                    </div>
+                    <div class="col service-col">
+                        service col 3
+                    </div>
+                    <div class="col service-col">
+                        service col 4
+                    </div>
+                </div>
+            </div>
+            <div class="row second_row">
+                <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                    div col 1
+                </div>
+                <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                    div col 2
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

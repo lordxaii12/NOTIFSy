@@ -1,0 +1,51 @@
+.first_row{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px;
+    height: 200px;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding-right: 10px;
+}
+
+
+.second_row{
+    margin-top: 10px;
+    gap: 20px;
+    height: 450px;
+}
+
+
+.div_col {
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    padding: 10px;
+}
+
+.service-row {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    gap: 30px; 
+}
+
+.service-col {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    background: linear-gradient(120deg, #9a988bd5 20%, #7c7f79e4 30%, #c8cdc6d9 80%);
+    padding: 10px;
+    border-radius: 10px;
+    width: 280px;
+    height: 180px;
+    gap: 50px;
+    border: 2px solid black;
+}
+
+.service-col:hover{
+    background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
+}
