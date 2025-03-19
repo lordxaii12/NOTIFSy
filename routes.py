@@ -7,14 +7,15 @@ import requests
 from flask_migrate import Migrate
 from config import Config
 from io import StringIO
+from collections import defaultdict
 from extensions import db, limiter
-from flask import Blueprint, request, render_template, redirect, url_for, session, flash, jsonify
+from flask import Blueprint, request, render_template, redirect, url_for, session, flash, jsonify, g
 from flask_login import login_required, logout_user
 from flask_login import login_user, current_user
 #===============================================================================================================================>
 #Utils
 from utility.sys_utils import get_manila_time, encrypt_content, decrypt_content
-from utility.msg_utils import message_content, message_content2, generate_tracker, extract_first_name, format_mobile_number, format_email, format_amount, get_status_data, send_msg, get_table_data, convert_file_to_inputs
+from utility.msg_utils import message_content, message_content2, generate_tracker, extract_first_name, format_mobile_number, format_email, format_amount, get_status_data, send_msg, get_table_data, convert_file_to_inputs, sms_API_credits_checker
 #===============================================================================================================================>
 #Models
 from models.user import User_v1
@@ -39,7 +40,7 @@ from controllers.user_division import add_division, edit_division, delete_divisi
 from controllers.external_contacts import add_external, edit_external, delete_external
 from controllers.login_credentials import add_login_api, edit_login_api, delete_login_api
 from controllers.user_themes import add_theme, edit_theme, delete_theme
-from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexmo
+from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexmo, credits_check
 from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
 from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hrpears
 from controllers.system_settings import edit_sys_setting
@@ -1159,10 +1160,24 @@ def delete_msg_temp_route(msg_temp_id):
 @notifs.route('/reports', methods=['GET', 'POST'])
 @login_required
 def reports():
+    sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
+    api_data = Itexmo.get_by_id(sms_id)
     user_credit = current_user.credit_used
+    total_credits_remaining = api_data.credits_remaining
+    total_credits_used = api_data.credits_consumed
+    
+    user_data = User_v1.get_all()
+    total_credit_used = sum(user.credit_used for user in user_data)
+    
+ 
+    
+    
     
     return render_template('reports.html',
-                           user_credit=user_credit)
+                           user_credit=user_credit,
+                           total_credit_used=total_credit_used,
+                           total_credits_remaining=total_credits_remaining,
+                           total_credits_used=total_credits_used)
 
 
 

@@ -7,6 +7,7 @@ from flask import g
 from extensions import db, cache
 from models.itexmo_credentials import Itexmo
 from models.hrpears_credentials import Hrpears
+import requests
 
 #===============================================================================================================================>
     #Generate Msg send tracking number
@@ -256,5 +257,33 @@ def convert_file_to_inputs(file):
         connection.close()
 
     return matched_records, not_found_list 
+
+#===============================================================================================================================>
+    #Upload file and search in hr data
+def sms_API_credits_checker():
+    sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
+    api_data = Itexmo.get_by_id(sms_id)
+    if api_data:
+        url = "https://api.itexmo.com/api/query"
+        email = api_data.itexmo_email
+        password = api_data.itexmo_password
+        apicode = api_data.itexmo_apicode
+        action = "ApiCodeInfo"
+        content_type = api_data.itexmo_contenttype
+        payload = {
+            "Email": email,
+            "Password": password,
+            "ApiCode": apicode,
+            "Action": action
+        }
+        headers = {
+            "Content-Type": content_type
+        }
+        response = requests.post(url, json=payload, headers=headers)
+        data = response.json()
+        messages_left = int(data.get("MessagesLeft", 0))
+        total_credit_used = int(data.get("TotalCreditUsed", 0))
+        
+        return (messages_left, total_credit_used)
 
 #===============================================================================================================================>

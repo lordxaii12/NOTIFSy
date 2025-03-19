@@ -26,8 +26,8 @@ class Itexmo(db.Model):
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
     
-    credits_remaining = db.column(db.Integer, unique=False, nullable=True)
-    credits_consumed = db.column(db.Integer, unique=False, nullable=True)
+    credits_remaining = db.Column(db.Integer, unique=False, nullable=True)
+    credits_consumed = db.Column(db.Integer, unique=False, nullable=True)
 
     @property
     def itexmo_data(self):

@@ -71,7 +71,6 @@ def credits_check (itexmo_id, credits_remaining, credits_consumed):
     except Exception as e:
         db.session.rollback()
         return None
-    
 
 #===============================================================================================================================>
 #
