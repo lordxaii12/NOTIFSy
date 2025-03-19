@@ -33,7 +33,7 @@ from models.message_temp import Msg_templates
 #===============================================================================================================================>
 #Controllers
 from controllers.user_role import add_role, edit_role, delete_role
-from controllers.user import add_user, edit_user, delete_user
+from controllers.user import add_user, edit_user, delete_user, edit_credit_used
 from controllers.user_logs import add_user_logs, delete_user_logs
 from controllers.user_division import add_division, edit_division, delete_division
 from controllers.external_contacts import add_external, edit_external, delete_external
@@ -836,6 +836,8 @@ def display_external_data():
 @notifs.route('/send_single_msg', methods=['POST'])
 @login_required
 def send_single_msg():
+    user_data = User_v1.get_by_id(current_user.user_id)
+    user_credit = user_data.credit_used
     sent=[]
     unsent=[]
     msg_recipient=[]
@@ -894,12 +896,16 @@ def send_single_msg():
         flash(f'{msg_status}','error')
 
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
+    user_credit+=total_credit
+    edit_credit_used(current_user.user_id, user_credit)
     return redirect(url_for('notifs.home'))
 #===========================================================================================================>
     #Send Multi message
 @notifs.route('/send_multi_msg', methods=['POST'])
 @login_required
 def send_multi_msg():
+    user_data = User_v1.get_by_id(current_user.user_id)
+    user_credit = user_data.credit_used
     sender_div = current_user.division
     sender = request.form.get('msender')
     sending_option = request.form.get('msending_option')
@@ -959,6 +965,8 @@ def send_multi_msg():
 
     print(repr(msg_recipient_str))
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
+    user_credit+=total_credit
+    edit_credit_used(current_user.user_id, user_credit)
     return redirect(url_for('notifs.home'))
 #===========================================================================================================>
     #Generate recipient from upload
@@ -980,6 +988,8 @@ def generate_from_upload():
 @notifs.route('/send_upload_msg', methods=['POST'])
 @login_required
 def send_upload_msg():
+    user_data = User_v1.get_by_id(current_user.user_id)
+    user_credit = user_data.credit_used
     sender_div = current_user.division
     sender = request.form.get('usender')
     sending_option = request.form.get('usending_option')
@@ -1040,6 +1050,8 @@ def send_upload_msg():
         flash(f'{msg_status}','error')
 
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
+    user_credit+=total_credit
+    edit_credit_used(current_user.user_id, user_credit)
     return redirect(url_for('notifs.home'))
 #===========================================================================================================>
                             #MESSAGE TEMPLATES
@@ -1147,7 +1159,10 @@ def delete_msg_temp_route(msg_temp_id):
 @notifs.route('/reports', methods=['GET', 'POST'])
 @login_required
 def reports():
-    return render_template('reports.html')
+    user_credit = current_user.credit_used
+    
+    return render_template('reports.html',
+                           user_credit=user_credit)
 
 
 

@@ -60,6 +60,21 @@ def edit_itexmo(itexmo_id):
 
 #===============================================================================================================================>
 #
+#================ CREDITS CHECKER ==============================================================================================>
+def credits_check (itexmo_id, credits_remaining, credits_consumed):
+    itexmo = Itexmo.get_by_id(itexmo_id)
+    itexmo.credits_remaining = credits_remaining
+    itexmo.credits_consumed = credits_consumed
+    try:
+        itexmo.save()
+        return itexmo  
+    except Exception as e:
+        db.session.rollback()
+        return None
+    
+
+#===============================================================================================================================>
+#
 #================ DELETE =======================================================================================================>    
 def delete_itexmo(itexmo_id):
     itexmo = Itexmo.get_by_id(itexmo_id)
