@@ -54,3 +54,8 @@
 .number_headings{
     font-weight: bold;
 }
+
+#creditPieChart {
+    width: 400px;
+    height: 400px;
+  }

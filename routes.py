@@ -1169,15 +1169,16 @@ def reports():
     user_data = User_v1.get_all()
     total_credit_used = sum(user.credit_used for user in user_data)
     
- 
-    
-    
-    
+    division_data = {}
+    for user in user_data:
+        division_data[user.division] = division_data.get(user.division, 0) + user.credit_used
+    print("Division Data:", division_data)
     return render_template('reports.html',
                            user_credit=user_credit,
                            total_credit_used=total_credit_used,
                            total_credits_remaining=total_credits_remaining,
-                           total_credits_used=total_credits_used)
+                           total_credits_used=total_credits_used,
+                           division_data=division_data)
 
 
 
