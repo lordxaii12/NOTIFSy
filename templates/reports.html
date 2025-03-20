@@ -57,7 +57,9 @@ Reports - FO-X NotiFS
             </div>
             <div class="row second_row">
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}"  >
-                    <canvas id="creditPieChart"></canvas>
+                    <div class="col-md-8">
+                        <canvas id="creditBarChart"></canvas>
+                    </div>
                 </div>
                 <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                     div col 2
@@ -69,41 +71,61 @@ Reports - FO-X NotiFS
 {% endblock %}
 
 {% block scripts %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-
 <script>
-    // Ensure data is passed from Flask
-    const divisionData = {{ division_data | tojson | safe }};
-    console.log(divisionData)
-    const labels = Object.keys(divisionData);
-    const data = Object.values(divisionData);
-
-    const ctx = document.getElementById('creditPieChart').getContext('2d');
+    // Confirm Chart.js is loaded
+    if (window.Chart) {
+        console.log('Chart.js is loaded successfully. Version:', Chart.version);
+    } else {
+        console.error('Chart.js failed to load.');
+    }
     
-    // Draw the chart
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Credit Usage',
+    // Select the canvas element
+    const canvas = document.getElementById('creditBarChart');
+    if (!canvas) {
+        console.error('Canvas with ID "creditBarChart" not found. Please check your HTML.');
+    } else {
+        try {
+        const ctx = canvas.getContext('2d');
+        const labels = {{ division_labels | tojson | safe }};
+        const data = {{ division_values | tojson | safe }};
+    
+        console.log('Labels:', labels);
+        console.log('Data:', data);
+    
+        if (labels.length === 0 || data.length === 0) {
+            console.warn('No data available for the chart.');
+        } else {
+            // Create the Chart
+            new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                label: 'Credits Used',
                 data: data,
                 backgroundColor: [
-                    '#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8'
+                    '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
                 ],
+                borderColor: '#000000',
                 borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                y: {
+                    beginAtZero: true
+                }
                 }
             }
+            });
+            console.log('Chart rendered successfully!');
         }
-    });
+        } catch (error) {
+        console.error('Error rendering chart:', error);
+        }
+    }
+    
 </script>
-
 
 {% endblock %}
