@@ -16,13 +16,14 @@
     /*LOGIN BACKGROUND CONTAINER*/
 .login .login-left {
     flex: 1;
-    background: linear-gradient(180deg, rgba(47, 27, 140, 0.9), rgba(138, 128, 212, 0.9)),
-        url('/static/images/matrix/backgrounds/background.jpg') center/cover no-repeat;
+    background: linear-gradient(180deg, rgba(145, 8, 8, 0.473), rgba(30, 5, 222, 0.697)),
+        url('/static/images/tGLOBALs/background.jpg') center/cover no-repeat;
 }
     /*LOGIN INPUT CONTAINER*/
 .login .login-right {
     width: 400px;
-    background: linear-gradient(180deg, #35036e, #8A80D4);
+    background: linear-gradient(180deg, rgba(66, 6, 195, 0.888), rgba(31, 5, 222, 0.529)),
+        url('/static/images/tGLOBALs/background2.jpg') center/cover no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,7 +92,7 @@
     width: 100%;
     padding: 15px;
     border: none;
-    background: linear-gradient(90deg, #180570, #2F09D6);
+    background: linear-gradient(90deg, #9302f4, #b000fc);
     color: white;
     font-size: 20px;
     font-weight: bold;
@@ -100,7 +101,7 @@
     transition: 0.3s;
 }
 .login .login-btn:hover {
-    background: linear-gradient(90deg, #2F09D6, #180570);
+    background: linear-gradient(90deg, #f800be, #f10216);
 }
 /*===============================================================================================================================>*/
 /*===============================================================================================================================>*/

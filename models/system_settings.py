@@ -34,7 +34,7 @@ class SysSettings(db.Model):
     created_on = db.Column(db.String(100), unique=False, nullable=True)
     updated_by = db.Column(db.String(100), unique=False, nullable=True)
     updated_on = db.Column(db.String(100), unique=False, nullable=True)
-    
+        
     created_at = db.Column(db.DateTime, default=func.now())
     updated_at = db.Column(db.DateTime, default=func.now(), onupdate=func.now())
     
@@ -42,6 +42,8 @@ class SysSettings(db.Model):
     email_api = db.relationship('Ecredss', backref='sys_settings')
     hris_api = db.relationship('Hrpears', backref='sys_settings')
     login_api = db.relationship('LogApi', backref='sys_settings')
+    
+    system_notice = db.Column(db.Text, unique=False, nullable=True)
 
     @property
     def sys_settings_data(self):
@@ -70,7 +72,9 @@ class SysSettings(db.Model):
             'created_by': self.created_by,
             'created_on': self.created_on,
             'updated_by': self.updated_by,
-            'updated_on': self.updated_on
+            'updated_on': self.updated_on,
+            
+            'system_notice': self.system_notice
         }
 
     def get_id(self): 

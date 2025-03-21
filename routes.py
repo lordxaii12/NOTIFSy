@@ -737,7 +737,6 @@ def delete_logs_route(log_id):
 @notifs.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
-    user = User_v1.get_all()
     msg_data = Msg_log.query.filter_by(msg_sender=current_user.full_name).all()
     emails = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="email").all()
     smss = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="sms").all()
@@ -756,8 +755,7 @@ def home():
                            emails_sent=emails_sent,
                            sms_sent=sms_sent,
                            msg_temp_data=msg_temp_data,
-                           msg_data=msg_data,
-                           user=user)
+                           msg_data=msg_data)
 #===========================================================================================================>
     #USer Notes
 @notifs.route('/edit_user_notes_route/<int:user_id>', methods=['GET', 'POST'])
@@ -771,7 +769,7 @@ def edit_user_notes_route(user_id):
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
         db.session.rollback() 
-    return redirect(url_for('notifs.admin'))
+    return redirect(url_for('notifs.home'))
 #===========================================================================================================>
     #Select theme
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])
