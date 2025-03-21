@@ -99,6 +99,19 @@ def edit_sys_setting(sys_setting_id):
 
 #===============================================================================================================================>
 #
+#================ EDIT SYSTEM NOTICE ===========================================================================================> 
+def edit_system_notice(sys_setting_id):
+    sys_setting = SysSettings.get_by_id(sys_setting_id)
+    sys_setting.system_notice =  request.form.get('notice', sys_setting.system_notice)
+    try:
+        sys_setting.save()
+        return sys_setting
+    except Exception as e:
+        db.session.rollback()
+        return None
+
+#===============================================================================================================================>
+#
 #================ DELETE =======================================================================================================> 
 def delete_sys_setting(sys_setting_id):
     sys_setting = SysSettings.get_by_id(sys_setting_id)

@@ -43,7 +43,7 @@ from controllers.user_themes import add_theme, edit_theme, delete_theme
 from controllers.itexmo_credentials import add_itexmo, edit_itexmo, delete_itexmo, credits_check
 from controllers.email_credentials import add_ecreds, delete_ecreds, edit_ecreds
 from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hrpears
-from controllers.system_settings import edit_sys_setting
+from controllers.system_settings import edit_sys_setting, edit_system_notice
 from controllers.msg_log import add_msg_log, delete_msg_log
 from controllers.message_temp import add_msg_temp, edit_msg_temp, delete_msg_temp
 #===============================================================================================================================>
@@ -757,7 +757,7 @@ def home():
                            msg_temp_data=msg_temp_data,
                            msg_data=msg_data)
 #===========================================================================================================>
-    #USer Notes
+    #User Notes
 @notifs.route('/edit_user_notes_route/<int:user_id>', methods=['GET', 'POST'])
 @login_required
 def edit_user_notes_route(user_id):
@@ -766,6 +766,20 @@ def edit_user_notes_route(user_id):
             flash('Notes added successfully', 'success')
         else:
             flash('Error on adding notes', 'success')
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+    return redirect(url_for('notifs.home'))
+#===========================================================================================================>
+    #User Notes
+@notifs.route('/edit_system_notice_route/<int:sys_setting_id>', methods=['GET', 'POST'])
+@login_required
+def edit_system_notice_route(sys_setting_id):
+    try:
+        if edit_system_notice(sys_setting_id):
+            flash('System Notice added successfully', 'success')
+        else:
+            flash('Error on adding System Notice ', 'success')
     except Exception as e:
         flash(f'An error occurred: {str(e)}', 'error')
         db.session.rollback() 

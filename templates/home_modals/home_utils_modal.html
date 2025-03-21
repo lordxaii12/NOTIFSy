@@ -23,3 +23,65 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
+<!--ADD SYSTEM NOTICE MODAL-->
+<div class="modal fade" id="system_notice_edit" tabindex="-1" aria-labelledby="system_notice_editLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} add-msg-template">
+            <div class="modal-header">
+                <h5 class="modal-title" id="system_notice_editLabel">System Notice</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('notifs.edit_system_notice_route', sys_setting_id=g.sys_settings.sys_setting_id) }}" method="post">
+                    <label for="notes" class="form-label">Notice</label>
+                    <div class="textarea-container">
+                        <textarea  id="notice" name="notice" placeholder="Enter notes here...">{{ g.sys_settings.system_notice }}</textarea>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">Save Notes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=============================================================================================================================-->
+<!--SYSTEM TUTORIALS-->
+<div class="modal fade" id="info_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="info_modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}} home">
+                <h5 class="modal-title" id="info_modalLabel">System Tutorials</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active">
+                            <img class="setting_icon" src="{{ url_for('static', filename='images/tGLOBALs/page1.png') }}" class="d-block w-100" alt="First Slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="setting_icon" src="{{ url_for('static', filename='images/tGLOBALs/page1.png') }}" class="d-block w-100" alt="Second Slide">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="setting_icon" src="{{ url_for('static', filename='images/tGLOBALs/page1.png') }}" class="d-block w-100" alt="Third Slide">
+                        </div>
+                    </div>
+                    <!-- Carousel Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!--=============================================================================================================================-->

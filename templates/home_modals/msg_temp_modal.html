@@ -17,7 +17,9 @@
                             <th>Created by</th>
                             <th>Created on</th>
                             <th>Updated by</th>
-                            <th>Actions</th>
+                            {% if user.is_authenticated and user.role_id in [1, 3] %}
+                                <th>Actions</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -28,20 +30,21 @@
                             <td>{{msg_templates.created_by}}</td>
                             <td>{{msg_templates.created_on}}</td>
                             <td>{{msg_templates.updated_by}} on [{{msg_templates.updated_on}}]</td>
-
-                            <td>
-                                <button class="msg_temp-btn btn table_buttons" data-msgtemp-id="{{ msg_templates.msg_temp_id}}">
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
-                                </button>
-                                |
-                                <button class="edit_msg_temp-btn btn table_buttons"
-                                data-mtid="{{ msg_templates.msg_temp_id }}"
-                                data-mtname="{{ msg_templates.msg_temp_name }}"
-                                data-mtdesc ="{{ msg_templates.msg_temp_description }}"
-                                >
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
-                                </button>
-                            </td>
+                            {% if user.is_authenticated and user.role_id in [1, 3] %}
+                                <td>
+                                    <button class="msg_temp-btn btn table_buttons" data-msgtemp-id="{{ msg_templates.msg_temp_id}}">
+                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                    </button>
+                                    |
+                                    <button class="edit_msg_temp-btn btn table_buttons"
+                                    data-mtid="{{ msg_templates.msg_temp_id }}"
+                                    data-mtname="{{ msg_templates.msg_temp_name }}"
+                                    data-mtdesc ="{{ msg_templates.msg_temp_description }}"
+                                    >
+                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                    </button>
+                                </td>
+                            {% endif %}
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -19,18 +19,20 @@
             <div class="col home">
                 <div class="container-fluid main_container">
                     <div class="setting_cont">
-                        <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
-                            alt="settings"
-                            data-bs-toggle="modal" 
-                            data-bs-target="#"
-                            id="infoIcon"
-                            style="cursor: pointer;">
-                            
+                        <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#info_modal">
+                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                alt="info"
+                                data-bs-toggle="popover"
+                                data-bs-trigger="hover" 
+                                data-bs-content="Click here to view system tutorials"
+                                style="cursor: pointer;">
+                        </button>
+                        <button class="btn add_btn" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
                         <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/themes.svg') }}" 
-                            alt="settings"
-                            data-bs-toggle="offcanvas" 
-                            data-bs-target="#staticBackdrop"
-                            id="settingsIcon"
+                            alt="theme"
+                            data-bs-toggle="popover"
+                            data-bs-trigger="hover" 
+                            data-bs-content="Click here to change user themes"
                             style="cursor: pointer;">
                     </div>
                     <div class="row first_row {{user.theme.theme_bg}} {{user.theme.theme_font}}">
@@ -38,14 +40,20 @@
                             <h2 class="welcome">Welcome <u>{{ user.full_name.split(' ')[0].title() }} {{ user.full_name.split(' ')[1].title() if '.' not in user.full_name.split(' ')[1] else '' }}</u></h2>
                             <h5 class="user-type">you are logged as {{user.role.role_name}} </h5>
                         </div>
-                        <div class="col top-col ">
+                        <div class="col top-col"  data-bs-toggle="popover" data-bs-trigger="hover"  data-bs-content="This are your personal note/s." data-bs-placement="top">
                             <div class="row">
                                 <div class="col-3">
                                     <h6>NOTES:</h6>
                                     <div class="service-info">
                                         <button class="btn add_btn"
                                             data-bs-toggle="modal" data-bs-target="#user_notes_edit">
-                                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" alt="roles">
+                                            <img class="setting_icon" 
+                                                src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}"
+                                                alt="roles"
+                                                data-bs-toggle="popover"
+                                                data-bs-trigger="hover" 
+                                                data-bs-content="Click here to add notes"
+                                                >
                                         </button>
                                     </div>
                                 </div>
@@ -55,10 +63,32 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="col top-col ">
-                            <h6>SYSTEM NOTICE:</h6>
+                        <div class="col top-col"  data-bs-toggle="popover" data-bs-trigger="hover"  data-bs-content="This are system notice/s." data-bs-placement="top">
+                            <div class="row">
+                                <div class="col-3">
+                                    <h6>NOTICE:</h6>
+                                    {% if user.is_authenticated and user.role_id in [1, 3] %}
+                                        <div class="service-info">
+                                            <button class="btn add_btn"
+                                                data-bs-toggle="modal" data-bs-target="#system_notice_edit">
+                                                <img class="setting_icon" 
+                                                    src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" 
+                                                    alt="roles"
+                                                    data-bs-toggle="popover"
+                                                    data-bs-trigger="hover" 
+                                                    data-bs-content="Click here to add system notice/s"
+                                                >
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-9 note_area_container">
+                                    <div class="notice_area">
+                                        <pre>{{ g.sys_settings.system_notice}}</pre>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div>
