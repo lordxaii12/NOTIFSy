@@ -34,7 +34,7 @@ from models.message_temp import Msg_templates
 #===============================================================================================================================>
 #Controllers
 from controllers.user_role import add_role, edit_role, delete_role
-from controllers.user import add_user, edit_user, delete_user, edit_credit_used
+from controllers.user import add_user, edit_user, delete_user, edit_credit_used, edit_user_notes
 from controllers.user_logs import add_user_logs, delete_user_logs
 from controllers.user_division import add_division, edit_division, delete_division
 from controllers.external_contacts import add_external, edit_external, delete_external
@@ -737,6 +737,7 @@ def delete_logs_route(log_id):
 @notifs.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    user = User_v1.get_all()
     msg_data = Msg_log.query.filter_by(msg_sender=current_user.full_name).all()
     emails = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="email").all()
     smss = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="sms").all()
@@ -755,7 +756,22 @@ def home():
                            emails_sent=emails_sent,
                            sms_sent=sms_sent,
                            msg_temp_data=msg_temp_data,
-                           msg_data=msg_data)
+                           msg_data=msg_data,
+                           user=user)
+#===========================================================================================================>
+    #USer Notes
+@notifs.route('/edit_user_notes_route/<int:user_id>', methods=['GET', 'POST'])
+@login_required
+def edit_user_notes_route(user_id):
+    try:
+        if edit_user_notes(user_id):
+            flash('Notes added successfully', 'success')
+        else:
+            flash('Error on adding notes', 'success')
+    except Exception as e:
+        flash(f'An error occurred: {str(e)}', 'error')
+        db.session.rollback() 
+    return redirect(url_for('notifs.admin'))
 #===========================================================================================================>
     #Select theme
 @notifs.route('/select_theme/<int:theme_id>', methods=['POST'])

@@ -22,6 +22,7 @@ class User_v1(db.Model, UserMixin):
     cur_login = db.Column(db.String(100), unique=False, nullable=True)
     last_login = db.Column(db.String(100), unique=False, nullable=True)
     last_logout = db.Column(db.String(100), unique=False, nullable=True)
+    user_notes = db.Column(db.Text, unique=False, nullable=True)
     
     msg_sent = db.Column(db.Integer, unique=False, nullable=True)
     credit_used = db.Column(db.Integer, unique=False, nullable=True)
@@ -52,6 +53,7 @@ class User_v1(db.Model, UserMixin):
             'cur_login': self.cur_login,
             'last_login': self.last_login,
             'last_logout': self.last_logout,
+            'user_notes': self.user_notes,
             'msg_sent': self.msg_sent,
             'credit_used': self.credit_used,
             

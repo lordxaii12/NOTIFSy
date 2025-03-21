@@ -90,7 +90,21 @@ def edit_credit_used(user_id, credit_used):
     except Exception as e:
         db.session.rollback()
         return None
-    
+
+#===============================================================================================================================>
+#
+#================ EDIT USER NOTES ==============================================================================================>
+def edit_user_notes(user_id):
+    user = User_v1.get_by_id(user_id)
+    user.user_notes = request.form.get('notes', user.user_notes)
+    try:
+        user.save()
+        return user
+    except Exception as e:
+        db.session.rollback()
+        return None
+
+
 #===============================================================================================================================>
 #
 #================ DELETE =======================================================================================================>
