@@ -39,19 +39,52 @@
                             <h5 class="user-type">you are logged as {{user.role.role_name}} </h5>
                         </div>
                         <div class="col top-col ">
-                            <h6>NOTES:</h6>
+                            <div class="row">
+                                <div class="col-3">
+                                    <h6>NOTES:</h6>
+                                    <div class="service-info">
+                                        <button class="btn add_btn"
+                                            {% if user.is_authenticated and user.role_id in [1, 3] %}
+                                                data-bs-toggle="modal" data-bs-target="#addMessageTemplates">
+                                                <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" alt="roles">
+                                            {% endif %}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-9 note_area_container">
+                                    <div class="note_area">
+                                        viaNotes here
+                                        Notes here
+                                        Notes hereNotes here
+                                        Notes here
+                                        Notes here
+                                        Notes here
+                                        Notes here 
+                                        Notes here
+                                        Notes here
+                                        Notes here
+                                        viaNotes here
+                                        Notes here
+                                        Notes hereNotes here
+                                        Notes here
+                                        Notes here
+                                        Notes here
+                                        Notes here 
+                                        Notes here
+                                    </div>
+                                   
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col top-col ">
                             <h6>SYSTEM NOTICE:</h6>
                         </div>
                     </div>
-
                     <div>
                         <h4 class="separator">{{ to_block_text("SERVICES") }}</h4>
                     </div>
-
                     <div class="row second_row">
-                        
                         <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                             <div class="row service-row">
                                 <div class="col service-col">
@@ -131,6 +164,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                             <div class="row service-row">
                                 <div class="col msg-col">
@@ -140,7 +174,7 @@
                                                 alt="settings"
                                                 data-bs-toggle="popover"
                                                 data-bs-placement="top"
-                                                data-bs-content="This space is allocated for new service.">
+                                                data-bs-content="Open to view User sms transactions. Just click the message icon.">
                                         </div>
                                         <div class="service-title">
                                             <h5>{{ to_block_text("sent") }} Messages</h5>
@@ -163,7 +197,7 @@
                                                 alt="settings"
                                                 data-bs-toggle="popover"
                                                 data-bs-placement="top"
-                                                data-bs-content="This space is allocated for new service.">
+                                                data-bs-content="Open to view User email transactions. Just click the email icon.">
                                         </div>
                                         <div class="service-title">
                                             <h5>{{ to_block_text("email") }} Messages</h5>

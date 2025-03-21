@@ -38,6 +38,16 @@
     
 }
 
+.note_area{
+    padding: 0;
+    margin: 0px;
+    height: 100px;
+    background-color: #180570;
+    overflow-y: auto;
+
+}
+
+
 .separator{
     margin-top: 20px;
     padding: 0%;
@@ -250,7 +260,7 @@
     padding: 0px;
 }
     /*ADD MESSAGE TEMPLATE-MODAL FORMS*/
-    .add-msg-template form {
+.add-msg-template form {
     display: flex;
     flex-direction: column;
     width: 100%;
