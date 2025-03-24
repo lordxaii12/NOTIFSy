@@ -75,7 +75,7 @@
     margin-bottom: 10px;
 }
 .default_theme-bg{
-    background: linear-gradient(180deg, #1c04f5d4 5%, #3c3ceae4 30%, #4d4dd8d9 40%), 
+    background: linear-gradient(180deg, #1c04f5f5 5%, #3c3ceaf6 30%, #4d4dd8f3 40%), 
                 url('/static/images/default/backgrounds/theme_background.jpg');
     background-size: cover;
     background-position: center;

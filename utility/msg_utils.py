@@ -8,7 +8,8 @@ from extensions import db, cache
 from models.itexmo_credentials import Itexmo
 from models.hrpears_credentials import Hrpears
 import requests
-
+from models.itexmo_credentials import Itexmo
+from controllers.itexmo_credentials import credits_check
 #===============================================================================================================================>
     #Generate Msg send tracking number
 def generate_tracker(sender_div, msg_type):
@@ -284,6 +285,5 @@ def sms_API_credits_checker():
         messages_left = int(data.get("MessagesLeft", 0))
         total_credit_used = int(data.get("TotalCreditUsed", 0))
         
-        return (messages_left, total_credit_used)
-
+        credits_check(sms_id,messages_left,total_credit_used)
 #===============================================================================================================================>

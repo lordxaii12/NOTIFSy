@@ -4,7 +4,6 @@
     {% endblock %}
     {% block css %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/reports.css') }}">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     {% endblock %}
     {% block content %}
         <div class="row g-0 p-0 m-0">
@@ -86,6 +85,7 @@
                         </div>
                         <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                             <div class="col service-col2">
+                                <canvas id="userCreditChart" width="700" height="450" style="width:100%;max-width:700px;"></canvas>
                             </div>
                         </div>
                     </div>
@@ -94,70 +94,10 @@
         </div>
 
         {% block scripts %}
-        <script>
-            const divisionData = JSON.parse('{{ division_data | tojson | safe }}');
-            const labels = Object.keys(divisionData);
-            const dataValues = Object.values(divisionData);
-        
-            const ctx = document.getElementById('myChart').getContext('2d');
-            const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                label: 'Credits Used by Division',
-                data: dataValues,
-                backgroundColor: 'rgba(255, 1, 17, 0.6)',
-                borderColor: 'rgb(123, 3, 13)',
-                borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                y: {
-                    beginAtZero: true,
-                    grid: {
-                    color: '#ccc',    // Grid color
-                    lineWidth: 2       // Thicker grid lines
-                    },
-                    ticks: {
-                    color: '#000',    // Y-axis label color
-                    font: {
-                        size: 14,
-                        weight: 'bold'
-                    }
-                    }
-                },
-                x: {
-                    grid: {
-                    color: '#ccc',    // Grid color
-                    lineWidth: 2       // Thicker grid lines
-                    },
-                    ticks: {
-                    color: '#000',    // X-axis label color
-                    font: {
-                        size: 14,
-                        weight: 'bold'
-                    }
-                    }
-                }
-                },
-                plugins: {
-                legend: {
-                    labels: {
-                    color: '#333',
-                    font: {
-                        size: 14,
-                        weight: 'bold'
-                    }
-                    }
-                }
-                }
-            }
-            });
-        </script>
+            <script>
+                const divisionData = {{ division_data | tojson | safe }};
+            </script>
+            <script src="{{ url_for('static', filename='js/reports.js') }}"></script>
         {% endblock %}
     {% endblock %}
 

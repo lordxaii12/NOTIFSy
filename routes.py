@@ -900,6 +900,7 @@ def send_single_msg():
             credit_used = int(data.get('TotalCreditUsed', 0))
             total_credit += int(credit_used)
             sent.append(status_data)
+            sms_API_credits_checker()
         else:
             unsent.append(status_data)
 
@@ -973,6 +974,7 @@ def send_multi_msg():
                 credit_used = int(data.get('TotalCreditUsed', 0))
                 total_credit += int(credit_used)
                 sent.append(status_data)
+                sms_API_credits_checker()
             else:
                 unsent.append(status_data)
         elif sending_option == 'email':
@@ -1060,6 +1062,7 @@ def send_upload_msg():
                 credit_used = int(data.get('TotalCreditUsed', 0))
                 total_credit += int(credit_used)
                 sent.append(status_data)
+                sms_API_credits_checker()
             else:
                 unsent.append(status_data)
         elif sending_option == 'email':
@@ -1195,13 +1198,14 @@ def reports():
     total_credits_used = api_data.credits_consumed
     
     user_data = User_v1.get_all()
+    
     total_credit_used = sum(user.credit_used for user in user_data)
     
     division_data = {}
     for user in user_data:
         division_data[user.division] = division_data.get(user.division, 0) + user.credit_used
-    print("Division Data:", division_data)
-    
+        
+
     return render_template('reports.html',
                            user_credit=user_credit,
                            total_credit_used=total_credit_used,

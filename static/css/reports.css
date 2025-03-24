@@ -80,6 +80,12 @@
     height: 100%;
 }
 
+#userCreditChart {
+    width: 100%;
+    height: 100%;
+}
+
+
 .service-info {
     display: flex;
     justify-content: flex-start;
