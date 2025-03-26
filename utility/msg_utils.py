@@ -264,8 +264,9 @@ def convert_file_to_inputs(file):
 def sms_API_credits_checker():
     sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
     api_data = Itexmo.get_by_id(sms_id)
+    credit_checker = g.sys_settings.sys_app_itexmo_credits_url
     if api_data:
-        url = "https://api.itexmo.com/api/query"
+        url = credit_checker
         email = api_data.itexmo_email
         password = api_data.itexmo_password
         apicode = api_data.itexmo_apicode
@@ -291,7 +292,7 @@ def sms_API_credits_checker():
     #Display supplier data to directory
 @cache.cached(timeout=300)
 def get_eprocsys_data():
-    api_url = "http://172.31.160.82/procsys/api/payee_supplier"
+    api_url = g.sys_settings.sys_app_eprocsys_supplier_url
     try:
         # Send GET request
         response = requests.get(api_url)

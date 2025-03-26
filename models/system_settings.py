@@ -25,6 +25,9 @@ class SysSettings(db.Model):
     sys_app_division_text = db.Column(db.String(900),unique=False, nullable=True)
     sys_app_logs_text = db.Column(db.String(900),unique=False, nullable=True)
     
+    sys_app_itexmo_credits_url = db.Column(db.String(900),unique=False, nullable=True)
+    sys_app_eprocsys_supplier_url = db.Column(db.String(900),unique=False, nullable=True)
+    
     msg_api_id = db.Column(db.Integer, db.ForeignKey('itexmo_api.itexmo_id'), nullable=True)
     email_api_id = db.Column(db.Integer, db.ForeignKey('email_api.ecreds_id'), nullable=True)
     hris_api_id = db.Column(db.Integer, db.ForeignKey('hrpears_api.hrpears_id'), nullable=True)
