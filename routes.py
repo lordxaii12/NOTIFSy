@@ -54,6 +54,28 @@ notifs = Blueprint('notifs', __name__, template_folder='templates')
 #
 #
 #===============================================================================================================================>
+#================ System Settings ==============================================================================================>
+    #system settings page
+@notifs.route('/system_settings/<int:sys_setting_id>', methods=['GET', 'POST'])
+@login_required
+def system_settings(sys_setting_id):
+    sys_settings_data = SysSettings.get_by_id(sys_setting_id)
+    itexmo_data = Itexmo.get_all()
+    email_data = Ecredss.get_all()
+    hrpears_data = Hrpears.get_all()
+    login_data = LogApi.get_all()
+    return render_template('admin_modals/system_settings.html',
+                           sys_settings_data=sys_settings_data,
+                           itexmo_data=itexmo_data,
+                           email_data=email_data,
+                           hrpears_data=hrpears_data,
+                           login_data=login_data)
+#===============================================================================================================================>
+#===============================================================================================================================>
+#
+#
+#
+#===============================================================================================================================>
 #================ Admin ========================================================================================================>
     #Admin page
 @notifs.route('/admin', methods=['GET', 'POST'])
@@ -85,7 +107,7 @@ def admin():
     
     sys_settings_data = SysSettings.get_by_id(1)
     
-    return render_template('admin.html',
+    return render_template('admin_modals/admin.html',
                            role_data=role_data,
                            total_role=total_role,
                            user_data=user_data,
@@ -748,7 +770,7 @@ def home():
     theme_data = Theme.get_all()
     msg_temp_data = Msg_templates.get_all()
 
-    return render_template("index.html",
+    return render_template("home_modals/index.html",
                            theme_data=theme_data,
                            emails=emails,
                            smss=smss,
@@ -1233,6 +1255,7 @@ def libraries():
 @login_required
 def profile():
     return render_template('profile.html')
+#===============================================================================================================================>
 #===============================================================================================================================>
 
 

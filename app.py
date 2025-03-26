@@ -32,40 +32,35 @@ def create_app():
         return User_v1.get_by_id(int(user_id))
 
     db.init_app(app)
-    
-    # limiter.init_app(app)
-    
+
+    # Error handler for database connection errors
     @app.errorhandler(OperationalError)
     def handle_operational_error(error):
         app.logger.error(f"OperationalError: {error}")
-        return render_template("error.html", message="Database connection failed. Please check the server.")
-
-    try:
-        with app.app_context():
-            db.engine.connect() 
-    except OperationalError as e:
-        app.logger.error(f"OperationalError: {e}")
-        app.logger.error(f"Database connection failed: {e}")
-        raise OperationalError("Database connection failed. Please check the server.") from e
+        return render_template("error.html", message="Database connection failed. Please check the server."), 500
 
     app.register_blueprint(notifs)
-    
+
     @app.context_processor
     def inject_user():
         return dict(user=current_user)
-    
+
     @app.before_request
     def load_sys_settings():
-        g.sys_settings = SysSettings.get_by_id(1)
-        
+        try:
+            g.sys_settings = SysSettings.get_by_id(1)
+        except OperationalError as e:
+            app.logger.error(f"Failed to load system settings: {e}")
+            return render_template("error.html", message="Database connection failed. Please check the server."), 500
+
     @app.context_processor
     def inject_block_text():
         return dict(to_block_text=to_block_text)
-    
+
     @app.context_processor
     def inject_encryptor():
         return dict(encrypt_content=encrypt_content)
-    
+
     @app.context_processor
     def inject_decryptor():
         return dict(decrypt_content=decrypt_content)
