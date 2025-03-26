@@ -4,11 +4,11 @@
 <div class="modal fade" id="usertype_display" tabindex="-1" aria-labelledby="usertype_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
-            <div class="modal-header">
+            <div class="modal-header {{user.theme.theme_font}} ">
                 <h1 class="modal-title fs-5" id="usertype_displayLabel">USER TYPES</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body {{user.theme.theme_font}} ">
                 <table class="table table-striped table-hover ">
                     <thead>
                         <tr>
@@ -56,11 +56,11 @@
 <div class="modal fade" id="role_edit" tabindex="-1" aria-labelledby="role_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm admin">
-            <div class="modal-header">
+            <div class="modal-header {{user.theme.theme_font}} ">
                 <h5 class="modal-title" id="role_editLabel">Edit User Types</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body {{user.theme.theme_font}} ">
                 <form method="POST" id="role_editForm">
                     <input type="hidden" id="role_id" name="role_id">
                     <label for="role_name">User Type</label>

@@ -98,7 +98,7 @@ def get_status_data(recipient_name,recipient_contact,message):
 #===============================================================================================================================>
     #Display HR data to directory
 @cache.cached(timeout=300)
-def get_table_data():
+def get_hrpears_data():
     hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 1
     hris_data = Hrpears.get_by_id(hris_id)
     DB_HOST = hris_data.hrpears_host
@@ -286,4 +286,36 @@ def sms_API_credits_checker():
         total_credit_used = int(data.get("TotalCreditUsed", 0))
         
         credits_check(sms_id,messages_left,total_credit_used)
+
+#===============================================================================================================================>
+    #Display supplier data to directory
+@cache.cached(timeout=300)
+def get_eprocsys_data():
+    api_url = "http://172.31.160.82/procsys/api/payee_supplier"
+    try:
+        # Send GET request
+        response = requests.get(api_url)
+        response.raise_for_status()
+
+        # Parse JSON response
+        data = response.json()
+        
+        # Process data
+        extracted_data = []
+        for item in data:
+            payee_name = item.get('PayeeName', '').strip().upper()
+            mobile = format_mobile_number(item.get('Mobile', ''))
+            email = format_email(item.get('Email', ''))
+
+            extracted_data.append({
+                "name": payee_name,
+                "email": email,
+                "mobile_no": mobile
+            })
+        return extracted_data
+    except requests.exceptions.RequestException as e:
+        return []
+    except ValueError:
+        return []
+
 #===============================================================================================================================>

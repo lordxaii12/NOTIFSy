@@ -27,8 +27,8 @@
                             </span>
                         </div>
                         <div class="row first_row">
-                            <div class="col api-col {{user.theme.theme_bg}}">
-                                <div class="top_line {{user.theme.theme_font}}">
+                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}} ">
+                                <div class="top_line ">
                                     <div>
                                         <h4>
                                             <span
@@ -41,7 +41,7 @@
                                         </h4>
                                     </div>
                                 </div>
-                                <div class="lower_line {{user.theme.theme_font}}" 
+                                <div class="lower_line" 
                                     {% if user.is_authenticated and user.role_id == 1 %}
                                         data-bs-toggle="modal" data-bs-target="#itextMoModal"
                                     {% endif %}>
@@ -51,8 +51,8 @@
                                 </div>
                                 
                             </div>
-                            <div class="col api-col {{user.theme.theme_bg}}">
-                                <div class="top_line {{user.theme.theme_font}}">
+                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}} ">
+                                <div class="top_line">
                                     <div>
                                         <h4>
                                             <span
@@ -65,7 +65,7 @@
                                         </h4>
                                     </div>
                                 </div>
-                                <div class="lower_line {{user.theme.theme_font}}"
+                                <div class="lower_line"
                                     {% if user.is_authenticated and user.role_id == 1 %}
                                             data-bs-toggle="modal" data-bs-target="#emailCredsModal"
                                     {% endif %}>
@@ -74,8 +74,8 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="col api-col {{user.theme.theme_bg}}">
-                                <div class="top_line {{user.theme.theme_font}}">
+                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}} ">
+                                <div class="top_line">
                                     <div>
                                         <h4>
                                             <span
@@ -88,7 +88,7 @@
                                         </h4>
                                     </div>
                                 </div>
-                                <div class="lower_line {{user.theme.theme_font}}" 
+                                <div class="lower_line" 
                                 {% if user.is_authenticated and user.role_id == 1 %}
                                         data-bs-toggle="modal" data-bs-target="#pearsCredsModal"
                                     {% endif %}>
@@ -97,8 +97,8 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="col api-col {{user.theme.theme_bg}}">
-                                <div class="top_line {{user.theme.theme_font}}">
+                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}} ">
+                                <div class="top_line ">
                                     <div>
                                         <h4>
                                             <span
@@ -111,7 +111,7 @@
                                         </h4>
                                     </div>
                                 </div>
-                                <div class="lower_line {{user.theme.theme_font}}"
+                                <div class="lower_line"
                                     {% if user.is_authenticated and user.role_id == 1 %}
                                         data-bs-toggle="modal" data-bs-target="#loginCredsModal"
                                     {% endif %}>
@@ -121,7 +121,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row second_row">
                             <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                                 <div class="row add_container">

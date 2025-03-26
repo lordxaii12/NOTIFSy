@@ -4,11 +4,11 @@
 <div class="modal fade" id="sysSettingsModal{{ sys_settings_data.sys_setting_id }}" tabindex="-1" aria-labelledby="sysSettingsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
-            <div class="modal-header">
+            <div class="modal-header {{user.theme.theme_font}} ">
                 <h5 class="modal-title" id="sysSettingsModalLabel">SYSTEM SETTINGS</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body {{user.theme.theme_font}} ">
                 <form action="{{ url_for('notifs.edit_system_settings_route', sys_setting_id = sys_settings_data.sys_setting_id) }}"  method="POST" id="sysSettingsModal_editForm">
                     <input type="hidden" name="sys_setting_id" value="{{ sys_settings_data.sys_setting_id }}">
 

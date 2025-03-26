@@ -46,7 +46,7 @@
     overflow: hidden;
 }
 .admin .api-col:hover{
-    background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
+    background: linear-gradient(120deg, #c6c2c5d4 20%, #c8cdcd9b 50%, #b7b6b9a2 80%);
     border: 2px solid black;
     color: #2a0308e4;
 }
@@ -86,7 +86,7 @@
     border-radius: 20px;
 }
 .admin .div_col:hover{
-    background: linear-gradient(120deg, #b436bdd5 20%, #02f9e9e4 50%, #671de6d9 80%);
+    background: linear-gradient(120deg, #c6c2c5d4 20%, #c8cdcd9b 50%, #b7b6b9a2 80%);
     border: 2px solid black;
     color: #2a0308e4 
 }

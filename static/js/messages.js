@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
 
-        let endpoint = type === "external" ? "/display_external_data" : "/display_data";
+        let endpoint = type === "external" ? "/display_eprocsys_data" : "/display_hrpears_data";
 
         fetch(endpoint)
             .then(response => response.json())
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     searchBar.addEventListener("keyup", function () {
         let searchValue = searchBar.value.toLowerCase();
-        let tableRows = document.querySelectorAll("#directoryTable tr"); // Get updated rows dynamically
+        let tableRows = document.querySelectorAll("#directoryTable tr"); 
 
         tableRows.forEach(row => {
             let name = row.dataset.name ? row.dataset.name.toLowerCase() : "";
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
         tableBody.innerHTML = '<tr><td colspan="4">Loading...</td></tr>';
-        let endpoint = type === "external" ? "/display_external_data" : "/display_data";
+        let endpoint = type === "external" ? "/display_eprocsys_data" : "/display_hrpears_data";
         fetch(endpoint)
             .then(response => response.json())
             .then(data => {

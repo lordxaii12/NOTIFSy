@@ -15,7 +15,7 @@ from flask_login import login_user, current_user
 #===============================================================================================================================>
 #Utils
 from utility.sys_utils import get_manila_time, encrypt_content, decrypt_content
-from utility.msg_utils import message_content, message_content2, generate_tracker, extract_first_name, format_mobile_number, format_email, format_amount, get_status_data, send_msg, get_table_data, convert_file_to_inputs, sms_API_credits_checker
+from utility.msg_utils import message_content, message_content2, generate_tracker, extract_first_name, format_mobile_number, format_email, format_amount, get_status_data, send_msg, get_hrpears_data, get_eprocsys_data, convert_file_to_inputs, sms_API_credits_checker
 #===============================================================================================================================>
 #Models
 from models.user import User_v1
@@ -832,32 +832,26 @@ def delete_msglogs_route(msg_id):
                             #MESSAGE SENDER DIRECTORY
 #===========================================================================================================>
     #Display Internal data from HRIS to directory
-@notifs.route('/display_data', methods=['GET', 'POST'])
+@notifs.route('/display_hrpears_data', methods=['GET', 'POST'])
 @login_required
-def display_data():
+def display_hrpears_data():
     
-    data = get_table_data()
+    data = get_hrpears_data()
     if data:
         return jsonify(data)
     else:
         flash('Cannot connect to server.', 'error')
 #===========================================================================================================>
-    #Display External data from local database to directory
-@notifs.route('/display_external_data', methods=['GET', 'POST'])
+    #Display Internal data from HRIS to directory
+@notifs.route('/display_eprocsys_data', methods=['GET', 'POST'])
 @login_required
-def display_external_data():
-    data = External.get_all()
+def display_eprocsys_data():
+    
+    data = get_eprocsys_data()
     if data:
-        return jsonify([
-            {
-                'name': item.external_name,
-                'mobile_no': item.external_mobile,
-                'email': item.external_email
-            } 
-            for item in data
-        ])
+        return jsonify(data)
     else:
-        flash('Cannot connect to database.', 'error')
+        flash('Cannot connect to server.', 'error')
 #===========================================================================================================>
                             #MESSAGE SENDER FORM
 #===========================================================================================================>

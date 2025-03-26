@@ -4,11 +4,11 @@
  <div class="modal fade" id="email_display" tabindex="-1" aria-labelledby="email_displayLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
-            <div class="modal-header">
+            <div class="modal-header {{user.theme.theme_font}} ">
                 <h1 class="modal-title fs-5" id="email_displayLabel">EMAIL API DATA</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body {{user.theme.theme_font}} ">
                 <table class="table table-striped table-hover ">
                     <thead>
                         <tr>
@@ -54,11 +54,11 @@
 <div class="modal fade" id="email_edit" tabindex="-1" aria-labelledby="email_editLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm admin">
-            <div class="modal-header">
+            <div class="modal-header {{user.theme.theme_font}} ">
                 <h5 class="modal-title" id="email_editLabel">Edit Email Credentials</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body {{user.theme.theme_font}} ">
                 <form method="POST" id="email_editForm">
                     <input type="hidden" id="ecreds_id" name="ecreds_id">
                     <label for="ecreds_name">Name</label>
