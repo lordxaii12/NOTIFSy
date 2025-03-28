@@ -17,10 +17,18 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    app.config['CACHE_TYPE'] = 'simple' 
-    app.config['CACHE_DEFAULT_TIMEOUT'] = 300  
+    app.config['CACHE_TYPE'] = 'redis' 
+    app.config['CACHE_DEFAULT_TIMEOUT'] = 300
+    app.config['CACHE_REDIS_URL'] = 'redis://localhost:6379/0'
     cache.init_app(app)
-
+    
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        'pool_pre_ping': True,
+        'pool_recycle': 3600,
+        'pool_size': 10,
+        'max_overflow': 20
+    } 
+    
     migrate = Migrate(app, db)
 
     login_manager = LoginManager()
@@ -69,5 +77,5 @@ def create_app():
 #===============================================================================================================================>
 if __name__ == "__main__":
     app = create_app()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000)
 #===============================================================================================================================>
