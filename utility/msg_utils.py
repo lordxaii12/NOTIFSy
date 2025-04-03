@@ -16,7 +16,6 @@ def generate_tracker(sender_div, msg_type):
     random_number = random.randint(1, 9999)
     tracking_number = f"{sender_div}-{msg_type}:{random_number}"
     return tracking_number
-
 #===============================================================================================================================>
     #Extract first name from fullname
 def extract_first_name(full_name):
@@ -29,7 +28,6 @@ def extract_first_name(full_name):
         if word not in prefixes:
             return word
     return "Not Found"
-
 #===============================================================================================================================>
     #Format mobile number to 09xxxxxxxxx
 def format_mobile_number(mobile_no):
@@ -46,7 +44,6 @@ def format_mobile_number(mobile_no):
         return "Not Found"
     
     return mobile_no if len(mobile_no) == 11 and mobile_no.isdigit() else "Not Found"
-
 #===============================================================================================================================>
     #Format email with '@' and '.com'
 def format_email(email):
@@ -62,7 +59,6 @@ def format_email(email):
     if email.startswith("defeault"):
         return "Not Found"
     return email if re.match(r"[^@]+@[^@]+\.[a-zA-Z]{2,}", email) else "Not Found"
-
 #===============================================================================================================================>
     #Format amount with separator comma every thousand'
 def format_amount(amount):
@@ -78,7 +74,6 @@ def message_content(add_name,recipient_name,msg_content,sender,sender_div):
     else:
         message = f"Hi, {msg_content}\n\n{sender}\n{sender_div}"
     return message
-
 #===============================================================================================================================>
     #Format message for including/excluding name
 def message_content2(add_name,recipient_name,amount,msg_content,sender,sender_div):
@@ -88,13 +83,11 @@ def message_content2(add_name,recipient_name,amount,msg_content,sender,sender_di
     else:
         message = f"Hi, an amount of {amount} {msg_content}\n\n{sender}\n{sender_div}"
     return message
-
 #===============================================================================================================================>
     #Create status data for message logs status
 def get_status_data(recipient_name,recipient_contact,message):
     status_data = f"{recipient_name}:{recipient_contact}:{message}"
     return status_data
-
 #===============================================================================================================================>
     #Display HR data to directory
 @cache.cached(timeout=300)
@@ -136,7 +129,6 @@ def get_hrpears_data():
     finally:
         if 'connection' in locals() and connection.open:
             connection.close()
-            
 #===============================================================================================================================>
     #Send sms 
 def send_msg(message, recipient):
@@ -159,7 +151,6 @@ def send_msg(message, recipient):
             "Content-Type": content_type
         }
         return (url,payload,headers)
-
 #===============================================================================================================================>
     #Upload file and search in hr data
 def convert_file_to_inputs(file):
@@ -258,7 +249,6 @@ def convert_file_to_inputs(file):
         connection.close()
 
     return matched_records, not_found_list 
-
 #===============================================================================================================================>
     #Upload file and search in hr data
 def sms_API_credits_checker():
@@ -287,7 +277,6 @@ def sms_API_credits_checker():
         total_credit_used = int(data.get("TotalCreditUsed", 0))
         
         credits_check(sms_id,messages_left,total_credit_used)
-
 #===============================================================================================================================>
     #Display supplier data to directory
 @cache.cached(timeout=300)
@@ -318,5 +307,4 @@ def get_eprocsys_data():
         return []
     except ValueError:
         return []
-
 #===============================================================================================================================>

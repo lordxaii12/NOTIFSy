@@ -864,7 +864,7 @@ def display_hrpears_data():
     else:
         flash('Cannot connect to server.', 'error')
 #===========================================================================================================>
-    #Display Internal data from HRIS to directory
+    #Display Supplier data from e procsys to directory
 @notifs.route('/display_eprocsys_data', methods=['GET', 'POST'])
 @login_required
 def display_eprocsys_data():
