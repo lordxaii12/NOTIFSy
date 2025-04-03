@@ -26,6 +26,7 @@ def add_user():
     role_id = request.form.get('role_id')
     
     theme_id = 1
+    credit_used = 0
     
     created_by = current_user.full_name
     created_on = get_manila_time()
@@ -36,6 +37,7 @@ def add_user():
         division=division,
         role_id=role_id,
         theme_id=theme_id,
+        credit_used=credit_used,
         
         created_by=created_by,
         created_on=created_on
