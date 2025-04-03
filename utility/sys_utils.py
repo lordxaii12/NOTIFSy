@@ -8,7 +8,7 @@ from cryptography.fernet import Fernet
 from models.hrpears_credentials import Hrpears
 import pymysql
 from extensions import db, cache
-from msg_utils import format_email, format_mobile_number
+from format_utils import format_mobile_number, format_email
 #===============================================================================================================================>
     #Get datetime in manila based timezone
 def get_manila_time():
@@ -37,8 +37,8 @@ def decrypt_content(content):
 #===============================================================================================================================>
     #Display HR data to registration directory
 @cache.cached(timeout=300)
-def get_hrpears_data():
-    hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 1
+def get_login_data():
+    hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 2
     hris_data = Hrpears.get_by_id(hris_id)
     DB_HOST = hris_data.hrpears_host
     DB_USER = hris_data.hrpears_user
@@ -54,7 +54,7 @@ def get_hrpears_data():
     )
     try:
         with connection.cursor() as cursor:
-            query = f"SELECT first_name, last_name, middle_name, email, mobile_no FROM {DB_TABLE}"
+            query = f"SELECT first_name, last_name, middle_name, email, username, section_name, division_name FROM {DB_TABLE}"
             cursor.execute(query)
             raw_data = cursor.fetchall()
             formatted_data = []

@@ -15,7 +15,8 @@ from flask_login import login_user, current_user
 #===============================================================================================================================>
 #Utils
 from utility.sys_utils import get_manila_time, encrypt_content, decrypt_content
-from utility.msg_utils import message_content, message_content2, generate_tracker, extract_first_name, format_mobile_number, format_email, format_amount, get_status_data, send_msg, get_hrpears_data, get_eprocsys_data, convert_file_to_inputs, sms_API_credits_checker
+from utility.msg_utils import message_content, message_content2, generate_tracker, get_status_data, send_msg, get_hrpears_data, get_eprocsys_data, convert_file_to_inputs, sms_API_credits_checker
+from utility.format_utils import extract_first_name, format_mobile_number, format_email
 #===============================================================================================================================>
 #Models
 from models.user import User_v1
