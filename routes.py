@@ -793,7 +793,7 @@ def edit_user_notes_route(user_id):
         db.session.rollback() 
     return redirect(url_for('notifs.home'))
 #===========================================================================================================>
-    #User Notes
+    #System Notes
 @notifs.route('/edit_system_notice_route/<int:sys_setting_id>', methods=['GET', 'POST'])
 @login_required
 def edit_system_notice_route(sys_setting_id):
