@@ -8,7 +8,7 @@ from cryptography.fernet import Fernet
 from models.hrpears_credentials import Hrpears
 import pymysql
 from extensions import db, cache
-from format_utils import format_mobile_number, format_email
+from format_utils import format_email
 #===============================================================================================================================>
     #Get datetime in manila based timezone
 def get_manila_time():
@@ -57,20 +57,24 @@ def get_login_data():
             query = f"SELECT first_name, last_name, middle_name, email, username, section_name, division_name FROM {DB_TABLE}"
             cursor.execute(query)
             raw_data = cursor.fetchall()
-            formatted_data = []
+            login_data = []
             for row in raw_data:
                 last_name = row["last_name"].upper() if row["last_name"] else ""
                 first_name = row["first_name"].upper() if row["first_name"] else ""
                 middle_name = row["middle_name"].upper() if row["middle_name"] else ""
                 formatted_name = f"{last_name}, {first_name} {middle_name}".strip()
-                formatted_mobile = format_mobile_number(row["mobile_no"])
+                formatted_division = row["division_name"].upper() if row["division_name"] else ""
+                formatted_section =row["section_name"].upper() if row["section_name"] else ""
+                formatted_username = row["username"] if row["username"] else ""
                 formatted_email = format_email(row["email"])
-                formatted_data.append({
+                login_data.append({
+                    "username": formatted_username,
                     "name": formatted_name,
                     "email": formatted_email,
-                    "mobile_no": formatted_mobile
+                    "division": formatted_division,
+                    "section": formatted_section
                 })
-            return formatted_data
+            return login_data
 
     finally:
         if 'connection' in locals() and connection.open:

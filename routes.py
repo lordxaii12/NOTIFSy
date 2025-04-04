@@ -14,9 +14,9 @@ from flask_login import login_required, logout_user
 from flask_login import login_user, current_user
 #===============================================================================================================================>
 #Utils
-from utility.sys_utils import get_manila_time, encrypt_content, decrypt_content
+from utility.sys_utils import get_manila_time, get_login_data, encrypt_content, decrypt_content
 from utility.msg_utils import message_content, message_content2, generate_tracker, get_status_data, send_msg, get_hrpears_data, get_eprocsys_data, convert_file_to_inputs, sms_API_credits_checker
-from utility.format_utils import extract_first_name, format_mobile_number, format_email
+from utility.format_utils import extract_first_name, format_mobile_number, format_email, format_amount
 #===============================================================================================================================>
 #Models
 from models.user import User_v1
@@ -508,6 +508,17 @@ def delete_hrpears_route(hrpears_id):
     return redirect(request.referrer)
 #===========================================================================================================>
                             #APP USERS
+#===========================================================================================================>
+    #Display login data from HRIS to directory
+@notifs.route('/display_users_data', methods=['GET', 'POST'])
+@login_required
+def display_users_data():
+    
+    data = get_login_data()
+    if data:
+        return jsonify(data)
+    else:
+        flash('Cannot connect to server.', 'error')
 #===========================================================================================================>
     #add user
 @notifs.route('/register_user', methods=['POST'])
