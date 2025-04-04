@@ -122,6 +122,48 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
+<!--ADD USER ROLES/TYPES-->
+<div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+            <div class="modal-header {{user.theme.theme_font}}">
+                <h2>Add User Type</h2>
+                <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body {{user.theme.theme_font}}">
+                <form action="{{ url_for('notifs.register_role') }}" method="POST">
+                    <label for="role_name">User Type</label>
+                    <input type="text" id="role_name" name="role_name" required>
+                    <label for="role_description">Description</label>
+                    <input type="text" id="role_description" name="role_description" required>
+                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=============================================================================================================================-->
+<!--ADD USER DIVISIONS-->
+<div class="modal fade" id="addDivisionModal" tabindex="-1" aria-labelledby="addDivisionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+            <div class="modal-header {{user.theme.theme_font}}">
+                <h2>Add User Division</h2>
+                <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body {{user.theme.theme_font}}">
+                <form action="{{ url_for('notifs.register_division') }}" method="POST">
+                    <label for="division_name">Division</label>
+                    <input type="text" id="division_name" name="division_name" required>
+                    <label for="division_description">Description</label>
+                    <input type="text" id="division_description" name="division_description" required>
+                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=============================================================================================================================-->
 <!--ADD USER-->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -165,49 +207,6 @@
     </div>
 </div>
 <!--=============================================================================================================================-->
-<!--ADD USER ROLES/TYPES-->
-<div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
-            <div class="modal-header {{user.theme.theme_font}}">
-                <h2>Add User Type</h2>
-                <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body {{user.theme.theme_font}}">
-                <form action="{{ url_for('notifs.register_role') }}" method="POST">
-                    <label for="role_name">User Type</label>
-                    <input type="text" id="role_name" name="role_name" required>
-                    <label for="role_description">Description</label>
-                    <input type="text" id="role_description" name="role_description" required>
-                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--=============================================================================================================================-->
-<!--ADD USER DIVISIONS-->
-<div class="modal fade" id="addDivisionModal" tabindex="-1" aria-labelledby="addDivisionModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
-            <div class="modal-header {{user.theme.theme_font}}">
-                <h2>Add User Division</h2>
-                <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body {{user.theme.theme_font}}">
-                <form action="{{ url_for('notifs.register_division') }}" method="POST">
-                    <label for="division_name">Division</label>
-                    <input type="text" id="division_name" name="division_name" required>
-                    <label for="division_description">Description</label>
-                    <input type="text" id="division_description" name="division_description" required>
-                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--=============================================================================================================================-->
-<!--=============================================================================================================================-->
 <!--REGISTER USER DIRECTORY MODAL-->
 <div class="modal fade" id="userDirectoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="userDirectoryModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -224,8 +223,8 @@
                             <thead>
                                 <tr>
                                     <th>NAME</th>
-                                    <th>MOBILE</th>
-                                    <th>EMAIL</th>
+                                    <th>DIVISION</th>
+                                    <th>SECTION</th>
                                 </tr>
                             </thead>
                             <tbody id="directoryTable">
