@@ -10,7 +10,7 @@ from models.hrpears_credentials import Hrpears
 import requests
 from models.itexmo_credentials import Itexmo
 from controllers.itexmo_credentials import credits_check
-from format_utils import extract_first_name, format_mobile_number, format_email
+from utility.format_utils import extract_first_name, format_mobile_number, format_email
 #===============================================================================================================================>
     #Generate Msg send tracking number
 def generate_tracker(sender_div, msg_type):

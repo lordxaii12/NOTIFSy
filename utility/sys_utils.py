@@ -8,7 +8,7 @@ from cryptography.fernet import Fernet
 from models.hrpears_credentials import Hrpears
 import pymysql
 from extensions import db, cache
-from format_utils import format_email
+from utility.format_utils import format_email
 #===============================================================================================================================>
     #Get datetime in manila based timezone
 def get_manila_time():
@@ -33,7 +33,6 @@ def encrypt_content(content):
 def decrypt_content(content):
      decrypted_text = Config.cipher.decrypt(content.encode()).decode()
      return decrypted_text
-#===============================================================================================================================>
 #===============================================================================================================================>
     #Display HR data to registration directory
 @cache.cached(timeout=300)
