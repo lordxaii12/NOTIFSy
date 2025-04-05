@@ -182,7 +182,7 @@
                             <input type="text" id="username" name="username"  required>
                         </div>
                         <div class="input-group">
-                            <label for="role_id">Role</label>
+                            <label for="role_id">Roles</label>
                             <select id="role_id" name="role_id"  required>
                                 <option value="" disabled selected>Select a role</option>
                                 {% for role in role_data %}
@@ -193,13 +193,19 @@
                             </select>
                         </div>
                     </div>
-                    <label for="division">Division</label>
-                    <select id="division" name="division" required>
-                        <option value="" disabled selected>Select a Division</option>
-                        {% for division in division_data %}
-                            <option value="{{ division.division_name }}">{{ division.division_name }}</option>
-                        {% endfor %}
-                    </select>
+                    <div class="row-group">
+                        <div class="input-group">
+                            <div class="input-group">
+                                <label for="user_division">Division</label>
+                                <input type="text" id="user_division" name="user_division"  required>
+                            </div>
+                            <div class="input-group">
+                                <label for="user_section">Section</label>
+                                <input type="text" id="user_section" name="user_section"  required>
+                            </div>
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn submit-btn mt-3">Submit</button>
                 </form>
             </div>
