@@ -13,9 +13,13 @@ class User_v1(db.Model, UserMixin):
     __tablename__ = 'userv1'
     
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    
     username = db.Column(db.String(50), unique=True, nullable=False)
     full_name = db.Column(db.String(100), unique=True, nullable=False)
+    user_email = db.Column(db.String(100), unique=False, nullable=True)
     division = db.Column(db.String(50), unique=False, nullable=True)
+    user_section = db.Column(db.String(50), unique=False, nullable=True)
+    
     role_id = db.Column(db.Integer, db.ForeignKey('roles.role_id'), nullable=False)
     theme_id = db.Column(db.Integer, db.ForeignKey('theme.theme_id'), nullable=True)
     
@@ -43,9 +47,13 @@ class User_v1(db.Model, UserMixin):
     def user_data(self):
         return {
             'user_id': self.user_id,
+            
             'username': self.username,
             'full_name': self.full_name,
+            'user_email': self.user_email,
             'division': self.division,
+            'user_section': self.user_section,
+            
             'role_id': self.role_id,
             'role_name': self.role.role_name if self.role else None,
             'theme_id': self.theme_id,

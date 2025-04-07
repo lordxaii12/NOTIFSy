@@ -4,7 +4,7 @@ from models.user import User_v1
 from extensions import db
 from flask import request,flash
 from flask_login import current_user
-from utility.sys_utils import get_manila_time
+from utility.sys_utils import get_manila_time, encrypt_content
 
 #===============================================================================================================================>
 #
@@ -22,7 +22,9 @@ def add_user():
         if existing_fullname:
             flash('Full Name already exists', 'error')
             return None
+    email = request.form.get('email')
     division = request.form.get('division')
+    section = request.form.get('section')
     role_id = request.form.get('role_id')
     
     theme_id = 1
@@ -32,9 +34,11 @@ def add_user():
     created_on = get_manila_time()
 
     new_user = User_v1(
-        username=username,
-        full_name=full_name,
+        username=encrypt_content(username),
+        full_name=encrypt_content(full_name),
+        email=encrypt_content(email),
         division=division,
+        section=section,
         role_id=role_id,
         theme_id=theme_id,
         credit_used=credit_used,
@@ -55,21 +59,6 @@ def add_user():
 #================ EDIT =========================================================================================================>   
 def edit_user(user_id):
     user = User_v1.get_by_id(user_id)
-    username = request.form.get('username')
-    if username:
-        existing_user = User_v1.query.filter_by(username=username).first()
-        if existing_user and existing_user.user_id != user_id:
-            flash('Username already exists', 'error')
-            return None 
-        user.username = username
-    full_name = request.form.get('full_name')
-    if full_name:
-        existing_full_name = User_v1.query.filter_by(full_name=full_name).first()
-        if existing_full_name and existing_full_name.user_id != user_id:
-            flash('Full Name already exists', 'error')
-            return None 
-        user.full_name = full_name
-    user.division = request.form.get('division', user.division)
     user.role_id = request.form.get('role_id', user.role_id)
     
     user.updated_by = current_user.full_name

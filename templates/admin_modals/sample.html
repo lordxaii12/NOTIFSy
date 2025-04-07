@@ -2,33 +2,49 @@
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
-            <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h2 class="modal-title" id="exampleModalLabel">Add User</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
-            <form>
-                <div class="row">
-                    <div class="col mb-3">
-                        <label for="inputName" class="form-label">Name</label>
-                        <div class="input-group">
-                            <span class="input-group-text form-icon directory-btn">📞</span>
-                            <input type="text" class="form-control" id="inputName" placeholder="Enter your name">
-                          </div>
+                <form>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="full_name" class="form-label">Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text form-icon directory-btn">📞</span>
+                                <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Full Name"required>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="mb-3">
-                <label for="inputEmail" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email">
-                </div>
-                <div class="mb-3">
-                <label for="inputPassword" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputPassword" placeholder="Enter your password">
-                </div>
-            </form>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="User Name" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="role_id" class="form-label">Roles</label>
+                            <select id="role_id" name="role_id" class="form-control" required>
+                                <option value="" disabled selected>Select a role</option>
+                                {% for role in role_data %}
+                                    {% if user.role_id == 1 or role.role_id != 1 %}
+                                        <option value="{{ role.role_id }}">{{ role.role_name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <input type="hidden" id="division_id" name="division_id">
+
+                        <div class="col mb-3">
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>
