@@ -140,23 +140,23 @@
 /*
 /*
 /*
-/*===============================================================================================================================>*/
+===============================================================================================================================>
 /*ADMIN MODALS ==================================================================================================================>*/
     /*ADMIN-MODALS DATA TABLE*/
-.admin-modal .modal-body {
+/* .admin-modal .modal-body {
     overflow-y: auto;
     max-height: 80vh; 
     padding: 0;
-}
+} */
     /*ADMIN-MODALS EDIT DATA*/
-.admin-modal_sm .modal-body {
+/* .admin-modal_sm .modal-body {
     overflow-y: auto;
     max-height: 80vh; 
-}
+} */
     /*ADMIN-MODALS BACKDROP*/
-.admin-modal .modal-backdrop {
+/* .admin-modal .modal-backdrop {
     z-index: 1045;
-}
+} */
     /*ADMIN-MODALS ADD - DELETE ICONS*/
 .admin-modal .table_icons{
     width: 20px;
@@ -187,7 +187,7 @@
 }
     /*ADMIN-MODAL FORMS INPUTS*/
 .admin input {
-    width: 95%;
+    width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
