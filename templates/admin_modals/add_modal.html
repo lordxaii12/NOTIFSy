@@ -174,6 +174,9 @@
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
                 <form action="{{ url_for('notifs.register_user') }}" method="POST">
+                    <span class="form-icon directory-btn">
+                        📞
+                    </span>
                     <label for="full_name">Full Name</label>
                     <input type="text" id="full_name" name="full_name" required>
                     <div class="row-group">
