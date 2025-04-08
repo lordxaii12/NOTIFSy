@@ -41,7 +41,7 @@ def decrypt_content(content):
     #Display HR data to registration directory
 @cache.cached(timeout=300)
 def get_login_data():
-    hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 2
+    hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 4
     hris_data = Hrpears.get_by_id(hris_id)
     DB_HOST = hris_data.hrpears_host
     DB_USER = hris_data.hrpears_user

@@ -11,7 +11,7 @@
                         <div class="col mb-3">
                             <label for="full_name" class="form-label">Name</label>
                             <div class="input-group">
-                                <span class="input-group-text form-icon directory-btn">📞</span>
+                                <span class="input-group-text form-icon user_directory-btn">📞</span>
                                 <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Full Name"required>
                             </div>
                         </div>
@@ -33,14 +33,18 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col mb-3">
-                            <input type="hidden" id="division" name="division">
+                            <label for="division" class="form-label">Division</label>
+                            <input type="text" class="form-control" id="division" name="division" placeholder="Division">
                         </div>
                         <div class="col mb-3">
-                            <input type="hidden" id="email" name="email">
+                            <label for="section" class="form-label">Section</label>
+                            <input type="text" class="form-control" id="section" name="section" placeholder="Section">
                         </div>
                     </div>
+                   
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary">Submit</button>
                 </form>
@@ -48,3 +52,149 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="userDirectoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="userDirectoryModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header {{user.theme.theme_font}}">
+                <h5 class="modal-title" id="userDirectoryModal">FOX-Users</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="directory-content {{user.theme.theme_font}}">
+                    <input type="text" placeholder="Search..." class="search-bar" id="searchBar">
+                    <div class="directory">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>DIVISION</th>
+                                    <th>SECTION</th>
+                                </tr>
+                            </thead>
+                            <tbody id="directoryTable">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button type="submit" class="send-btn" data-bs-dismiss="modal" aria-label="Close">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="userDirectoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="userDirectoryModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header {{user.theme.theme_font}}">
+                <h5 class="modal-title" id="userDirectoryModal">FOX-Users</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="directory-content {{user.theme.theme_font}}">
+                    <input type="text" placeholder="Search..." class="search-bar" id="searchBar">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                    <th>Division</th>
+                                    <th>Section</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userdirectoryTable">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let cache = {};
+    
+        // Initial fetch
+        fetchAndDisplayData();
+    
+        // Show modal and fetch data on button click
+        document.querySelectorAll(".user_directory-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                let modal = new bootstrap.Modal(document.getElementById("userDirectoryModal"));
+                modal.show();
+                fetchAndDisplayData(); // No type needed
+            });
+        });
+    
+        function fetchAndDisplayData() {
+            let tableBody = document.getElementById("userdirectoryTable");
+    
+            if (cache["data"]) {
+                console.log("Using cached data");
+                displayData(cache["data"]);
+                return;
+            }
+    
+            tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
+    
+            fetch("/display_users_data") // Just one endpoint now
+                .then(response => response.json())
+                .then(data => {
+                    cache["data"] = data;
+                    displayData(data);
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                    tableBody.innerHTML = '<tr><td colspan="3">Failed to load data</td></tr>';
+                });
+        }
+    
+        function displayData(data) {
+            let tableBody = document.getElementById("userdirectoryTable");
+            tableBody.innerHTML = "";
+    
+            data.forEach(row => {
+                let tr = document.createElement("tr");
+                tr.classList.add("clickable-row");
+                tr.dataset.name = row.name;
+                tr.dataset.username = row.username;
+                tr.dataset.division = row.division;
+                tr.dataset.section = row.section;
+                tr.innerHTML = `
+                    <td>${row.name}</td>
+                    <td>${row.username}</td>
+                    <td>${row.division}</td>
+                    <td>${row.section}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+    
+            addRowClickEvent();
+        }
+    
+        function addRowClickEvent() {
+            document.querySelectorAll(".clickable-row").forEach(row => {
+                row.addEventListener("click", function () {
+                    document.getElementById("full_name").value = this.dataset.name;
+                    document.getElementById("username").value = this.dataset.username;
+                    document.getElementById("division").value = this.dataset.division;
+                    document.getElementById("section").value = this.dataset.section;
+                });
+            });
+        }
+    });
+    </script>
+    
