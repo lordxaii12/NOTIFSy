@@ -158,6 +158,11 @@ def login():
             user = User_v1.query.filter_by(username=username).first()
             
             if user:
+                user_status = user.login_status
+                if user_status == 1:
+                    flash('User account already logged in', 'error')
+                    return render_template('login.html')
+                    
                 headers = {
                     "X-Token": token,
                     "Content-Type": content_type
@@ -169,15 +174,27 @@ def login():
                 response = requests.post(url, data=data, headers=headers)
                 
                 if response.status_code == 200:
+                    user_status = user.login_status
+
                     login_user(user)
+                    response_data = response.json()
+                    email = response_data['data']['email']
+                    division = response_data['data']['division']
+                    section = response_data['data']['section']
+
                     user.cur_login = get_manila_time()
+                    user.user_email = encrypt_content(email)
+                    user.division = division
+                    user.user_section = section
+                    user.login_status = 1 
+                    
                     db.session.commit()
                     flash('Login successful!', 'success')
                     return redirect(url_for('notifs.home'))
                 else:
-                    flash('Invalid username or password', 'error')
+                    flash('Invalids username or password', 'error')
             else:
-                flash('Invalid username or password', 'error')
+                flash('Sorry you are not granted access to NotifX', 'error')
         return render_template('login.html')
 
     except requests.exceptions.RequestException:
@@ -194,12 +211,15 @@ def logout():
     login_session = current_user.cur_login
     if login_session:
         current_user.last_login = current_user.cur_login
-        db.session.commit()
     else:
         current_user.last_login = get_manila_time()
-        db.session.commit()
+    current_user.login_status = 0
+    
+    db.session.commit()
+    session.clear()
+    
     logout_user()
-    flash('You have been logged out.', 'info')
+    flash('You have been logged out.', 'success')
     return redirect(url_for('notifs.login'))
 #===========================================================================================================>
                             #ITEXMO API CREDENTIALS
@@ -771,6 +791,12 @@ def delete_logs_route(log_id):
 @notifs.route('/', methods=['GET', 'POST'])
 @login_required
 def home():
+    
+    decrypted_name = decrypt_content(current_user.full_name)
+    name_parts = decrypted_name.split(' ')
+    first_name = name_parts[0].title()
+    last_name = name_parts[1].title() if len(name_parts) > 1 and '.' not in name_parts[1] else ''
+    
     msg_data = Msg_log.query.filter_by(msg_sender=current_user.full_name).all()
     emails = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="email").all()
     smss = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="sms").all()
@@ -789,7 +815,9 @@ def home():
                            emails_sent=emails_sent,
                            sms_sent=sms_sent,
                            msg_temp_data=msg_temp_data,
-                           msg_data=msg_data)
+                           msg_data=msg_data,
+                           first_name=first_name,
+                           last_name=last_name)
 #===========================================================================================================>
     #User Notes
 @notifs.route('/edit_user_notes_route/<int:user_id>', methods=['GET', 'POST'])

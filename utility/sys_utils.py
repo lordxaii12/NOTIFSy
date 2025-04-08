@@ -4,7 +4,7 @@ from datetime import datetime
 import pytz
 from flask import g
 from config import Config
-from cryptography.fernet import Fernet
+from cryptography.fernet import InvalidToken
 from models.hrpears_credentials import Hrpears
 import pymysql
 from extensions import db, cache
@@ -31,8 +31,12 @@ def encrypt_content(content):
 #===============================================================================================================================>
     #Decrypt data
 def decrypt_content(content):
-     decrypted_text = Config.cipher.decrypt(content.encode()).decode()
-     return decrypted_text
+    if not content:
+        return ''
+    try:
+        return Config.cipher.decrypt(content.encode()).decode()
+    except (InvalidToken, AttributeError, ValueError):
+        return content
 #===============================================================================================================================>
     #Display HR data to registration directory
 @cache.cached(timeout=300)

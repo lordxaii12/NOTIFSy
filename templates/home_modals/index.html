@@ -36,7 +36,7 @@
                     </div>
                     <div class="row first_row {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                         <div class="col">
-                            <h2 class="welcome">Welcome <u>{{ user.full_name.split(' ')[0].title() }} {{ user.full_name.split(' ')[1].title() if '.' not in user.full_name.split(' ')[1] else '' }}</u></h2>
+                            <h2 class="welcome">Welcome <u>{{ first_name}}</u></h2>
                             <h5 class="user-type">you are logged as {{user.role.role_name}} </h5>
                         </div>
                         <div class="col top-col"  data-bs-toggle="popover" data-bs-trigger="hover"  data-bs-content="This are your personal note/s." data-bs-placement="top">

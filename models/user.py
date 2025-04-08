@@ -23,6 +23,9 @@ class User_v1(db.Model, UserMixin):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.role_id'), nullable=False)
     theme_id = db.Column(db.Integer, db.ForeignKey('theme.theme_id'), nullable=True)
     
+    login_status = db.Column(db.String(50), unique=False, nullable=True)
+    login_error_counter = db.Column(db.String(50), unique=False, nullable=True)
+    
     cur_login = db.Column(db.String(100), unique=False, nullable=True)
     last_login = db.Column(db.String(100), unique=False, nullable=True)
     last_logout = db.Column(db.String(100), unique=False, nullable=True)
@@ -58,6 +61,10 @@ class User_v1(db.Model, UserMixin):
             'role_name': self.role.role_name if self.role else None,
             'theme_id': self.theme_id,
             'theme_name': self.theme.theme_name if self.theme else None,
+            
+            'login_status': self.login_status,
+            'login_error_counter': self.login_error_counter,
+            
             'cur_login': self.cur_login,
             'last_login': self.last_login,
             'last_logout': self.last_logout,

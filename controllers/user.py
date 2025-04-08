@@ -22,13 +22,12 @@ def add_user():
         if existing_fullname:
             flash('Full Name already exists', 'error')
             return None
-    email = request.form.get('email')
-    division = request.form.get('division')
-    section = request.form.get('section')
     role_id = request.form.get('role_id')
     
     theme_id = 1
     credit_used = 0
+    login_status = 0
+    login_error_counter = 0
     
     created_by = current_user.full_name
     created_on = get_manila_time()
@@ -36,14 +35,13 @@ def add_user():
     new_user = User_v1(
         username=encrypt_content(username),
         full_name=encrypt_content(full_name),
-        email=encrypt_content(email),
-        division=division,
-        section=section,
         role_id=role_id,
         theme_id=theme_id,
         credit_used=credit_used,
+        login_status=login_status,
+        login_error_counter=login_error_counter,
         
-        created_by=created_by,
+        created_by=encrypt_content(created_by),
         created_on=created_on
     )
     try:
