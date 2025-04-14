@@ -167,23 +167,30 @@
 <!--ADD USER-->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
-                <h2>Add User</h2>
-                <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h2 class="modal-title" id="addUserModalLabel">Add User</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
-                <form action="{{ url_for('notifs.register_user') }}" method="POST">
-                    <label for="full_name">Full Name</label>
-                    <input type="text" id="full_name" name="full_name" required>
-                    <div class="row-group">
-                        <div class="input-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username"  required>
+                <form>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="full_name" class="form-label">Name</label>
+                            <div class="input-group">
+                                <span class="input-group-text form-icon user_directory-btn">📞</span>
+                                <input type="text" class="form-control" id="ufull_name" name="full_name" placeholder="Full Name"required>
+                            </div>
                         </div>
-                        <div class="input-group">
-                            <label for="role_id">Roles</label>
-                            <select id="role_id" name="role_id"  required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="uusername" name="username" placeholder="User Name" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label for="role_id" class="form-label">Roles</label>
+                            <select id="role_id" name="role_id" class="form-control" required>
                                 <option value="" disabled selected>Select a role</option>
                                 {% for role in role_data %}
                                     {% if user.role_id == 1 or role.role_id != 1 %}
@@ -193,25 +200,24 @@
                             </select>
                         </div>
                     </div>
-                    <!-- <div class="row-group">
-                        <div class="input-group">
-                            <div class="input-group">
-                                <label for="user_division">Division</label>
-                                <input type="text" id="user_division" name="user_division"  required>
-                            </div>
-                            <div class="input-group">
-                                <label for="user_section">Section</label>
-                                <input type="text" id="user_section" name="user_section"  required>
-                            </div>
-                        </div>
-                    </div> -->
 
-                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="division" class="form-label">Division</label>
+                            <input type="text" class="form-control" id="udivision" name="division" placeholder="Division">
+                        </div>
+                        <div class="col mb-3">
+                            <label for="section" class="form-label">Section</label>
+                            <input type="text" class="form-control" id="usection" name="section" placeholder="Section">
+                        </div>
+                    </div>
+                   
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <!--=============================================================================================================================-->
-
 
