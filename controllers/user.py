@@ -45,7 +45,7 @@ def add_user():
         login_status=login_status,
         login_error_counter=login_error_counter,
         
-        created_by=encrypt_content(created_by),
+        created_by=created_by,
         created_on=created_on
     )
     try:

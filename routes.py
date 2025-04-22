@@ -122,6 +122,12 @@ def admin():
             "role":u.role,
             "theme":u.theme  
         })
+    for index, u in enumerate(user_data):
+        try:
+            decrypted = decrypt_content(u.full_name)
+            print(f"{index}: ✅ {decrypted}")
+        except Exception as e:
+            print(f"{index}: ❌ ERROR decrypting - {e}")
         
         
     total_user = len(user_data)

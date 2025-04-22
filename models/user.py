@@ -14,9 +14,9 @@ class User_v1(db.Model, UserMixin):
     
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    full_name = db.Column(db.String(100), unique=True, nullable=False)
-    user_email = db.Column(db.String(100), unique=False, nullable=True)
+    username = db.Column(db.String(200), unique=True, nullable=False)
+    full_name = db.Column(db.String(200), unique=True, nullable=False)
+    user_email = db.Column(db.String(200), unique=False, nullable=True)
     division = db.Column(db.String(50), unique=False, nullable=True)
     user_section = db.Column(db.String(50), unique=False, nullable=True)
     
