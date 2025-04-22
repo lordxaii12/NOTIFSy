@@ -51,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             tr.dataset.username = row.username;
             tr.dataset.division = row.division;
             tr.dataset.section = row.section;
+            tr.dataset.email = row.email;
             tr.innerHTML = `
                 <td>${row.name}</td>
             `;
@@ -77,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     document.getElementById("uusername").value = this.dataset.username;
                     document.getElementById("udivision").value = this.dataset.division;
                     document.getElementById("usection").value = this.dataset.section;
+                    document.getElementById("uemail").value = this.dataset.email;
                 }, 500);
             });
         });
