@@ -107,15 +107,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".edit_user-btn").forEach(button => {
         button.addEventListener("click", function () {
             let uid = this.getAttribute("data-uid");
-            let uname = this.getAttribute("data-uname");
             let fname = this.getAttribute("data-fname");
-            let division = this.getAttribute("data-division");
             let rid = this.getAttribute("data-rid");
 
             document.getElementById("user_id").value = uid;
-            document.getElementById("username").value = uname;
             document.getElementById("full_name").value = fname;
-            document.getElementById("division").value = division;
             document.getElementById("role_id").value = rid;
             
             document.getElementById("user_editForm").action = `/edit_user_route/${uid}`;

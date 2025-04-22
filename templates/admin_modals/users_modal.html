@@ -39,9 +39,7 @@
                                         |
                                         <button class="edit_user-btn btn p-0 m-0 "
                                         data-uid="{{ users.user_id }}"
-                                        data-uname="{{ users.username }}"
                                         data-fname ="{{ users.full_name }}"
-                                        data-division ="{{ users.division }}"
                                         data-rid ="{{ users.role_id }}"
                                         >
                                             <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
@@ -61,24 +59,28 @@
 <!--USER EDIT FORM MODAL-->
 <div class="modal fade" id="user_edit" tabindex="-1" aria-labelledby="user_editLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm admin">
-            <div class="modal-header {{user.theme.theme_font}} ">
-                <h5 class="modal-title" id="user_editLabel">Edit Users Data</h5>
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header {{user.theme.theme_font}}">
+                <h2 class="modal-title" id="user_editLabel">Edit Users Data</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}} ">
                 <form method="POST" id="user_editForm">
-                    <input type="hidden" id="user_id" name="user_id">
-                    <label for="full_name">Full Name</label>
-                    <input type="text" id="full_name" name="full_name" required>
-                    <div class="row-group">
-                        <div class="input-group">
-                            <label for="username">Username</label>
-                            <input type="text" id="username" name="username"  required>
+                    <div class="row">
+                        <div class="col mb-3">
+                             <input type="hidden" id="user_id" name="user_id">
                         </div>
-                        <div class="input-group">
-                            <label for="role_id">Role</label>
-                            <select id="role_id" name="role_id"  required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="full_name">Full Name</label>
+                            <input class="form-control" type="text" id="full_name" name="full_name" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="role_id">Role</label>
+                            <select id="role_id" name="role_id" class="form-control"  required>
                                 {% for role in role_data %}
                                     {% if user.role_id == 1 or role.role_id != 1 %}
                                         <option value="{{ role.role_id }}">{{ role.role_name }}</option>
@@ -87,13 +89,8 @@
                             </select>
                         </div>
                     </div>
-                    <label for="division">Division</label>
-                    <select id="division" name="division" required>
-                        {% for division in division_data %}
-                            <option value="{{ division.division_name }}">{{ division.division_name }}</option>
-                        {% endfor %}
-                    </select>
-                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
