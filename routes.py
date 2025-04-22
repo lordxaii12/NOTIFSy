@@ -99,24 +99,28 @@ def admin():
     for u in user_data:
         decrypted_users.append({
             "user_id":u.user_id,
-            
             "username":u.username,
             "full_name":decrypt_content(u.full_name),
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id,
-            "user_id":u.user_id
-
-            
+            "user_email":u.user_email,
+            "division":u.division,
+            "user_section":u.user_section,
+            "role_id":u.role_id,
+            "theme_id":u.theme_id,
+            "login_status":u.login_status,
+            "cur_login":u.cur_login,
+            "last_login":u.last_login,
+            "last_logout":u.last_logout,
+            "user_notes":u.user_notes,
+            "msg_sent":u.msg_sent,
+            "credit_used":u.credit_used,
+            "created_by":u.created_by,
+            "created_on":u.created_on,
+            "updated_by":u.updated_by,
+            "updated_on":u.updated_on,
+            "created_at":u.created_at,
+            "updated_at":u.updated_at,
+            "role":u.role,
+            "theme":u.theme  
         })
         
         
@@ -136,7 +140,7 @@ def admin():
     return render_template('admin_modals/admin.html',
                            role_data=role_data,
                            total_role=total_role,
-                           user_data=user_data,
+                           user_data=decrypted_users,
                            total_user=total_user,
                            itexmo_data=itexmo_data,
                            total_itexmo_data=total_itexmo_data,
