@@ -95,6 +95,31 @@ def admin():
     total_login_data = len(login_data)
     
     user_data = User_v1.get_all()
+    decrypted_users = []
+    for u in user_data:
+        decrypted_users.append({
+            "user_id":u.user_id,
+            
+            "username":u.username,
+            "full_name":decrypt_content(u.full_name),
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id,
+            "user_id":u.user_id
+
+            
+        })
+        
+        
     total_user = len(user_data)
     
     role_data = Roles.get_all()

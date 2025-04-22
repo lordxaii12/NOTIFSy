@@ -23,6 +23,8 @@ def add_user():
             flash('Full Name already exists', 'error')
             return None
     role_id = request.form.get('role_id')
+    division = request.form.get('division')
+    user_section =  request.form.get('section')
     
     theme_id = 1
     credit_used = 0
@@ -33,9 +35,11 @@ def add_user():
     created_on = get_manila_time()
 
     new_user = User_v1(
-        username=encrypt_content(username),
+        username=username,
         full_name=encrypt_content(full_name),
         role_id=role_id,
+        division=division,
+        user_section=user_section,
         theme_id=theme_id,
         credit_used=credit_used,
         login_status=login_status,
