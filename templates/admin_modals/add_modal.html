@@ -173,7 +173,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
-                <form>
+                <form action="{{ url_for('notifs.register_user') }}" method="POST">
                     <div class="row">
                         <div class="col mb-3">
                             <label for="full_name" class="form-label">Name</label>
@@ -213,8 +213,39 @@
                     </div>
                    
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--USER DIRECTORY-->
+<div class="modal fade" id="userDirectoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="userDirectoryModallabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+            <div class="modal-header {{user.theme.theme_font}}">
+                <h5 class="modal-title" id="userDirectoryModallabel">FOX-Users</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="directory-content {{user.theme.theme_font}}">
+                    <input type="text" placeholder="Search..." class="user_search-bar" id="user_searchBar">
+                    <div class="table-responsive scrollable-modal-body">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userdirectoryTable">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

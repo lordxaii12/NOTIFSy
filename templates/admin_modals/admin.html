@@ -250,9 +250,9 @@
             {% include "admin_modals/division_modal.html" %}
             {% include "admin_modals/logs_modal.html" %}
             {% include "admin_modals/add_modal.html" %}
-            {% include "admin_modals/sample.html" %}
 
             {% block scripts %}
+                <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
             {% endblock %}
 
         {% endblock %}
