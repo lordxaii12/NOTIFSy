@@ -9,43 +9,45 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}} ">
-                <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Host</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        {% for data in hrpears_data%}
-                        <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{data.hrpears_name }}</td>
-                            <td>{{data.hrpears_host}}</td>
-                            <td>
-                                <button class="hris-log-btn btn p-0 m-0 " data-log-id="{{ data.hrpears_id }}">
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
-                                </button>
-                                |
-                                <button class="edit_hris-btn btn p-0 m-0 "
-                                data-hrid="{{ data.hrpears_id }}"
-                                data-hrname="{{ data.hrpears_name }}"
-                                data-host ="{{ data.hrpears_host }}"
-                                data-root ="{{ data.hrpears_root }}"
-                                data-user ="{{ data.hrpears_user }}"
-                                data-password ="{{ data.hrpears_password }}"
-                                data-db ="{{ data.hrpears_dbname }}"
-                                data-table ="{{ data.hrpears_table }}"
-                                >
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="table-responsive scrollable-modal-body">
+                    <table class="table table-striped table-hover ">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="th_4">#</th>
+                                <th class="th_2">Name</th>
+                                <th>Host</th>
+                                <th class="th_3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            {% for data in hrpears_data%}
+                            <tr>
+                                <td class="th_4">{{ loop.index }}</td>
+                                <td class="th_2">{{data.hrpears_name }}</td>
+                                <td>{{data.hrpears_host}}</td>
+                                <td class="th_3">
+                                    <button class="hris-log-btn btn p-0 m-0 " data-log-id="{{ data.hrpears_id }}">
+                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                    </button>
+                                    |
+                                    <button class="edit_hris-btn btn p-0 m-0 "
+                                    data-hrid="{{ data.hrpears_id }}"
+                                    data-hrname="{{ data.hrpears_name }}"
+                                    data-host ="{{ data.hrpears_host }}"
+                                    data-root ="{{ data.hrpears_root }}"
+                                    data-user ="{{ data.hrpears_user }}"
+                                    data-password ="{{ data.hrpears_password }}"
+                                    data-db ="{{ data.hrpears_dbname }}"
+                                    data-table ="{{ data.hrpears_table }}"
+                                    >
+                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -54,7 +56,7 @@
 <!--EMAIL CREDENTIALS EDIT FORM MODAL-->
 <div class="modal fade" id="hris_edit" tabindex="-1" aria-labelledby="hris_editLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}} ">
                 <h5 class="modal-title" id="hris_editLabel">Edit HRPears Credentials</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -62,27 +64,42 @@
             <div class="modal-body {{user.theme.theme_font}} ">
                 <form method="POST" id="hris_editForm">
                     <input type="hidden" id="hrpears_id" name="hrpears_id">
-                    <label for="hrpears_name">Name</label>
-                    <input type="text" id="hrpears_name" name="hrpears_name" required>
-                    <label for="hrpears_host">Host</label>
-                    <input type="password" id="hrpears_host" name="hrpears_host" required>
-                    <label for="hrpears_root">Port</label>
-                    <input type="password" id="hrpears_root" name="hrpears_root" required>
-                    <div class="row-group">
-                        <div class="input-group">
-                            <label for="hrpears_user">User</label>
-                            <input type="text" id="hrpears_user" name="hrpears_user" required>
+                    <div class="col mb-3">
+                        <label class="form-label"  for="hrpears_name">Name</label>
+                        <input class="form-control" type="text" id="hrpears_name" name="hrpears_name" required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label"  for="hrpears_host">Host</label>
+                            <input class="form-control" type="password" id="hrpears_host" name="hrpears_host" required>
                         </div>
-                        <div class="input-group">
-                            <label for="hrpears_password">Password</label>
-                            <input type="password" id="hrpears_password" name="hrpears_password" required>
+                        <div class="col mb-3">
+                            <label class="form-label"  for="hrpears_root">Port</label>
+                            <input class="form-control" type="password" id="hrpears_root" name="hrpears_root" required>
                         </div>
                     </div>
-                    <label for="hrpears_dbname">DB Name</label>
-                    <input type="password" id="hrpears_dbname" name="hrpears_dbname" required>
-                    <label for="hrpears_table">Table Name</label>
-                    <input type="password" id="hrpears_table" name="hrpears_table" required>
-                    <button type="submit" class="submit-btn">Submit</button>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label"  for="hrpears_user">User</label>
+                            <input class="form-control" type="text" id="hrpears_user" name="hrpears_user" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label"  for="hrpears_password">Password</label>
+                            <input class="form-control" type="password" id="hrpears_password" name="hrpears_password" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label"  for="hrpears_dbname">DB Name</label>
+                            <input class="form-control" type="password" id="hrpears_dbname" name="hrpears_dbname" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label"  for="hrpears_table">Table Name</label>
+                            <input class="form-control" type="password" id="hrpears_table" name="hrpears_table" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
