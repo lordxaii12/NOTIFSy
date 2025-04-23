@@ -220,11 +220,6 @@
     gap: 10;
 }
 
-.sys_set{
-    height: 100vh;
-    overflow-y: auto !important;
-}
-
 .scrollable-modal-body {
     max-height: 60vh; /* adjust this to your desired height */
     overflow-y: auto;
