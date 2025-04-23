@@ -10,7 +10,7 @@ class User_logs(db.Model):
     __tablename__ = 'user_logs'
     
     log_id = db.Column(db.Integer,unique=True, primary_key=True, autoincrement=True)
-    user = db.Column(db.String(50), unique=False, nullable=True)
+    user = db.Column(db.String(200), unique=False, nullable=True)
     activity = db.Column(db.String(999), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
 

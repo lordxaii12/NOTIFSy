@@ -122,14 +122,7 @@ def admin():
             "role":u.role,
             "theme":u.theme  
         })
-    for index, u in enumerate(user_data):
-        try:
-            decrypted = decrypt_content(u.full_name)
-            print(f"{index}: ✅ {decrypted}")
-        except Exception as e:
-            print(f"{index}: ❌ ERROR decrypting - {e}")
-        
-        
+      
     total_user = len(user_data)
     
     role_data = Roles.get_all()
@@ -139,6 +132,14 @@ def admin():
     total_division = len(division_data)
     
     log_data = User_logs.get_all()
+    decrypted_logs = []
+    for logs in log_data:
+        decrypted_logs.append({
+            "log_id": logs.log_id,
+            "user": decrypt_content(logs.user),
+            "activity": logs.activity,
+            "created_on": logs.created_on     
+        })
     total_log = len(log_data)
     
     sys_settings_data = SysSettings.get_by_id(1)
@@ -158,7 +159,7 @@ def admin():
                            total_login_data=total_login_data,
                            division_data=division_data,
                            total_division=total_division,
-                           log_data=log_data,
+                           log_data=decrypted_logs,
                            total_log=total_log,
                            sys_settings_data=sys_settings_data)
 #===========================================================================================================>

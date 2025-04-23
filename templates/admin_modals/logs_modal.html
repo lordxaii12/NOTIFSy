@@ -9,36 +9,38 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}} ">
-                <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>User</th>
-                            <th>Activity</th>
-                            <th>Date</th>
-                            {% if user.is_authenticated and user.role_id ==1 %}
-                                <th>Actions</th>
-                            {% endif %}
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        {% for logs in log_data%}
-                        <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{logs.user }}</td>
-                            <td>{{logs.activity}}</td>
-                            <td>{{logs.created_on}}</td>
-                            {% if user.is_authenticated and user.role_id ==1 %}
-                                <td>
-                                    <button class="delete-log-btn btn p-0 m-0" data-log-id="{{ logs.log_id }}">
-                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
-                                    </button>
-                                </td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="table-responsive scrollable-modal-body">
+                    <table class="table table-striped table-hover ">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User</th>
+                                <th>Activity</th>
+                                <th>Date</th>
+                                {% if user.is_authenticated and user.role_id ==1 %}
+                                    <th>Actions</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            {% for logs in log_data%}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{logs.user}}</td>
+                                <td>{{logs.activity}}</td>
+                                <td>{{logs.created_on}}</td>
+                                {% if user.is_authenticated and user.role_id ==1 %}
+                                    <td>
+                                        <button class="delete-log-btn btn p-0 m-0" data-log-id="{{ logs.log_id }}">
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                        </button>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
