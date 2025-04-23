@@ -3,32 +3,43 @@
 <!--ADD ITEXMO CREDENTIALS-->
 <div class="modal fade" id="itextMoModal" tabindex="-1" aria-labelledby="itextMoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
-                <h2>ITEXMO API <br>  Credentials</h2>
-                <button type="button" class="btn-close close-btn {{user.theme.theme_font}}" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h2 class="modal-title">ITEXMO API <br>  Credentials</h2>
+                <button type="button" class="btn-close {{user.theme.theme_font}}" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
                 <form action="{{ url_for('notifs.register_itexmo') }}" method="POST">
-                    <label for="itexmo_name">Api Name</label>
-                    <input type="text" id="itexmo_name" name="itexmo_name" required>
-                    <label for="itexmo_url">URL</label>
-                    <input type="text" id="itexmo_url" name="itexmo_url" required>
-                    <label for="itexmo_email">Email</label>
-                    <input type="email" id="itexmo_email" name="itexmo_email" required>
-                    <div class="row-group">
-                        <div class="input-group content">
-                            <label for="itexmo_password">Password</label>
-                            <input type="password" id="itexmo_password" name="itexmo_password" required>
+                    <div class="col mb-3">
+                        <label class="form-label" for="itexmo_name">Api Name</label>
+                        <input class="form-control" type="text" id="itexmo_name" name="itexmo_name" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label" for="itexmo_url">URL</label>
+                        <input class="form-control" type="text" id="itexmo_url" name="itexmo_url" required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="itexmo_email">Email</label>
+                            <input class="form-control" type="email" id="itexmo_email" name="itexmo_email" required>
                         </div>
-                        <div class="input-group content">
-                            <label for="itexmo_apicode">API Code</label>
-                            <input type="text" id="itexmo_apicode" name="itexmo_apicode" required>
+                        <div class="col mb-3">
+                            <label class="form-label" for="itexmo_password">Password</label>
+                            <input class="form-control" type="password" id="itexmo_password" name="itexmo_password" required>
                         </div>
                     </div>
-                    <label for="itexmo_contenttype">Content-Type</label>
-                    <input type="text" id="itexmo_contenttype" name="itexmo_contenttype" required>
-                    <button type="submit" class="submit-btn">Submit</button>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="itexmo_apicode">API Code</label>
+                            <input class="form-control" type="text" id="itexmo_apicode" name="itexmo_apicode" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="itexmo_contenttype">Content-Type</label>
+                            <input class="form-control" type="text" id="itexmo_contenttype" name="itexmo_contenttype" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -38,22 +49,35 @@
 <!--ADD EMAIL CREDENTIALS-->
 <div class="modal fade" id="emailCredsModal" tabindex="-1" aria-labelledby="emailCredsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
                 <h2>Email Credentials</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
                 <form action="{{ url_for('notifs.register_email_api') }}" method="POST">
-                    <label for="ecreds_name">Name</label>
-                    <input type="text" id="ecreds_name" name="ecreds_name" required>
-                    <label for="ecreds_email">Email</label>
-                    <input type="email" id="ecreds_email" name="ecreds_email" required>
-                    <label for="ecreds_sender">Sender</label>
-                    <input type="text" id="ecreds_sender" name="ecreds_sender" required>
-                    <label for="ecreds_password">Password</label>
-                    <input type="password" id="ecreds_password" name="ecreds_password" required>
-                    <button type="submit" class="submit-btn">Submit</button>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="ecreds_name">Name</label>
+                            <input class="form-control" type="text" id="ecreds_name" name="ecreds_name" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="ecreds_email">Email</label>
+                            <input class="form-control" type="email" id="ecreds_email" name="ecreds_email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="ecreds_sender">Sender</label>
+                            <input class="form-control" type="text" id="ecreds_sender" name="ecreds_sender" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="ecreds_password">Password</label>
+                            <input class="form-control" type="password" id="ecreds_password" name="ecreds_password" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -63,34 +87,49 @@
 <!--ADD HRIS CREDENTIALS-->
 <div class="modal fade" id="pearsCredsModal" tabindex="-1" aria-labelledby="pearsCredsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
                 <h2>HRPears API Credentials</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
                 <form action="{{ url_for('notifs.register_hrpears_api') }}" method="POST">
-                    <label for="hrpears_name">Name</label>
-                    <input type="text" id="hrpears_name" name="hrpears_name" required>
-                    <label for="hrpears_host">Host</label>
-                    <input type="text" id="hrpears_host" name="hrpears_host" required>
-                    <label for="hrpears_root">Port</label>
-                    <input type="text" id="hrpears_root" name="hrpears_root" required>
-                    <div class="row-group">
-                        <div class="input-group">
-                            <label for="hrpears_user">User</label>
-                            <input type="text" id="hrpears_user" name="hrpears_user" required>
+                    <div class="col mb-3">
+                        <label class="form-label" for="hrpears_name">Name</label>
+                        <input class="form-control" type="text" id="hrpears_name" name="hrpears_name" required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="hrpears_host">Host</label>
+                            <input class="form-control" type="text" id="hrpears_host" name="hrpears_host" required>
                         </div>
-                        <div class="input-group">
-                            <label for="hrpears_password">Password</label>
-                            <input type="password" id="hrpears_password" name="hrpears_password" required>
+                        <div class="col mb-3">
+                            <label class="form-label" for="hrpears_root">Port</label>
+                            <input class="form-control" type="text" id="hrpears_root" name="hrpears_root" required>
                         </div>
                     </div>
-                    <label for="hrpears_dbname">DB Name</label>
-                    <input type="text" id="hrpears_dbname" name="hrpears_dbname" required>
-                    <label for="hrpears_table">Table Name</label>
-                    <input type="text" id="hrpears_table" name="hrpears_table" required>
-                    <button type="submit" class="submit-btn">Submit</button>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="hrpears_user">User</label>
+                            <input class="form-control" type="text" id="hrpears_user" name="hrpears_user" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="hrpears_password">Password</label>
+                            <input class="form-control" type="password" id="hrpears_password" name="hrpears_password" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="hrpears_dbname">DB Name</label>
+                            <input class="form-control" type="text" id="hrpears_dbname" name="hrpears_dbname" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="hrpears_table">Table Name</label>
+                            <input class="form-control" type="text" id="hrpears_table" name="hrpears_table" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -100,22 +139,33 @@
 <!--ADD LOGIN API CREDENTIALS-->
 <div class="modal fade" id="loginCredsModal" tabindex="-1" aria-labelledby="loginCredsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
                 <h2>Login API Credentials</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
                 <form action="{{ url_for('notifs.register_login_api') }}" method="POST">
-                    <label for="login_api_name">Name</label>
-                    <input type="text" id="login_api_name" name="login_api_name" required>
-                    <label for="login_api_url">URL</label>
-                    <input type="text" id="login_api_url" name="login_api_url" required>
-                    <label for="login_api_token">Token</label>
-                    <input type="text" id="login_api_token" name="login_api_token" required>
-                    <label for="login_api_content_type">Content-Type</label>
-                    <input type="text" id="login_api_content_type" name="login_api_content_type" required>
-                    <button type="submit" class="submit-btn">Submit</button>
+                    <div class="col mb-3">
+                        <label class="form-label" for="login_api_name">Name</label>
+                        <input class="form-control" type="text" id="login_api_name" name="login_api_name" required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="login_api_url">URL</label>
+                            <input class="form-control" type="text" id="login_api_url" name="login_api_url" required>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="login_api_token">Token</label>
+                            <input class="form-control" type="text" id="login_api_token" name="login_api_token" required>
+                        </div>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label" for="login_api_content_type">Content-Type</label>
+                        <input class="form-control" type="text" id="login_api_content_type" name="login_api_content_type" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -125,18 +175,23 @@
 <!--ADD USER ROLES/TYPES-->
 <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
                 <h2>Add User Type</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
                 <form action="{{ url_for('notifs.register_role') }}" method="POST">
-                    <label for="role_name">User Type</label>
-                    <input type="text" id="role_name" name="role_name" required>
-                    <label for="role_description">Description</label>
-                    <input type="text" id="role_description" name="role_description" required>
-                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                    <div class="col mb-3">
+                        <label class="form-label" for="role_name">User Type</label>
+                        <input class="form-control" type="text" id="role_name" name="role_name" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label" for="role_description">Description</label>
+                        <input class="form-control" type="text" id="role_description" name="role_description" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -146,18 +201,23 @@
 <!--ADD USER DIVISIONS-->
 <div class="modal fade" id="addDivisionModal" tabindex="-1" aria-labelledby="addDivisionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
                 <h2>Add User Division</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
                 <form action="{{ url_for('notifs.register_division') }}" method="POST">
-                    <label for="division_name">Division</label>
-                    <input type="text" id="division_name" name="division_name" required>
-                    <label for="division_description">Description</label>
-                    <input type="text" id="division_description" name="division_description" required>
-                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                    <div class="col mb-3">
+                        <label class="form-label" for="division_name">Division</label>
+                        <input class="form-control" type="text" id="division_name" name="division_name" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label" for="division_description">Description</label>
+                        <input class="form-control" type="text" id="division_description" name="division_description" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>

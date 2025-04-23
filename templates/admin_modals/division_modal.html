@@ -9,38 +9,40 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
-                <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Division</th>
-                            <th>Description</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        {% for divisions in division_data%}
-                        <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{divisions.division_name }}</td>
-                            <td>{{divisions.division_description}}</td>
-                            <td>
-                                <button class="division-log-btn btn p-0 m-0 " data-log-id="{{ divisions.division_id }}">
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
-                                </button>
-                                |
-                                <button class="edit_division-btn btn p-0 m-0 "
-                                data-did="{{ divisions.division_id }}"
-                                data-dname="{{ divisions.division_name }}"
-                                data-ddesc ="{{ divisions.division_description }}"
-                                >
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="table-responsive scrollable-modal-body">
+                    <table class="table table-striped table-hover ">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="th_4">#</th>
+                                <th class="th_2">Division</th>
+                                <th>Description</th>
+                                <th class="th_3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            {% for divisions in division_data%}
+                            <tr>
+                                <td class="th_4">{{ loop.index }}</td>
+                                <td class="th_2">{{divisions.division_name }}</td>
+                                <td>{{divisions.division_description}}</td>
+                                <td class="th_3">
+                                    <button class="division-log-btn btn p-0 m-0 " data-log-id="{{ divisions.division_id }}">
+                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                    </button>
+                                    |
+                                    <button class="edit_division-btn btn p-0 m-0 "
+                                    data-did="{{ divisions.division_id }}"
+                                    data-dname="{{ divisions.division_name }}"
+                                    data-ddesc ="{{ divisions.division_description }}"
+                                    >
+                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -49,7 +51,7 @@
 <!--DIVISION EDIT FORM MODAL-->
 <div class="modal fade" id="division_edit" tabindex="-1" aria-labelledby="division_editLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
                 <h5 class="modal-title" id="division_editLabel">Edit User Divisions</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -57,11 +59,16 @@
             <div class="modal-body {{user.theme.theme_font}}">
                 <form method="POST" id="division_editForm">
                     <input type="hidden" id="division_id" name="division_id">
-                    <label for="division_name">Division</label>
-                    <input type="text" id="division_name" name="division_name" required>
-                    <label for="division_description">Description</label>
-                    <input type="text" id="division_description" name="division_description" required>
-                    <button type="submit" class="btn submit-btn mt-3">Submit</button>
+                    <div class="col mb-3">
+                        <label class="form-label" for="division_name">Division</label>
+                        <input class="form-control" type="text" id="division_name" name="division_name" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label" for="division_description">Description</label>
+                        <input class="form-control" type="text" id="division_description" name="division_description" required>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>

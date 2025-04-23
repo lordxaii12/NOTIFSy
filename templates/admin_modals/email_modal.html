@@ -9,42 +9,44 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}} ">
-                <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Sender</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        {% for emails in email_data%}
-                        <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{emails.ecreds_name }}</td>
-                            <td>{{emails.ecreds_email}}</td>
-                            <td>{{emails.ecreds_sender}}</td>
-                            <td>
-                                <button class="email-log-btn btn p-0 m-0 " data-log-id="{{ emails.ecreds_id }}">
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
-                                </button>
-                                |
-                                <button class="edit_email-btn btn p-0 m-0 "
-                                data-emid="{{ emails.ecreds_id }}"
-                                data-name="{{ emails.ecreds_name }}"
-                                data-email="{{ emails.ecreds_email }}"
-                                data-sender ="{{ emails.ecreds_sender }}"
-                                data-password ="{{ emails.ecreds_password }}"
-                                >
-                                    <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
-                                </button>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="table-responsive scrollable-modal-body">
+                    <table class="table table-striped table-hover ">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="th_4">#</th>
+                                <th class="th_2">Name</th>
+                                <th >Email</th>
+                                <th class="th_2">Sender</th>
+                                <th class="th_3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            {% for emails in email_data%}
+                            <tr>
+                                <td class="th_4">{{loop.index }}</td>
+                                <td class="th_2">{{emails.ecreds_name }}</td>
+                                <td>{{emails.ecreds_email}}</td>
+                                <td class="th_2">{{emails.ecreds_sender}}</td>
+                                <td class="th_3">
+                                    <button class="email-log-btn btn p-0 m-0 " data-log-id="{{ emails.ecreds_id }}">
+                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                    </button>
+                                    |
+                                    <button class="edit_email-btn btn p-0 m-0 "
+                                    data-emid="{{ emails.ecreds_id }}"
+                                    data-name="{{ emails.ecreds_name }}"
+                                    data-email="{{ emails.ecreds_email }}"
+                                    data-sender ="{{ emails.ecreds_sender }}"
+                                    data-password ="{{ emails.ecreds_password }}"
+                                    >
+                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -53,7 +55,7 @@
 <!--EMAIL CREDENTIALS EDIT FORM MODAL-->
 <div class="modal fade" id="email_edit" tabindex="-1" aria-labelledby="email_editLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal_sm admin">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}} ">
                 <h5 class="modal-title" id="email_editLabel">Edit Email Credentials</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -61,15 +63,26 @@
             <div class="modal-body {{user.theme.theme_font}} ">
                 <form method="POST" id="email_editForm">
                     <input type="hidden" id="ecreds_id" name="ecreds_id">
-                    <label for="ecreds_name">Name</label>
-                    <input type="text" id="ecreds_name" name="ecreds_name" required>
-                    <label for="ecreds_email">Email</label>
-                    <input type="email" id="ecreds_email" name="ecreds_email"required>
-                    <label for="ecreds_sender">Sender</label>
-                    <input type="text" id="ecreds_sender" name="ecreds_sender"required>
-                    <label for="ecreds_password">Password</label>
-                    <input type="password" id="ecreds_password" name="ecreds_password" required>
-                    <button type="submit" class="submit-btn">Submit</button>
+                    <div class="col mb-3">
+                        <label class="form-label" for="ecreds_name">Name</label>
+                        <input class="form-control" type="text" id="ecreds_name" name="ecreds_name" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label" for="ecreds_email">Email</label>
+                        <input class="form-control" type="email" id="ecreds_email" name="ecreds_email"required>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="ecreds_sender">Sender</label>
+                            <input class="form-control" type="text" id="ecreds_sender" name="ecreds_sender"required>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="ecreds_password">Password</label>
+                            <input class="form-control"  type="password" id="ecreds_password" name="ecreds_password" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>

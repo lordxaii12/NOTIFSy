@@ -140,23 +140,8 @@
 /*
 /*
 /*
-===============================================================================================================================>
+=================================================================================================================================>*/
 /*ADMIN MODALS ==================================================================================================================>*/
-    /*ADMIN-MODALS DATA TABLE*/
-/* .admin-modal .modal-body {
-    overflow-y: auto;
-    max-height: 80vh; 
-    padding: 0;
-} */
-    /*ADMIN-MODALS EDIT DATA*/
-/* .admin-modal_sm .modal-body {
-    overflow-y: auto;
-    max-height: 80vh; 
-} */
-    /*ADMIN-MODALS BACKDROP*/
-/* .admin-modal .modal-backdrop {
-    z-index: 1045;
-} */
     /*ADMIN-MODALS ADD - DELETE ICONS*/
 .admin-modal .table_icons{
     width: 20px;
