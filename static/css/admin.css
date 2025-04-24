@@ -87,7 +87,7 @@
 }
 .admin .div_col:hover{
     background: linear-gradient(120deg, #c6c2c5d4 20%, #c8cdcd9b 50%, #b7b6b9a2 80%);
-    border: 2px solid black;
+    border: 3px solid rgb(25, 0, 249);
     color: #2a0308e4 
 }
     /*SECOND ROW ADD DATA CONTAINER*/

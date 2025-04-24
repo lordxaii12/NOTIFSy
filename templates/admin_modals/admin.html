@@ -27,15 +27,13 @@
                             {% endif %}
                         </div>
                         <div class="row first_row">
-                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}} ">
+                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}}"
+                                {% if user.is_authenticated and user.role_id == 1 %} 
+                                data-bs-toggle="modal" data-bs-target="#itextmo_display"
+                                {% endif %}>
                                 <div class="top_line ">
                                     <div>
-                                        <h4>
-                                            <span
-                                            {% if user.is_authenticated and user.role_id == 1 %}
-                                                data-bs-toggle="modal" data-bs-target="#itextmo_display"
-                                            {% endif %}>
-                                            ({{total_itexmo_data}}) ITEXMo API
+                                        <h4>({{total_itexmo_data}}) ITEXMo API
                                             </span>
                                             <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/pages/text_small.svg') }}" alt="text">
                                         </h4>
@@ -51,15 +49,13 @@
                                 </div>
                                 
                             </div>
-                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}} ">
+                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}}"
+                                {% if user.is_authenticated and user.role_id == 1 %}
+                                data-bs-toggle="modal" data-bs-target="#email_display"
+                                {% endif %}>
                                 <div class="top_line">
                                     <div>
-                                        <h4>
-                                            <span
-                                            {% if user.is_authenticated and user.role_id == 1 %}
-                                                data-bs-toggle="modal" data-bs-target="#email_display"
-                                            {% endif %}>
-                                            ({{total_email_data}}) Email API
+                                        <h4>({{total_email_data}}) Email API
                                             </span>
                                             <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/pages/email_small.svg') }}" alt="email">
                                         </h4>
@@ -74,15 +70,13 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}} ">
+                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}}"
+                                {% if user.is_authenticated and user.role_id == 1 %}
+                                    data-bs-toggle="modal" data-bs-target="#hris_display"
+                                {% endif %}>
                                 <div class="top_line">
                                     <div>
-                                        <h4>
-                                            <span
-                                            {% if user.is_authenticated and user.role_id == 1 %}
-                                                data-bs-toggle="modal" data-bs-target="#hris_display"
-                                            {% endif %}>
-                                            ({{total_hrpears_data}}) H.R. Pears API
+                                        <h4>({{total_hrpears_data}}) H.R. Pears API
                                             </span>
                                             <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/pages/hrpears_small.svg') }}" alt="hrpears">
                                         </h4>
@@ -97,15 +91,13 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}} ">
+                            <div class="col api-col {{user.theme.theme_bg}} {{user.theme.theme_font}}"
+                                {% if user.is_authenticated and user.role_id == 1 %}
+                                    data-bs-toggle="modal" data-bs-target="#login_display"
+                                {% endif %}>
                                 <div class="top_line ">
                                     <div>
-                                        <h4>
-                                            <span
-                                            {% if user.is_authenticated and user.role_id == 1 %}
-                                                data-bs-toggle="modal" data-bs-target="#login_display"
-                                            {% endif %}>
-                                            ({{total_login_data}}) Log-in API
+                                        <h4>({{total_login_data}}) Log-in API
                                             </span>
                                             <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/pages/login_small.svg') }}" alt="login">
                                         </h4>
@@ -122,7 +114,7 @@
                             </div>
                         </div>
                         <div class="row second_row">
-                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}"  data-bs-toggle="modal" data-bs-target="#users_display">
                                 <div class="row add_container">
                                     {% if user.is_authenticated and user.role_id in [1, 3] %}
                                     <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#addUserModal">
@@ -134,12 +126,7 @@
                                     <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/users.svg') }}" alt="roles">
                                 </div>
                                 <div class="data_view">
-                                    <h4>
-                                        <span
-                                            {% if user.is_authenticated and user.role_id in [1,3] %}
-                                                data-bs-toggle="modal" data-bs-target="#users_display"
-                                            {% endif %}>
-                                            ({{total_user}})
+                                    <h4>({{total_user}})
                                             <u>
                                                 Users
                                                 <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/data_search.svg') }}" alt="text">
@@ -152,7 +139,7 @@
                                 </div>
                             </div>
 
-                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}" data-bs-toggle="modal" data-bs-target="#usertype_display">
                                 <div class="row add_container">
                                     <button class="btn add_btn"
                                     {% if user.is_authenticated and user.role_id == 1 %}
@@ -166,12 +153,7 @@
                                     <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/roles.svg') }}" alt="roles">
                                 </div>
                                 <div class="data_view">
-                                    <h4>
-                                        <span
-                                            {% if user.is_authenticated and user.role_id in [1,3] %}
-                                                data-bs-toggle="modal" data-bs-target="#usertype_display"
-                                            {% endif %}>
-                                            ({{total_role}})
+                                    <h4>({{total_role}})
                                             <u>
                                                 User Types
                                                 <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/data_search.svg') }}" alt="text">
@@ -184,7 +166,7 @@
                                 </div>
                             </div>
 
-                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}" data-bs-toggle="modal" data-bs-target="#division_display">
                                 <div class="row add_container">
                                     
                                     <button class="btn add_btn"
@@ -199,12 +181,7 @@
                                     <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/divisions.svg') }}" alt="roles">
                                 </div>
                                 <div class="data_view">
-                                    <h4>
-                                        <span
-                                            {% if user.is_authenticated and user.role_id in [1,3] %}
-                                                data-bs-toggle="modal" data-bs-target="#division_display"
-                                            {% endif %}>
-                                            ({{total_division}})
+                                    <h4>({{total_division}})
                                             <u>
                                                 Programs
                                                 <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/data_search.svg') }}" alt="text">
@@ -217,16 +194,14 @@
                                 </div>
                             </div>
                             
-                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
+                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}" data-bs-toggle="modal" data-bs-target="#logs_display">
                                 <div class="row add_container add_btn">
                                 </div>
                                 <div class="image_container">
                                     <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/logs.svg') }}" alt="roles">
                                 </div>
                                 <div class="data_view">
-                                    <h4>
-                                        <span data-bs-toggle="modal" data-bs-target="#logs_display">
-                                            ({{total_log}})
+                                    <h4>({{total_log}})
                                             <u>
                                                 User Logs
                                                 <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/data_search.svg') }}" alt="text">

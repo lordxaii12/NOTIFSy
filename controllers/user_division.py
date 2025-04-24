@@ -19,10 +19,12 @@ def add_division():
     division_description = request.form.get('division_description')
     created_by = current_user.full_name
     created_on = get_manila_time()
+    division_credits = 0
 
     new_division = Divisions(
         division_name=division_name,
         division_description=division_description,
+        division_credits=division_credits,
         created_by=created_by,
         created_on=created_on
     )
