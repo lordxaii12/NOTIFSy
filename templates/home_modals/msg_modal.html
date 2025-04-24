@@ -12,7 +12,7 @@
                 <form action="{{ url_for('notifs.send_single_msg') }}" method="POST" id="send_single_msg">
                     <div class="form-row">
                         <input type="hidden" id="sender" name="sender" 
-                            value="{% set name_parts = user.full_name.split(' ') %}{{ ' '.join(name_parts[:2]).title() if name_parts else '' }}" required>
+                            value="{{first_name}}" required>
 
                         <div class="form-group">
                             <label for="sending_option">Send Via <span class="required">(required)</span></label>
@@ -86,7 +86,7 @@
                 <form action="{{ url_for('notifs.send_multi_msg') }}" method="POST" id="send_multi_msg">
                     <div class="form-row">
                         <input type="hidden" id="msender" name="msender" 
-                            value="{% set name_parts = user.full_name.split(' ') %}{{ ' '.join(name_parts[:2]).title() if name_parts else '' }}" required>
+                            value="{{first_name}}" required>
                         <div class="form-group">
                             <label for="msending_option">Send Via <span class="required">(required)</span></label>
                             <select id="msending_option" name="msending_option"  required>
@@ -170,7 +170,7 @@
                 <form action="{{ url_for('notifs.send_upload_msg') }}" method="POST" id="send_upload_msg" enctype="multipart/form-data">
                     <div class="form-row">
                         <input type="hidden" id="usender" name="usender" 
-                            value="{% set name_parts = user.full_name.split(' ') %}{{ ' '.join(name_parts[:2]).title() if name_parts else '' }}" required>
+                            value="{{first_name}}" required>
                         <div class="form-group">
                             <label>Send Via <span class="required">(required)</span></label>
                             <select id="usending_option" name="usending_option"  required>

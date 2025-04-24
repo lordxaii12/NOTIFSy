@@ -833,6 +833,8 @@ def home():
     first_name = name_parts[0].title()
     last_name = name_parts[1].title() if len(name_parts) > 1 and '.' not in name_parts[1] else ''
     
+    print(first_name)
+    
     msg_data = Msg_log.query.filter_by(msg_sender=current_user.full_name).all()
     emails = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="email").all()
     smss = Msg_log.query.filter_by(msg_sender=current_user.full_name, msg_type="sms").all()

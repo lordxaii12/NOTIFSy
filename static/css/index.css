@@ -101,6 +101,7 @@
     height: 180px;
     gap: 50px;
     border: 2px solid black;
+    cursor: pointer;
 }
 
 .table-col {
@@ -118,6 +119,7 @@
 
 .service-col:hover{
     background: linear-gradient(120deg, #c6c2c5d4 20%, #c8cdcd9b 50%, #b7b6b9a2 80%);
+    border: 5px solid rgb(17, 0, 255);
 }
 
 .service-content {

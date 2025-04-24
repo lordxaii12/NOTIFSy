@@ -96,7 +96,7 @@
                     <div class="row second_row">
                         <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                             <div class="row service-row">
-                                <div class="col service-col">
+                                <div class="col service-col" data-bs-toggle="modal" data-bs-target="#singleMsgModal">
                                     <div class="service-content">
                                         <div class="service-info">
                                             <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
@@ -109,12 +109,9 @@
                                             <h5>{{ to_block_text("Single") }} Contact</h5>
                                         </div>
                                     </div>
-                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}"
-                                    alt="roles"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#singleMsgModal">
+                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}">
                                 </div>
-                                <div class="col service-col">
+                                <div class="col service-col" data-bs-toggle="modal" data-bs-target="#multiMsgModal">
                                     <div class="service-content">
                                         <div class="service-info">
                                             <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
@@ -127,14 +124,11 @@
                                             <h5>{{ to_block_text("Multi") }} Contacts</h5>
                                         </div>
                                     </div>
-                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_multiple.svg') }}" 
-                                    alt="roles"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#multiMsgModal">
+                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_multiple.svg') }}" alt="roles">
                                 </div>
                             </div>
                             <div class="row service-row">
-                                <div class="col service-col">
+                                <div class="col service-col" data-bs-toggle="modal" data-bs-target="#uploadMsgModal">
                                     <div class="service-content">
                                         <div class="service-info">
                                             <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
@@ -147,12 +141,9 @@
                                             <h5>{{ to_block_text("Upload") }} Contacts</h5>
                                         </div>
                                     </div>
-                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_upload.svg') }}"
-                                    alt="upload_msg"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#uploadMsgModal">
+                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_upload.svg') }}" alt="upload_msg">
                                 </div>
-                                <div class="col service-col">
+                                <div class="col service-col" data-bs-toggle="modal" data-bs-target="#add_msg_temp_display">
                                     <div class="service-content">
                                         <div class="service-info">
                                             <button class="btn add_btn"
@@ -166,10 +157,7 @@
                                             <h5>{{ to_block_text("Message") }} Templates</h5>
                                         </div>
                                     </div>
-                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/message_templates.svg') }}" alt="message_temps"
-                                    alt="upload_msg"
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#add_msg_temp_display">
+                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/message_templates.svg') }}" alt="message_temps"alt="upload_msg">
                                 </div>
                             </div>
                         </div>
@@ -186,7 +174,7 @@
                                                 data-bs-content="Open to view User sms transactions. Just click the message icon.">
                                         </div>
                                         <div class="service-title">
-                                            <h5>{{ to_block_text("sent") }} Messages</h5>
+                                            <h5>{{ to_block_text("SMS") }} Logs</h5>
                                         </div>
                                     </div>
                                     <div class="msg-wrapper">
@@ -209,7 +197,7 @@
                                                 data-bs-content="Open to view User email transactions. Just click the email icon.">
                                         </div>
                                         <div class="service-title">
-                                            <h5>{{ to_block_text("email") }} Messages</h5>
+                                            <h5>{{ to_block_text("Email") }} Logs</h5>
                                         </div>
                                     </div>
                                     <div class="msg-wrapper">
@@ -248,7 +236,6 @@
                 </div>
             </div>
         </div>
-
         {% include "global_modals/theme.html" %}
         {% include "home_modals/msg_modal.html" %}
         {% include "home_modals/directory.html" %}
