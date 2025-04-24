@@ -63,8 +63,9 @@ def get_login_data():
             for row in raw_data:
                 last_name = row["last_name"].upper() if row["last_name"] else ""
                 first_name = row["first_name"].upper() if row["first_name"] else ""
-                middle_name = row["middle_name"].upper() if row["middle_name"] else ""
-                formatted_name = f"{last_name}, {first_name} {middle_name}".strip()
+                middle_name = row["middle_name"]
+                middle_initial = middle_name[0].upper() + '.' if middle_name else ""
+                formatted_name = f"{first_name} {middle_initial} {last_name}".strip()
                 formatted_division = row["division_name"].upper() if row["division_name"] else ""
                 formatted_section =row["section_name"].upper() if row["section_name"] else ""
                 formatted_username = row["username"] if row["username"] else ""
