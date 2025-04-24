@@ -203,13 +203,13 @@
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
-                <h2>Add User Division</h2>
+                <h2>Add Fund Program</h2>
                 <button type="button" class="btn-close close-btn" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
                 <form action="{{ url_for('notifs.register_division') }}" method="POST">
                     <div class="col mb-3">
-                        <label class="form-label" for="division_name">Division</label>
+                        <label class="form-label" for="division_name">Program</label>
                         <input class="form-control" type="text" id="division_name" name="division_name" required>
                     </div>
                     <div class="col mb-3">

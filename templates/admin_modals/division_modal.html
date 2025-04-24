@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}  admin-modal admin">
             <div class="modal-header {{user.theme.theme_font}}">
-                <h1 class="modal-title fs-5" id="division_displayLabel">USER DIVISIONS</h1>
+                <h1 class="modal-title fs-5" id="division_displayLabel">FUNDED PROGRAMS</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
@@ -14,7 +14,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="th_4">#</th>
-                                <th class="th_2">Division</th>
+                                <th class="th_2">Program</th>
                                 <th>Description</th>
                                 <th class="th_3">Actions</th>
                             </tr>
@@ -53,14 +53,14 @@
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
-                <h5 class="modal-title" id="division_editLabel">Edit User Divisions</h5>
+                <h5 class="modal-title" id="division_editLabel">Edit Fund Program</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}}">
                 <form method="POST" id="division_editForm">
                     <input type="hidden" id="division_id" name="division_id">
                     <div class="col mb-3">
-                        <label class="form-label" for="division_name">Division</label>
+                        <label class="form-label" for="division_name">Program</label>
                         <input class="form-control" type="text" id="division_name" name="division_name" required>
                     </div>
                     <div class="col mb-3">
