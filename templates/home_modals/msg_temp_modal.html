@@ -8,47 +8,49 @@
                 <h1 class="modal-title fs-5" id="add_msg_temp_displayLabel">MESSAGE TEMPLATES</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <table class="table table-striped table-hover ">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Message</th>
-                            <th>Created by</th>
-                            <th>Created on</th>
-                            <th>Updated by</th>
-                            {% if user.is_authenticated and user.role_id in [1, 3] %}
-                                <th>Actions</th>
-                            {% endif %}
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        {% for msg_templates in msg_temp_data%}
-                        <tr>
-                            <td>{{msg_templates.msg_temp_name}}</td>
-                            <td>{{msg_templates.msg_temp_description}}</td>
-                            <td>{{msg_templates.created_by}}</td>
-                            <td>{{msg_templates.created_on}}</td>
-                            <td>{{msg_templates.updated_by}} on [{{msg_templates.updated_on}}]</td>
-                            {% if user.is_authenticated and user.role_id in [1, 3] %}
-                                <td>
-                                    <button class="msg_temp-btn btn table_buttons" data-msgtemp-id="{{ msg_templates.msg_temp_id}}">
-                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
-                                    </button>
-                                    |
-                                    <button class="edit_msg_temp-btn btn table_buttons"
-                                    data-mtid="{{ msg_templates.msg_temp_id }}"
-                                    data-mtname="{{ msg_templates.msg_temp_name }}"
-                                    data-mtdesc ="{{ msg_templates.msg_temp_description }}"
-                                    >
-                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
-                                    </button>
-                                </td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="modal-body {{user.theme.theme_font}}">
+                <div class="table-responsive scrollable-modal-body">
+                    <table class="table table-striped table-hover ">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Message</th>
+                                <th class="th_3">Created by</th>
+                                <th>Created on</th>
+                                <th>Updated by</th>
+                                {% if user.is_authenticated and user.role_id in [1, 3] %}
+                                    <th class="th_5">Actions</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            {% for msg_templates in msg_temp_data%}
+                            <tr>
+                                <td>{{msg_templates.msg_temp_name}}</td>
+                                <td>{{msg_templates.msg_temp_description}}</td>
+                                <td class="th_3">{{msg_templates.created_by}}</td>
+                                <td>{{msg_templates.created_on}}</td>
+                                <td>{{msg_templates.updated_by}} on [{{msg_templates.updated_on}}]</td>
+                                {% if user.is_authenticated and user.role_id in [1, 3] %}
+                                    <td class="th_5">
+                                        <button class="msg_temp-btn btn table_buttons" data-msgtemp-id="{{ msg_templates.msg_temp_id}}">
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                        </button>
+                                        |
+                                        <button class="edit_msg_temp-btn btn table_buttons"
+                                        data-mtid="{{ msg_templates.msg_temp_id }}"
+                                        data-mtname="{{ msg_templates.msg_temp_name }}"
+                                        data-mtdesc ="{{ msg_templates.msg_temp_description }}"
+                                        >
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                        </button>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -57,7 +59,7 @@
 <!--MESSAGE TEMPLATES EDIT FORM MODAL-->
 <div class="modal fade" id="msg_temp_edit" tabindex="-1" aria-labelledby="msg_temp_editLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} add-msg-template">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header">
                 <h5 class="modal-title" id="msg_temp_editLabel">Edit Message Templates</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -65,13 +67,16 @@
             <div class="modal-body">
                 <form id="msgTemp_editForm" method="POST">
                     <input type="hidden" id="msg_temp_id" name="msg_temp_id">
-                    <label for="msg_temp_name">Template for:</label>
-                    <input type="text" id="msg_temp_name" name="msg_temp_name" required>
-
-                    <label for="msg_temp_description">Content:</label>
-                    <textarea id="msg_temp_description" name="msg_temp_description" required></textarea>
-
-                    <button type="submit" class="btn submit-template-btn mt-3">Submit</button>
+                    <div class="col mb-3">
+                        <label class="form-label"  for="msg_temp_name">Template for:</label>
+                        <input class="form-control" type="text" id="msg_temp_name" name="msg_temp_name" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label" for="msg_temp_description">Content:</label>
+                        <textarea id="msg_temp_description" name="msg_temp_description" required></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
@@ -81,20 +86,23 @@
 <!--ADD MESSAGE TEMPLATES-->
 <div class="modal fade" id="addMessageTemplates" tabindex="-1" aria-labelledby="addMessageTemplatesLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} add-msg-template">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header">
                 <h2 class="modal-title" id="addMessageTemplatesLabel">Add Message Template</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body ">
                 <form action="{{ url_for('notifs.register_msg_temp') }}" method="POST">
-                    <label for="msg_temp_name">Template for:</label>
-                    <input type="text" id="msg_temp_name" name="msg_temp_name" required>
-
-                    <label for="msg_temp_description">Content:</label>
-                    <textarea id="msg_temp_description" name="msg_temp_description" required></textarea>
-
-                    <button type="submit" class="btn submit-template-btn mt-3">Submit</button>
+                    <div class="col mb-3">
+                        <label class="form-label"  for="msg_temp_name">Template for:</label>
+                        <input class="form-control" type="text" id="msg_temp_name" name="msg_temp_name" required>
+                    </div>
+                    <div class="col mb-3">
+                        <label class="form-label"  for="msg_temp_description">Content:</label>
+                        <textarea id="msg_temp_description" name="msg_temp_description" required></textarea>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
