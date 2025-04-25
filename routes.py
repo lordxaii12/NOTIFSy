@@ -843,6 +843,7 @@ def home():
     
     theme_data = Theme.get_all()
     msg_temp_data = Msg_templates.get_all()
+    division_data = Divisions.get_all()
 
     return render_template("home_modals/index.html",
                            theme_data=theme_data,
@@ -852,6 +853,7 @@ def home():
                            sms_sent=sms_sent,
                            msg_temp_data=msg_temp_data,
                            msg_data=msg_data,
+                           division_data=division_data,
                            first_name=first_name,
                            last_name=last_name)
 #===========================================================================================================>

@@ -9,7 +9,7 @@ from utility.sys_utils import get_manila_time
 #===============================================================================================================================>
 #
 #================ ADD ==========================================================================================================>
-def add_msg_log(msg_tracker, msg_type, msg_recipient, msg_content, msg_status, msg_sent, msg_unsent, credit_used):
+def add_msg_log(msg_tracker, msg_type, msg_recipient, msg_content, msg_status, msg_division, msg_sent, msg_unsent, credit_used):
     
     msg_sender = current_user.full_name
     sent_on = get_manila_time()
@@ -25,6 +25,7 @@ def add_msg_log(msg_tracker, msg_type, msg_recipient, msg_content, msg_status, m
         msg_status=msg_status,
         
         msg_sender=msg_sender,
+        msg_division=msg_division,
         sent_on=sent_on,
         
         msg_sent=msg_sent_str,

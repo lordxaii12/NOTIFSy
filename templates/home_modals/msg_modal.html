@@ -50,6 +50,15 @@
                                 {% endfor %}
                             </select>
                         </div>
+                        <div class="form-group2">
+                            <label for="division">Division/Program <small>(Required)</small></label>
+                            <select id="sdvision" name="sdvision" required>
+                                <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
+                                {% for divisions in division_data %}
+                                    <option value="{{ divisions.division_name }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -126,6 +135,15 @@
                                 {% endfor %}
                             </select>
                         </div>
+                        <div class="form-group2">
+                            <label for="division">Division/Program <small>(Required)</small></label>
+                            <select id="mdvision" name="mdvision" required>
+                                <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
+                                {% for divisions in division_data %}
+                                    <option value="{{ divisions.division_name }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -195,6 +213,15 @@
                             </div>
                         </div>
                          <span class="form-icon" id="searchIcon">⏬</span>
+                        <div class="form-group">
+                            <label for="division">Division/Program <small>(Required)</small></label>
+                            <select id="udvision" name="udvision" required>
+                                <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
+                                {% for divisions in division_data %}
+                                    <option value="{{ divisions.division_name }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">

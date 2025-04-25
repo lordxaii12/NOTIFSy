@@ -12,7 +12,8 @@ class Msg_log(db.Model):
     msg_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     msg_tracker = db.Column(db.String(50), unique=True, nullable=False)
     msg_type = db.Column(db.String(50), unique=False, nullable=False)
-    msg_sender = db.Column(db.String(50), unique=False, nullable=False)
+    msg_sender = db.Column(db.String(200), unique=False, nullable=False)
+    msg_division = db.Column(db.String(50), unique=False, nullable=False)
     msg_recipient = db.Column(db.Text, unique=False, nullable=True)
     msg_content = db.Column(db.Text, unique=False, nullable=True)
     msg_status = db.Column(db.String(50), unique=False, nullable=True)
@@ -33,6 +34,7 @@ class Msg_log(db.Model):
             
             'msg_type': self.msg_type,
             'msg_sender': self.msg_sender,
+            'msg_division': self.msg_division,
             
             'msg_recipient': self.msg_recipient,
             'msg_content': self.msg_content,
