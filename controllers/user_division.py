@@ -63,7 +63,20 @@ def edit_division(division_id):
 
 #===============================================================================================================================>
 #
+#================ EDIT DIVISION CREDITS ========================================================================================>
+def edit_division_credit_used(division_id, division_credits):
+    division =Divisions.get_by_id(division_id)
+    division.division_credits = division_credits
+    try:
+        division.save()
+        return division
+    except Exception as e:
+        db.session.rollback()
+        return None
+#===============================================================================================================================>
+#
 #================ DELETE =======================================================================================================>
+
 def delete_division(division_id):
     division = Divisions.get_by_id(division_id)
     if not division:

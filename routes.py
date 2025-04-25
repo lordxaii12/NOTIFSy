@@ -37,7 +37,7 @@ from models.message_temp import Msg_templates
 from controllers.user_role import add_role, edit_role, delete_role
 from controllers.user import add_user, edit_user, delete_user, edit_credit_used, edit_user_notes
 from controllers.user_logs import add_user_logs, delete_user_logs
-from controllers.user_division import add_division, edit_division, delete_division
+from controllers.user_division import add_division, edit_division, delete_division, edit_division_credit_used
 from controllers.external_contacts import add_external, edit_external, delete_external
 from controllers.login_credentials import add_login_api, edit_login_api, delete_login_api
 from controllers.user_themes import add_theme, edit_theme, delete_theme
@@ -967,6 +967,7 @@ def send_single_msg():
     total_credit=0
     
     sender_div = current_user.division
+    division = request.form.get('sdvision')
 
     sender = request.form.get('sender')
     sending_option = request.form.get('sending_option')
