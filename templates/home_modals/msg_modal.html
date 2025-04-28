@@ -25,8 +25,12 @@
                         <div class="form-group">
                             <label for="recipient">Recipient <small>(one word only)</small></label>
                             <div class="input-icon">
-                                <span class="form-icon directory-btn">
-                                    📞
+                                <span class="form-icon directory-btn"
+                                    data-bs-toggle="popover"
+                                    data-bs-trigger="hover" 
+                                    data-bs-content="Open Employee Directory"
+                                    style="cursor: pointer;">
+                                    <img class="directory_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/directory.svg') }}" alt="directory"/>
                                 </span>
                                 <input type="text" id="recipient" name="recipient" required> 
                             </div>
@@ -107,8 +111,12 @@
                         <div class="form-group">
                             <label for="mrecipient">Recipient <small>(one word only)</small></label>
                             <div class="input-icon">
-                                <span class="form-icon multi_directory-btn">
-                                    📞
+                                <span class="form-icon multi_directory-btn"
+                                    data-bs-toggle="popover"
+                                    data-bs-trigger="hover" 
+                                    data-bs-content="Open Employee Directory"
+                                    style="cursor: pointer;">
+                                    <img class="directory_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/directory.svg') }}" alt="directory"/>
                                 </span>
                                 <input type="text" id="mrecipient" name="mrecipient">
                             </div>
