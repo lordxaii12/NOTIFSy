@@ -238,7 +238,13 @@
                         <div class="col mb-3">
                             <label for="full_name" class="form-label">Name</label>
                             <div class="input-group">
-                                <span class="input-group-text form-icon user_directory-btn">📞</span>
+                                <span class="input-group-text form-icon user_directory-btn"
+                                    data-bs-toggle="popover"
+                                    data-bs-trigger="hover" 
+                                    data-bs-content="Open Employee Directory"
+                                    style="cursor: pointer;">
+                                    <img class="directory_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/directory.svg') }}" alt="directory"/>
+                                </span>
                                 <input type="text" class="form-control" id="ufull_name" name="full_name" placeholder="Full Name"required>
                             </div>
                         </div>
