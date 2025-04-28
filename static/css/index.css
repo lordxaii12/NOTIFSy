@@ -352,3 +352,21 @@
 }
 /*===============================================================================================================================>*/
 /*===============================================================================================================================>*/
+
+.scrollable-modal-body {
+    max-height: 50vh; /* adjust this to your desired height */
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+.search-bar{
+    width: 100% !important;
+    padding: 8px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    background-color: rgb(229, 228, 228);
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+
+}

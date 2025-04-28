@@ -967,7 +967,7 @@ def send_single_msg():
     total_credit=0
     
     sender_div = current_user.division
-    division = request.form.get('sdvision')
+    msg_division = request.form.get('sdvision')
 
     sender = request.form.get('sender')
     sending_option = request.form.get('sending_option')
@@ -976,7 +976,7 @@ def send_single_msg():
     content = request.form.get('message')
 
     add_name = request.form.get('addName')
-    msg_tracker = generate_tracker(sender_div,sending_option)
+    msg_tracker = generate_tracker(msg_division,sending_option)
     
     
     message = message_content(add_name,formatted_name,content,sender,sender_div)
@@ -1020,7 +1020,7 @@ def send_single_msg():
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
         flash(f'{msg_status}','error')
 
-    add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
+    add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_division, msg_sent_str, msg_unsent_str, total_credit)
     user_credit+=total_credit
     edit_credit_used(current_user.user_id, user_credit)
     return redirect(url_for('notifs.home'))
@@ -1032,6 +1032,8 @@ def send_multi_msg():
     user_data = User_v1.get_by_id(current_user.user_id)
     user_credit = user_data.credit_used
     sender_div = current_user.division
+    
+    msg_division = request.form.get('mdvision')
     sender = request.form.get('msender')
     sending_option = request.form.get('msending_option')
     content = request.form.get('mmessage') 
@@ -1040,7 +1042,7 @@ def send_multi_msg():
     data = request.form.get('mlist')
     data_lines = data.strip().split("\n")
     
-    msg_tracker = generate_tracker(sender_div,sending_option)
+    msg_tracker = generate_tracker(msg_division,sending_option)
     
     sent=[]
     unsent=[]
@@ -1090,7 +1092,7 @@ def send_multi_msg():
         flash(f'{msg_status}','error')
 
     print(repr(msg_recipient_str))
-    add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
+    add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status,msg_division, msg_sent_str, msg_unsent_str, total_credit)
     user_credit+=total_credit
     edit_credit_used(current_user.user_id, user_credit)
     return redirect(url_for('notifs.home'))
@@ -1117,6 +1119,9 @@ def send_upload_msg():
     user_data = User_v1.get_by_id(current_user.user_id)
     user_credit = user_data.credit_used
     sender_div = current_user.division
+    
+    msg_division = request.form.get('udvision')
+    
     sender = request.form.get('usender')
     sending_option = request.form.get('usending_option')
     content = request.form.get('umessage')
@@ -1128,7 +1133,7 @@ def send_upload_msg():
         return redirect(url_for('notifs.home'))
     
     data_lines = data.strip().split("\n")
-    msg_tracker = generate_tracker(sender_div,sending_option)
+    msg_tracker = generate_tracker(msg_division,sending_option)
     sent=[]
     unsent=[]
     msg_recipient=[]
@@ -1176,7 +1181,7 @@ def send_upload_msg():
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
         flash(f'{msg_status}','error')
 
-    add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_sent_str, msg_unsent_str, total_credit)
+    add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_division, msg_sent_str, msg_unsent_str, total_credit)
     user_credit+=total_credit
     edit_credit_used(current_user.user_id, user_credit)
     return redirect(url_for('notifs.home'))
