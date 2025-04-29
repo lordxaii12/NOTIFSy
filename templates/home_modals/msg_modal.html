@@ -40,7 +40,7 @@
                             <select class="form-control" id="sdvision" name="sdvision" required>
                                 <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
                                 {% for divisions in division_data %}
-                                    <option value="{{ divisions.division_name }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
+                                    <option value="{{ divisions.division_id }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -134,7 +134,7 @@
                             <select class="form-control" id="mdvision" name="mdvision" required>
                                 <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
                                 {% for divisions in division_data %}
-                                    <option value="{{ divisions.division_name }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
+                                    <option value="{{ divisions.division_id }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -202,7 +202,7 @@
                             <select class="form-control" id="udvision" name="udvision" required>
                                 <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
                                 {% for divisions in division_data %}
-                                    <option value="{{ divisions.division_name }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
+                                    <option value="{{ divisions.division_id }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>

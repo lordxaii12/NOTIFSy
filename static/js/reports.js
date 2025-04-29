@@ -15,8 +15,8 @@ if (typeof divisionData !== 'undefined' && Object.keys(divisionData).length > 0)
                 datasets: [{
                     label: 'Credits Used by Division',
                     data: dataValues,
-                    backgroundColor: 'rgba(255, 1, 17, 0.6)',
-                    borderColor: 'rgb(123, 3, 13)',
+                    backgroundColor: 'rgba(76, 15, 218, 0.6)',
+                    borderColor: 'rgb(98, 0, 255)',
                     borderWidth: 2
                 }]
             },
