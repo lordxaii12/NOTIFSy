@@ -88,92 +88,94 @@
 <div class="modal fade" id="multiMsgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="multiMsgModalModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}} home">
+            <div class="modal-header {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                 <h5 class="modal-title" id="multiMsgModalModalLabel">Send Multiple Message</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="{{ url_for('notifs.send_multi_msg') }}" method="POST" id="send_multi_msg">
-                    <div class="form-row">
-                        <input type="hidden" id="msender" name="msender" 
-                            value="{{first_name}}" required>
-                        <div class="form-group">
-                            <label for="msending_option">Send Via <span class="required">(required)</span></label>
-                            <select id="msending_option" name="msending_option"  required>
-                                <option value="sms" selected>SMS</option>
-                                <option value="email">EMAIL</option>
-                                <option value="both">SMS and EMAIL</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="mrecipient">Recipient <small>(one word only)</small></label>
-                            <div class="input-icon">
-                                <span class="form-icon multi_directory-btn"
+                    <div class="row">
+                        <input type="hidden" id="msender" name="msender" value="{{first_name}}" required>
+                        <div class="col mb-3">
+                            <label class="form-label" for="mrecipient">Recipient <small>(one word only)</small></label>
+                            <div class="input-group">
+                                <span class="input-group-text form-icon multi_directory-btn"
                                     data-bs-toggle="popover"
                                     data-bs-trigger="hover" 
                                     data-bs-content="Open Employee Directory"
                                     style="cursor: pointer;">
                                     <img class="directory_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/directory.svg') }}" alt="directory"/>
                                 </span>
-                                <input type="text" id="mrecipient" name="mrecipient">
+                                <input class="form-control" type="text" id="mrecipient" name="mrecipient">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="mphone">Phone <small>(09xxxxxxxxx)</small></label>
-                            <input type="text" id="mphone" name="mphone">
+                        <div class="col mb-3">
+                            <label class="form-label" for="mphone">Phone <small>(09xxxxxxxxx)</small></label>
+                            <input class="form-control" type="text" id="mphone" name="mphone">
                         </div>
-                        <div class="form-group">
-                            <label for="memail">Email</label>
-                            <div class="input-icon">
-                                <input type="email" id="memail" name="memail">
-                                <span class="form-icon" onclick="addRecipient()">➕</span>
+                        <div class="col mb-3">
+                            <label class="form-label" for="memail">Email</label>
+                            <div class="input-group">
+                                <input class="form-control" type="email" id="memail" name="memail">
+                                <span class="input-group-text form-icon" onclick="addRecipient()"
+                                    data-bs-toggle="popover"
+                                    data-bs-trigger="hover" 
+                                    data-bs-content="Add contact to recipient"
+                                    style="cursor: pointer;">
+                                    <img class="directory_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add.svg') }}" alt="add"/>
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <div class="form-row2">
-                        <div class="form-group2">
-                            <label>Message Template <small>(Optional)</small></label>
-                            <select id="mtemplate" name="mtemplate">
-                                <option value="" disabled selected>SELECT TEMPLATE</option>
-                                {% for templates in msg_temp_data %}
-                                    <option value="{{ templates.msg_temp_name }}"data-descM ="{{templates.msg_temp_description}}">{{ templates.msg_temp_name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group2">
-                            <label for="division">Division/Program <small>(Required)</small></label>
-                            <select id="mdvision" name="mdvision" required>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label class="form-label" for="division">Division/Program <small>(Required)</small></label>
+                            <select class="form-control" id="mdvision" name="mdvision" required>
                                 <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
                                 {% for divisions in division_data %}
                                     <option value="{{ divisions.division_name }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="msending_option">Send Via <span class="required">(required)</span></label>
+                            <select class="form-control" id="msending_option" name="msending_option"  required>
+                                <option value="sms" selected>SMS</option>
+                                <option value="email">EMAIL</option>
+                                <option value="both">SMS and EMAIL</option>
+                            </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="mtemplate">Message Template <small>(Optional)</small></label>
+                            <select class="form-control" id="mtemplate" name="mtemplate">
+                                <option value="" disabled selected>SELECT TEMPLATE</option>
+                                {% for templates in msg_temp_data %}
+                                    <option value="{{ templates.msg_temp_name }}"data-descM ="{{templates.msg_temp_description}}">{{ templates.msg_temp_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="mlist">Recipient List:</label>
-                            <div class="textarea-container">
-                                <textarea id="mlist" name="mlist" required readonly></textarea>
-                            </div>
+                    <div class="row">
+                        <label class="form-label" for="mlist">Recipient List:</label>
+                        <div class="textarea-container">
+                            <textarea id="mlist" name="mlist" required readonly></textarea>
                         </div>
-                    </div> 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="mmessage">Message:</label>
-                            <div class="textarea-container">
-                                <textarea id="mmessage" name="mmessage" required></textarea>
-                                <span class="search-icon">🔍</span>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="maddName" name="maddName" value="on">
-                                <label for="maddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <label class="form-label" for="mmessage">Message:</label>
+                        <div class="textarea-container">
+                            <textarea id="mmessage" name="mmessage" required></textarea>
+                            <span class="search-icon">🔍</span>
                         </div>
-                    </div>            
-                    <div class="button-group">
-                        <button type="submit" class="send-btn">Send</button>
-                        <button type="button" class="cancel-btn"  data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <div class="row form-check">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="maddName" name="maddName" value="on">
+                            <label class="form-check-label" for="maddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
+                        </div>
+                    </div>
+                    <button type="submit" class="send-btn">Send</button>
+                    <button type="button" class="cancel-btn"  data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -191,66 +193,89 @@
             </div>
             <div class="modal-body">
                 <form action="{{ url_for('notifs.send_upload_msg') }}" method="POST" id="send_upload_msg" enctype="multipart/form-data">
-                    <div class="form-row">
-                        <input type="hidden" id="usender" name="usender" 
-                            value="{{first_name}}" required>
-                        <div class="form-group">
-                            <label>Send Via <span class="required">(required)</span></label>
-                            <select id="usending_option" name="usending_option"  required>
-                                <option value="sms" selected>SMS</option>
-                                <option value="email">EMAIL</option>
-                                <option value="both">SMS and EMAIL</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Message Template <span class="optional">(Optional)</span></label>
-                            <select id="utemplate" name="utemplate">
-                                <option value="" disabled selected>SELECT TEMPLATE</option>
-                                {% for templates in msg_temp_data %}
-                                    <option value="{{ templates.msg_temp_name }}" data-descU="{{templates.msg_temp_description}}" >{{ templates.msg_temp_name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Upload File</label>
-                            <div class="file-input">
-                                <input type="file" name="uploaded" id="uploaded" accept=".txt, .xls, .xlsx, .csv">
-                            </div>
-                        </div>
-                         <span class="form-icon" id="searchIcon">⏬</span>
-                        <div class="form-group">
-                            <label for="division">Division/Program <small>(Required)</small></label>
-                            <select id="udvision" name="udvision" required>
+                    <div class=" row form-row">
+                        <input type="hidden" id="usender" name="usender" value="{{first_name}}" required>
+                        <div class="col mb-3">
+                            <label class="form-label" for="division">Division/Program <small>(Required)</small></label>
+                            <select class="form-control" id="udvision" name="udvision" required>
                                 <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
                                 {% for divisions in division_data %}
                                     <option value="{{ divisions.division_name }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="usending_option">Send Via <span class="required">(required)</span></label>
+                            <select class="form-control" id="usending_option" name="usending_option"  required>
+                                <option value="sms" selected>SMS</option>
+                                <option value="email">EMAIL</option>
+                                <option value="both">SMS and EMAIL</option>
+                            </select>
+                        </div>
+                        <div class="col mb-3">
+                            <label class="form-label" for="utemplate">Message Template <span class="optional">(Optional)</span></label>
+                            <select class="form-control" id="utemplate" name="utemplate">
+                                <option value="" disabled selected>SELECT TEMPLATE</option>
+                                {% for templates in msg_temp_data %}
+                                    <option value="{{ templates.msg_temp_name }}" data-descU="{{templates.msg_temp_description}}" >{{ templates.msg_temp_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class=" row form-row">
+                    </div>
+
+                    <div class=" row form-row">
+                        <div class="col mb-3">
+                        </div>
+                        <div class="col mb-3">
+                        </div>
+                    </div>
+                    <div class=" row form-row">
+                    </div>
+
+                        
+                        <div class="form-group">
+                            
+                        </div>
+                        <div class="form-group">
+                            
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="uploaded">Upload File</label>
+                            <div class="file-input">
+                                <input class="form-control" type="file" name="uploaded" id="uploaded" accept=".txt, .xls, .xlsx, .csv">
+                            </div>
+                        </div>
+                         <span class="form-icon" id="searchIcon">⏬</span>
+                        <div class="form-group">
+                            
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="ufounddata">Found Data:</label>
+                            <label class="form-label" for="ufounddata">Found Data:</label>
                             <div class="textarea-container">
                                 <textarea id="ufounddata" name="ufounddata" readonly required></textarea>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="unodatafound">No Data Found:</label>
+                            <label class="form-label" for="unodatafound">No Data Found:</label>
                             <div class="textarea-container">
                                 <textarea id="unodatafound" name="unodatafound" readonly></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="umessage">Message:</label>
+                        <label class="form-label" for="umessage">Message:</label>
                         <div class="textarea-container">
                             <textarea id="umessage" name="umessage" required></textarea>
                         </div>
                     </div>
                     <div class="checkbox-group">
                         <input type="checkbox" id="uaddName" name="uaddName" value="on">
-                        <label for="uaddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
+                        <label class="form-label" for="uaddName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
                     </div>
                     <div class="button-group">
                         <button class="send-btn" type="submit">Send</button>
