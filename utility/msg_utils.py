@@ -193,7 +193,7 @@ def convert_file_to_inputs(file):
 
             for i, name in enumerate(name_list):
                 if name not in matched_names:
-                    not_found_details = f"{raw_names[i].upper()} - {amount_list[i]}"
+                    not_found_details = f"{raw_names[i].upper()}:-> {amount_list[i]}"
                     not_found_list.append(not_found_details)
 
     finally:

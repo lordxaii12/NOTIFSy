@@ -340,6 +340,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 return `${record.fullname}:${record.mobile}:${record.email}:${record.amount}\n`;
             }).join("");
 
+            let displayRecords = data.matched_records.map(record => {
+                return `${record.fullname}:->${record.amount}\n`;
+            }).join("");
+
+            document.getElementById("udisplaydata").value = displayRecords || "No data found";
             document.getElementById("ufounddata").value = formattedRecords || "No data found";
             document.getElementById("unodatafound").value = data.unmatched_names.join("\n");
         })
