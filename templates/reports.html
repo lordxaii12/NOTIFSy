@@ -96,7 +96,7 @@
 
         {% block scripts %}
             <script>
-                const divisionData = {{ division_data | tojson | safe }};
+                const divisionData = {{ division_creds_data | tojson | safe }};
             </script>
             <script src="{{ url_for('static', filename='js/reports.js') }}"></script>
         {% endblock %}

@@ -1041,6 +1041,7 @@ def send_multi_msg():
     division = int(request.form.get('mdvision'))
     
     divsion_data = Divisions.get_by_id(division)
+    division_credit = divsion_data.division_credits
     msg_division = divsion_data.division_name
     
     sender = request.form.get('msender')
@@ -1104,6 +1105,8 @@ def send_multi_msg():
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status,msg_division, msg_sent_str, msg_unsent_str, total_credit)
     user_credit+=total_credit
     edit_credit_used(current_user.user_id, user_credit)
+    division_credit+=total_credit
+    edit_division_credit_used(division, division_credit)
     return redirect(url_for('notifs.home'))
 #===========================================================================================================>
     #Generate recipient from upload
@@ -1130,7 +1133,9 @@ def send_upload_msg():
     sender_div = current_user.division
     
     division = int(request.form.get('udvision'))
+    
     divsion_data = Divisions.get_by_id(division)
+    division_credit = divsion_data.division_credits
     msg_division = divsion_data.division_name
     
     sender = request.form.get('usender')
@@ -1195,6 +1200,8 @@ def send_upload_msg():
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_division, msg_sent_str, msg_unsent_str, total_credit)
     user_credit+=total_credit
     edit_credit_used(current_user.user_id, user_credit)
+    division_credit+=total_credit
+    edit_division_credit_used(division, division_credit)
     return redirect(url_for('notifs.home'))
 #===========================================================================================================>
                             #MESSAGE TEMPLATES
@@ -1316,13 +1323,20 @@ def reports():
     for user in user_data:
         division_data[user.division] = division_data.get(user.division, 0) + user.credit_used
         
+    div_data= Divisions.get_all()
+    
+    division_creds_data = {}
+    for division in div_data:
+        division_creds_data[division.division_name] = division_creds_data.get(division.division_name, 0) + division.division_credits
+        
 
     return render_template('reports.html',
                            user_credit=user_credit,
                            total_credit_used=total_credit_used,
                            total_credits_remaining=total_credits_remaining,
                            total_credits_used=total_credits_used,
-                           division_data=division_data)
+                           division_data=division_data,
+                           division_creds_data=division_creds_data)
 
 
 
