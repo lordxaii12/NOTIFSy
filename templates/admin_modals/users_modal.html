@@ -51,7 +51,11 @@
                                                 <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
                                             </button>
                                             |
-                                            <button class="view_user-btn btn p-0 m-0 border-0 bg-transparent">
+                                            <button class="view_user-btn btn p-0 m-0 border-0 bg-transparent"
+                                                data-bs-toggle="popover"
+                                                data-bs-trigger="hover" 
+                                                data-bs-content="View info"
+                                                style="cursor: pointer;">
                                                 <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/view.svg') }}" alt="delete" />
                                             </button>
                                         {% endif %}
@@ -72,7 +76,7 @@
     <div class="modal-dialog">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}}">
             <div class="modal-header {{user.theme.theme_font}}">
-                <h2 class="modal-title" id="user_editLabel">Edit Users Data</h2>
+                <h2 class="modal-title" id="user_editLabel">Edit Users Role</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}} ">
@@ -85,7 +89,7 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label class="form-label" for="full_name">Full Name</label>
-                            <input class="form-control" type="text" id="full_name" name="full_name" required>
+                            <input class="form-control" type="text" id="full_name" name="full_name" readonly>
                         </div>
                     </div>
                     <div class="row">
