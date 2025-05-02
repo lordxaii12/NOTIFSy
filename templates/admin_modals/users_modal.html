@@ -14,10 +14,9 @@
                         <thead class="table-light">
                             <tr>
                                 <th class="th_1">Name</th>
-                                <th class="th_2">Division</th>
                                 <th>Type</th>
                                 {% if user.is_authenticated and user.role_id in [1,3] %}
-                                    <th class="th_3">Actions</th>
+                                    <th class="th_8">Actions</th>
                                 {% endif %}
                             </tr>
                         </thead>
@@ -25,25 +24,35 @@
                             {% for users in user_data%}
                             <tr>
                                 <td class="th_1">{{users.full_name}}</td>
-                                <td class="th_2">{{users.division}}</td>
                                 <td>
                                     {% if user.role_id == 1 or users.role.role_id != 1 %}
                                         {{users.role.role_name}}
                                     {% endif %}
-                                </td class="th_3">
+                                </td>
                                 {% if user.is_authenticated and user.role_id in [1,3] %}
-                                    <td>
+                                    <td class="th_8">
                                         {% if user.role_id == 1 or (user.role_id == 3 and users.role_id != 1) %}
-                                            <button class="user-log-btn btn p-0 m-0 " data-log-id="{{ users.user_id }}">
-                                                <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                            <button class="user-log-btn btn p-0 m-0 border-0 bg-transparent" data-log-id="{{ users.user_id }}"
+                                                data-bs-toggle="popover"
+                                                data-bs-trigger="hover" 
+                                                data-bs-content="Deactivate user account"
+                                                style="cursor: pointer;">
+                                                <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/deactivate.svg') }}" alt="delete" />
                                             </button>
                                             |
-                                            <button class="edit_user-btn btn p-0 m-0 "
-                                            data-uid="{{ users.user_id }}"
-                                            data-fname ="{{ users.full_name }}"
-                                            data-rid ="{{ users.role_id }}"
-                                            >
+                                            <button class="edit_user-btn btn p-0 m-0 border-0 bg-transparent"
+                                                data-uid="{{ users.user_id }}"
+                                                data-fname ="{{ users.full_name }}"
+                                                data-rid ="{{ users.role_id }}"
+                                                data-bs-toggle="popover"
+                                                data-bs-trigger="hover" 
+                                                data-bs-content="Edit user role"
+                                                style="cursor: pointer;">
                                                 <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
+                                            </button>
+                                            |
+                                            <button class="view_user-btn btn p-0 m-0 border-0 bg-transparent">
+                                                <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/view.svg') }}" alt="delete" />
                                             </button>
                                         {% endif %}
                                     </td>
