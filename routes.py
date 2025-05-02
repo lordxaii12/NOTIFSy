@@ -142,6 +142,24 @@ def admin():
         })
     total_log = len(log_data)
     
+    msglog_data = Msg_log.get_all()
+    decrypted_msglogs = []
+    for msglogs in msglog_data:
+        raw_recipients = msglogs.msg_recipient
+        recipient_list = [r.strip() for r in raw_recipients.split(",") if r.strip()]
+        recipient_count = len(recipient_list)
+        decrypted_msglogs.append({
+            "msg_id": msglogs.msg_id,
+            "msg_tracker": msglogs.msg_tracker,
+            "msg_type": msglogs.msg_type,
+            "msg_sender": decrypt_content(msglogs.msg_sender),
+            "msg_division": msglogs.msg_division,
+            "recipient_count": recipient_count,
+            "credit_used": msglogs.credit_used,
+            "sent_on": msglogs.sent_on,    
+        })
+    total_log = len(log_data)
+    
     sys_settings_data = SysSettings.get_by_id(1)
     
     return render_template('admin_modals/admin.html',
