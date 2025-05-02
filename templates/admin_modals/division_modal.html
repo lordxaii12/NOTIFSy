@@ -26,15 +26,22 @@
                                 <td class="th_2">{{divisions.division_name }}</td>
                                 <td>{{divisions.division_description}}</td>
                                 <td class="th_3">
-                                    <button class="division-log-btn btn p-0 m-0 " data-log-id="{{ divisions.division_id }}">
+                                    <button class="division-log-btn btn p-0 m-0 border-0 bg-transparent" data-log-id="{{ divisions.division_id }}"
+                                    data-bs-toggle="popover"
+                                    data-bs-trigger="hover" 
+                                    data-bs-content="Delete Program/Division"
+                                    style="cursor: pointer;">
                                         <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
                                     </button>
                                     |
-                                    <button class="edit_division-btn btn p-0 m-0 "
-                                    data-did="{{ divisions.division_id }}"
-                                    data-dname="{{ divisions.division_name }}"
-                                    data-ddesc ="{{ divisions.division_description }}"
-                                    >
+                                    <button class="edit_division-btn btn p-0 m-0 border-0 bg-transparent"
+                                        data-did="{{ divisions.division_id }}"
+                                        data-dname="{{ divisions.division_name }}"
+                                        data-ddesc ="{{ divisions.division_description }}"
+                                        data-bs-toggle="popover"
+                                        data-bs-trigger="hover" 
+                                        data-bs-content="Edit Program/Division"
+                                        style="cursor: pointer;">
                                         <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/edit_icon.svg') }}" alt="edit" />
                                     </button>
                                 </td>

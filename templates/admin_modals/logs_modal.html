@@ -18,7 +18,7 @@
                                 <th class="th_1">Activity</th>
                                 <th class="th_3">Date</th>
                                 {% if user.is_authenticated and user.role_id ==1 %}
-                                    <th class="th_6">Actions</th>
+                                    <th class="th_4">Actions</th>
                                 {% endif %}
                             </tr>
                         </thead>
@@ -30,9 +30,20 @@
                                 <td class="th_1">{{logs.activity}}</td>
                                 <td class="th_3">{{logs.created_on}}</td>
                                 {% if user.is_authenticated and user.role_id ==1 %}
-                                    <td class="th_6">
-                                        <button class="delete-log-btn btn p-0 m-0" data-log-id="{{ logs.log_id }}">
+                                    <td class="th_4">
+                                        <button class="delete-log-btn btn p-0 m-0" data-log-id="{{ logs.log_id }}"
+                                            data-bs-toggle="popover"
+                                            data-bs-trigger="hover" 
+                                            data-bs-content="Delete Logs"
+                                            style="cursor: pointer;">
                                             <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                        </button>|
+                                        <button class="view_role-btn btn p-0 m-0 border-0 bg-transparent"
+                                            data-bs-toggle="popover"
+                                            data-bs-trigger="hover" 
+                                            data-bs-content="View Log"
+                                            style="cursor: pointer;">
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/view.svg') }}" alt="delete" />
                                         </button>
                                     </td>
                                 {% endif %}
