@@ -5,7 +5,64 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal admin">
             <div class="modal-header {{user.theme.theme_font}} ">
-                <h1 class="modal-title fs-5" id="logs_displayLabel">USER LOGS</h1>
+                <h1 class="modal-title fs-5" id="logs_displayLabel">SYSTEM LOGS</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body {{user.theme.theme_font}} ">
+                <div class="table-responsive scrollable-modal-body">
+                    <table class="table table-striped table-hover ">
+                        <thead>
+                            <tr>
+                                <th class="th_7">#</th>
+                                <th class="th_3">User</th>
+                                <th class="th_1">Activity</th>
+                                <th class="th_3">Date</th>
+                                {% if user.is_authenticated and user.role_id ==1 %}
+                                    <th class="th_4">Actions</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            {% for logs in log_data%}
+                            <tr>
+                                <td class="th_7">{{loop.index}}</td>
+                                <td class="th_3">{{logs.user}}</td>
+                                <td class="th_1">{{logs.activity}}</td>
+                                <td class="th_3">{{logs.created_on}}</td>
+                                {% if user.is_authenticated and user.role_id ==1 %}
+                                    <td class="th_4">
+                                        <button class="delete-log-btn btn p-0 m-0" data-log-id="{{ logs.log_id }}"
+                                            data-bs-toggle="popover"
+                                            data-bs-trigger="hover" 
+                                            data-bs-content="Delete Logs"
+                                            style="cursor: pointer;">
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/delete_icon.svg') }}" alt="delete" />
+                                        </button>|
+                                        <button class="view_role-btn btn p-0 m-0 border-0 bg-transparent"
+                                            data-bs-toggle="popover"
+                                            data-bs-trigger="hover" 
+                                            data-bs-content="View Log"
+                                            style="cursor: pointer;">
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/view.svg') }}" alt="delete" />
+                                        </button>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--=============================================================================================================================-->
+<!--USER ACTIVITY LOGS DATA TABLE MODAL-->
+<div class="modal fade" id="msgs_display" tabindex="-1" aria-labelledby="msgs_displayLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content {{user.theme.theme_bg}} {{user.theme.theme_font}} admin-modal admin">
+            <div class="modal-header {{user.theme.theme_font}} ">
+                <h1 class="modal-title fs-5" id="msgs_displayLabel">MESSAGE LOGS</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body {{user.theme.theme_font}} ">

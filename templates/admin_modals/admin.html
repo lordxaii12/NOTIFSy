@@ -194,11 +194,20 @@
                                 </div>
                             </div>
                             
-                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}" data-bs-toggle="modal" data-bs-target="#logs_display">
+                            <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                                 <div class="row add_container add_btn">
                                 </div>
-                                <div class="image_container">
-                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/logs.svg') }}" alt="roles">
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <div class="image_container">
+                                            <img class="card_icon2" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/msg_logs.svg') }}" alt="roles">
+                                        </div>
+                                    </div>
+                                    <div class="col mb-3">
+                                        <div class="image_container" data-bs-toggle="modal" data-bs-target="#logs_display">
+                                            <img class="card_icon2" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/sys_logs.svg') }}" alt="roles">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="data_view">
                                     <h4>({{total_log}})
