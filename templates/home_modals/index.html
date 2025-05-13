@@ -243,8 +243,13 @@
         {% include "home_modals/msg_temp_modal.html" %}
         {% include "home_modals/sent_unsent_modal.html" %}
         {% include "home_modals/home_utils_modal.html" %}
+        {% include "home_modals/results_modals.html" %}
 
         {% block scripts %}
+            <script>
+                const singletotalSent = {{ request.args.get('total_sent', 'null') }};
+                const singletotalUnsent = {{ request.args.get('total_unsent', 'null') }};
+            </script>
             <script src="{{ url_for('static', filename='js/messages.js') }}"></script>
         {% endblock %}
 

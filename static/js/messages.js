@@ -143,6 +143,34 @@ document.getElementById("stemplate").addEventListener("change", function() {
     document.getElementById("message").value = s_description;
 });
 //==================================================================================================================================//
+//Spinner and result display single send message//
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('send_single_msg');
+    const spinner = document.getElementById('singleloadingSpinner');
+    const submitBtn = document.getElementById('submitBtnSingle');
+
+    if (form) {
+        form.addEventListener('submit', function () {
+            spinner.classList.remove('d-none');
+            submitBtn.disabled = true;
+        });
+    }
+
+    if (typeof singletotalSent !== 'undefined' && singletotalSent !== null && singletotalUnsent !== null) {
+        const icon = document.getElementById('singleresultIcon');
+        const messageText = document.getElementById('singleresultMessage');
+
+        icon.textContent = singletotalUnsent === 0 ? '✅' : '❌';
+        messageText.textContent = `Sent: ${singletotalSent}, Unsent: ${singletotalUnsent}`;
+
+        const resultModal = new bootstrap.Modal(document.getElementById('singleresultModal'));
+        resultModal.show();
+    }
+});
+
+
+
+//==================================================================================================================================//
 //
 //
 //
