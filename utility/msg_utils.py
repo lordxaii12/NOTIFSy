@@ -98,7 +98,6 @@ def get_hrpears_data():
     #Send sms 
 def send_msg(message, recipient):
     
-     
     sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
     sms_data = Itexmo.get_by_id(sms_id)
     if sms_data:
