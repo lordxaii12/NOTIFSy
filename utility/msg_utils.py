@@ -11,19 +11,19 @@ import requests
 from models.itexmo_credentials import Itexmo
 from controllers.itexmo_credentials import credits_check
 from utility.format_utils import extract_first_name, format_mobile_number, format_email
-import socket
-
+import requests
 
 #===============================================================================================================================>
     #Track API IP address
-def get_local_ip_used_for_destination(dest_host, dest_port=80):
+def get_my_ip_used_to_reach(url=None):
     try:
-        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-            s.connect((dest_host, dest_port))
-            local_ip = s.getsockname()[0]
-            return local_ip
+        response = requests.get('https://api.ipify.org', timeout=5)
+        if response.status_code == 200:
+            return response.text.strip()
+        else:
+            return f"Error: Received status code {response.status_code}"
     except Exception as e:
-        return f"Error determining local IP: {e}"
+        return f"Error: {e}"
 #===============================================================================================================================>
     #Generate Msg send tracking number
 def generate_tracker(sender_div, msg_type):
@@ -118,8 +118,8 @@ def send_msg(message, recipient):
             "Content-Type": content_type
         }
         
-        local_ip = get_local_ip_used_for_destination(url)
-        print(f"My machine used local IP: {local_ip} to reach the SMS API")
+        public_ip = get_my_ip_used_to_reach()
+        print(f"[LOG] Public IP used for API call: {public_ip}")
         
         return (url,payload,headers)
 #===============================================================================================================================>
