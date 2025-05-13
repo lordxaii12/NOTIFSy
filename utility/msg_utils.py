@@ -11,6 +11,19 @@ import requests
 from models.itexmo_credentials import Itexmo
 from controllers.itexmo_credentials import credits_check
 from utility.format_utils import extract_first_name, format_mobile_number, format_email
+import socket
+
+
+#===============================================================================================================================>
+    #Track API IP address
+def get_local_ip_used_for_destination(dest_host, dest_port=80):
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect((dest_host, dest_port))
+            local_ip = s.getsockname()[0]
+            return local_ip
+    except Exception as e:
+        return f"Error determining local IP: {e}"
 #===============================================================================================================================>
     #Generate Msg send tracking number
 def generate_tracker(sender_div, msg_type):
@@ -84,6 +97,8 @@ def get_hrpears_data():
 #===============================================================================================================================>
     #Send sms 
 def send_msg(message, recipient):
+    
+     
     sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
     sms_data = Itexmo.get_by_id(sms_id)
     if sms_data:
@@ -102,6 +117,10 @@ def send_msg(message, recipient):
         headers = {
             "Content-Type": content_type
         }
+        
+        local_ip = get_local_ip_used_for_destination(url)
+        print(f"My machine used local IP: {local_ip} to reach the SMS API")
+        
         return (url,payload,headers)
 #===============================================================================================================================>
     #Upload file and search in hr data
