@@ -1,9 +1,9 @@
 secret_key = Tx7SS5OihZaJOSv2QtdIzWFCeQdW3OEN2z1WY3ZLdhg=
 database_uri_head1 = mysql
 database_uri_head2 = pymysql
-db_user = root 
-db_password = none
-db_host = 127.0.0.1
+db_user = notifsdb 
+db_password = P!n0yak0m5
+db_host = 172.26.118.33
 db_port = 3306
-dbname = notifs
+dbname = db_dswd10_notif
 db_track_mod = False

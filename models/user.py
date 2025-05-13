@@ -18,7 +18,7 @@ class User_v1(db.Model, UserMixin):
     full_name = db.Column(db.String(200), unique=True, nullable=False)
     user_email = db.Column(db.String(200), unique=False, nullable=True)
     division = db.Column(db.String(50), unique=False, nullable=True)
-    user_section = db.Column(db.String(50), unique=False, nullable=True)
+    user_section = db.Column(db.String(255), unique=False, nullable=True)
     
     role_id = db.Column(db.Integer, db.ForeignKey('roles.role_id'), nullable=False)
     theme_id = db.Column(db.Integer, db.ForeignKey('theme.theme_id'), nullable=True)
