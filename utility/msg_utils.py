@@ -34,6 +34,7 @@ def message_content2(add_name,recipient_name,amount,msg_content,sender,sender_di
     else:
         message = f"Hi, an amount of {amount} {msg_content}\n\n{sender}\n{sender_div}"
     return message
+
 #===============================================================================================================================>
     #Create status data for message logs status
 def get_status_data(recipient_name,recipient_contact,message):
