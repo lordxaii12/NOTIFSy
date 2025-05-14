@@ -1123,7 +1123,6 @@ def send_multi_msg():
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
         # flash(f'{msg_status}','error')
 
-    print(repr(msg_recipient_str))
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status,msg_division, msg_sent_str, msg_unsent_str, total_credit)
     user_credit+=total_credit
     edit_credit_used(current_user.user_id, user_credit)
@@ -1214,17 +1213,17 @@ def send_upload_msg():
     
     if total_unsent == 0:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
-        flash(f'{msg_status}','success')
+        # flash(f'{msg_status}','success')
     else:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
-        flash(f'{msg_status}','error')
+        # flash(f'{msg_status}','error')
 
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_division, msg_sent_str, msg_unsent_str, total_credit)
     user_credit+=total_credit
     edit_credit_used(current_user.user_id, user_credit)
     division_credit+=total_credit
     edit_division_credit_used(division, division_credit)
-    return redirect(url_for('notifs.home'))
+    return redirect(url_for('notifs.home', total_sent=total_sent, total_unsent=total_unsent))
 #===========================================================================================================>
                             #MESSAGE TEMPLATES
 #===========================================================================================================>

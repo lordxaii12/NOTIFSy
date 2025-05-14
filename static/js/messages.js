@@ -356,6 +356,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const spinner2 = document.getElementById('multiloadingSpinner');
     const submitBtn2 = document.getElementById('submitBtnMulti');
     const formFieldsWrapper2 = document.querySelector('.form-fields-wrapper2');
+    const formFieldsWrapper3 = document.querySelector('.form-fields-wrapper3');
 
     if (form2) {
         form2.addEventListener('submit', function () {
@@ -364,6 +365,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (formFieldsWrapper2) {
                 formFieldsWrapper2.style.display = 'none';
+            }
+            if (formFieldsWrapper3) {
+                formFieldsWrapper3.style.display = 'none';
             }
 
             sessionStorage.setItem('showResultModal', 'true');
@@ -436,6 +440,50 @@ document.getElementById("utemplate").addEventListener("change", function() {
     let u_description = u_selectedOption.getAttribute("data-descU") || "";
     
     document.getElementById("umessage").value = u_description;
+});
+//==================================================================================================================================//
+//Spinner and result display upload send message//
+document.addEventListener('DOMContentLoaded', function () {
+    const form3 = document.getElementById('send_upload_msg');
+    const spinner3 = document.getElementById('uploadloadingSpinner');
+    const submitBtn3 = document.getElementById('submitBtnUpload');
+
+    const formFieldsWrapper4 = document.querySelector('.form-fields-wrapper4');
+    const formFieldsWrapper5 = document.querySelector('.form-fields-wrapper5');
+
+    if (form3) {
+        form3.addEventListener('submit', function () {
+            spinner3.classList.remove('d-none');
+            submitBtn3.disabled = true;
+
+            if (formFieldsWrapper4) {
+                formFieldsWrapper4.style.display = 'none';
+            }
+            if (formFieldsWrapper5) {
+                formFieldsWrapper5.style.display = 'none';
+            }
+
+            sessionStorage.setItem('showResultModal', 'true');
+        });
+    }
+
+    const shouldShowModal3 = sessionStorage.getItem('showResultModal') === 'true';
+
+    if (typeof uploadtotalSent !== 'undefined' && uploadtotalSent !== null &&
+        typeof uploadtotalUnsent !== 'undefined' && uploadtotalUnsent !== null &&
+        shouldShowModal3) {
+
+        const icon3 = document.getElementById('multiresultIcon');
+        const messageText3 = document.getElementById('multiresultMessage');
+
+        icon3.textContent = uploadtotalUnsent === 0 ? '✅' : '❌';
+        messageText3.textContent = `Sent: ${uploadtotalSent}, Unsent: ${uploadtotalUnsent}`;
+
+        const resultModal3 = new bootstrap.Modal(document.getElementById('multiresultModal'));
+        resultModal3.show();
+
+        sessionStorage.removeItem('showResultModal');
+    }
 });
 //==================================================================================================================================//
 
