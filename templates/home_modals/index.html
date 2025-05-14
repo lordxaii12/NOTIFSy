@@ -250,6 +250,10 @@
                 const singletotalSent = {{ request.args.get('total_sent', 'null') }};
                 const singletotalUnsent = {{ request.args.get('total_unsent', 'null') }};
             </script>
+            <script>
+                const multitotalSent = {{ request.args.get('total_sent', 'null') }};
+                const multitotalUnsent = {{ request.args.get('total_unsent', 'null') }};
+            </script>
             <script src="{{ url_for('static', filename='js/messages.js') }}"></script>
         {% endblock %}
 

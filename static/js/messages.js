@@ -350,6 +350,45 @@ document.getElementById("mtemplate").addEventListener("change", function() {
     document.getElementById("mmessage").value = m_description;
 });
 //==================================================================================================================================//
+//Spinner and result display multi send message//
+document.addEventListener('DOMContentLoaded', function () {
+    const form2 = document.getElementById('send_multi_msg');
+    const spinner2 = document.getElementById('multiloadingSpinner');
+    const submitBtn2 = document.getElementById('submitBtnMulti');
+    const formFieldsWrapper2 = document.querySelector('.form-fields-wrapper2');
+
+    if (form2) {
+        form2.addEventListener('submit', function () {
+            spinner2.classList.remove('d-none');
+            submitBtn2.disabled = true;
+
+            if (formFieldsWrapper2) {
+                formFieldsWrapper2.style.display = 'none';
+            }
+
+            sessionStorage.setItem('showResultModal', 'true');
+        });
+    }
+
+    const shouldShowModal2 = sessionStorage.getItem('showResultModal') === 'true';
+
+    if (typeof multitotalSent !== 'undefined' && multitotalSent !== null &&
+        typeof multitotalUnsent !== 'undefined' && multitotalUnsent !== null &&
+        shouldShowModal2) {
+
+        const icon2 = document.getElementById('multiresultIcon');
+        const messageText2 = document.getElementById('multiresultMessage');
+
+        icon2.textContent = multitotalUnsent === 0 ? '✅' : '❌';
+        messageText2.textContent = `Sent: ${multitotalSent}, Unsent: ${multitotalUnsent}`;
+
+        const resultModal2 = new bootstrap.Modal(document.getElementById('multiresultModal'));
+        resultModal2.show();
+
+        sessionStorage.removeItem('showResultModal');
+    }
+});
+//==================================================================================================================================//
 //
 //
 //

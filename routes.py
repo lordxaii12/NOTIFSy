@@ -990,8 +990,6 @@ def send_single_msg():
     sender_div = current_user.division
     division = int(request.form.get('sdvision'))
     
-    
-    
     divsion_data = Divisions.get_by_id(division)
     division_credit = divsion_data.division_credits
     msg_division = divsion_data.division_name
@@ -1120,10 +1118,10 @@ def send_multi_msg():
     
     if total_unsent == 0:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
-        flash(f'{msg_status}','success')
+        # flash(f'{msg_status}','success')
     else:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
-        flash(f'{msg_status}','error')
+        # flash(f'{msg_status}','error')
 
     print(repr(msg_recipient_str))
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status,msg_division, msg_sent_str, msg_unsent_str, total_credit)
@@ -1131,7 +1129,7 @@ def send_multi_msg():
     edit_credit_used(current_user.user_id, user_credit)
     division_credit+=total_credit
     edit_division_credit_used(division, division_credit)
-    return redirect(url_for('notifs.home'))
+    return redirect(url_for('notifs.home', total_sent=total_sent, total_unsent=total_unsent))
 #===========================================================================================================>
     #Generate recipient from upload
 @notifs.route('/generate_from_upload', methods=['POST'])
