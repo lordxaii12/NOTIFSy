@@ -19,6 +19,9 @@ class Msg_log(db.Model):
     msg_status = db.Column(db.String(50), unique=False, nullable=True)
     sent_on = db.Column(db.String(100), unique=False, nullable=True)
     
+    user_ip = db.Column(db.String(100), unique=False, nullable=True)
+    public_ip = db.Column(db.String(100), unique=False, nullable=True)
+    
     msg_sent = db.Column(db.Text, unique=False, nullable=True)
     msg_unsent = db.Column(db.Text, unique=False, nullable=True)
     credit_used = db.Column(db.Integer, unique=False, nullable=True)
@@ -41,6 +44,9 @@ class Msg_log(db.Model):
             
             'msg_status': self.msg_status,
             'sent_on': self.sent_on,
+            
+            'user_ip': self.user_ip,
+            'public_ip': self.public_ip,
             
             'msg_sent': self.msg_sent,
             'msg_unsent': self.msg_unsent,

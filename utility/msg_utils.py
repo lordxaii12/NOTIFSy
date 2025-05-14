@@ -3,7 +3,7 @@
 import random
 import re
 import pymysql
-from flask import g
+from flask import g, request
 from extensions import db, cache
 from models.itexmo_credentials import Itexmo
 from models.hrpears_credentials import Hrpears
@@ -97,6 +97,9 @@ def get_hrpears_data():
 #===============================================================================================================================>
     #Send sms 
 def send_msg(message, recipient):
+    
+    user_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0]
+    print(f"[LOG] User IP: {user_ip}")
     
     sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
     sms_data = Itexmo.get_by_id(sms_id)
