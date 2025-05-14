@@ -200,6 +200,10 @@ def edit_system_settings_route(sys_setting_id):
 @notifs.route('/login', methods=['GET', 'POST'])
 # @limiter.limit("5 per minute")
 def login():
+
+    if current_user.is_authenticated:
+        return redirect(url_for('notifs.home'))
+    
     log_inCreds = LogApi.get_by_id(1)
     url = log_inCreds.login_api_url.strip()
     token = log_inCreds.login_api_token.strip()

@@ -10,74 +10,76 @@
             </div>
             <div class="modal-body">
                 <form action="{{ url_for('notifs.send_single_msg') }}" method="POST" id="send_single_msg">
-                    <div class=" row form-row">
-                        <input type="hidden" id="sender" name="sender" value="{{first_name}}" required>
-                        <div class="col mb-3">
-                            <label class="form-label" for="recipient">Recipient <small>(one word only)</small></label>
-                            <div class="input-group">
-                                <span class="input-group-text form-icon directory-btn"
-                                    data-bs-toggle="popover"
-                                    data-bs-trigger="hover" 
-                                    data-bs-content="Open Employee Directory"
-                                    style="cursor: pointer;">
-                                    <img class="directory_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/directory.svg') }}" alt="directory"/>
-                                </span>
-                                <input class="form-control" type="text" id="recipient" name="recipient" required>
+                    <div class="form-fields-wrapper">
+                        <div class=" row form-row">
+                            <input type="hidden" id="sender" name="sender" value="{{first_name}}" required>
+                            <div class="col mb-3">
+                                <label class="form-label" for="recipient">Recipient <small>(one word only)</small></label>
+                                <div class="input-group">
+                                    <span class="input-group-text form-icon directory-btn"
+                                        data-bs-toggle="popover"
+                                        data-bs-trigger="hover" 
+                                        data-bs-content="Open Employee Directory"
+                                        style="cursor: pointer;">
+                                        <img class="directory_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/directory.svg') }}" alt="directory"/>
+                                    </span>
+                                    <input class="form-control" type="text" id="recipient" name="recipient" required>
+                                </div>
+                            </div>
+                            <div class="col mb-3">
+                                <label class="form-label" for="phone">Phone <small>(09xxxxxxxxx)</small></label>
+                                <input class="form-control" type="text" id="phone" name="phone">
+                            </div>
+                            <div class="col mb-3">
+                                <label class="form-label" for="email">Email</label>
+                                <input class="form-control" type="email" id="email" name="email">
                             </div>
                         </div>
-                        <div class="col mb-3">
-                            <label class="form-label" for="phone">Phone <small>(09xxxxxxxxx)</small></label>
-                            <input class="form-control" type="text" id="phone" name="phone">
+                        <div class=" row form-row">
+                            <div class="col mb-3">
+                                <label class="form-label" for="division">Division/Program <small>(Required)</small></label>
+                                <select class="form-control" id="sdvision" name="sdvision" required>
+                                    <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
+                                    {% for divisions in division_data %}
+                                        <option value="{{ divisions.division_id }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col mb-3">
+                                <label class="form-label" for="sending_option">Send Via <span class="required">(required)</span></label>
+                                <select class="form-control" id="sending_option" name="sending_option"  required>
+                                    <option value="sms"  selected>SMS</option>
+                                    <option value="email">EMAIL</option>
+                                    <option value="both">SMS and EMAIL</option>
+                                </select>
+                            </div>
+                            <div class="col mb-3">
+                                <label class="form-label" for="template">Message Template <small>(Optional)</small></label>
+                                <select class="form-control" id="stemplate" name="stemplate">
+                                    <option value="" disabled selected>SELECT TEMPLATE</option>
+                                    {% for templates in msg_temp_data %}
+                                        <option value="{{ templates.msg_temp_name }}" data-descS = "{{templates.msg_temp_description}}">{{ templates.msg_temp_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
                         </div>
-                        <div class="col mb-3">
-                            <label class="form-label" for="email">Email</label>
-                            <input class="form-control" type="email" id="email" name="email">
+                        <div class=" row form-row">
+                            <label class="form-label" for"message">Message:</label>
+                            <div class="textarea-container">
+                                <textarea id="message" name="message" required></textarea>
+                                <span class="search-icon">🔍</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class=" row form-row">
-                        <div class="col mb-3">
-                            <label class="form-label" for="division">Division/Program <small>(Required)</small></label>
-                            <select class="form-control" id="sdvision" name="sdvision" required>
-                                <option value="" disabled selected>SELECT DIVISION/PROGRAM</option>
-                                {% for divisions in division_data %}
-                                    <option value="{{ divisions.division_id }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="row form-check">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="addName" name="addName" value="on">
+                                <label class="form-check-label" for="addName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
+                            </div>
                         </div>
-                        <div class="col mb-3">
-                            <label class="form-label" for="sending_option">Send Via <span class="required">(required)</span></label>
-                            <select class="form-control" id="sending_option" name="sending_option"  required>
-                                <option value="sms"  selected>SMS</option>
-                                <option value="email">EMAIL</option>
-                                <option value="both">SMS and EMAIL</option>
-                            </select>
+                        <div class="button-group">
+                            <button type="submit" class="send-btn" id="submitBtnSingle">Send</button>
+                            <button type="button" class="cancel-btn"  data-bs-dismiss="modal">Cancel</button>
                         </div>
-                        <div class="col mb-3">
-                            <label class="form-label" for="template">Message Template <small>(Optional)</small></label>
-                            <select class="form-control" id="stemplate" name="stemplate">
-                                <option value="" disabled selected>SELECT TEMPLATE</option>
-                                {% for templates in msg_temp_data %}
-                                    <option value="{{ templates.msg_temp_name }}" data-descS = "{{templates.msg_temp_description}}">{{ templates.msg_temp_name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <div class=" row form-row">
-                        <label class="form-label" for"message">Message:</label>
-                        <div class="textarea-container">
-                            <textarea id="message" name="message" required></textarea>
-                            <span class="search-icon">🔍</span>
-                        </div>
-                    </div>
-                    <div class="row form-check">
-                        <div class="checkbox-group">
-                            <input type="checkbox" id="addName" name="addName" value="on">
-                            <label class="form-check-label" for="addName">Add Name <small>(auto-add recipient's Firstname at the start of the message.)</small></label>
-                        </div>
-                    </div>
-                    <div class="button-group">
-                        <button type="submit" class="send-btn" id="submitBtnSingle">Send</button>
-                        <button type="button" class="cancel-btn"  data-bs-dismiss="modal">Cancel</button>
                     </div>
                     {% include "home_modals/loading_modals.html" %}
                 </form>

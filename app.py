@@ -1,6 +1,6 @@
 #--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, make_response
 from flask_login import LoginManager, current_user
 from config import Config
 from extensions import db , limiter, cache
@@ -11,7 +11,6 @@ from utility.sys_utils import to_block_text, decrypt_content, encrypt_content
 from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging
-
 #===============================================================================================================================>
 def create_app():
     app = Flask(__name__)
@@ -71,6 +70,13 @@ def create_app():
     @app.context_processor
     def inject_decryptor():
         return dict(decrypt_content=decrypt_content)
+    
+    @app.after_request
+    def add_header(response):
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0, max-age=0'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+        return response
 
     return app
 #===============================================================================================================================>

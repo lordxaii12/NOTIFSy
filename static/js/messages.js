@@ -148,15 +148,27 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('send_single_msg');
     const spinner = document.getElementById('singleloadingSpinner');
     const submitBtn = document.getElementById('submitBtnSingle');
+    const formFieldsWrapper = document.querySelector('.form-fields-wrapper');
 
     if (form) {
         form.addEventListener('submit', function () {
             spinner.classList.remove('d-none');
             submitBtn.disabled = true;
+
+            if (formFieldsWrapper) {
+                formFieldsWrapper.style.display = 'none';
+            }
+
+            sessionStorage.setItem('showResultModal', 'true');
         });
     }
 
-    if (typeof singletotalSent !== 'undefined' && singletotalSent !== null && singletotalUnsent !== null) {
+    const shouldShowModal = sessionStorage.getItem('showResultModal') === 'true';
+
+    if (typeof singletotalSent !== 'undefined' && singletotalSent !== null &&
+        typeof singletotalUnsent !== 'undefined' && singletotalUnsent !== null &&
+        shouldShowModal) {
+
         const icon = document.getElementById('singleresultIcon');
         const messageText = document.getElementById('singleresultMessage');
 
@@ -165,11 +177,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const resultModal = new bootstrap.Modal(document.getElementById('singleresultModal'));
         resultModal.show();
+
+        sessionStorage.removeItem('showResultModal');
     }
 });
-
-
-
 //==================================================================================================================================//
 //
 //
