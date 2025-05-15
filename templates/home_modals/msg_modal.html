@@ -141,6 +141,7 @@
                                     {% for divisions in division_data %}
                                         <option value="{{ divisions.division_id }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
                                     {% endfor %}
+                                    <option value="add" >➕ Add Division/Program</option>
                                 </select>
                             </div>
                             <div class="col mb-3">
@@ -214,6 +215,7 @@
                                     {% for divisions in division_data %}
                                         <option value="{{ divisions.division_id }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
                                     {% endfor %}
+                                    <option value="add" >➕ Add Division/Program</option>
                                 </select>
                             </div>
                             <div class="col mb-3">
@@ -309,6 +311,26 @@
 
 <script>
     document.getElementById('sdvision').addEventListener('change', function () {
+        if (this.value === 'add') {
+            // Reset the select to default
+            this.selectedIndex = 0;
+            // Show the modal
+            var myModal = new bootstrap.Modal(document.getElementById('addDivisionModal'));
+            myModal.show();
+        }
+    });
+    
+    document.getElementById('mdvision').addEventListener('change', function () {
+        if (this.value === 'add') {
+            // Reset the select to default
+            this.selectedIndex = 0;
+            // Show the modal
+            var myModal = new bootstrap.Modal(document.getElementById('addDivisionModal'));
+            myModal.show();
+        }
+    });
+
+    document.getElementById('udvision').addEventListener('change', function () {
         if (this.value === 'add') {
             // Reset the select to default
             this.selectedIndex = 0;

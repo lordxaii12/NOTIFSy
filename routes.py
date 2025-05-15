@@ -762,10 +762,11 @@ def register_division():
     new_division = add_division()
     
     if not new_division:
+        
         activity = f"FAILED TO ADD Division due Missing or invalid data."
         add_user_logs(activity)
         db.session.commit()
-        return redirect(url_for('notifs.admin'))
+        return redirect_based_on_role()
         
     try:
         activity = f"ADDED {new_division.division_name} as User Division."
@@ -779,8 +780,13 @@ def register_division():
         add_user_logs(activity)
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
-    return redirect(url_for('notifs.admin'))
+    return redirect_based_on_role()
 
+def redirect_based_on_role():
+    if current_user.role_id == 1:
+        return redirect(url_for('notifs.admin'))
+    else:
+        return redirect(url_for('notifs.home'))
 #===========================================================================================================>
     #edit user division
 @notifs.route('/edit_division_route/<int:division_id>', methods=['POST'])

@@ -13,7 +13,7 @@ class Divisions(db.Model):
     division_name = db.Column(db.String(100), nullable=False)
     division_description = db.Column(db.String(255))
     division_credits = db.Column(db.Integer, unique=False, nullable=True)
-    created_by = db.Column(db.String(100), unique=False, nullable=True)
+    created_by = db.Column(db.String(200), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
     
     updated_by = db.Column(db.String(100), unique=False, nullable=True)

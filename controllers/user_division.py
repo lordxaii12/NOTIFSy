@@ -31,6 +31,8 @@ def add_division():
     try:
         db.session.add(new_division)
         db.session.commit()
+        print(division_name)
+        print(created_by)
         return new_division 
     except Exception as e:
         db.session.rollback()
