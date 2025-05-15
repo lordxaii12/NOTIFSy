@@ -44,14 +44,15 @@
                                     {% for divisions in division_data %}
                                         <option value="{{ divisions.division_id }}" data-creds = "{{divisions.division_credits}}">{{ divisions.division_name }}</option>
                                     {% endfor %}
+                                    <option value="" >Add Division/Program</option>
                                 </select>
                             </div>
                             <div class="col mb-3">
                                 <label class="form-label" for="sending_option">Send Via <span class="required">(required)</span></label>
                                 <select class="form-control" id="sending_option" name="sending_option"  required>
                                     <option value="sms"  selected>SMS</option>
-                                    <option value="email">EMAIL</option>
-                                    <option value="both">SMS and EMAIL</option>
+                                    <option disabled value="email">EMAIL</option>
+                                    <option disabled value="both">SMS and EMAIL</option>
                                 </select>
                             </div>
                             <div class="col mb-3">
