@@ -11,6 +11,7 @@ from utility.sys_utils import to_block_text, decrypt_content, encrypt_content
 from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging
+import sys
 #===============================================================================================================================>
 def create_app():
     app = Flask(__name__)
@@ -81,6 +82,12 @@ def create_app():
     return app
 #===============================================================================================================================>
 if __name__ == "__main__":
+    host = '127.0.0.1'
+    port = 5000
+    if '--host' in sys.argv:
+        host = sys.argv[sys.argv.index('--host') + 1]
+    if '--port' in sys.argv:
+        port = int(sys.argv[sys.argv.index('--port') + 1])
     app = create_app()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host=host, port=port, debug=True)
 #===============================================================================================================================>
