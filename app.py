@@ -81,13 +81,13 @@ def create_app():
 
     return app
 #===============================================================================================================================>
+app = create_app()
 if __name__ == "__main__":
     host = '127.0.0.1'
-    port = 5000
+    port = 8000
     if '--host' in sys.argv:
         host = sys.argv[sys.argv.index('--host') + 1]
     if '--port' in sys.argv:
         port = int(sys.argv[sys.argv.index('--port') + 1])
-    app = create_app()
     app.run(host=host, port=port, debug=True)
 #===============================================================================================================================>
