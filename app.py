@@ -1,6 +1,6 @@
 #--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
-from flask import Flask, render_template, g, make_response, has_request_context
+from flask import Flask, render_template, g, make_response
 from flask_login import LoginManager, current_user
 from config import Config
 from extensions import db , limiter, cache
@@ -11,13 +11,12 @@ from utility.sys_utils import to_block_text, decrypt_content, encrypt_content
 from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging
-import sys
-
 #===============================================================================================================================>
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
+    app.config['CACHE_TYPE'] = 'simple' 
     app.config['CACHE_DEFAULT_TIMEOUT'] = 300
     cache.init_app(app)
     
@@ -54,17 +53,11 @@ def create_app():
 
     @app.before_request
     def load_sys_settings():
-        if has_request_context():
-            settings = cache.get('sys_settings')
-            if not settings:
-                app.logger.debug("Cache miss: loading sys_settings from DB.")
-                try:
-                    settings = SysSettings.get_by_id(1)
-                    cache.set('sys_settings', settings)
-                except OperationalError as e:
-                    app.logger.error(f"Failed to load system settings: {e}")
-                    return render_template("error.html", message="Database connection failed. Please check the server."), 500
-            g.sys_settings = settings
+        try:
+            g.sys_settings = SysSettings.get_by_id(1)
+        except OperationalError as e:
+            app.logger.error(f"Failed to load system settings: {e}")
+            return render_template("error.html", message="Database connection failed. Please check the server."), 500
 
     @app.context_processor
     def inject_block_text():
@@ -87,13 +80,7 @@ def create_app():
 
     return app
 #===============================================================================================================================>
-app = create_app()
 if __name__ == "__main__":
-    host = '127.0.0.1'
-    port = 8000
-    if '--host' in sys.argv:
-        host = sys.argv[sys.argv.index('--host') + 1]
-    if '--port' in sys.argv:
-        port = int(sys.argv[sys.argv.index('--port') + 1])
-    app.run(host=host, port=port, debug=False)
+    app = create_app()
+    app.run(host="0.0.0.0", port=5000, debug=True)
 #===============================================================================================================================>
