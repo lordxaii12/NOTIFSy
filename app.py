@@ -1,6 +1,6 @@
 #--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
-from flask import Flask, render_template, g, make_response
+from flask import Flask, render_template, g, make_response, has_request_context
 from flask_login import LoginManager, current_user
 from config import Config
 from extensions import db , limiter, cache
@@ -12,12 +12,12 @@ from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging
 import sys
+
 #===============================================================================================================================>
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
-    app.config['CACHE_TYPE'] = 'simple' 
     app.config['CACHE_DEFAULT_TIMEOUT'] = 300
     cache.init_app(app)
     
@@ -54,11 +54,17 @@ def create_app():
 
     @app.before_request
     def load_sys_settings():
-        try:
-            g.sys_settings = SysSettings.get_by_id(1)
-        except OperationalError as e:
-            app.logger.error(f"Failed to load system settings: {e}")
-            return render_template("error.html", message="Database connection failed. Please check the server."), 500
+        if has_request_context():
+            settings = cache.get('sys_settings')
+            if not settings:
+                app.logger.debug("Cache miss: loading sys_settings from DB.")
+                try:
+                    settings = SysSettings.get_by_id(1)
+                    cache.set('sys_settings', settings)
+                except OperationalError as e:
+                    app.logger.error(f"Failed to load system settings: {e}")
+                    return render_template("error.html", message="Database connection failed. Please check the server."), 500
+            g.sys_settings = settings
 
     @app.context_processor
     def inject_block_text():
