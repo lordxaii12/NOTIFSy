@@ -89,5 +89,5 @@ if __name__ == "__main__":
         host = sys.argv[sys.argv.index('--host') + 1]
     if '--port' in sys.argv:
         port = int(sys.argv[sys.argv.index('--port') + 1])
-    app.run(host=host, port=port, debug=True)
+    app.run(host=host, port=port, debug=False)
 #===============================================================================================================================>

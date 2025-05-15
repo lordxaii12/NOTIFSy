@@ -780,6 +780,7 @@ def register_division():
         db.session.commit()
         flash(f"Error: {str(e)}", 'error')
     return redirect(url_for('notifs.admin'))
+
 #===========================================================================================================>
     #edit user division
 @notifs.route('/edit_division_route/<int:division_id>', methods=['POST'])
