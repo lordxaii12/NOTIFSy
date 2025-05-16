@@ -75,11 +75,7 @@
     margin-bottom: 10px;
 }
 .default_theme-bg{
-    background: linear-gradient(180deg, #1c04f5f5 5%, #3c3ceaf6 30%, #4d4dd8f3 40%), 
-                url('/static/images/default/backgrounds/theme_background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: linear-gradient(180deg, #1c04f5f5 5%, #3c3ceaf6 30%, #4d4dd8f3 40%);
 }
 .default_theme-color{
     color: rgb(26, 4, 67);
@@ -148,11 +144,7 @@
     margin-bottom: 10px;
 }
 .floral_theme-bg{
-    background: linear-gradient(180deg, rgba(207, 197, 123, 0.7), rgba(213, 179, 57, 0.83)), 
-                url('/static/images/floral/backgrounds/theme_background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: linear-gradient(180deg, rgba(207, 197, 123, 0.7), rgba(213, 179, 57, 0.83));
 }
 .floral_theme-color{
     color: rgb(60, 59, 3);
@@ -175,11 +167,7 @@
     margin-bottom: 10px;
 }
 .matrix_theme-bg{
-    background: linear-gradient(180deg, rgba(7, 1, 13, 0.7), rgba(7, 7, 39, 0.7)), 
-                url('/static/images/matrix/backgrounds/theme_background.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: linear-gradient(180deg, rgba(2, 13, 1, 0.7), rgba(5, 15, 1, 0.7));
 }
 .matrix_theme-color{
     color: rgb(113, 245, 41);
