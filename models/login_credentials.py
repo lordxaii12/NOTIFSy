@@ -15,10 +15,10 @@ class LogApi(db.Model):
     login_api_token = db.Column(db.String(200), nullable=False)
     login_api_content_type = db.Column(db.String(100), nullable=False)
     
-    created_by = db.Column(db.String(100), unique=False, nullable=True)
+    created_by = db.Column(db.String(200), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
     
-    updated_by = db.Column(db.String(100), unique=False, nullable=True)
+    updated_by = db.Column(db.String(200), unique=False, nullable=True)
     updated_on = db.Column(db.String(100), unique=False, nullable=True)
     
     created_at = db.Column(db.DateTime, default=func.now())

@@ -17,10 +17,10 @@ class Itexmo(db.Model):
     itexmo_apicode = db.Column(db.String(200), nullable=False)
     itexmo_contenttype = db.Column(db.String(255))
     
-    created_by = db.Column(db.String(100), unique=False, nullable=True)
+    created_by = db.Column(db.String(200), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
     
-    updated_by = db.Column(db.String(100), unique=False, nullable=True)
+    updated_by = db.Column(db.String(200), unique=False, nullable=True)
     updated_on = db.Column(db.String(100), unique=False, nullable=True)
     
     created_at = db.Column(db.DateTime, default=func.now())

@@ -33,9 +33,9 @@ class SysSettings(db.Model):
     hris_api_id = db.Column(db.Integer, db.ForeignKey('hrpears_api.hrpears_id'), nullable=True)
     login_api_id = db.Column(db.Integer, db.ForeignKey('login_api.login_api_id'), nullable=True)
     
-    created_by = db.Column(db.String(100), unique=False, nullable=True)
+    created_by = db.Column(db.String(200), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
-    updated_by = db.Column(db.String(100), unique=False, nullable=True)
+    updated_by = db.Column(db.String(200), unique=False, nullable=True)
     updated_on = db.Column(db.String(100), unique=False, nullable=True)
         
     created_at = db.Column(db.DateTime, default=func.now())

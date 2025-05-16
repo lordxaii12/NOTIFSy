@@ -34,10 +34,10 @@ class User_v1(db.Model, UserMixin):
     msg_sent = db.Column(db.Integer, unique=False, nullable=True)
     credit_used = db.Column(db.Integer, unique=False, nullable=True)
     
-    created_by = db.Column(db.String(100), unique=False, nullable=True)
+    created_by = db.Column(db.String(200), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
     
-    updated_by = db.Column(db.String(100), unique=False, nullable=True)
+    updated_by = db.Column(db.String(200), unique=False, nullable=True)
     updated_on = db.Column(db.String(100), unique=False, nullable=True)
     
     created_at = db.Column(db.DateTime, default=func.now())

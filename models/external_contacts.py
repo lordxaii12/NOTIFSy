@@ -15,10 +15,10 @@ class External(db.Model):
     external_email = db.Column(db.String(100), nullable=False)
     external_description = db.Column(db.String(255))
     
-    created_by = db.Column(db.String(100), unique=False, nullable=True)
+    created_by = db.Column(db.String(200), unique=False, nullable=True)
     created_on = db.Column(db.String(100), unique=False, nullable=True)
     
-    updated_by = db.Column(db.String(100), unique=False, nullable=True)
+    updated_by = db.Column(db.String(200), unique=False, nullable=True)
     updated_on = db.Column(db.String(100), unique=False, nullable=True)
     
     created_at = db.Column(db.DateTime, default=func.now())
