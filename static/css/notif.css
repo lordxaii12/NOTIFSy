@@ -1,14 +1,11 @@
 /* CSS CODE FOR 'NOTIFS' BY: RYRUBIO */
 /*===============================================================================================================================>*/
 /*BASE CSS ======================================================================================================================>*/
-    /*BASE SETTINGS*/
 * {
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
-/*TOP BAR ========================================================================================================================>*/
-    /*TOP BAR CONTAINER*/
 .base .topbar {
     height: 50px;
     display: flex;
@@ -18,30 +15,24 @@
     overflow: hidden;
     width: 100%;
 }
-    /*TOP BAR TITLE / SYSTEM HEADING */
 .base .title {
     font-size: 20px;
     font-weight: bold;
     margin-left: 10px;
 }
-    /*TOP BAR CONTACT ICON CONTAINER*/
 .base .support-contact{
     margin-left: auto;
 }
-    /*TOP BAR CONTACT ICON IMG*/
 .base .support_icon{
     height: 25px;
     width: 25px;
 }
-    /*TOP BAR SUPPORT EMAIL BUTTON*/
 .base .support-email{
     margin-left: auto;
 }
-    /*TOP BAR LOGOUT BUTTON*/
 .base .logout{
     margin-left: auto;
 }
-    /*TOP BAR LOGOUT BUTTON IMG*/
 .base .logout_icon{
     width: 40px;
     height: 40px;
@@ -53,7 +44,6 @@
 /*
 /*===============================================================================================================================>*/
 /*SIDE NAV ======================================================================================================================>*/
-    /*SIDE NAVBAR CONTAINER*/
 .base .sidebar {
     width: 200px;
     height: 100vh;
@@ -63,21 +53,17 @@
     padding-top: 20px;
     z-index: 1050;
 }
-    /*SIDE NAVBAR LOGO CONTAINER*/
 .base .ds_logo{
     margin-top: -20px;
     padding: 5px;
 }
-    /*SIDE NAVBAR LOGO IMG*/
 .base .ds_logo img{
     height: 90px;
     width: 150px;
 }
-    /*SIDE NAVBAR USER OFFICE*/
 .base .sidebar-user{
     margin-top: -20px;
 }
-    /*SIDE NAVBAR TITLE / APP NAME*/
 .base .sidebar-app_name {
     font-size: 30px;
     text-align: center;
@@ -85,17 +71,14 @@
     overflow: hidden;
     margin-top: -10px;
 }
-    /*SIDE NAVBAR SEPARATOR LINE*/
 .base .sidebar-line {
     width: 80%;
 }
-    /*SIDE NAVBAR MENU UL*/
 .base .menu ul {
     list-style: none;
     width: 100%;
     padding: 0;
 }
-    /*SIDE NAVBAR MENU LINK*/
 .base .menu li {
     display: flex;
     align-items: center;
