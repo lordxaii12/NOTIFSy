@@ -8,8 +8,6 @@
         {% endblock %}
 
         {% block css %}
-            
-            <link rel="stylesheet" href="{{ url_for('static', filename='css/directory.css') }}">
             <link rel="stylesheet" href="{{ url_for('static', filename='css/table_headers.css') }}">
         {% endblock %}
 
@@ -113,9 +111,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row second_row">
+                        <div class="row second_row ">
                             <div class="col div_col {{user.theme.theme_bg}} {{user.theme.theme_font}}"  data-bs-toggle="modal" data-bs-target="#users_display">
-                                <div class="row add_container">
+                                <div class="row add_container ">
                                     {% if user.is_authenticated and user.role_id in [1, 3] %}
                                     <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#addUserModal">
                                         <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" alt="roles">

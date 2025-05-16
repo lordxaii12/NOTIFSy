@@ -4,14 +4,13 @@
         Reports - FO-X NotiFS
     {% endblock %}
     {% block css %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/reports.css') }}">
     {% endblock %}
     {% block content %}
         <div class="row g-0 p-0 m-0">
             <div class="col-auto">
             </div>
             <div class="col">
-                <div class="container-fluid main_container">
+                <div class="container-fluid main_container report">
                     <div class="row first_row {{user.theme.theme_bg}} {{user.theme.theme_font}}">
                         <div class="row service-row">
                             {% if user.is_authenticated and user.role_id in [1,3] %}
