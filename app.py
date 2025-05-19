@@ -11,10 +11,31 @@ from utility.sys_utils import to_block_text, decrypt_content, encrypt_content
 from routes import notifs
 from sqlalchemy.exc import OperationalError
 import logging
+from flask_assets import Environment, Bundle
 #===============================================================================================================================>
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    
+    
+    css = Bundle(
+        'css/notif.css',
+        filters='cssmin',
+        output='gen/packed.css'
+    )
+
+    js = Bundle(
+        'js/delete.js',
+        'js/edit.js',
+        'js/messages.js',
+        'js/utils.js',
+        filters='jsmin',
+        output='gen/packed.js'
+    )
+    
+    assets = Environment(app)
+    assets.register('css_all', css)
+    assets.register('js_all', js)
     
     app.config['CACHE_TYPE'] = 'simple' 
     app.config['CACHE_DEFAULT_TIMEOUT'] = 300
