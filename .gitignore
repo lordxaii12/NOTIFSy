@@ -1,7 +1,7 @@
 # Ignore virtual environments
 myvenv/
 notifvenv/
-app.py
+appy.py
 config.py
 app_copy.py
 config_copy.py

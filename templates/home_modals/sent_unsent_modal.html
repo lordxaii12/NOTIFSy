@@ -13,26 +13,37 @@
                     <table class="table table-striped table-hover ">
                         <thead>
                             <tr>
-                                <th>Msg ID</th>
-                                <th>Recipient/s</th>
-                                <th>Content</th>
-                                <th>Date</th>
-                                <th>Credits</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th class="th_3">Msg ID</th>
+                                <th class="th_1">Content</th>
+                                <th class="th_6">Date</th>
+                                <th class="th_4">Status</th>
+                                <th class="th_4">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
                             {% for msg in smss %}
                             <tr>
-                                <td>{{ msg.msg_tracker }}</td>
-                                <td>{{ msg.msg_recipient }}</td>
-                                <td>{{ msg.msg_content }}</td>
-                                <td>{{ msg.sent_on }}</td>
-                                <td>{{ msg.credit_used }}</td>
-                                <td>{{ msg.msg_status }}</td>
-                                <td>
-                                    delete|resend
+                                <td class="th_3">{{ msg.msg_tracker }}</td>
+                                <td class="th_1">{{ msg.msg_content }}</td>
+                                <td class="th_6">{{ msg.sent_on }}</td>
+                                <td class="th_4">{{ msg.msg_status }}</td>
+                                <td class="th_4">
+                                    {% if user.role_id == 1 or (user.role_id == 3 and users.role_id != 1) %}
+                                        <button class="user-log-btn btn p-0 m-0 border-0 bg-transparent" data-log-id=""
+                                            data-bs-toggle="popover"
+                                            data-bs-trigger="hover" 
+                                            data-bs-content="Deactivate user account"
+                                            style="cursor: pointer;">
+                                            <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/deactivate.svg') }}" alt="delete" />
+                                        </button>|
+                                    {% endif %}
+                                    <button class="view_user-btn btn p-0 m-0 border-0 bg-transparent"
+                                        data-bs-toggle="popover"
+                                        data-bs-trigger="hover" 
+                                        data-bs-content="View info"
+                                        style="cursor: pointer;">
+                                        <img class="table_icons" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/view.svg') }}" alt="delete" />
+                                    </button>
                                 </td>
                             </tr>
                             {% endfor %}
