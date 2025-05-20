@@ -33,10 +33,4 @@ class Config:
     SQLALCHEMY_DATABASE_URI = uri.strip()
     SQLALCHEMY_TRACK_MODIFICATIONS = db_track_mod
     
-    CACHE_TYPE = 'RedisCache'
-    CACHE_REDIS_HOST = '127.0.0.1'
-    CACHE_REDIS_PORT = 6379
-    CACHE_REDIS_DB = 0
-    CACHE_REDIS_URL = 'redis://127.0.0.1:6379/0'
-    
 #===============================================================================================================================>

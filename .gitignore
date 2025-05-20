@@ -1,8 +1,8 @@
 # Ignore virtual environments
 myvenv/
 notifvenv/
-appy.py
-configy.py
+app.py
+config.py
 app_copy.py
 config_copy.py
 run

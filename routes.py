@@ -250,7 +250,7 @@ def login():
                     flash('Login successful!', 'success')
                     return redirect(url_for('notifs.home'))
                 else:
-                    flash('Invalids username or password', 'error')
+                    flash('Invalid username or password', 'error')
             else:
                 flash('Sorry you are not granted access to NotifX', 'error')
         return render_template('login.html')
