@@ -20,6 +20,7 @@ def create_app():
     
     css = Bundle(
         'css/notif.css',
+        'css/table_headers.css',
         filters='cssmin',
         output='gen/packed.css'
     )

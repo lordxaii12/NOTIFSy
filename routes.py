@@ -604,6 +604,7 @@ def display_users_data():
 def register_user():
     new_user = add_user()
     
+    
     if not new_user:
         activity = f"FAILED TO ADD User Credentials. Missing or invalid data."
         add_user_logs(activity)
@@ -612,7 +613,8 @@ def register_user():
         
     try:
         role = Roles.get_by_id(new_user.role_id)
-        activity = f"ADDED {new_user.full_name} as {role.role_name} to Users."
+        decrepted_new_user = decrypt_content(new_user.full_name)
+        activity = f"ADDED {decrepted_new_user} as {role.role_name} to Users."
         flash('User Credentials added successfully!', 'success')
         add_user_logs(activity)
         db.session.commit()
@@ -642,10 +644,11 @@ def edit_user_route(user_id):
     role_data = Roles.get_by_id(new_role_id)
     new_role = role_data.role_name
     new_division = request.form.get('division')
+    decrypted_cur_fullname = decrypt_content(cur_fullname)
     
     try:
         if edit_user(user_id):
-            activity = f"EDIT User data from: [{cur_fullname}, {cur_username}, {cur_role}, {cur_division}] to [{new_fullname}, {new_username}, {new_role}, {new_division}]."
+            activity = f"EDIT User data from: [{decrypted_cur_fullname}, {cur_username}, {cur_role}, {cur_division}] to [{new_fullname}, {new_username}, {new_role}, {new_division}]."
             flash('User data updated successfully', 'success')
         else:
             activity = f"FAILED TO EDIT User data. Missing or invalid data."
@@ -664,16 +667,17 @@ def edit_user_route(user_id):
 @login_required
 def delete_user_route(user_id):
     user_data = User_v1.get_by_id(user_id)
+    decrypted_fullname = decrypt_content(user_data.full_name)
     if not user_data:
         flash('User not found.', 'error')
         return redirect(url_for('notifs.admin'))
     success = delete_user(user_id)
     if success:
         flash('User record deleted successfully', 'success')
-        activity = f"DELETED {user_data.full_name} from Users data."
+        activity = f"DELETED {decrypted_fullname} from Users data."
     else:
         flash('User record delete failed', 'error')
-        activity = f"FAILED TO DELETE {user_data.full_name} from Users data."
+        activity = f"FAILED TO DELETE {decrypted_fullname} from Users data."
     
     add_user_logs(activity)
     db.session.commit()

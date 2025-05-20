@@ -3,33 +3,41 @@
 /*MODAL TABLES TD/TH  ===========================================================================================================>*/
     /*TH*/
 .th_1{
-    width: 300px;
+    max-width: 300px;
 }
 
 .th_2{
-    width: 200px;
+    max-width: 200px;
 }
 
 .th_3{
-    width: 100px;
+    max-width: 100px;
 }
 
 .th_4{
-    width: 50px;
+    max-width: 50px;
 }
 
 .th_5{
-    width: 70px;
+    max-width: 70px;
 }
 
 .th_6{
-    width: 40px;
+    max-width: 40px;
 }
 
 .th_7{
-    width: 20px;
+    max-width: 20px;
 }
 
 .th_8{
-    width: 150px;
+    max-width: 150px;
+}
+
+.th_9{
+    max-width: 350px;
+}
+
+.th_10{
+    max-width: 400px;
 }
