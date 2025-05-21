@@ -997,7 +997,7 @@ def send_single_msg():
     unsent=[]
     msg_recipient=[]
     total_credit=0
-    contents = []
+    
     sender_div = current_user.division
     division = int(request.form.get('sdvision'))
     
@@ -1022,17 +1022,10 @@ def send_single_msg():
         status_data = get_status_data(recipient,formatted_mobile,message)
         formatted_recipient =f"{recipient}:{formatted_mobile}"
         msg_recipient.append(formatted_recipient)
-        contents.append({
-            "Message": message,
-            "Recipient": formatted_mobile
-        })
         
-        url, payload, headers = send_msg(contents)
+        url, payload, headers = send_msg(message, formatted_mobile)
         response = requests.post(url, json=payload, headers=headers)
         data = response.json()
-        
-        print(contents)
-        print(data)
         
         if response.status_code == 200:
             credit_used = int(data.get('TotalCreditUsed', 0))
@@ -1098,7 +1091,7 @@ def send_multi_msg():
     unsent=[]
     msg_recipient=[]
     total_credit=0
-    contents = []
+    
     for data_line in data_lines:
         data_parts = data_line.split(":")
         name = data_parts[0].strip()
@@ -1111,17 +1104,11 @@ def send_multi_msg():
         status_data = get_status_data(name,formatted_mobile,message)
         recipient =f"{name}:{formatted_mobile}"
         msg_recipient.append(recipient)
-        contents.append({
-            "Message": message,
-            "Recipient": formatted_mobile
-        })
         
         if sending_option == 'sms':
-            url, payload, headers = send_msg(contents)
+            url, payload, headers = send_msg(message, formatted_mobile)
             response = requests.post(url, json=payload, headers=headers)
             data = response.json()
-            print(contents)
-            print(data)
             
             if response.status_code == 200:
                 credit_used = int(data.get('TotalCreditUsed', 0))
@@ -1199,7 +1186,6 @@ def send_upload_msg():
     unsent=[]
     msg_recipient=[]
     total_credit=0
-    contents = []
     for data_line in data_lines:
         data_parts = data_line.split(":")
         name = data_parts[0].strip()
@@ -1214,16 +1200,11 @@ def send_upload_msg():
         status_data = get_status_data(name,formatted_mobile,message)
         recipient =f"{name}:{formatted_mobile}"
         msg_recipient.append(recipient)
-        contents.append({
-            "Message": message,
-            "Recipient": formatted_mobile
-        })
+        
         if sending_option == 'sms':
-            url, payload, headers = send_msg(contents)
+            url, payload, headers = send_msg(message, formatted_mobile)
             response = requests.post(url, json=payload, headers=headers)
             data = response.json()
-            print(contents)
-            print(data)
             
             if response.status_code == 200:
                 credit_used = int(data.get('TotalCreditUsed', 0))
