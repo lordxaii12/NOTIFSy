@@ -1,6 +1,7 @@
 #--PHYTON-FLASK CODE FOR 'NOTIFS' BY: RYRUBIO--#
 #===============================================================================================================================>
 import random
+import json
 import re
 import pymysql
 from flask import g, request
@@ -96,7 +97,7 @@ def get_hrpears_data():
             connection.close()
 #===============================================================================================================================>
     #Send sms 
-def send_msg(message, recipient):
+def send_msg(content):
     
     user_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0]
     print(f"[LOG] User IP: {user_ip}")
@@ -113,8 +114,7 @@ def send_msg(message, recipient):
             "Email": email,
             "Password": password,
             "ApiCode": apicode,
-            "Message": message,
-            "Recipients": [recipient]
+            "Contents": content
         }
         headers = {
             "Content-Type": content_type

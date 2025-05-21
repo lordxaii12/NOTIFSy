@@ -28,7 +28,6 @@ def create_app():
     js = Bundle(
         'js/delete.js',
         'js/edit.js',
-        'js/messages.js',
         'js/utils.js',
         filters='jsmin',
         output='gen/packed.js'
