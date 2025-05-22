@@ -6,7 +6,7 @@
     {% endblock %}
 
     {% block css %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/msgs.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/msgs.css') }}?v=1.0.0">
     {% endblock %}
 
     {% block content %}
@@ -257,7 +257,7 @@
                 const uploadtotalSent = {{ request.args.get('total_sent', 'null') }};
                 const uploadtotalUnsent = {{ request.args.get('total_unsent', 'null') }};
             </script>
-            <script src="{{ url_for('static', filename='js/messages.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/messages.js') }}?v=1.0.0"></script>
         {% endblock %}
 
     {% endblock %}
