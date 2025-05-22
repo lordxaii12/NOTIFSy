@@ -6,7 +6,7 @@
     {% endblock %}
 
     {% block css %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/msgs.css') }}?v=1.0.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/msgs.css') }}?v=1.0.1">
     {% endblock %}
 
     {% block content %}
@@ -17,7 +17,7 @@
                 <div class="container-fluid main_container">
                     <div class="setting_cont">
                         <button class="btn add_btn" data-bs-toggle="modal" data-bs-target="#info_modal">
-                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                            <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                 alt="info"
                                 data-bs-toggle="popover"
                                 data-bs-trigger="hover" 
@@ -25,7 +25,7 @@
                                 style="cursor: pointer;">
                         </button>
                         <button class="btn add_btn" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop">
-                        <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/themes.svg') }}" 
+                        <img class="setting_icon" src="{{ url_for('static', filename='images/global/themes.webp') }}?v=1.0.1" 
                             alt="theme"
                             data-bs-toggle="popover"
                             data-bs-trigger="hover" 
@@ -45,7 +45,7 @@
                                         <button class="btn add_btn"
                                             data-bs-toggle="modal" data-bs-target="#user_notes_edit">
                                             <img class="setting_icon" 
-                                                src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}"
+                                                src="{{ url_for('static', filename='images/global/add_icon.webp') }}?v=1.0.1"
                                                 alt="roles"
                                                 data-bs-toggle="popover"
                                                 data-bs-trigger="hover" 
@@ -70,7 +70,7 @@
                                             <button class="btn add_btn"
                                                 data-bs-toggle="modal" data-bs-target="#system_notice_edit">
                                                 <img class="setting_icon" 
-                                                    src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" 
+                                                    src="{{ url_for('static', filename='images/global/add_icon.webp') }}?v=1.0.1" 
                                                     alt="roles"
                                                     data-bs-toggle="popover"
                                                     data-bs-trigger="hover" 
@@ -97,7 +97,7 @@
                                 <div class="col service-col" data-bs-toggle="modal" data-bs-target="#singleMsgModal">
                                     <div class="service-content">
                                         <div class="service-info">
-                                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                            <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                                 alt="settings"
                                                 data-bs-toggle="popover"
                                                 data-bs-placement="top"
@@ -107,12 +107,12 @@
                                             <h5>{{ to_block_text("Single") }} Contact</h5>
                                         </div>
                                     </div>
-                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_single.svg') }}">
+                                    <img class="card_icon" src="{{ url_for('static', filename='images/global/send_single.webp') }}?v=1.0.1">
                                 </div>
                                 <div class="col service-col" data-bs-toggle="modal" data-bs-target="#multiMsgModal">
                                     <div class="service-content">
                                         <div class="service-info">
-                                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                            <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                                 alt="settings"
                                                 data-bs-toggle="popover"
                                                 data-bs-placement="top"
@@ -122,14 +122,14 @@
                                             <h5>{{ to_block_text("Multi") }} Contacts</h5>
                                         </div>
                                     </div>
-                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_multiple.svg') }}" alt="roles">
+                                    <img class="card_icon" src="{{ url_for('static', filename='images/global/send_multiple.webp') }}?v=1.0.1" alt="roles">
                                 </div>
                             </div>
                             <div class="row service-row">
                                 <div class="col service-col" data-bs-toggle="modal" data-bs-target="#uploadMsgModal">
                                     <div class="service-content">
                                         <div class="service-info">
-                                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                            <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                                 alt="settings"
                                                 data-bs-toggle="popover"
                                                 data-bs-placement="top"
@@ -139,7 +139,7 @@
                                             <h5>{{ to_block_text("Upload") }} Contacts</h5>
                                         </div>
                                     </div>
-                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/send_upload.svg') }}" alt="upload_msg">
+                                    <img class="card_icon" src="{{ url_for('static', filename='images/global/send_upload.webp') }}?v=1.0.1" alt="upload_msg">
                                 </div>
                                 <div class="col service-col" data-bs-toggle="modal" data-bs-target="#add_msg_temp_display">
                                     <div class="service-content">
@@ -147,7 +147,7 @@
                                             <button class="btn add_btn"
                                                 {% if user.is_authenticated and user.role_id in [1, 3, 5] %}
                                                     data-bs-toggle="modal" data-bs-target="#addMessageTemplates">
-                                                    <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/add_icon.svg') }}" alt="roles">
+                                                    <img class="setting_icon" src="{{ url_for('static', filename='images/global/add_icon.webp') }}?v=1.0.1" alt="roles">
                                                 {% endif %}
                                             </button>
                                         </div>
@@ -155,7 +155,7 @@
                                             <h5>{{ to_block_text("Message") }} Templates</h5>
                                         </div>
                                     </div>
-                                    <img class="card_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/message_templates.svg') }}" alt="message_temps"alt="upload_msg">
+                                    <img class="card_icon" src="{{ url_for('static', filename='images/global/message_templates.webp') }}?v=1.0.1" alt="message_temps"alt="upload_msg">
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                                 <div class="col msg-col">
                                     <div class="service-content">
                                         <div class="service-info">
-                                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                            <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                                 alt="settings"
                                                 data-bs-toggle="popover"
                                                 data-bs-placement="top"
@@ -179,7 +179,7 @@
                                         {% if sms_sent != 0 %}
                                             <p class="notifier">{{sms_sent}}</p>
                                         {% endif %}
-                                        <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/msg_sent.svg') }}" 
+                                        <img class="msg_icon" src="{{ url_for('static', filename='images/global/msg_sent.webp') }}?v=1.0.1" 
                                         alt="messages"
                                         data-bs-toggle="modal" 
                                         data-bs-target="#sent_display">
@@ -188,7 +188,7 @@
                                 <div class="col msg-col">
                                     <div class="service-content">
                                         <div class="service-info">
-                                            <img class="setting_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/info.svg') }}" 
+                                            <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                                 alt="settings"
                                                 data-bs-toggle="popover"
                                                 data-bs-placement="top"
@@ -202,7 +202,7 @@
                                         {% if emails_sent != 0 %}
                                             <p class="notifier">{{emails_sent}}</p>
                                         {% endif %}
-                                        <img class="msg_icon" src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/global/email_sent.svg') }}" 
+                                        <img class="msg_icon" src="{{ url_for('static', filename='images/global/email_sent.webp') }}?v=1.0.1" 
                                         alt="email"
                                         data-bs-toggle="modal" 
                                         data-bs-target="#">
@@ -257,7 +257,7 @@
                 const uploadtotalSent = {{ request.args.get('total_sent', 'null') }};
                 const uploadtotalUnsent = {{ request.args.get('total_unsent', 'null') }};
             </script>
-            <script src="{{ url_for('static', filename='js/messages.js') }}?v=1.0.0"></script>
+            <script src="{{ url_for('static', filename='js/messages.js') }}?v=1.0.1"></script>
         {% endblock %}
 
     {% endblock %}

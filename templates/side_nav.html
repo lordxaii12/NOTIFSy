@@ -2,7 +2,7 @@
 <aside class="sidebar {{user.theme.theme_bg}} {{user.theme.theme_font}}">
     <div class="d-flex flex-column align-items-center">
         <div class="ds_logo">
-            <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/backgrounds/dswd_logo.svg') }}" alt="DSWD Logo">
+            <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/backgrounds/dswd_logo.webp') }}?v=1.0.1" alt="DSWD Logo">
         </div>
         <h5 class="sidebar-user"> {{g.sys_settings.sys_app_user}} </h5>
         <h1 class="sidebar-app_name text-center">{{ to_block_text(g.sys_settings.sys_name) }}</h1>
@@ -12,7 +12,7 @@
                 {% if user.is_authenticated and user.role_id in [1,3] %}
                     <li class="{% if request.endpoint == 'notifs.admin' %}active{% endif %}">
                         <a class="{{user.theme.theme_font}}" href="{{ url_for('notifs.admin') }}">
-                            <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/admin_icon.svg') }}" alt="admin">
+                            <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/admin_icon.webp') }}?v=1.0.1" alt="admin">
                             <span>Admin</span>
                         </a>
                     </li>
@@ -20,28 +20,28 @@
 
                 <li class="{% if request.endpoint == 'notifs.home' %}active{% endif %}">
                     <a class="{{user.theme.theme_font}}" href="{{ url_for('notifs.home') }}">
-                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/home_icon.svg') }}" alt="home">
+                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/home_icon.webp') }}?v=1.0.1" alt="home">
                         <span>Home</span>
                     </a>
                 </li>
 
                 <li class="{% if request.endpoint == 'notifs.reports' %}active{% endif %}">
                     <a class="{{user.theme.theme_font}}" href="{{ url_for('notifs.reports') }}">
-                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/reports_icon.svg') }}" alt="reports">
+                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/reports_icon.webp') }}?v=1.0.1" alt="reports">
                         <span>Reports</span>
                     </a>
                 </li>
 
                 <!--<li class="{% if request.endpoint == 'notifs.libraries' %}active{% endif %}">
                     <a class="{{user.theme.theme_font}}" href="{{ url_for('notifs.libraries') }}">
-                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/libraries_icon.svg') }}" alt="libraries">
+                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/libraries_icon.webp') }}" alt="libraries">
                         <span>Libraries</span>
                     </a>
                 </li>
 
                 <li class="{% if request.endpoint == 'notifs.profile' %}active{% endif %}">
                     <a class="{{user.theme.theme_font}}" href="{{ url_for('notifs.profile') }}">
-                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/user_icon.svg') }}" alt="user">
+                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/user_icon.webp') }}" alt="user">
                         <span>Profile</span>
                     </a>
                 </li>-->
