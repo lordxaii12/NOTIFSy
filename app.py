@@ -21,6 +21,7 @@ def create_app():
     
     css = Bundle(
         'css/notif.css',
+        'css/table_headers.css',
         filters='cssmin',
         output='gen/packed.css'
     )
@@ -37,7 +38,7 @@ def create_app():
     assets.register('css_all', css)
     assets.register('js_all', js)
     
-    app.config['CACHE_DEFAULT_TIMEOUT'] = 300
+    app.config['CACHE_DEFAULT_TIMEOUT'] = 1800
     cache.init_app(app)
     
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
