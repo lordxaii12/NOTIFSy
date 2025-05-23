@@ -16,11 +16,11 @@
                             {% if user.is_authenticated and user.role_id in [1,3] %}
                                 <div class="col service-col">
                                     <div class="service-info">
-                                        <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
+                                        <!--<img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                             alt="settings"
                                             data-bs-toggle="popover"
                                             data-bs-placement="top"
-                                            data-bs-content="Total SMS credits used by the Notification Service.">
+                                            data-bs-content="Total SMS credits used by the Notification Service.">-->
                                     </div>
                                     <div class="row">
                                         <h1 class="number_headings">{{ "{:,}".format(total_credit_used) }}</h1>
@@ -32,11 +32,11 @@
                             {% endif %}
                             <div class="col service-col">
                                 <div class="service-info">
-                                    <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
+                                    <!--<img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                         alt="settings"
                                         data-bs-toggle="popover"
                                         data-bs-placement="top"
-                                        data-bs-content="Total SMS credits used by the User.">
+                                        data-bs-content="Total SMS credits used by the User.">-->
                                 </div>
                                 <div class="row">
                                     <h1 class="number_headings">{{ "{:,}".format(user_credit) }}</h1>
@@ -47,11 +47,11 @@
                             </div>
                             <div class="col service-col">
                                 <div class="service-info">
-                                    <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
+                                    <!--<img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                         alt="settings"
                                         data-bs-toggle="popover"
                                         data-bs-placement="top"
-                                        data-bs-content="Total SMS credits used by DSWD FOX, this includes other systems using the SMS API service.">
+                                        data-bs-content="Total SMS credits used by DSWD FOX, this includes other systems using the SMS API service.">-->
                                 </div>
                                 <div class="row">
                                     <h1 class="number_headings">{{ "{:,}".format(total_credits_used) }}</h1>
@@ -62,11 +62,11 @@
                             </div>
                             <div class="col service-col">
                                 <div class="service-info">
-                                    <img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
+                                    <!--<img class="setting_icon" src="{{ url_for('static', filename='images/global/info.webp') }}?v=1.0.1" 
                                         alt="settings"
                                         data-bs-toggle="popover"
                                         data-bs-placement="top"
-                                        data-bs-content="Total remaining SMS credits for DSWD FOX.">
+                                        data-bs-content="Total remaining SMS credits for DSWD FOX.">-->
                                 </div>
                                 <div class="row">
                                     <h1 class="number_headings">{{ "{:,}".format(total_credits_remaining) }}</h1>

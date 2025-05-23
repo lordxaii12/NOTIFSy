@@ -2,3 +2,5 @@
 myvenv/
 notifvenv/
 run
+app.py
+config.py

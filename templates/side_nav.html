@@ -12,7 +12,7 @@
                 {% if user.is_authenticated and user.role_id in [1,3] %}
                     <li class="{% if request.endpoint == 'notifs.admin' %}active{% endif %}">
                         <a class="{{user.theme.theme_font}}" href="{{ url_for('notifs.admin') }}">
-                            <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/admin_icon.webp') }}?v=1.0.1" alt="admin">
+                            <!--<img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/admin_icon.webp') }}?v=1.0.1" alt="admin">-->
                             <span>Admin</span>
                         </a>
                     </li>
@@ -20,14 +20,14 @@
 
                 <li class="{% if request.endpoint == 'notifs.home' %}active{% endif %}">
                     <a class="{{user.theme.theme_font}}" href="{{ url_for('notifs.home') }}">
-                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/home_icon.webp') }}?v=1.0.1" alt="home">
+                        <!--<img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/home_icon.webp') }}?v=1.0.1" alt="home">-->
                         <span>Home</span>
                     </a>
                 </li>
 
                 <li class="{% if request.endpoint == 'notifs.reports' %}active{% endif %}">
                     <a class="{{user.theme.theme_font}}" href="{{ url_for('notifs.reports') }}">
-                        <img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/reports_icon.webp') }}?v=1.0.1" alt="reports">
+                        <!--<img src="{{ url_for('static', filename='images/'+user.theme.theme_icon+'/nav/reports_icon.webp') }}?v=1.0.1" alt="reports">-->
                         <span>Reports</span>
                     </a>
                 </li>
