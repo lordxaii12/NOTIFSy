@@ -793,7 +793,7 @@
     justify-content: center; 
     align-items: center; 
     position: relative;
-    background: url('/static/images/tTHEMEs/default_theme.svg');
+    background: url('/static/images/tTHEMEs/default_theme.webp');
     background-size: contain; 
     background-position: center;
     background-repeat: no-repeat;
@@ -815,7 +815,7 @@
     justify-content: center; 
     align-items: center; 
     position: relative; 
-    background: url('/static/images/tTHEMEs/dark_theme.svg');
+    background: url('/static/images/tTHEMEs/dark_theme.webp');
     background-size: contain;
     background-position: center; 
     background-repeat: no-repeat;
@@ -837,7 +837,7 @@
     justify-content: center; 
     align-items: center; 
     position: relative; 
-    background: url('/static/images/tTHEMEs/light_theme.svg');
+    background: url('/static/images/tTHEMEs/light_theme.webp');
     background-size: contain;
     background-position: center; 
     background-repeat: no-repeat;
@@ -859,7 +859,7 @@
     justify-content: center; 
     align-items: center; 
     position: relative; 
-    background: url('/static/images/tTHEMEs/floral_yellow_theme.svg');
+    background: url('/static/images/tTHEMEs/floral_yellow_theme.webp');
     background-size: contain;
     background-position: center; 
     background-repeat: no-repeat;
@@ -881,7 +881,7 @@
     justify-content: center; 
     align-items: center; 
     position: relative; 
-    background: url('/static/images/tTHEMEs/matrix_theme.svg');
+    background: url('/static/images/tTHEMEs/matrix_theme.webp');
     background-size: contain;
     background-position: center; 
     background-repeat: no-repeat;
