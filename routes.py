@@ -15,7 +15,7 @@ from flask_login import login_user, current_user
 #===============================================================================================================================>
 #Utils
 from utility.sys_utils import get_manila_time, get_login_data, encrypt_content, decrypt_content
-from utility.msg_utils import message_content, message_content2, generate_tracker, get_status_data, send_msg, get_hrpears_data, get_eprocsys_data, convert_file_to_inputs, sms_API_credits_checker
+from utility.msg_utils import message_content, chunk_contents, generate_tracker, get_status_data,send_msg2, send_msg, get_hrpears_data, get_eprocsys_data, convert_file_to_inputs, sms_API_credits_checker, multi_recipient_proccessor
 from utility.format_utils import extract_first_name, format_mobile_number, format_email, format_amount
 #===============================================================================================================================>
 #Models
@@ -1182,45 +1182,40 @@ def send_upload_msg():
     if data == "No data found":
         flash("","error")
         return redirect(url_for('notifs.home'))
-    
-    data_lines = data.strip().split("\n")
     msg_tracker = generate_tracker(msg_division,sending_option)
-    sent=[]
-    unsent=[]
-    msg_recipient=[]
+ 
     total_credit=0
-    for data_line in data_lines:
-        data_parts = data_line.split(":")
-        name = data_parts[0].strip()
-        mobile = data_parts[1].strip()
-        email = data_parts[2].strip()
-        amount = data_parts[3].strip()
-        formatted_name = extract_first_name(name)
-        formatted_mobile = format_mobile_number(mobile)
-        formatted_email = format_email(email)
-        formatted_amount = format_amount(amount)
-        message = message_content2(add_name,formatted_name,formatted_amount,content,sender,sender_div)
-        status_data = get_status_data(name,formatted_mobile,message)
-        recipient =f"{name}:{formatted_mobile}"
-        msg_recipient.append(recipient)
+    sent =0
+    unsent =0
+    
+    if sending_option == 'sms':
         
-        if sending_option == 'sms':
-            url, payload, headers = send_msg(message, formatted_mobile)
-            response = requests.post(url, json=payload, headers=headers)
-            data = response.json()
-            
-            if response.status_code == 200:
-                credit_used = int(data.get('TotalCreditUsed', 0))
-                total_credit += int(credit_used)
-                sent.append(status_data)
-                sms_API_credits_checker()
-            else:
-                unsent.append(status_data)
-        elif sending_option == 'email':
-            flash(f'email: {formatted_email}','error')
+        contents , msg_recipient, formatted_email  = multi_recipient_proccessor(data, add_name, content, sender, sender_div)
+        chunks = chunk_contents(contents, 250)
+        for chunk in chunks:
+            url, payload, headers = send_msg2(chunk)
+            try:
+                response = requests.post(url, json=payload, headers=headers, timeout=10)
+                response.raise_for_status()
+                response_data = response.json()
+            except requests.RequestException as e:
+                flash(f"[ERROR] Failed to send: {e}")
+                continue
 
-    total_sent = len(sent)
-    total_unsent = len(unsent)
+            if response.status_code == 200:
+                credit_used = int(response_data.get('TotalCreditUsed', 0))
+                accepted = int(response_data.get('Accepted', 0))
+                failed = int(response_data.get('Failed', 0))
+                total_credit += int(credit_used)
+                sent += int(accepted)
+                unsent += int(failed)
+                sms_API_credits_checker()
+                
+    elif sending_option == 'email':
+        flash(f'email: {formatted_email}','error')
+
+    total_sent = sent
+    total_unsent = unsent
     msg_sent_str = json.dumps(sent, ensure_ascii=False) if sent else ""
     msg_unsent_str = json.dumps(unsent, ensure_ascii=False) if unsent else ""
     msg_recipient_str = json.dumps(msg_recipient, ensure_ascii=False)

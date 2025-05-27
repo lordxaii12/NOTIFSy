@@ -10,7 +10,7 @@ from models.hrpears_credentials import Hrpears
 import requests
 from models.itexmo_credentials import Itexmo
 from controllers.itexmo_credentials import credits_check
-from utility.format_utils import extract_first_name, format_mobile_number, format_email
+from utility.format_utils import extract_first_name, format_mobile_number, format_email, format_amount
 import requests
 
 #===============================================================================================================================>
@@ -280,4 +280,70 @@ def get_eprocsys_data():
         return []
     except ValueError:
         return []
+#===============================================================================================================================>
+    #Send sms v2
+def send_msg2(contents):
+    
+    user_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0]
+    print(f"[LOG] User IP: {user_ip}")
+    
+    sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
+    sms_data = Itexmo.get_by_id(sms_id)
+    
+    if not sms_data:
+        raise Exception("SMS config not found")
+
+    url = 'https://api.itexmo.com/api/broadcast-2d'
+    email = sms_data.itexmo_email
+    password = sms_data.itexmo_password
+    apicode = sms_data.itexmo_apicode
+    content_type = sms_data.itexmo_contenttype
+    payload = {
+        "Email": email,
+        "Password": password,
+        "ApiCode": apicode,
+        "Contents": contents
+    
+    }
+    headers = {
+        "Content-Type": content_type
+    }
+    
+    public_ip = get_my_ip_used_to_reach()
+    print(f"[LOG] Public IP used for API call: {public_ip}")
+    
+    return (url,payload,headers)
+#===============================================================================================================================>
+    #Proccess datalines from findes
+def multi_recipient_proccessor(data,add_name,content_message,sender,sender_div):
+    msg_recipient=[]
+    contents=[]
+    data_lines = data.strip().split("\n")
+    for data_line in data_lines:
+        data_parts = data_line.split(":")
+        name = data_parts[0].strip()
+        mobile = data_parts[1].strip()
+        email = data_parts[2].strip()
+        amount = data_parts[3].strip()
+        formatted_name = extract_first_name(name)
+        formatted_mobile = format_mobile_number(mobile)
+        formatted_email = format_email(email)
+        formatted_amount = format_amount(amount)
+        message = message_content2(add_name,formatted_name,formatted_amount,content_message,sender,sender_div)
+        recipient =f"{name}:{formatted_mobile}"
+        msg_recipient.append(recipient)
+        contents.append(
+            {"Message":message,
+            "Recipient":formatted_mobile}
+        )
+            
+    return contents , msg_recipient, formatted_email
+#===============================================================================================================================> 
+    #divide data by 250
+def chunk_contents(contents, chunk_size=250):
+    chunks = []
+    for i in range(0, len(contents), chunk_size):
+        chunk = contents[i:i + chunk_size]
+        chunks.append(chunk)
+    return chunks
 #===============================================================================================================================>
