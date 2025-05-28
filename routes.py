@@ -1166,31 +1166,24 @@ def send_upload_msg():
     user_data = User_v1.get_by_id(current_user.user_id)
     user_credit = user_data.credit_used
     sender_div = current_user.division
-    
     division = int(request.form.get('udvision'))
-    
     divsion_data = Divisions.get_by_id(division)
     division_credit = divsion_data.division_credits
     msg_division = divsion_data.division_name
-    
     sender = request.form.get('usender')
     sending_option = request.form.get('usending_option')
     content = request.form.get('umessage')
     add_name = request.form.get('uaddName')
-    
     data = request.form.get('ufounddata')
     if data == "No data found":
         flash("","error")
         return redirect(url_for('notifs.home'))
     msg_tracker = generate_tracker(msg_division,sending_option)
- 
     total_credit=0
     sent =0
     unsent =0
-    
     if sending_option == 'sms':
-        
-        contents , msg_recipient, formatted_email  = multi_recipient_proccessor(data, add_name, content, sender, sender_div)
+        contents , msg_recipient, formatted_email, total_contents  = multi_recipient_proccessor(data, add_name, content, sender, sender_div)
         chunks = chunk_contents(contents, 250)
         for chunk in chunks:
             url, payload, headers = send_msg2(chunk)
@@ -1198,10 +1191,10 @@ def send_upload_msg():
                 response = requests.post(url, json=payload, headers=headers, timeout=10)
                 response.raise_for_status()
                 response_data = response.json()
+                print(response_data)
             except requests.RequestException as e:
                 flash(f"[ERROR] Failed to send: {e}")
                 continue
-
             if response.status_code == 200:
                 credit_used = int(response_data.get('TotalCreditUsed', 0))
                 accepted = int(response_data.get('Accepted', 0))
@@ -1210,29 +1203,25 @@ def send_upload_msg():
                 sent += int(accepted)
                 unsent += int(failed)
                 sms_API_credits_checker()
-                
     elif sending_option == 'email':
         flash(f'email: {formatted_email}','error')
-
     total_sent = sent
     total_unsent = unsent
     msg_sent_str = json.dumps(sent, ensure_ascii=False) if sent else ""
     msg_unsent_str = json.dumps(unsent, ensure_ascii=False) if unsent else ""
     msg_recipient_str = json.dumps(msg_recipient, ensure_ascii=False)
-    
     if total_unsent == 0:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
         # flash(f'{msg_status}','success')
     else:
         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
         # flash(f'{msg_status}','error')
-
     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_division, msg_sent_str, msg_unsent_str, total_credit)
     user_credit+=total_credit
     edit_credit_used(current_user.user_id, user_credit)
     division_credit+=total_credit
     edit_division_credit_used(division, division_credit)
-    return redirect(url_for('notifs.home', total_sent=total_sent, total_unsent=total_unsent))
+    return redirect(url_for('notifs.home', total_sent=total_sent, total_unsent=total_unsent, total_contents=total_contents ))
 #===========================================================================================================>
                             #MESSAGE TEMPLATES
 #===========================================================================================================>

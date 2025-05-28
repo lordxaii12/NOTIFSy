@@ -443,48 +443,69 @@ document.getElementById("utemplate").addEventListener("change", function() {
 });
 //==================================================================================================================================//
 //Spinner and result display upload send message//
-document.addEventListener('DOMContentLoaded', function () {
-    const form3 = document.getElementById('send_upload_msg');
-    const spinner3 = document.getElementById('uploadloadingSpinner');
-    const submitBtn3 = document.getElementById('submitBtnUpload');
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const totalSent = params.get('total_sent');
+    const totalUnsent = params.get('total_unsent');
+    const totalContents = params.get('total_contents');
 
-    const formFieldsWrapper4 = document.querySelector('.form-fields-wrapper4');
-    const formFieldsWrapper5 = document.querySelector('.form-fields-wrapper5');
+    const uploadLoadingModalEl = document.getElementById('uploadLoadingModal');
+    const uploadLoadingText = document.getElementById('uploadLoadingText');
+    const uploadResultModalEl = document.getElementById('uploadresultModal');
+    const uploadResultMessage = document.getElementById('uploadresultMessage');
 
-    if (form3) {
-        form3.addEventListener('submit', function () {
-            spinner3.classList.remove('d-none');
-            submitBtn3.disabled = true;
+    // Debug: Log current params
+    console.log("Redirect Params:", {
+        totalSent,
+        totalUnsent,
+        totalContents
+    });
 
-            if (formFieldsWrapper4) {
-                formFieldsWrapper4.style.display = 'none';
-            }
-            if (formFieldsWrapper5) {
-                formFieldsWrapper5.style.display = 'none';
-            }
-
-            sessionStorage.setItem('showResultModal', 'true');
+    // Clear sessionStorage on form submit so modals can appear again on next send
+    const form = document.getElementById('send_upload_msg');
+    if (form) {
+        form.addEventListener('submit', () => {
+            sessionStorage.removeItem('uploadShown');
         });
     }
 
-    const shouldShowModal3 = sessionStorage.getItem('showResultModal') === 'true';
+    // Only show loading modal if upload session hasn't already been shown
+    if (uploadLoadingModalEl && !sessionStorage.getItem('uploadShown') && totalContents !== null) {
+        const uploadLoadingModal = new bootstrap.Modal(uploadLoadingModalEl, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        uploadLoadingModal.show();
 
-    if (typeof uploadtotalSent !== 'undefined' && uploadtotalSent !== null &&
-        typeof uploadtotalUnsent !== 'undefined' && uploadtotalUnsent !== null &&
-        shouldShowModal3) {
+        // Set loading text after a short delay
+        setTimeout(() => {
+            if (uploadLoadingText) {
+                uploadLoadingText.textContent = `Processing (${totalContents} messages)...`;
+            }
+        }, 3000);
 
-        const icon3 = document.getElementById('multiresultIcon');
-        const messageText3 = document.getElementById('multiresultMessage');
+        // Prevent showing again during this session
+        sessionStorage.setItem('uploadShown', 'true');
 
-        icon3.textContent = uploadtotalUnsent === 0 ? '✅' : '❌';
-        messageText3.textContent = `Sent: ${uploadtotalSent}, Unsent: ${uploadtotalUnsent}`;
+        // Show result modal after simulated delay
+        setTimeout(() => {
+            uploadLoadingModal.hide();
 
-        const resultModal3 = new bootstrap.Modal(document.getElementById('multiresultModal'));
-        resultModal3.show();
-
-        sessionStorage.removeItem('showResultModal');
+            if (uploadResultModalEl && uploadResultMessage) {
+                uploadResultMessage.textContent = `Sent: ${totalSent}, Unsent: ${totalUnsent}`;
+                const resultModal = new bootstrap.Modal(uploadResultModalEl);
+                resultModal.show();
+            }
+        }, 5000); // Total 5 seconds to simulate processing
+    } else if (uploadResultModalEl && !sessionStorage.getItem('uploadShown') && (totalSent || totalUnsent)) {
+        // Show only result modal (in case loading modal is skipped)
+        uploadResultMessage.textContent = `Sent: ${totalSent}, Unsent: ${totalUnsent}`;
+        const resultModal = new bootstrap.Modal(uploadResultModalEl);
+        resultModal.show();
+        sessionStorage.setItem('uploadShown', 'true');
     }
 });
+
 //==================================================================================================================================//
 
 

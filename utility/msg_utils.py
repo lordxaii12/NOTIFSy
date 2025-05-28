@@ -132,7 +132,8 @@ def convert_file_to_inputs(file):
         return [], []
 
     try:
-        content = file.stream.read().decode("utf-8")
+        raw_bytes = file.stream.read()
+        content = raw_bytes.decode("utf-8-sig", errors="replace").replace('\r\n', '\n').strip()
     except Exception as e:
         print(f"Error reading file: {e}")
         return [], []
@@ -336,8 +337,9 @@ def multi_recipient_proccessor(data,add_name,content_message,sender,sender_div):
             {"Message":message,
             "Recipient":formatted_mobile}
         )
+    total_contents= len(contents)
             
-    return contents , msg_recipient, formatted_email
+    return contents , msg_recipient, formatted_email, total_contents
 #===============================================================================================================================> 
     #divide data by 250
 def chunk_contents(contents, chunk_size=250):
