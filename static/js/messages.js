@@ -449,45 +449,63 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalUnsent = params.get('total_unsent');
     const totalContents = params.get('total_contents');
 
+    const uploadMsgModalEl = document.getElementById('uploadMsgModal');
     const uploadLoadingModalEl = document.getElementById('uploadLoadingModal');
     const uploadLoadingText = document.getElementById('uploadLoadingText');
     const uploadResultModalEl = document.getElementById('uploadresultModal');
     const uploadResultMessage = document.getElementById('uploadresultMessage');
 
-    // Debug: Log current params
-    console.log("Redirect Params:", {
-        totalSent,
-        totalUnsent,
-        totalContents
-    });
-
-    // Clear sessionStorage on form submit so modals can appear again on next send
     const form = document.getElementById('send_upload_msg');
     if (form) {
-        form.addEventListener('submit', () => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Stop default form submission
+
+            // Reset sessionStorage to allow modals to show after redirect
             sessionStorage.removeItem('uploadShown');
+
+            // Close the Upload Message Modal
+            const uploadMsgModal = bootstrap.Modal.getInstance(uploadMsgModalEl);
+            if (uploadMsgModal) {
+                uploadMsgModal.hide();
+            }
+
+            // Show the Loading Modal immediately
+            const uploadLoadingModal = new bootstrap.Modal(uploadLoadingModalEl, {
+                backdrop: 'static',
+                keyboard: false
+            });
+            uploadLoadingModal.show();
+
+            // Optional: update loading text immediately
+            if (uploadLoadingText) {
+                uploadLoadingText.textContent = `Processing, please wait...`;
+            }
+
+            // Submit the form after a short delay to allow modal animation
+            setTimeout(() => {
+                form.submit();
+            }, 500);
         });
     }
 
-    // Only show loading modal if upload session hasn't already been shown
-    if (uploadLoadingModalEl && !sessionStorage.getItem('uploadShown') && totalContents !== null) {
+    // After redirect: show loading modal (based on query params)
+    if (!sessionStorage.getItem('uploadShown') && totalContents !== null) {
         const uploadLoadingModal = new bootstrap.Modal(uploadLoadingModalEl, {
             backdrop: 'static',
             keyboard: false
         });
         uploadLoadingModal.show();
 
-        // Set loading text after a short delay
+        // Update loading message after short delay
         setTimeout(() => {
             if (uploadLoadingText) {
                 uploadLoadingText.textContent = `Processing (${totalContents} messages)...`;
             }
         }, 3000);
 
-        // Prevent showing again during this session
         sessionStorage.setItem('uploadShown', 'true');
 
-        // Show result modal after simulated delay
+        // Then show result modal
         setTimeout(() => {
             uploadLoadingModal.hide();
 
@@ -496,18 +514,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 const resultModal = new bootstrap.Modal(uploadResultModalEl);
                 resultModal.show();
             }
-        }, 5000); // Total 5 seconds to simulate processing
-    } else if (uploadResultModalEl && !sessionStorage.getItem('uploadShown') && (totalSent || totalUnsent)) {
-        // Show only result modal (in case loading modal is skipped)
+        }, 5000);
+    } else if (!sessionStorage.getItem('uploadShown') && (totalSent || totalUnsent)) {
+        // If only results (e.g., from server redirect) but no totalContents
         uploadResultMessage.textContent = `Sent: ${totalSent}, Unsent: ${totalUnsent}`;
         const resultModal = new bootstrap.Modal(uploadResultModalEl);
         resultModal.show();
         sessionStorage.setItem('uploadShown', 'true');
     }
 });
-
 //==================================================================================================================================//
-
-
-
 
