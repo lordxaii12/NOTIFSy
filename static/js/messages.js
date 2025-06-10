@@ -144,41 +144,122 @@ document.getElementById("stemplate").addEventListener("change", function() {
 });
 //==================================================================================================================================//
 //Spinner and result display single send message//
-document.addEventListener('DOMContentLoaded', function () {
+// document.addEventListener('DOMContentLoaded', function () {
+//     const form = document.getElementById('send_single_msg');
+//     const spinner = document.getElementById('singleloadingSpinner');
+//     const submitBtn = document.getElementById('submitBtnSingle');
+//     const formFieldsWrapper = document.querySelector('.form-fields-wrapper');
+
+//     if (form) {
+//         form.addEventListener('submit', function () {
+//             spinner.classList.remove('d-none');
+//             submitBtn.disabled = true;
+
+//             if (formFieldsWrapper) {
+//                 formFieldsWrapper.style.display = 'none';
+//             }
+
+//             sessionStorage.setItem('showResultModal', 'true');
+//         });
+//     }
+
+//     const shouldShowModal = sessionStorage.getItem('showResultModal') === 'true';
+
+//     if (typeof singletotalSent !== 'undefined' && singletotalSent !== null &&
+//         typeof singletotalUnsent !== 'undefined' && singletotalUnsent !== null &&
+//         shouldShowModal) {
+
+//         const icon = document.getElementById('singleresultIcon');
+//         const messageText = document.getElementById('singleresultMessage');
+
+//         icon.textContent = singletotalUnsent === 0 ? '✅' : '❌';
+//         messageText.textContent = `Sent: ${singletotalSent}, Unsent: ${singletotalUnsent}`;
+
+//         const resultModal = new bootstrap.Modal(document.getElementById('singleresultModal'));
+//         resultModal.show();
+
+//         sessionStorage.removeItem('showResultModal');
+//     }
+// });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const singletotalSent = params.get('total_sent');
+    const singletotalUnsent = params.get('total_unsent');
+    const singletotalContents = params.get('total_contents');
+
+    const singleMsgModalEl = document.getElementById('singleMsgModal');
+    const singleLoadingModalEl = document.getElementById('singleLoadingModal');
+    const singleLoadingText = document.getElementById('singleLoadingText');
+    const singleResultModalEl = document.getElementById('singleresultModal');
+    const singleResultMessage = document.getElementById('singleresultMessage');
+
     const form = document.getElementById('send_single_msg');
-    const spinner = document.getElementById('singleloadingSpinner');
-    const submitBtn = document.getElementById('submitBtnSingle');
-    const formFieldsWrapper = document.querySelector('.form-fields-wrapper');
-
     if (form) {
-        form.addEventListener('submit', function () {
-            spinner.classList.remove('d-none');
-            submitBtn.disabled = true;
+        form.addEventListener('submit', function (e) {
+            e.preventDefault(); // Stop default form submission
 
-            if (formFieldsWrapper) {
-                formFieldsWrapper.style.display = 'none';
+            // Reset sessionStorage to allow modals to show after redirect
+            sessionStorage.removeItem('singleShown');
+
+            // Close the Upload Message Modal
+            const singleMsgModal = bootstrap.Modal.getInstance(singleMsgModalEl);
+            if (singleMsgModal) {
+                singleMsgModal.hide();
             }
 
-            sessionStorage.setItem('showResultModal', 'true');
+            // Show the Loading Modal immediately
+            const singleLoadingModal = new bootstrap.Modal(singleLoadingModalEl, {
+                backdrop: 'static',
+                keyboard: false
+            });
+            singleLoadingModal.show();
+
+            // Optional: update loading text immediately
+            if (singleLoadingText) {
+                singleLoadingText.textContent = `Processing, please wait...`;
+            }
+
+            // Submit the form after a short delay to allow modal animation
+            setTimeout(() => {
+                form.submit();
+            }, 500);
         });
     }
 
-    const shouldShowModal = sessionStorage.getItem('showResultModal') === 'true';
+    // After redirect: show loading modal (based on query params)
+    if (!sessionStorage.getItem('singleShown') && singletotalContents !== null) {
+        const singleLoadingModal = new bootstrap.Modal(singleLoadingModalEl, {
+            backdrop: 'static',
+            keyboard: false
+        });
+        singleLoadingModal.show();
 
-    if (typeof singletotalSent !== 'undefined' && singletotalSent !== null &&
-        typeof singletotalUnsent !== 'undefined' && singletotalUnsent !== null &&
-        shouldShowModal) {
+        // Update loading message after short delay
+        setTimeout(() => {
+            if (singleLoadingText) {
+                singleLoadingText.textContent = `Processing (${singletotalContents} messages)...`;
+            }
+        }, 3000);
 
-        const icon = document.getElementById('singleresultIcon');
-        const messageText = document.getElementById('singleresultMessage');
+        sessionStorage.setItem('singleShown', 'true');
 
-        icon.textContent = singletotalUnsent === 0 ? '✅' : '❌';
-        messageText.textContent = `Sent: ${singletotalSent}, Unsent: ${singletotalUnsent}`;
+        // Then show result modal
+        setTimeout(() => {
+            singleLoadingModal.hide();
 
-        const resultModal = new bootstrap.Modal(document.getElementById('singleresultModal'));
-        resultModal.show();
-
-        sessionStorage.removeItem('showResultModal');
+            if (singleResultModalEl && singleResultMessage) {
+                singleResultMessage.textContent = `Sent: ${singletotalSent}, Unsent: ${singletotalUnsent}`;
+                const sresultModal = new bootstrap.Modal(singleResultModalEl);
+                sresultModal.show();
+            }
+        }, 5000);
+    } else if (!sessionStorage.getItem('singleShown') && (singletotalSent || singletotalUnsent)) {
+        // If only results (e.g., from server redirect) but no totalContents
+        singleResultMessage.textContent = `Sent: ${singletotalSent}, Unsent: ${singletotalUnsent}`;
+        const sresultModal = new bootstrap.Modal(singleResultModalEl);
+        sresultModal.show();
+        sessionStorage.setItem('singleShown', 'true');
     }
 });
 //==================================================================================================================================//
@@ -445,9 +526,9 @@ document.getElementById("utemplate").addEventListener("change", function() {
 //Spinner and result display upload send message//
 document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
-    const totalSent = params.get('total_sent');
-    const totalUnsent = params.get('total_unsent');
-    const totalContents = params.get('total_contents');
+    const uptotalSent = params.get('total_sent');
+    const uptotalUnsent = params.get('total_unsent');
+    const uptotalContents = params.get('total_contents');
 
     const uploadMsgModalEl = document.getElementById('uploadMsgModal');
     const uploadLoadingModalEl = document.getElementById('uploadLoadingModal');
@@ -489,7 +570,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // After redirect: show loading modal (based on query params)
-    if (!sessionStorage.getItem('uploadShown') && totalContents !== null) {
+    if (!sessionStorage.getItem('uploadShown') && uptotalContents !== null) {
         const uploadLoadingModal = new bootstrap.Modal(uploadLoadingModalEl, {
             backdrop: 'static',
             keyboard: false
@@ -499,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Update loading message after short delay
         setTimeout(() => {
             if (uploadLoadingText) {
-                uploadLoadingText.textContent = `Processing (${totalContents} messages)...`;
+                uploadLoadingText.textContent = `Processing (${uptotalContents} messages)...`;
             }
         }, 3000);
 
@@ -510,14 +591,14 @@ document.addEventListener("DOMContentLoaded", () => {
             uploadLoadingModal.hide();
 
             if (uploadResultModalEl && uploadResultMessage) {
-                uploadResultMessage.textContent = `Sent: ${totalSent}, Unsent: ${totalUnsent}`;
+                uploadResultMessage.textContent = `Sent: ${uptotalSent}, Unsent: ${uptotalUnsent}`;
                 const resultModal = new bootstrap.Modal(uploadResultModalEl);
                 resultModal.show();
             }
         }, 5000);
-    } else if (!sessionStorage.getItem('uploadShown') && (totalSent || totalUnsent)) {
+    } else if (!sessionStorage.getItem('uploadShown') && (uptotalSent || uptotalUnsent)) {
         // If only results (e.g., from server redirect) but no totalContents
-        uploadResultMessage.textContent = `Sent: ${totalSent}, Unsent: ${totalUnsent}`;
+        uploadResultMessage.textContent = `Sent: ${uptotalSent}, Unsent: ${uptotalUnsent}`;
         const resultModal = new bootstrap.Modal(uploadResultModalEl);
         resultModal.show();
         sessionStorage.setItem('uploadShown', 'true');

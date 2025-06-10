@@ -235,9 +235,14 @@
             </div>
         </div>
         {% include "global_modals/theme.html" %}
+
         {% include "home_modals/msg_modal.html" %}
+        {% include "home_modals/loading_multi.html" %}
+        {% include "home_modals/loading_single.html" %}
         {% include "home_modals/loading_upload.html" %}
         {% include "home_modals/results_modals.html" %}
+
+
         {% include "home_modals/directory.html" %}
         {% include "home_modals/msg_temp_modal.html" %}
         {% include "home_modals/sent_unsent_modal.html" %}
@@ -246,19 +251,6 @@
         {% include "admin_modals/add_modal.html" %}
         
         {% block scripts %}
-            <script>
-                const singletotalSent = {{ request.args.get('total_sent', 'null') }};
-                const singletotalUnsent = {{ request.args.get('total_unsent', 'null') }};
-            </script>
-            <script>
-                const multitotalSent = {{ request.args.get('total_sent', 'null') }};
-                const multitotalUnsent = {{ request.args.get('total_unsent', 'null') }};
-            </script>
-            <script>
-                const uploadtotalSent = {{ request.args.get('total_sent', 'null') }};
-                const uploadtotalUnsent = {{ request.args.get('total_unsent', 'null') }};
-            </script>
-           
             <script src="{{ url_for('static', filename='js/messages.js') }}?v=1.0.1"></script>
         {% endblock %}
 

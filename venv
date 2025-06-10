@@ -11,3 +11,9 @@ waitress-serve --port=5000 app:create_app
 
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+ sudo nano /etc/systemd/system/notifsy.service
+
+ sudo nano /etc/nginx/sites-enabled/notifsy
+
+ sudo nano /etc/nginx/nginx.conf

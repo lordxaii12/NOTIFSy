@@ -996,8 +996,9 @@ def display_eprocsys_data():
 def send_single_msg():
     user_data = User_v1.get_by_id(current_user.user_id)
     user_credit = user_data.credit_used
-    sent=[]
-    unsent=[]
+    sent=0
+    unsent=0
+    total_contents = 0
     msg_recipient=[]
     total_credit=0
     
@@ -1033,10 +1034,10 @@ def send_single_msg():
         if response.status_code == 200:
             credit_used = int(data.get('TotalCreditUsed', 0))
             total_credit += int(credit_used)
-            sent.append(status_data)
+            sent = sent + 1
             sms_API_credits_checker()
         else:
-            unsent.append(status_data)
+            unsent = unsent + 1
 
     elif sending_option == 'email':
         email = request.form.get('email')
@@ -1046,8 +1047,9 @@ def send_single_msg():
     else:
         recipient_contact = "none"
         
-    total_sent = len(sent)
-    total_unsent = len(unsent)
+    total_sent = sent
+    total_unsent = unsent
+    total_contents = sent + unsent
     msg_sent_str = json.dumps(sent, ensure_ascii=False) if sent else ""
     msg_unsent_str = json.dumps(unsent, ensure_ascii=False) if unsent else ""
     msg_recipient_str = json.dumps(msg_recipient, ensure_ascii=False)
@@ -1064,7 +1066,7 @@ def send_single_msg():
     division_credit+=total_credit
     edit_credit_used(current_user.user_id, user_credit)
     edit_division_credit_used(division, division_credit)
-    return redirect(url_for('notifs.home',total_sent=total_sent, total_unsent=total_unsent ))
+    return redirect(url_for('notifs.home',total_sent=total_sent, total_unsent=total_unsent, total_contents=total_contents ))
 #===========================================================================================================>
     #Send Multi message
 @notifs.route('/send_multi_msg', methods=['POST'])
