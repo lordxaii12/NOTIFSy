@@ -11,6 +11,7 @@ import requests
 from models.itexmo_credentials import Itexmo
 from controllers.itexmo_credentials import credits_check
 from utility.format_utils import extract_first_name, format_mobile_number, format_email, format_amount
+from utility.cached_data_by_get_id import get_cached_hrpears_credentials_id
 import requests
 
 #===============================================================================================================================>
@@ -58,7 +59,7 @@ def get_status_data(recipient_name,recipient_contact,message):
 @cache.cached(timeout=300)
 def get_hrpears_data():
     hris_id = g.sys_settings.hris_api_id if g.sys_settings and g.sys_settings.hris_api_id else 1
-    hris_data = Hrpears.get_by_id(hris_id)
+    hris_data = get_cached_hrpears_credentials_id(hris_id)
     DB_HOST = hris_data.hrpears_host
     DB_USER = hris_data.hrpears_user
     DB_PASSWORD = hris_data.hrpears_password

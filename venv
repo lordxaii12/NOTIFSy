@@ -17,3 +17,5 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
  sudo nano /etc/nginx/sites-enabled/notifsy
 
  sudo nano /etc/nginx/nginx.conf
+
+ celery -A celery_worker.celery worker --pool=solo --loglevel=info

@@ -47,6 +47,39 @@ from controllers.hrpears_credentials import add_hrpears, edit_hrpears, delete_hr
 from controllers.system_settings import edit_sys_setting, edit_system_notice
 from controllers.msg_log import add_msg_log, delete_msg_log
 from controllers.message_temp import add_msg_temp, edit_msg_temp, delete_msg_temp
+
+from utility.cached_data_by_get_id import(
+    get_cached_user_id,
+    get_cached_role_id,
+    get_cached_user_logs_id,
+    get_cached_divisions_id,
+    get_cached_external_contacts_id,
+    get_cached_login_credentials_id,
+    get_cached_themes_id,
+    get_cached_itexmo_credentials_id,
+    get_cached_email_credentials_id,
+    get_cached_hrpears_credentials_id,
+    get_cached_system_settings_id,
+    get_cached_message_logs_id,
+    get_cached_message_tempaltes_id
+)
+
+
+from utility.cached_data_by_get_all import(
+    get_cached_user,
+    get_cached_role,
+    get_cached_user_logs,
+    get_cached_divisions,
+    get_cached_external_contacts,
+    get_cached_login_credentials,
+    get_cached_themes,
+    get_cached_itexmo_credentials,
+    get_cached_email_credentials,
+    get_cached_hrpears_credentials,
+    get_cached_system_settings,
+    get_cached_message_logs,
+    get_cached_message_tempaltes
+)
 #===============================================================================================================================>
 notifs = Blueprint('notifs', __name__, template_folder='templates')
 #===============================================================================================================================>
