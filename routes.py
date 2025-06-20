@@ -1101,6 +1101,90 @@ def send_single_msg():
     edit_division_credit_used(division, division_credit)
     return redirect(url_for('notifs.home',total_sent=total_sent, total_unsent=total_unsent, total_contents=total_contents ))
 #===========================================================================================================>
+
+
+
+
+# #===========================================================================================================>
+#     #Send single message
+# @notifs.route('/send_single_msg', methods=['POST'])
+# @login_required
+# def send_single_msg():
+#     user_data = User_v1.get_by_id(current_user.user_id)
+#     user_credit = user_data.credit_used
+#     sent=0
+#     unsent=0
+#     total_contents = 0
+#     msg_recipient=[]
+#     total_credit=0
+    
+#     sender_div = current_user.division
+#     division = int(request.form.get('sdvision'))
+    
+#     divsion_data = Divisions.get_by_id(division)
+#     division_credit = divsion_data.division_credits
+#     msg_division = divsion_data.division_name
+    
+#     sender = request.form.get('sender')
+#     sending_option = request.form.get('sending_option')
+#     recipient = request.form.get('recipient')
+#     formatted_name = extract_first_name(recipient)
+#     content = request.form.get('message')
+
+#     add_name = request.form.get('addName')
+#     msg_tracker = generate_tracker(msg_division,sending_option)
+    
+    
+#     message = message_content(add_name,formatted_name,content,sender,sender_div)
+#     if sending_option == 'sms':
+#         mobile = request.form.get('phone')
+#         formatted_mobile = format_mobile_number(mobile)
+#         status_data = get_status_data(recipient,formatted_mobile,message)
+#         formatted_recipient =f"{recipient}:{formatted_mobile}"
+#         msg_recipient.append(formatted_recipient)
+        
+#         url, payload, headers = send_msg(message, formatted_mobile)
+#         response = requests.post(url, json=payload, headers=headers)
+#         data = response.json()
+        
+#         if response.status_code == 200:
+#             credit_used = int(data.get('TotalCreditUsed', 0))
+#             total_credit += int(credit_used)
+#             sent = sent + 1
+#             sms_API_credits_checker()
+#         else:
+#             unsent = unsent + 1
+
+#     elif sending_option == 'email':
+#         email = request.form.get('email')
+#         formatted_email = format_email(email)
+#         flash(f'email: {formatted_email}','error')
+        
+#     else:
+#         recipient_contact = "none"
+        
+#     total_sent = sent
+#     total_unsent = unsent
+#     total_contents = sent + unsent
+#     msg_sent_str = json.dumps(sent, ensure_ascii=False) if sent else ""
+#     msg_unsent_str = json.dumps(unsent, ensure_ascii=False) if unsent else ""
+#     msg_recipient_str = json.dumps(msg_recipient, ensure_ascii=False)
+    
+#     if total_unsent == 0:
+#         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
+#         # flash(f'{msg_status}','success')
+#     else:
+#         msg_status = f"Sent: {total_sent}, Unsent: {total_unsent}" 
+#         # flash(f'{msg_status}','error')
+
+#     add_msg_log(msg_tracker, sending_option, msg_recipient_str, content, msg_status, msg_division, msg_sent_str, msg_unsent_str, total_credit)
+#     user_credit+=total_credit
+#     division_credit+=total_credit
+#     edit_credit_used(current_user.user_id, user_credit)
+#     edit_division_credit_used(division, division_credit)
+#     return redirect(url_for('notifs.home',total_sent=total_sent, total_unsent=total_unsent, total_contents=total_contents ))
+# #===========================================================================================================>
+
     #Send Multi message
 @notifs.route('/send_multi_msg', methods=['POST'])
 @login_required
