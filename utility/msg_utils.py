@@ -16,15 +16,15 @@ import requests
 
 #===============================================================================================================================>
     #Track API IP address
-def get_my_ip_used_to_reach(url=None):
-    try:
-        response = requests.get('https://api.ipify.org', timeout=5)
-        if response.status_code == 200:
-            return response.text.strip()
-        else:
-            return f"Error: Received status code {response.status_code}"
-    except Exception as e:
-        return f"Error: {e}"
+# def get_my_ip_used_to_reach(url=None):
+#     try:
+#         response = requests.get('https://api.ipify.org', timeout=5)
+#         if response.status_code == 200:
+#             return response.text.strip()
+#         else:
+#             return f"Error: Received status code {response.status_code}"
+#     except Exception as e:
+#         return f"Error: {e}"
 #===============================================================================================================================>
     #Generate Msg send tracking number
 def generate_tracker(sender_div, msg_type):
@@ -100,7 +100,7 @@ def get_hrpears_data():
 def send_msg(message, recipient):
     
     user_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0]
-    print(f"[LOG] User IP: {user_ip}")
+    # print(f"[LOG] User IP: {user_ip}")
     
     sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
     sms_data = Itexmo.get_by_id(sms_id)
@@ -121,8 +121,8 @@ def send_msg(message, recipient):
             "Content-Type": content_type
         }
         
-        public_ip = get_my_ip_used_to_reach()
-        print(f"[LOG] Public IP used for API call: {public_ip}")
+        # public_ip = get_my_ip_used_to_reach()
+        # print(f"[LOG] Public IP used for API call: {public_ip}")
         
         return (url,payload,headers)
 #===============================================================================================================================>
@@ -287,7 +287,7 @@ def get_eprocsys_data():
 def send_msg2(contents):
     
     user_ip = request.headers.get('X-Forwarded-For', request.remote_addr).split(',')[0]
-    print(f"[LOG] User IP: {user_ip}")
+    # print(f"[LOG] User IP: {user_ip}")
     
     sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
     sms_data = Itexmo.get_by_id(sms_id)
@@ -311,8 +311,8 @@ def send_msg2(contents):
         "Content-Type": content_type
     }
     
-    public_ip = get_my_ip_used_to_reach()
-    print(f"[LOG] Public IP used for API call: {public_ip}")
+    # public_ip = get_my_ip_used_to_reach()
+    # print(f"[LOG] Public IP used for API call: {public_ip}")
     
     return (url,payload,headers)
 #===============================================================================================================================>
