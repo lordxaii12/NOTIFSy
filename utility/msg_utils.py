@@ -129,8 +129,7 @@ def send_msg(message, recipient):
         # public_ip = get_my_ip_used_to_reach()
         # print(f"[LOG] Public IP used for API call: {public_ip}")
         print("[ERROR] sms_data not found!")
-        return (None, None, None)
-        #return (url,payload,headers)
+        return (url,payload,headers)
 #===============================================================================================================================>
     #Upload file and search in hr data
 def convert_file_to_inputs(file):
