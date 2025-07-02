@@ -1027,6 +1027,12 @@ def display_eprocsys_data():
 @notifs.route('/send_single_msg', methods=['POST'])
 @login_required
 def send_single_msg():
+    print("[DEBUG] Route /send_single_msg was hit")
+    print(f"[DEBUG] Current user: {current_user.username}")
+    
+    # Log incoming form data
+    print(f"[DEBUG] Form data: {request.form}")
+    
     user_data = User_v1.get_by_id(current_user.user_id)
     user_credit = user_data.credit_used
     sent=0
@@ -1054,6 +1060,10 @@ def send_single_msg():
     
     message = message_content(add_name,formatted_name,content,sender,sender_div)
     if sending_option == 'sms':
+        print(f"[DEBUG] Sending SMS to {formatted_mobile}")
+        print(f"[DEBUG] Final message: {message}")
+        print(f"[DEBUG] Payload: {payload}")
+        print(f"[DEBUG] URL: {url}")
         mobile = request.form.get('phone')
         formatted_mobile = format_mobile_number(mobile)
         status_data = get_status_data(recipient,formatted_mobile,message)
@@ -1061,13 +1071,9 @@ def send_single_msg():
         msg_recipient.append(formatted_recipient)
         
         url, payload, headers = send_msg(message, formatted_mobile)
-        print(f"[DEBUG] URL being used for SMS POST: {url}")
-        print(f"[DEBUG] Sending POST to: {url}")
-        print(f"[DEBUG] Payload: {payload}")
         response = requests.post(url, json=payload, headers=headers)
-        
+        print(f"[DEBUG] API Response: {response.status_code} - {response.text}")
 
-        
         data = response.json()
         
         if response.status_code == 200:

@@ -105,12 +105,9 @@ def send_msg(message, recipient):
     # print(f"[LOG] User IP: {user_ip}")
     
     sms_id = g.sys_settings.msg_api_id if g.sys_settings and g.sys_settings.msg_api_id else 1
-    print(f"[DEBUG] sms_id: {sms_id}")
     sms_data = Itexmo.get_by_id(sms_id)
-    print(f"[DEBUG] sms_data: {sms_data}")
     if sms_data:
         url = sms_data.itexmo_url
-        print(f"[DEBUG] Using URL: {url}")
         email = sms_data.itexmo_email
         password = sms_data.itexmo_password
         apicode = sms_data.itexmo_apicode
@@ -128,7 +125,7 @@ def send_msg(message, recipient):
         
         # public_ip = get_my_ip_used_to_reach()
         # print(f"[LOG] Public IP used for API call: {public_ip}")
-        print("[ERROR] sms_data not found!")
+        
         return (url,payload,headers)
 #===============================================================================================================================>
     #Upload file and search in hr data

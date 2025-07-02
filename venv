@@ -22,3 +22,6 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
  truncate -s 0 access.log
 truncate -s 0 error.log
+
+tail -f /home/stgadmin/NOTIFSy/logs/error.log
+
