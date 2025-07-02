@@ -19,3 +19,6 @@ Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
  sudo nano /etc/nginx/nginx.conf
 
  celery -A celery_worker.celery worker --pool=solo --loglevel=info
+
+ truncate -s 0 access.log
+truncate -s 0 error.log

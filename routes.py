@@ -1061,7 +1061,11 @@ def send_single_msg():
         msg_recipient.append(formatted_recipient)
         
         url, payload, headers = send_msg(message, formatted_mobile)
-        response = requests.post(url, json=payload, headers=headers, verify=False)
+        response = requests.post(url, json=payload, headers=headers)
+        print(f"[DEBUG] Sending POST to: {url}")
+        print(f"[DEBUG] Payload: {payload}")
+
+        
         data = response.json()
         
         if response.status_code == 200:
