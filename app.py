@@ -23,6 +23,7 @@ def create_app():
     css = Bundle(
         'css/notif.css',
         'css/table_headers.css',
+        'css/bootstrap.min.css',
         filters='cssmin',
         output='gen/packed.css'
     )
@@ -31,6 +32,7 @@ def create_app():
         'js/delete.js',
         'js/edit.js',
         'js/utils.js',
+        'js/bootstrap.min.js',
         filters='jsmin',
         output='gen/packed.js'
     )

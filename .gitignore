@@ -2,6 +2,6 @@
 myvenv/
 notifvenv/
 run
-app.py
 config.py
+wsgi.py
 copies/
