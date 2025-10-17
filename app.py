@@ -24,6 +24,7 @@ def create_app():
         'css/notif.css',
         'css/table_headers.css',
         'css/bootstrap.min.css',
+        'css/all.min.css',
         filters='cssmin',
         output='gen/packed.css'
     )
@@ -33,6 +34,7 @@ def create_app():
         'js/edit.js',
         'js/utils.js',
         'js/bootstrap.min.js',
+        'js/chart.umd.min.js',
         filters='jsmin',
         output='gen/packed.js'
     )
