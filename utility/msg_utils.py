@@ -350,3 +350,53 @@ def chunk_contents(contents, chunk_size=250):
         chunks.append(chunk)
     return chunks
 #===============================================================================================================================>
+    #Display AICS supplier data to directory
+@cache.cached(timeout=300)
+def get_aics_data():
+    import json
+
+    aics_api_url = g.sys_settings.sys_app_aics_supplier_url
+    aics_api_token = g.sys_settings.sys_app_aics_supplier_token.strip().strip("'").strip('"')
+
+    headers = {
+        "Authorization": f"Bearer {aics_api_token}",
+        "Accept": "application/json"
+    }
+
+    try:
+        response = requests.get(aics_api_url, headers=headers, timeout=10)
+        response.raise_for_status()
+
+        raw_text = response.text
+
+        # Extract JSON part
+        json_start = raw_text.find('[')
+        if json_start == -1:
+            return []
+
+        json_text = raw_text[json_start:]
+        data = json.loads(json_text)
+
+        # Process data
+        extracted_data = []
+        for item in data:
+            payee_name = item.get("service_provider_details", "").strip().upper()
+            mobile = format_mobile_number(item.get("service_provider_contact_details", ""))
+            email = format_email(item.get("service_provider_email_address", ""))
+
+            extracted_data.append({
+                "name": payee_name,
+                "email": email,
+                "mobile_no": mobile
+            })
+
+        return extracted_data
+
+    except requests.exceptions.RequestException as e:
+        print("RequestException:", e)
+        return []
+    except ValueError as e:
+        print("ValueError:", e)
+        return []
+
+#===============================================================================================================================>

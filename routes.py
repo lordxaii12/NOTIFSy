@@ -15,7 +15,7 @@ from flask_login import login_user, current_user
 #===============================================================================================================================>
 #Utils
 from utility.sys_utils import get_manila_time, get_login_data, encrypt_content, decrypt_content
-from utility.msg_utils import message_content, chunk_contents, generate_tracker, get_status_data,send_msg2, send_msg, get_hrpears_data, get_eprocsys_data, convert_file_to_inputs, sms_API_credits_checker, multi_recipient_proccessor
+from utility.msg_utils import message_content, chunk_contents, generate_tracker, get_status_data,send_msg2, send_msg, get_hrpears_data, get_eprocsys_data, convert_file_to_inputs, sms_API_credits_checker, multi_recipient_proccessor, get_aics_data
 from utility.format_utils import extract_first_name, format_mobile_number, format_email, format_amount
 #===============================================================================================================================>
 #Models
@@ -1020,6 +1020,18 @@ def display_eprocsys_data():
         return jsonify(data)
     else:
         flash('Cannot connect to server.', 'error')
+#===========================================================================================================>
+    #Display  data from e AICS to directory
+@notifs.route('/display_aics_data', methods=['GET', 'POST'])
+@login_required
+def display_aics_data():
+    
+    data = get_aics_data()
+    if data:
+        return jsonify(data)
+    else:
+        flash('Cannot connect to server.', 'error')
+        return jsonify([]), 500
 #===========================================================================================================>
                             #MESSAGE SENDER FORM
 #===========================================================================================================>

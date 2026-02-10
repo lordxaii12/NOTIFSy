@@ -37,7 +37,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelectorAll(".directory-btn").forEach(button => {
         button.addEventListener("click", function () {
-            let modal = new bootstrap.Modal(document.getElementById("foxDirectoryModal"));
+            let modal = new bootstrap.Modal(
+                document.getElementById("foxDirectoryModal")
+            );
             modal.show();
 
             let directoryType = directoryTypeElement.value;
@@ -67,7 +69,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tableBody.innerHTML = '<tr><td colspan="3">Loading...</td></tr>';
 
-        let endpoint = type === "external" ? "/display_eprocsys_data" : "/display_hrpears_data";
+        let endpoint;
+
+        switch (type) {
+            case "eprocsys":
+                endpoint = "/display_eprocsys_data";
+                break;
+            case "aics":
+                endpoint = "/display_aics_data";
+                break;
+            default:
+                endpoint = "/display_hrpears_data";
+        }
 
         fetch(endpoint)
             .then(response => response.json())
@@ -77,7 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => {
                 console.error("Error fetching data:", error);
-                tableBody.innerHTML = '<tr><td colspan="3">Failed to load data</td></tr>';
+                tableBody.innerHTML =
+                    '<tr><td colspan="3">Failed to load data</td></tr>';
             });
     }
 
@@ -91,11 +105,13 @@ document.addEventListener("DOMContentLoaded", function () {
             tr.dataset.name = row.name;
             tr.dataset.mobile = row.mobile_no;
             tr.dataset.email = row.email;
+
             tr.innerHTML = `
                 <td>${row.name}</td>
                 <td>${row.mobile_no}</td>
                 <td>${row.email}</td>
             `;
+
             tableBody.appendChild(tr);
         });
 
@@ -112,8 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
-//==================================================================================================================================//
-//search directory for single message//
+
 document.addEventListener("DOMContentLoaded", function () {
     const searchBar = document.getElementById("searchBar");
 

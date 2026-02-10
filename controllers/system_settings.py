@@ -29,6 +29,9 @@ def add_sys_setting():
     sys_app_itexmo_credits_url = request.form.get('sys_app_itexmo_credits_url')
     sys_app_eprocsys_supplier_url = request.form.get('sys_app_eprocsys_supplier_url')
     
+    sys_app_aics_supplier_url = request.form.get('sys_app_aics_supplier_url')
+    sys_app_aics_supplier_token = request.form.get('sys_app_aics_supplier_token')
+    
     msg_api_id = request.form.get('msg_api_id')
     email_api_id = request.form.get('email_api_id')
     hris_api_id = request.form.get('hris_api_id')
@@ -51,6 +54,8 @@ def add_sys_setting():
         
         sys_app_itexmo_credits_url=sys_app_itexmo_credits_url,
         sys_app_eprocsys_supplier_url=sys_app_eprocsys_supplier_url,
+        sys_app_aics_supplier_url=sys_app_aics_supplier_url,
+        sys_app_aics_supplier_token=sys_app_aics_supplier_token,
         
         msg_api_id=msg_api_id,
         email_api_id=email_api_id,
@@ -90,6 +95,9 @@ def edit_sys_setting(sys_setting_id):
     
     sys_setting.sys_app_itexmo_credits_url = request.form.get('sys_app_itexmo_credits_url', sys_setting.sys_app_itexmo_credits_url)
     sys_setting.sys_app_eprocsys_supplier_url = request.form.get('sys_app_eprocsys_supplier_url', sys_setting.sys_app_eprocsys_supplier_url)
+    
+    sys_setting.sys_app_aics_supplier_url = request.form.get('sys_app_aics_supplier_url', sys_setting.sys_app_aics_supplier_url)
+    sys_setting.sys_app_aics_supplier_token = request.form.get('sys_app_aics_supplier_token', sys_setting.sys_app_aics_supplier_token)
     
     sys_setting.msg_api_id = request.form.get('msg_api_id', sys_setting.msg_api_id)
     sys_setting.email_api_id = request.form.get('email_api_id', sys_setting.email_api_id)
