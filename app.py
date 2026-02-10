@@ -43,7 +43,11 @@ def create_app():
     assets.register('css_all', css)
     assets.register('js_all', js)
     
-    app.config['CACHE_DEFAULT_TIMEOUT'] = 1800
+    app.config['CACHE_TYPE'] = 'RedisCache'
+    app.config['CACHE_REDIS_HOST'] = '127.0.0.1'
+    app.config['CACHE_REDIS_PORT'] = 6379
+    app.config['CACHE_REDIS_DB'] = 0
+    app.config['CACHE_REDIS_PASSWORD'] = None
     cache.init_app(app)
     
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
