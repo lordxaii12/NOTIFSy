@@ -273,7 +273,19 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
         tableBody.innerHTML = '<tr><td colspan="4">Loading...</td></tr>';
-        let endpoint = type === "external" ? "/display_eprocsys_data" : "/display_hrpears_data";
+        let endpoint;
+        switch (type) {
+            case "eprocsys":
+                endpoint = "/display_eprocsys_data";
+                break;
+        
+            case "aics":
+                endpoint = "/display_aics_data";
+                break;
+        
+            default:
+                endpoint = "/display_hrpears_data";
+        }
         fetch(endpoint)
             .then(response => response.json())
             .then(data => {
