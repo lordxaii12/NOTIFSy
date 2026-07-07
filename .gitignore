@@ -5,3 +5,4 @@ run
 config.py
 wsgi.py
 copies/
+config.txt
